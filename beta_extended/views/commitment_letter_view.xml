@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="commitment_letter_form_view">
+            <field name="name">Commitment Letter</field>
+            <field name="model">commitment.letter</field>
+            <field name="arch" type="xml">
+                <form string="Commitment Letter">
+                    <header>
+                        <button string="Submit" type="object" name="action_submit" states="draft"
+                                class="oe_highlight"/>
+                        <button string="Approve" type="object" name="action_approve" states="confirm"
+                                groups="__export__.res_groups_196,__export__.res_groups_171"
+                                class="oe_highlight"/>
+                        <button string="Refuse" type="object" name="action_refuse" states="confirm"
+                                groups="__export__.res_groups_196,__export__.res_groups_171"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="content_type" required="1"/>
+                                <field name="subject" attrs="{'required':[('content_type','=','en')],'invisible':[('content_type','=','ar')]}"/>
+                                <field name="subject_ar" attrs="{'required':[('content_type','=','ar')],'invisible':[('content_type','=','en')]}"/>
+                                <field name="project_id" domain="[('state','not in',('sign_off','close','cancelled'))]" required="1" attrs="{'readonly':[('state','=','validate')]}"/>
+                                <field name="manager_id" invisible="1" required="0" attrs="{'readonly':[('state','=','validate')]}"/>
+                                <field name="manager_name" attrs="{'required':[('content_type','=','en')],'invisible':[('content_type','=','ar')]}"/>
+                                <field name="manager_name_ar" attrs="{'required':[('content_type','=','ar')],'invisible':[('content_type','=','en')]}"/>
+                                <field name="job_id" required="1" attrs="{'readonly':[('state','=','validate')]}"/>
+                                <field name="po_number" required="1" attrs="{'readonly':[('state','=','validate')]}"/>
+                                <field name="po_date" required="1" attrs="{'readonly':[('state','=','validate')]}"/>
+                            </group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="letter_date" required="1" attrs="{'readonly':[('state','=','validate')]}"/>
+                                <field name="customer_id" invisible="1"/>
+                                <field name="customer_name" attrs="{'required':[('content_type','=','en')],'invisible':[('content_type','=','ar')],'readonly':[('state','=','validate')]}"/>
+                                <field name="customer_name_ar" attrs="{'required':[('content_type','=','ar')],'invisible':[('content_type','=','en')],'readonly':[('state','=','validate')]}"/>
+                                <field name="contact_person_id" invisible="1"/>
+                                <field name="contact_person" attrs="{'required':[('content_type','=','en')],'invisible':[('content_type','=','ar')],'readonly':[('state','=','validate')]}"/>
+                                <field name="contact_person_ar" attrs="{'required':[('content_type','=','ar')],'invisible':[('content_type','=','en')],'readonly':[('state','=','validate')]}"/>
+                                <field name="cus_job_position" required="1" attrs="{'readonly':[('state','=','validate')]}"/>
+                                <field name="contract_number" attrs="{'readonly':[('state','=','validate')]}"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <field name="commitment" nolabel="1" colspan="4" attrs="{'readonly':[('state','=','validate')],'required':[('content_type','=','en')],'invisible':[('content_type','=','ar')]}"
+                               placeholder="Please provide the complete content of the commitments or letter"
+                        />
+                        <field name="commitment_ar" style="direction: rtl;" nolabel="1" colspan="4" attrs="{'readonly':[('state','=','validate')],'required':[('content_type','=','ar')],'invisible':[('content_type','=','en')]}"
+                               placeholder="Please provide the complete content of the commitments or letter in arabic"
+                        />
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_holidays_commitment_letter_tree">
+            <field name="name">commitment.letter.tree</field>
+            <field name="model">commitment.letter</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree colors="red:state == 'refuse';blue:state == ' draft';black:state in ('confirm','validate')"
+                      string="Commitment Letter">
+                    <field name="name"/>
+                    <field name="letter_date"/>
+                    <field name="project_id"/>
+                    <field name="manager_id"/>
+                    <field name="customer_id"/>
+                    <field name="contact_person_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="commitment_letter_search_view">
+            <field name="name">commitment.letter.search.view</field>
+            <field name="model">commitment.letter</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="customer_id"/>
+                    <field name="state"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Project" domain="[]" context="{'group_by':'project_id'}"/>
+                        <filter string="Customer" domain="[]" context="{'group_by':'customer_id'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_open_commitment_letter">
+            <field name="name">Commitment Letter</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">commitment.letter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new request.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Commitment Letter" action="action_open_commitment_letter"
+                  parent="project.menu_project_management"
+                  id="menu_open_commitment_letter" sequence="90"/>
+
+    </data>
+</openerp>

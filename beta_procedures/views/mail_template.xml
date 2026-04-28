@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+    
+        <record id="od_fin_doc_expiry_date" model="email.template">
+             <field name="name">Finance Document Expiry Date</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Document Expiry Reminder - ${object.name}</field>
+             <field name="email_to">sami.nazzal@betait.net,shamma.khaleifa@betait.net</field>
+             <field name="email_cc">mohd.sageer@betait.net, ramesh.poruppath@betait.net</field>
+             <field name="model_id" ref="model_od_finance_doc"/>
+             <field name="body_html"><![CDATA[
+          
+          
+          
+          <div style="" --="">
+             <p style="">Dears,</p><p style="">This is a notification that the below document will expire in 30 days. Kindly do the needful.</p>
+             <p style=""></p><ul style=""><li style="">Name of Document:&nbsp;${object.name}</li><li style="">Issue Date :&nbsp;${object.issue_date}</li><li style="">Expiry Date: ${object.expiry_date}</li></ul><div>Thank You</div>
+			   </div>
+             
+             
+             ]]>
+             </field>
+         </record>
+         
+         
+     </data>
+</openerp>

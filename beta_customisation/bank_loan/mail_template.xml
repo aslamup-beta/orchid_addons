@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+    
+         <record id="od_loan_form_approval_manager_saudi" model="email.template">
+             <field name="name">KSA - Request to Approve Salary Transfer</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Request to Approve Salary Transfer - ${object.name.name} - طلب لتحويل الراتب</field>
+             <field name="email_to">${object.manager_id.email}</field>
+<!--              <field name="email_cc">${object.manager_id.work_email}</field> -->
+             <field name="model_id" ref="model_od_beta_bank_loan"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear Manager,</p>
+             <p>There is a request from ${object.name.name or ''} to transfer salary from</p>
+             <p> ${object.o_bank_name or ''} </p>
+             <p> To </p>
+             <p> ${object.n_bank_name or ''} </p>
+             <p> (Loan Document Not required) </p>
+			<p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798</a></p>             
+			<p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_loan_form_approval_hr_saudi" model="email.template">
+             <field name="name">KSA - Request to Validate Salary Transfer</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Request to Validate Salary Transfer - ${object.name.name} - طلب لتحويل الراتب</field>
+             <field name="email_to">hr.ksa@betait.net</field>
+<!--              <field name="email_cc">${object.manager_id.work_email}</field> -->
+             <field name="model_id" ref="model_od_beta_bank_loan"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear HR Team - السادة شؤون الموظفين الكرام,</p>
+             
+			 <p>There is a request from ${object.name.name or ''} to transfer salary from</p>
+             <p> ${object.o_bank_name or ''} </p>
+             <p> To </p>
+             <p> ${object.n_bank_name or ''} </p>             
+             <p> (Loan Document Not required) </p>
+             <p> Would you review and validate نرجو مراجعة الطلب والتحقق منه للموافقة عليه </p>
+             
+			<p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798</a></p>             
+			<p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+          <record id="od_loan_form2_approval_hr_saudi" model="email.template">
+             <field name="name">KSA - Request to Validate Salary Transfer and Loan</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Request to Validate Salary Transfer - ${object.name.name} - طلب لتحويل الراتب</field>
+             <field name="email_to">hr.ksa@betait.net</field>
+<!--              <field name="email_cc">${object.manager_id.work_email}</field> -->
+             <field name="model_id" ref="model_od_beta_bank_loan"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear HR Team - السادة شؤون الموظفين الكرام,</p>
+             
+			 <p>There is a request from ${object.name.name or ''} to transfer salary from</p>
+             <p> ${object.o_bank_name or ''} </p>
+             <p> To </p>
+             <p> ${object.n_bank_name or ''} </p>
+                       
+             <p> (* Loan Document required ) </p>
+             <p> Would you review and validate نرجو مراجعة الطلب والتحقق منه للموافقة عليه </p>
+             
+			<p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798</a></p>             
+			<p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_loan_form_approval_finance_saudi" model="email.template">
+             <field name="name">KSA - HR Request to Approve Salary Transfer</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Request to Approve Salary Transfer - ${object.name.name} - طلب لتحويل الراتب</field>
+             <field name="email_to">mohammad.zaben@betait.net</field>
+             <field name="email_cc">finance.ksa@betait.net</field>
+             <field name="model_id" ref="model_od_beta_bank_loan"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear Zaben</p>
+             
+             <p>There is a request from ${object.name.name or ''} to transfer salary from</p>
+             <p> ${object.o_bank_name or ''} </p>
+             <p> To </p>
+             <p> ${object.n_bank_name or ''} </p>
+                       
+             <p> (* Loan Document Not required) </p>
+             
+             <p> It has been validated by HR ${object.h_approved_by.name} وتمت مراجعته والتحقق منه بواسطة </p>
+             <p> Would you review it and approve it نرجو مراجعة الطلب للموافقة  </p>
+			<p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798</a></p>             
+			<p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+          <record id="od_loan_form2_approval_finance_saudi" model="email.template">
+             <field name="name">KSA - HR Request to Approve Salary Transfer and Loan</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Request to Approve Salary Transfer - ${object.name.name} - طلب لتحويل الراتب</field>
+             <field name="email_to">mohammad.zaben@betait.net</field>
+             <field name="email_cc">finance.ksa@betait.net</field>
+             <field name="model_id" ref="model_od_beta_bank_loan"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear Zaben</p>
+             
+             <p>There is a request from ${object.name.name or ''} to transfer salary from</p>
+             <p> ${object.o_bank_name or ''} </p>
+             <p> To </p>
+             <p> ${object.n_bank_name or ''} </p> 
+                         
+             <p> (* Loan Document required ) </p>
+             
+             <p> It has been validated by HR ${object.h_approved_by.name} وتمت مراجعته والتحقق منه بواسطة </p>
+             <p> Would you review it and approve it نرجو مراجعة الطلب للموافقة  </p>
+			<p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798</a></p>             
+			<p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+          <record id="od_loan_form_approved_notify_employee_saudi" model="email.template">
+             <field name="name">KSA - Approval for Salary Transfer</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Approval for Salary Transfer - ${object.name.name or ''}-  موافقة على تحويل راتب</field>
+             <field name="email_to">${object.name.work_email}</field>
+             <field name="email_cc">hr.ksa@betait.net, finance.ksa@betait.net, ${object.manager_id.email}</field>
+             <field name="model_id" ref="model_od_beta_bank_loan"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear ${object.name.name or ''},</p><p>The below request for Salary Transfer has been approved إن طلب تحويل الراتب التالي قد تمت الموافقه عليه</p><p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798</a></p><div><span style="font-weight: bold; text-decoration-line: underline;">New Bank Details:</span></div><p>Bank Name : ${object.n_bank_name or ''}</p><p>Account No :&nbsp; ${object.n_account_number or ''}</p><p>Swift Code : ${object.n_swift_code or ''}</p><p>IBAN No : ${object.n_iban or ''}</p>
+            
+			<p><br></p><p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_loan_form_approved_notify_manager_saudi" model="email.template">
+             <field name="name">KSA - Notify Manager, Approval for Salary Transfer</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Approval for Salary Transfer - ${object.name.name or ''}-  موافقة على تحويل راتب</field>
+             <field name="email_to">${object.manager_id.email}</field>
+             <field name="model_id" ref="model_od_beta_bank_loan"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear ${object.manager_id.name or ''},</p>
+             <p>This is to notify that below request for Salary Transfer from ${object.name.name or ''} has been validated by ${object.h_approved_by.name or ''} and Approved by ${object.f_approved_by.name or ''}</p>
+            
+			<p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798</a></p>             
+			<p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_loan_form_rejected_notify_employee_saudi" model="email.template">
+             <field name="name">KSA - Rejection of Salary Transfer</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Rejection of Salary Transfer - ${object.name.name or ''}-  عدم الموافقة على تحويل راتب</field>
+             <field name="email_to">${object.work_email}</field>
+			 <field name="email_cc">hr.ksa@betait.net, mohammad.zaben@betait.net</field>
+             <field name="model_id" ref="model_od_beta_bank_loan"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear ${object.name.name or ''},</p>
+             <p>The below request for Salary Transfer has been rejected إن طلب تحويل الراتب التالي قد تم رفضه</p>
+            
+			<p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.bank.loan&amp;menu_id=1188&amp;action=1798</a></p>             
+			<p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+<!--          BANK LOAN CLOSURE -->
+         
+         <record id="od_loan_close_approval_hr_saudi" model="email.template">
+            <field name="name">KSA - Approve Loan Closure</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Approval of Loan Closure in ERP -</field>
+            <field name="email_to">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_bank_loan_closing"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear HR Team,</p>
+	             	<p>Kindly need your approval for the below Loan closure request. Could you please review and approve at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.number}</li>
+	                    	<li>Employee: ${object.name.name.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.beta.bank.loan.closing&menu_id=1208&action=1919</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+
+        <record id="od_loan_close_approval_finance_saudi" model="email.template">
+            <field name="name">KSA - Approve Loan Closure</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Approval of Loan Closure in ERP</field>
+            <field name="email_to">finance.ksa@betait.net</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_bank_loan_closing"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Finance Team,</p>
+	             	<p>Below Loan Closure request has been approved by HR Team. Could you please review and validate at your earliest convenience</p>
+	             <p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.number}</li>
+	                    	<li>Employee: ${object.name.name.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.beta.bank.loan.closing&menu_id=1208&action=1919</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+        
+        <record id="od_loan_close_notify_employee_saudi" model="email.template">
+            <field name="name">KSA - Approved Loan Closure</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Loan Closure Approved</field>
+            <field name="email_to">${object.name.work_email}</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_bank_loan_closing"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ,</p>
+	             	<p>Kindly note that your Loan closure is approved in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.number}</li>
+	                    	<li>Employee: ${object.name.name.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.beta.bank.loan.closing&menu_id=1208&action=1919</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_loan_close_rejected_notify_employee_saudi" model="email.template">
+            <field name="name">KSA - Refused Loan Closure</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Loan Closure Refused</field>
+            <field name="email_to">${object.name.work_email}</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_bank_loan_closing"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ,</p>
+	             	<p>Kindly note that your loan closure request is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.number}</li>
+	                    	<li>Employee: ${object.name.name.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.beta.bank.loan.closing&menu_id=1208&action=1919</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+        
+<!--         Beta IT Loan Assistance Program -  SALAF -->
+        
+        <record id="beta_salaf_loan_approval_hr_saudi" model="email.template">
+             <field name="name">KSA - Request to Validate Beta IT Loan Assistance Program (SALAF)</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Validate Beta IT Loan Assistance Program (SALAF)- ${object.name.name}</field>
+             <field name="email_to">hr.ksa@betait.net</field>
+<!--              <field name="email_cc">fakhri.amaireh@betait.net</field> -->
+             <field name="model_id" ref="model_beta_loan_salaf"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear HR Team,</p>
+             
+             <p>There is a request for Beta IT Loan Assistance Program (SALAF) from ${object.name.name or ''}</p>
+             <p> Would you please review and validate.</p>
+             
+            <p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1188&amp;action=1798</a></p>             
+            <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="beta_salaf_loan_approval_finance_saudi" model="email.template">
+             <field name="name">KSA - HR Request to Approve Beta IT Loan Assistance Program (SALAF)</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Approve Beta IT Loan Assistance Program (SALAF) - ${object.name.name}</field>
+             <field name="email_to">finance.ksa@betait.net</field>
+             <field name="model_id" ref="model_beta_loan_salaf"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear Finance Team,</p>
+             
+             <p>There is a request for Beta IT Loan Assistance Program (SALAF) from ${object.name.name or ''}</p>
+             <p>It has been validated by HR ${object.h_approved_by.name}</p>
+             <p>Would you review and approve it.</p>
+            <p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1188&amp;action=1798</a></p>             
+            <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="beta_salaf_loan_approved_notify_employee_saudi" model="email.template">
+             <field name="name">KSA - Approval for Beta IT Loan Assistance Program (SALAF)</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Beta IT Loan Assistance Program (SALAF) - Approved - ${object.name.name or ''}</field>
+             <field name="email_to">${object.name.work_email}</field>
+             <field name="email_cc">hr.ksa@betait.net, finance.ksa@betait.net</field>
+             <field name="model_id" ref="model_beta_loan_salaf"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear ${object.name.name or ''},</p>
+             <p>The below request for Beta IT Loan Assistance Program (SALAF) has been approved.</p>
+            
+            <p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1188&amp;action=1798</a></p>             
+            <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="beta_salaf_loan_rejected_notify_employee_saudi" model="email.template">
+             <field name="name">KSA - Rejection of Beta IT Loan Assistance Program (SALAF)</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Rejection of Beta IT Loan Assistance Program (SALAF) - ${object.name.name or ''}</field>
+             <field name="email_to">${object.work_email}</field>
+             <field name="email_cc">hr.ksa@betait.net</field>
+             <field name="model_id" ref="model_beta_loan_salaf"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear ${object.name.name or ''},</p>
+             <p>The below request for Beta IT Loan Assistance Program (SALAF) has been rejected.</p>
+            
+            <p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1188&amp;action=1798">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1188&amp;action=1798</a></p>             
+            <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+     </data>
+</openerp>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_prj_mat_order_wizard" model="ir.ui.view">
+            <field name="name">Generate Delivey Order</field>
+            <field name="model">project.material.issue.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Delivery Order">
+                    <group col="4" colspan="4">
+                        <label colspan="4" width="500"
+                               string="You are on about to generate a Delivery Order/Issue Request from this Sale Order. To do so please complete the following mandatory fields first."/>
+                        <newline/>
+                        <field name="partner_id" colspan="4"/>
+                        <field name="company_id" colspan="4"/>
+                        <field name="picking_type_id" colspan="4"/>
+                        <field name="prod_select_all" colspan="4"/>
+                      </group>
+						<button name="delete_prod_lines" string="Delete"
+                                 type="object" colspan="2"/>
+                        <field name="wiz_line" nolabel="1">
+                            <tree editable="top">
+                            		<field name="check" />
+                                    <field name="product_id" readonly="1"/>
+                                     <field name="so_line_id" invisible="1"/>
+                                    <field name="name" readonly="1"/>
+                                    <field name="product_uom_id" readonly="1"/>
+                                    <field name="qty" />
+                             </tree>
+                        </field>
+                        <button string="Cancel" colspan="2" special="cancel" icon="gtk-cancel" />
+                        <button name="generate_delivery_order" string="Generate Material Request"
+                                icon="gtk-go-forward" type="object" colspan="2"/>
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_od_view_project_material_issue_act" model="ir.actions.act_window">
+            <field name="name">project.material Issue Request</field>
+            <field name="res_model">project.material.issue.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

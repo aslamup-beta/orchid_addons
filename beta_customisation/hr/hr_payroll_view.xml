@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="od_hr_payslip_run_form" model="ir.ui.view">
+        <field name="name">hr.payslip.run.beta</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+        	<button name="close_payslip_run" position="after">
+           	 	<button name="od_confirm_all" string="Confirm All" type="object" states="draft"/>
+           </button>
+        </field>
+        </record>
+    </data>
+</openerp>

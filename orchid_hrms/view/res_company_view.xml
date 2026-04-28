@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+
+   <record id="od_company_inherit_wps" model="ir.ui.view">
+            <field name="name">res.company.establishment.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+
+
+<!--                 <xpath expr="/form/sheet/notebook/page[@string='Report Configuration']" position="after">-->
+<!--                    <page string='WPS'>-->
+<!--                        <group>-->
+<!--                            <group>-->
+<!--                                <field name='od_routing_codes'/>-->
+<!--                                <field name='od_establishment'/>-->
+
+<!--                            </group>-->
+<!--                             <group></group>-->
+<!--                        </group>-->
+<!--                    </page>-->
+
+
+
+<!--                </xpath>-->
+            </field>
+        </record>
+
+    </data>
+</openerp>

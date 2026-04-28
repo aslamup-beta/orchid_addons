@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<menuitem parent="stock.next_id_61" action="action_od_location_analysis_wiz_filter" id="stock_account.menu_action_wizard_valuation_history" sequence="0" string="Stock Valuation"/>
+
+	<menuitem parent="stock.next_id_61" action="action_od_move_analysis_wiz_filter"  string="Move Analysis" id="new_action_od_stock_move_analysis" sequence="1"/>
+
+
+<!-- <menuitem parent="stock.next_id_61" action="action_od_quant_move_analysis_view"  string="Quant Analysis" id="menu_action_od_quant_move_analysis_view" sequence="2"/> -->
+
+
+<menuitem parent="stock.next_id_61" action="action_pview_od_stock_aging_report"  string="Stock Aging" id="menu_aging_stock_report" sequence="3"/>
+
+
+<menuitem parent="stock.next_id_61" action="stock.action_stock_line_date" id="stock.menu_report_stock_line_date" sequence="4"/>
+
+<menuitem parent="stock.next_id_61" action="action_closing_inventory_report" id="menu_closing_inventory" sequence="5"/>
+
+
+<!-- <menuitem parent="stock.next_id_61" action="action_od_stock_move_quantity_analysis" id="new_action_od_stock_move_quantity_analysis" sequence="6"/> -->
+<menuitem parent="stock.next_id_61" action="action_od_move_analysis_wiz_qty_filter" id="new_action_od_stock_move_quantity_analysis"  name="Quantity Analysis" sequence="6"/>
+
+
+
+        <menuitem id="menu_od_quant_wiz_1" action="action_od_quant_filter_1"  parent="stock.next_id_61" sequence="7" />
+        <menuitem id="menu_od_quant_wiz_2" action="action_od_quant_filter_2"  parent="stock.next_id_61"  sequence="8"/>
+
+        <menuitem id="menu_od_stock_quant" action="action_od_quant_exp_analysis" string="Expiry Analysis " parent="stock.next_id_61"  sequence="9"/>
+
+    </data>
+</openerp>

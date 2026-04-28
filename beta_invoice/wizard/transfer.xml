@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <record id="wiz_transfer_account_view" model="ir.ui.view">
+			<field name="name">wiz.transfer.account</field>
+			<field name="model">wiz.transfer.account</field>
+			<field name="arch" type="xml">
+				<form string="Transfer Account Wizard" >
+					<p class="oe_grey">
+					This wizard is designed to move Old Account balance to New chart of account,it will generate a new JV to move the balance from multiple accounts to the new account.
+						
+					</p>
+				<group>
+					<group>
+						<field name="journal_id" />
+						<field name="name" />
+					</group>
+					<group>
+					<field name="fiscalyear_id" />
+						<field name="period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special','=',True)]" />
+					</group>
+				</group>
+					<notebook>
+						<page string="Transfer">
+							<field name="transfer_line_ids">
+								<tree editable="bottom">
+									<field name="old_account_ids" widget="many2many_tags" required="1"/>
+									<field name="new_account_id" required="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+					<footer>
+						<button name="button_transfer" string="Transfer" type="object" class="oe_highlight" />
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_wiz_transfer_account" model="ir.actions.act_window">
+			<field name="name">Transfer Account</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">wiz.transfer.account</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wiz_transfer_account_view" />
+			<field name="target">new</field>
+			<field name="multi">True</field>
+		</record>
+		
+		<menuitem id="transfer_account_menu" name="Transfer Account" parent="account.account_account_menu" action="action_wiz_transfer_account"/>
+    
+    
+    </data>
+</openerp>

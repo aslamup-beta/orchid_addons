@@ -1,0 +1,1346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="od_resignation_approval1" model="email.template">
+            <field name="name">UAE - Job Resignation First Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">${object.manager1_id.email}</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+          
+          
+           <div style="background-color: rgb(255, 255, 255);">
+             <p><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222"><span style="font-size: 12px;">Dear ${object.manager1_id.name or ''},</span></font></p><p><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222"><span style="font-size: 12px;">Please approve resignation of the employee -<span style="font-weight: bold;">&nbsp;${object.employee_id.name} </span>from Job Position&nbsp;</span></font><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; font-weight: bold;">${object.job_id.name}.</span></p><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"><li style="box-sizing: border-box;"><span style="box-sizing: border-box;">Last working day :&nbsp;</span><span style="box-sizing: border-box; font-weight: bold;"><span style="box-sizing: border-box;">${object.last_day_date}</span><span style="box-sizing: border-box;">&nbsp;</span></span></li><li style="box-sizing: border-box;">Branch :&nbsp;<span style="box-sizing: border-box; font-weight: bold;">${object.branch_id.name}</span></li><li style="box-sizing: border-box;">Department :&nbsp;<span style="box-sizing: border-box; font-weight: bold;">${object.department_id.name}</span></li><li style="box-sizing: border-box;">Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="box-sizing: border-box; background: transparent; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34);">${object.id}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34);">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"></p><p><span style="font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">Thank You</span></p>
+
+         </div>
+             
+             
+             
+             
+             
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_resignation_approval1_saudi" model="email.template">
+            <field name="name">KSA - Job Resignation First Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">${object.manager1_id.email}</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+          
+           <div style="background-color: rgb(255, 255, 255);">
+             <p><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222"><span style="font-size: 12px;">Dear ${object.manager1_id.name or ''},</span></font></p><p><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222"><span style="font-size: 12px;">Please approve resignation of the employee -<span style="font-weight: bold;">&nbsp;${object.employee_id.name} </span>from Job Position&nbsp;</span></font><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; font-weight: bold;">${object.job_id.name}.</span></p><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"><li style="box-sizing: border-box;"><span style="box-sizing: border-box;">Last working day :&nbsp;</span><span style="box-sizing: border-box; font-weight: bold;"><span style="box-sizing: border-box;">${object.last_day_date}</span><span style="box-sizing: border-box;">&nbsp;</span></span></li><li style="box-sizing: border-box;">Branch :&nbsp;<span style="box-sizing: border-box; font-weight: bold;">${object.branch_id.name}</span></li><li style="box-sizing: border-box;">Department :&nbsp;<span style="box-sizing: border-box; font-weight: bold;">${object.department_id.name}</span></li><li style="box-sizing: border-box;">Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="box-sizing: border-box; background: transparent; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34);">${object.id}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34);">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"></p><p><span style="font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">Thank You</span></p>
+
+         </div>
+             
+             
+             
+             
+             
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_resignation_approval2" model="email.template">
+            <field name="name">UAE - Job Resignation GM Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">osama.aldaour@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+        
+         
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Dear Osama Aldaour,</span></font></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Resignation request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name}&nbsp;</span>from Job Position&nbsp;</span></font><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;,</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">Validated by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.fin_approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Final Approval.</span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul style="text-align: justify;"><li><span style="box-sizing: border-box;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box;">${object.last_day_date}</span><span style="box-sizing: border-box;">&nbsp;</span></span></li><li>Branch :&nbsp;<span style="font-weight: bold;">${object.branch_id.name}</span></li><li>Department :&nbsp;<span style="font-weight: bold;">${object.department_id.name}</span></li><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34);">${object.id}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34);">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p style="text-align: justify;"></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></font></p><div><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;"><br></span></font></div>
+             
+         </div>
+             
+             
+             
+             
+             
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_resignation_approval2_saudi" model="email.template">
+            <field name="name">KSA - Job Resignation GM Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">osama.aldaour@sa.betait.net</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+        
+         
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Dear Osama Aldaour,</span></font></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Resignation request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name}&nbsp;</span>from Job Position&nbsp;</span></font><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;,</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">Validated by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.fin_approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Final Approval.</span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul style="text-align: justify;"><li><span style="box-sizing: border-box;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box;">${object.last_day_date}</span><span style="box-sizing: border-box;">&nbsp;</span></span></li><li>Branch :&nbsp;<span style="font-weight: bold;">${object.branch_id.name}</span></li><li>Department :&nbsp;<span style="font-weight: bold;">${object.department_id.name}</span></li><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34);">${object.id}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34);">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p style="text-align: justify;"></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></font></p><div><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;"><br></span></font></div>
+             
+         </div>
+             
+             
+             
+             
+             
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_notification_to_hr_finance" model="email.template">
+            <field name="name">UAE - Job Resignation Notification Finance</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">mohd.sageer@betait.net</field>
+            <field name="email_cc">finance@betait.net,hr@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+<div class="oe_form_field oe_form_field_html oe_form_embedded_html oe_form_field_translatable" data-original-title="" title="" style="box-sizing: border-box; width: 826px; display: inline-block; padding: 2px 2px 2px 0px; vertical-align: top; position: relative; margin: auto; overflow: auto; text-align: justify; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);"><div style="box-sizing: border-box; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);"><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Dear Sageer,</span></font></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Resignation request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name} </span>from Job Position&nbsp;</span></font><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Validation (Second Approval).</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul><li><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.last_day_date}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Branch : <span style="font-weight: bold;">${object.branch_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Department : <span style="font-weight: bold;">${object.department_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Link:&nbsp;</span><a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.id}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></font></p><div><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;"><br></span></font></div></div></div><div class="oe_fileupload" data-original-title="" title="" style="box-sizing: border-box; display: inline-block; clear: both; width: 826px; margin-bottom: -15px; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);">
+</div>             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_notification_to_hr_finance_saudi" model="email.template">
+            <field name="name">KSA - Job Resignation Notification Finance</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">mohammad.zaben@sa.betait.net</field>
+            <field name="email_cc">BETATEAM@betait.net,hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+<div class="oe_form_field oe_form_field_html oe_form_embedded_html oe_form_field_translatable" data-original-title="" title="" style="box-sizing: border-box; width: 826px; display: inline-block; padding: 2px 2px 2px 0px; vertical-align: top; position: relative; margin: auto; overflow: auto; text-align: justify; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);"><div style="box-sizing: border-box; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);"><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Dear Zaben,</span></font></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Resignation request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name} </span>from Job Position&nbsp;</span></font><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Validation (Second Approval).</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul><li><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.last_day_date}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Branch : <span style="font-weight: bold;">${object.branch_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Department : <span style="font-weight: bold;">${object.department_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Link:&nbsp;</span><a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.id}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></font></p><div><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;"><br></span></font></div></div></div><div class="oe_fileupload" data-original-title="" title="" style="box-sizing: border-box; display: inline-block; clear: both; width: 826px; margin-bottom: -15px; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);">
+</div>             
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_notification_to_hr" model="email.template">
+            <field name="name">UAE - Job Resignation Notification HR</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">sami.nazzal@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+<div class="oe_form_field oe_form_field_html oe_form_embedded_html oe_form_field_translatable" data-original-title="" title="" style="box-sizing: border-box; width: 826px; display: inline-block; padding: 2px 2px 2px 0px; vertical-align: top; position: relative; margin: auto; overflow: auto; text-align: justify; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);"><div style="box-sizing: border-box; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);"><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Dear HR Manager,</span></font></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Resignation request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name} </span>from Job Position&nbsp;</span></font><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Validation (Second Approval).</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul><li><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.last_day_date}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Branch : <span style="font-weight: bold;">${object.branch_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Department : <span style="font-weight: bold;">${object.department_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Link:&nbsp;</span><a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.id}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></font></p><div><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;"><br></span></font></div></div></div><div class="oe_fileupload" data-original-title="" title="" style="box-sizing: border-box; display: inline-block; clear: both; width: 826px; margin-bottom: -15px; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);">
+</div>             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_notification_to_hr_saudi" model="email.template">
+            <field name="name">KSA - Job Resignation Notification HR</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">hr.ksa@betait.net</field>
+            <field name="email_cc">BETATEAM@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+<div class="oe_form_field oe_form_field_html oe_form_embedded_html oe_form_field_translatable" data-original-title="" title="" style="box-sizing: border-box; width: 826px; display: inline-block; padding: 2px 2px 2px 0px; vertical-align: top; position: relative; margin: auto; overflow: auto; text-align: justify; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);"><div style="box-sizing: border-box; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);"><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Dear HR Manager,</span></font></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Resignation request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name} </span>from Job Position&nbsp;</span></font><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Validation (Second Approval).</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul><li><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.last_day_date}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Branch : <span style="font-weight: bold;">${object.branch_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Department : <span style="font-weight: bold;">${object.department_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Link:&nbsp;</span><a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.id}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></font></p><div><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;"><br></span></font></div></div></div><div class="oe_fileupload" data-original-title="" title="" style="box-sizing: border-box; display: inline-block; clear: both; width: 826px; margin-bottom: -15px; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);">
+</div>             
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_resignation_approval_it" model="email.template">
+            <field name="name">UAE - Job Resignation IT Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">aslam.up@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+        
+         
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Dear Aslam,</span></font></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Resignation request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name}&nbsp;</span>from Job Position&nbsp;</span></font><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;,</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">Validated by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.fin_approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Final Approval.</span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul style="text-align: justify;"><li><span style="box-sizing: border-box;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box;">${object.last_day_date}</span><span style="box-sizing: border-box;">&nbsp;</span></span></li><li>Branch :&nbsp;<span style="font-weight: bold;">${object.branch_id.name}</span></li><li>Department :&nbsp;<span style="font-weight: bold;">${object.department_id.name}</span></li><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34);">${object.id}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34);">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p style="text-align: justify;"></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></font></p><div><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;"><br></span></font></div>
+             
+         </div>
+             
+             
+             
+             
+             
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_resignation_approval_it_saudi" model="email.template">
+            <field name="name">KSA - Job Resignation IT Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Clearance - ${object.employee_id.name}</field>
+            <field name="email_to">it.ksa@betait.net</field>
+            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+        
+         
+<div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear IT Department,</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;"><br></span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has resigned and the last working day will be ${object.last_day_date} . We need you to do the following:</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;"><br></span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 1. Retrieve all IT assets give to him (Laptop, PC, etc.)</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 2. Retrieve the attendance access cards and cancel his door access</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 3. Cancel his Office 365 access and forward his/her email as an alias to his manager - ${object.manager1_id.name}&nbsp;</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 4. Make sure that he/she has no access to any of our IT systems (cloud or on prem)</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure he/she has no access to any of our physical offices, warehouse, etc.</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear Administration Team,</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;"><br></span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Once the IT Team is done, we need you to kindly Approve this on the system using the following link :</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Link: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</a></span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span></font></div><div><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Thank You</span></font></div>             
+             
+             
+             
+             
+             
+             ]]>
+            </field>
+        </record>
+
+
+        <record id="od_resignation_approval_cs" model="email.template">
+            <field name="name">UAE - Job Resignation CS Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">aslam.up@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         <font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear Aslam,</span>
+                       </font>
+                       <div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has resigned and the last working day
+                               will be ${object.last_day_date} . We need you to do the following:
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 1. Make sure Email Address Disabled?</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 2. Make sure Azure Active Directory User Disabled?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 3. Make sure Laptop Formatted (Sanitized)?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 4. Make sure Physical Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure Lab Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Dear Administration Team,</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Once the CS Team is done, we need you to kindly Approve this on the system using
+                               the following link :
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Link:
+                               <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490">
+                                   https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490
+                               </a>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Thank You</span>
+                       </font>
+                       </div>
+
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_resignation_approval_cs_saudi" model="email.template">
+            <field name="name">KSA - Job Resignation CS Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Clearance - ${object.employee_id.name}</field>
+            <field name="email_to">cyber_sec.ksa@betait.net</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+                       <font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear CS Department,</span>
+                       </font>
+                       <div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has resigned and the last working day
+                               will be ${object.last_day_date} . We need you to do the following:
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 1. Make sure Email Address Disabled?</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 2. Make sure Azure Active Directory User Disabled?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 3. Make sure Laptop Formatted (Sanitized)?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 4. Make sure Physical Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure Lab Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Dear Administration Team,</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Once the CS Team is done, we need you to kindly Approve this on the system using
+                               the following link :
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Link:
+                               <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490">
+                                   https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490
+                               </a>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Thank You</span>
+                       </font>
+                       </div>
+
+             ]]>
+            </field>
+        </record>
+
+
+        <record id="od_notification_to_hr_finance_to_notify_bank" model="email.template">
+            <field name="name">KSA - Resignation Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notify Bank About Employee Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+			<div style=""><span style="font-size: 13px;">Dear Team,&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">This is to inform you about the resignation of our employee - ${object.employee_id.name} (National ID: ${object.employee_id.identification_id}) with his/her last working day being ${object.last_day_date} . Kindly note that he/she has an outstanding personal loan with the bank.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Kindly inform the bank by pressing the Notify Bank button in ERP resignation form.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><ul style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490"><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;">https://erp.betait.net/web?#id=</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">${object.id}</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Thank you</span></div>				             ]]>
+            </field>
+        </record>
+
+        <record id="od_notification_to_hr_finance_to_notify_bank_saudi" model="email.template">
+            <field name="name">KSA - Resignation Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notify Bank About Employee Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+			<div style=""><span style="font-size: 13px;">Dear Team,&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">This is to inform you about the resignation of our employee - ${object.employee_id.name} (National ID: ${object.employee_id.identification_id}) with his/her last working day being ${object.last_day_date} . Kindly note that he/she has an outstanding personal loan with the bank.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Kindly inform the bank by pressing the Notify Bank button in ERP resignation form.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><ul style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490"><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;">https://erp.betait.net/web?#id=</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">${object.id}</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Thank you</span></div>					]]>
+            </field>
+        </record>
+
+        <record id="od_notify_bank_resignation" model="email.template">
+            <field name="name">KSA - Resignation Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+				<div style=""><span style="font-size: 13px;">Dear Team at ${object.l_bank_id.name}, </span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Greetings from Dar Beta for Information Technology. We hope this message finds you well. </span></div><div style=""><span style="font-size: 13px;"> </span></div><div style=""><span style="font-size: 13px;">We are writing to inform you of the resignation of our employee - ${object.employee_id.name} ( National ID: ${object.employee_id.identification_id} ) with his/her last working day being ${object.last_day_date} . Kindly note that he/she has an outstanding personal loan with your bank. </span></div><div style=""><span style="font-size: 13px;"> </span></div><div style=""><span style="font-size: 13px;">We would appreciate your guidance on the process for transferring the loan clearance to his/her ${object.l_bank_id.name} account. </span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Should you require any further information or assistance, please do not hesitate to contact us. </span></div><div style=""><span style="font-size: 13px;"> </span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Best regards, </span></div><div style=""><span style="font-size: 13px;">HR Team </span></div><div style=""><span style="font-size: 13px;">Dar Beta for Information Technology </span></div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_notify_bank_resignation_saudi" model="email.template">
+            <field name="name">KSA - Resignation Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+<div style="font-family: Arial, sans-serif; display: flex; justify-content: space-between; align-items: flex-start; margin: 20px; gap: 20px;">
+                <div class="text english" style="flex: 1; text-align: left;">
+                    <div><span style="font-size: 13px;">Dear Team at ${object.l_bank_id.name},</span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">Greetings from Dar Beta for Information Technology. We hope this message finds you well.</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            We are writing to inform you of the resignation of our employee - ${object.employee_id.name}
+                            (National ID: ${object.employee_id.identification_id}) with his/her last working day being ${object.last_day_date}.
+                            Kindly note that he/she has an outstanding personal loan with your bank.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            We would appreciate your guidance on the process for transferring the loan clearance to his/her ${object.l_bank_id.name} account.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div>
+                        <span style="font-size: 13px;">Should you require any further information or assistance, please do not hesitate to contact us.</span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">Best regards,</span></div>
+                    <div><span style="font-size: 13px;">HR Team</span></div>
+                    <div><span style="font-size: 13px;">Dar Beta for Information Technology</span></div>
+                </div>
+
+                <div class="text arabic" style="flex: 1; text-align: right; direction: rtl;">
+                    <div><span style="font-size: 13px;">السادة في ${object.l_bank_id.name_ar}         سلمهم الله, </span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">تهديكم شركة دار بيتا لتكنولوجيا المعلومات أطيب التحايا متمنين لكم موفور الصحة والعافية.</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;">ونفيدكم  بانتهاء العلاقة التعاقدية مع الموظف - </span></div>
+                    <div><span style="font-size: 13px;">${object.employee_id.name}</span></div>
+                    <div><span style="font-size: 13px;">هوية وطنية رقم : </span></div>
+                    <div><span style="font-size: 13px;">${object.employee_id.identification_id}</span></div>
+                    <div><span style="font-size: 13px;">على أن يكون آخر يوم عمل له هو</span></div>
+                    <div><span style="font-size: 13px;">${object.last_day_date}</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            ونحيطكم علماً بأن السجلات الخاصة بنا تفيد بوجود قرض شخصي للموظف ملزم لكم,, نأمل تأكيدكم ليتم تحويل المخالصة
+                            على الحساب البنكي الخاص به لدى ${object.l_bank_id.name_ar}.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            إذا كنتم بحاجة إلى أي معلومات أو مساعدة إضافية، فلا تترددوا في الاتصال بنا.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">مع أطيب التحيات</span></div>
+                    <div><span style="font-size: 13px;">فريق الموارد البشرية</span></div>
+                    <div><span style="font-size: 13px;">دار بيتا لتكنولوجيا المعلومات</span></div>
+                </div>
+            </div>             ]]>
+            </field>
+        </record>
+
+        <record id="od_sent_clearance_to_bank" model="email.template">
+            <field name="name">KSA - Sent Clearance to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+<div>Dear Team at ${object.l_bank_id.name}, </div><div><br></div><div>Greetings from Dar Beta for Information Technology. We hope this message finds you well. </div><div> </div><div>Attached is the summary of dues for our employee - ${object.employee_id.name} ( National ID: ${object.employee_id.identification_id} ) with his/her last working day being ${object.last_day_date} . Kindly note that the total amount of dues is XXXX Saudi Riyals with the expected transfer date being XXXXX.</div><div><br></div><div>We would appreciate your guidance on the process for transferring the loan clearance to his/her ${object.l_bank_id.name} account. </div><div><br></div><div>Thank you very much for your attention to this matter. </div><div><br></div><div>Best regards, </div><div>HR Team </div><div>Dar Beta for Information Technology </div>             ]]>
+            </field>
+        </record>
+
+        <record id="od_sent_clearance_to_bank_saudi" model="email.template">
+            <field name="name">KSA - Sent Clearance to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Resignation - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_resign_form"/>
+            <field name="body_html"><![CDATA[
+         
+				<div style="font-family: Arial, sans-serif; display: flex; justify-content: space-between; align-items: flex-start; margin: 20px; gap: 20px;">
+                <div class="text english" style="flex: 1; text-align: left;">
+                    <div><span style="font-size: 13px;">Peace be upon you and God's mercy and blessings.</span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">Dears at ${object.l_bank_id.name},</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            Attached is the clearance for employee ${object.employee_id.name}. Please note that her total dues amount to: ${'{0:,.2f}'.format(object.amount_to_pay or 0.0)} SAR. The expected date for the transfer of dues is (DD/MM/YYYY).
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            Thank you.
+                        </span>
+                    </div>
+                </div>
+            
+                <div class="text arabic" style="flex: 1; text-align: right; direction: rtl;">
+                    <div><span style="font-size: 13px;">السلام عليكم ورحمة الله وبركاته</span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">السادة في / ${object.l_bank_id.name_ar} تحية طيبة</span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;">مرفق لكم مخالصة الموظفة</span></div>
+                    <div><span style="font-size: 13px;">${object.employee_id.name}</span></div>
+                    <div><span style="font-size: 13px;">علما بأن مبلغ مستحقاتها هو:</span></div>
+                    <div><span style="font-size: 13px;">${'{0:,.2f}'.format(object.amount_to_pay or 0.0)}</span></div>
+                    <div><span style="font-size: 13px;">سعودي. وتاريخ تحويل المستحقات المتوقع: الخميس الموافق</span></div>
+                    <div><span style="font-size: 13px;">(DD/MM/YYYY)</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">ولكم جزيل الشكر</span></div>
+                </div>
+            </div> ]]>
+            </field>
+        </record>
+
+
+        <record id="od_termination_approval_it" model="email.template">
+            <field name="name">UAE - Job Termination IT Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Termination - ${object.employee_id.name}</field>
+            <field name="email_to">aslam.up@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+         
+        
+         
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Dear Aslam,</span></font></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Resignation request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name}&nbsp;</span>from Job Position&nbsp;</span></font><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;,</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">Validated by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.fin_approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Final Approval.</span></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul style="text-align: justify;"><li><span style="box-sizing: border-box;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box;">${object.last_day_date}</span><span style="box-sizing: border-box;">&nbsp;</span></span></li><li>Branch :&nbsp;<span style="font-weight: bold;">${object.branch_id.name}</span></li><li>Department :&nbsp;<span style="font-weight: bold;">${object.department_id.name}</span></li><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490" style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34);">${object.id}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34);">&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490</span></a></li></ul><p style="text-align: justify;"></p><p style="text-align: justify; box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></font></p><div><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;"><br></span></font></div>
+             
+         </div>
+             
+             
+             
+             
+             
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_termination_approval_it_saudi" model="email.template">
+            <field name="name">KSA - Job Termination IT Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Clearance - ${object.employee_id.name}</field>
+            <field name="email_to">it.ksa@betait.net</field>
+            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+         
+        
+         
+ 
+        <div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear IT Department,</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;"><br></span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has terminated and the last working day will be ${object.last_day_date} . We need you to do the following:</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;"><br></span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 1. Retrieve all IT assets give to him (Laptop, PC, etc.)</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 2. Retrieve the attendance access cards and cancel his door access</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 3. Cancel his Office 365 access and forward his/her email as an alias to his manager - ${object.manager1_id.name}&nbsp;</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 4. Make sure that he/she has no access to any of our IT systems (cloud or on prem)</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure he/she has no access to any of our physical offices, warehouse, etc.</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear Administration Team,</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;"><br></span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Once the IT Team is done, we need you to kindly Approve this on the system using the following link </span></font><span style="font-size: 17.3333px;">:</span></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 17.3333px;"><a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=model=od.beta.terminate.form&amp;menu_id=1108&amp;action=1503">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=model=od.beta.terminate.form&amp;menu_id=1108&amp;action=1503</a></span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="font-size: 17.3333px;">&nbsp;</span></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Thank You</span></font></div>             
+             
+             
+             
+             
+             
+             ]]>
+            </field>
+        </record>
+
+
+        <record id="od_termination_approval_cs" model="email.template">
+            <field name="name">UAE - Job Termination CS Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Termination - ${object.employee_id.name}</field>
+            <field name="email_to">aslam.up@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+
+
+
+         <font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear CS Department,</span>
+                       </font>
+                       <div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has terminated and the last working
+        day will be ${object.last_day_date} . We need you to do the following:
+    </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 1. Make sure Email Address Disabled?</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 2. Make sure Azure Active Directory User Disabled?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 3. Make sure Laptop Formatted (Sanitized)?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 4. Make sure Physical Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure Lab Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Dear Administration Team,</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Once the CS Team is done, we need you to kindly Approve this on the system using
+                               the following link :
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Link:
+                               <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490">
+                                   https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490
+                               </a>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Thank You</span>
+                       </font>
+                       </div>
+
+
+
+
+
+
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_termination_approval_cs_saudi" model="email.template">
+            <field name="name">KSA - Job Termination CS Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Clearance - ${object.employee_id.name}</field>
+            <field name="email_to">cyber_sec.ksa@betait.net</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+
+
+
+
+        <font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear CS Department,</span>
+                       </font>
+                       <div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;"><span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has terminated and the last working
+        day will be ${object.last_day_date} . We need you to do the following:
+    </span>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 1. Make sure Email Address Disabled?</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 2. Make sure Azure Active Directory User Disabled?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 3. Make sure Laptop Formatted (Sanitized)?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 4. Make sure Physical Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure Lab Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Dear Administration Team,</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Once the CS Team is done, we need you to kindly Approve this on the system using
+                               the following link :
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Link:
+                               <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490">
+                                   https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490
+                               </a>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Thank You</span>
+                       </font>
+                       </div>
+
+
+
+
+             ]]>
+            </field>
+        </record>
+
+
+        <record id="od_terminate_notification_to_hr" model="email.template">
+            <field name="name">UAE - Job Termination Notification HR</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Termination - ${object.employee_id.name}</field>
+            <field name="email_to">sami.nazzal@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+         
+<div class="oe_form_field oe_form_field_html oe_form_embedded_html oe_form_field_translatable" data-original-title="" title="" style="box-sizing: border-box; width: 826px; display: inline-block; padding: 2px 2px 2px 0px; vertical-align: top; position: relative; margin: auto; overflow: auto; text-align: justify; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);"><div style="box-sizing: border-box; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);"><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Dear HR Manager,</span></font></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Termination request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name} </span>from Job Position&nbsp;</span></font><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Validation (Second Approval).</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul><li><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.last_day_date}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Branch : <span style="font-weight: bold;">${object.branch_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Department : <span style="font-weight: bold;">${object.department_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Link:&nbsp;</span><a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.terminate.form&amp;menu_id=1108&amp;action=1503" style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">https://erp.betait.net/web?#id=</span></font><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.id}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&amp;view_type=form&amp;model=od.beta.terminate.form&amp;menu_id=1108&amp;action=1503</span></a></li></ul><p></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></font></p><div><font face="Lucica Grande, Ubuntu, Arial, Verdana, sans-serif" color="#222222" style="box-sizing: border-box;"><span style="box-sizing: border-box; font-size: 12px;"><br></span></font></div></div></div><div class="oe_fileupload" data-original-title="" title="" style="box-sizing: border-box; display: inline-block; clear: both; width: 826px; margin-bottom: -15px; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);">
+</div>             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_terminate_notification_to_hr_saudi" model="email.template">
+            <field name="name">KSA - Job Termination Notification HR</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Termination - ${object.employee_id.name}</field>
+            <field name="email_to">hr.ksa@betait.net</field>
+            <field name="email_cc">BETATEAM@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+				<div class="oe_form_field oe_form_field_html oe_form_embedded_html oe_form_field_translatable" data-original-title="" title="" style="box-sizing: border-box; width: 826px; display: inline-block; padding: 2px 2px 2px 0px; vertical-align: top; position: relative; margin: auto; overflow: auto; text-align: justify; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);"><div style="box-sizing: border-box; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);"><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px;">Dear HR Manager,</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px;">Termination/End of Contract request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name} </span>from Job Position&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.gm_approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Validation.</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul><li><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.last_day_date}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Branch : <span style="font-weight: bold;">${object.branch_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Department : <span style="font-weight: bold;">${object.department_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Link:&nbsp;</span><a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854"><span style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important; font-size: 12px;">https://erp.betait.net/web#id=</span><span style="background: transparent; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.id}</span><span style="background: transparent; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important; font-size: 12px; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&amp;view_type=form&amp;model=od.beta.terminate.form&amp;menu_id=1108&amp;action=1503</span>54</a></li></ul><p></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></p><div><span style="box-sizing: border-box; font-size: 12px;"><br></span></div></div></div><div class="oe_fileupload" data-original-title="" title="" style="box-sizing: border-box; display: inline-block; clear: both; width: 826px; margin-bottom: -15px; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);">
+				</div>              
+             ]]>
+            </field>
+        </record>
+
+        <record id="termination_notification_to_hr_finance_to_notify_bank" model="email.template">
+            <field name="name">KSA - Termination Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notify Bank About Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+         
+			<div style=""><span style="font-size: 13px;">Dear Team,&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">This is to inform you about the resignation of our employee - ${object.employee_id.name} (National ID: ${object.employee_id.identification_id}) with his/her last working day being ${object.last_day_date} . Kindly note that he/she has an outstanding personal loan with the bank.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Kindly inform the bank by pressing the Notify Bank button in ERP resignation form.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><ul style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.terminate.form&amp;menu_id=1108&amp;action=1503"><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;">https://erp.betait.net/web?#id=</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">${object.id}</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">&amp;view_type=form&amp;model=od.beta.terminate.form&amp;menu_id=1108&amp;action=1503</span></a></li></ul></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Thank you</span></div>				             ]]>
+            </field>
+        </record>
+
+        <record id="termination_notification_to_hr_finance_to_notify_bank_saudi" model="email.template">
+            <field name="name">KSA - Termination Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notify Bank About Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+         
+			<div style=""><span style="font-size: 13px;">Dear Team,&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">This is to inform you about the resignation of our employee - ${object.employee_id.name} (National ID: ${object.employee_id.identification_id}) with his/her last working day being ${object.last_day_date} . Kindly note that he/she has an outstanding personal loan with the bank.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Kindly inform the bank by pressing the Notify Bank button in ERP resignation form.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><ul style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=od.beta.terminate.form&amp;menu_id=1108&amp;action=1503"><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;">https://erp.betait.net/web?#id=</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">${object.id}</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">&amp;view_type=form&amp;model=od.beta.terminate.form&amp;menu_id=1108&amp;action=1503</span></a></li></ul></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Thank you</span></div>					]]>
+            </field>
+        </record>
+
+        <record id="od_notify_bank_termination" model="email.template">
+            <field name="name">KSA - Termination Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+         
+				<div style=""><span style="font-size: 13px;">Dear Team at ${object.l_bank_id.name}, </span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Greetings from Dar Beta for Information Technology. We hope this message finds you well. </span></div><div style=""><span style="font-size: 13px;"> </span></div><div style=""><span style="font-size: 13px;">We are writing to inform you of the resignation of our employee - ${object.employee_id.name} ( National ID: ${object.employee_id.identification_id} ) with his/her last working day being ${object.last_day_date} . Kindly note that he/she has an outstanding personal loan with your bank. </span></div><div style=""><span style="font-size: 13px;"> </span></div><div style=""><span style="font-size: 13px;">We would appreciate your guidance on the process for transferring the loan clearance to his/her ${object.l_bank_id.name} account. </span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Should you require any further information or assistance, please do not hesitate to contact us. </span></div><div style=""><span style="font-size: 13px;"> </span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Best regards, </span></div><div style=""><span style="font-size: 13px;">HR Team </span></div><div style=""><span style="font-size: 13px;">Dar Beta for Information Technology </span></div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_notify_bank_termination_saudi" model="email.template">
+            <field name="name">KSA - Termination Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+         
+<div style="font-family: Arial, sans-serif; display: flex; justify-content: space-between; align-items: flex-start; margin: 20px; gap: 20px;">
+                <div class="text english" style="flex: 1; text-align: left;">
+                    <div><span style="font-size: 13px;">Dear Team at ${object.l_bank_id.name},</span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">Greetings from Dar Beta for Information Technology. We hope this message finds you well.</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            We are writing to inform you of the resignation of our employee - ${object.employee_id.name}
+                            (National ID: ${object.employee_id.identification_id}) with his/her last working day being ${object.last_day_date}.
+                            Kindly note that he/she has an outstanding personal loan with your bank.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            We would appreciate your guidance on the process for transferring the loan clearance to his/her ${object.l_bank_id.name} account.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div>
+                        <span style="font-size: 13px;">Should you require any further information or assistance, please do not hesitate to contact us.</span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">Best regards,</span></div>
+                    <div><span style="font-size: 13px;">HR Team</span></div>
+                    <div><span style="font-size: 13px;">Dar Beta for Information Technology</span></div>
+                </div>
+
+                <div class="text arabic" style="flex: 1; text-align: right; direction: rtl;">
+                    <div><span style="font-size: 13px;">السادة في ${object.l_bank_id.name_ar}         سلمهم الله, </span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">تهديكم شركة دار بيتا لتكنولوجيا المعلومات أطيب التحايا متمنين لكم موفور الصحة والعافية.</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;">ونفيدكم  بانتهاء العلاقة التعاقدية مع الموظف - </span></div>
+                    <div><span style="font-size: 13px;">${object.employee_id.name}</span></div>
+                    <div><span style="font-size: 13px;">هوية وطنية رقم : </span></div>
+                    <div><span style="font-size: 13px;">${object.employee_id.identification_id}</span></div>
+                    <div><span style="font-size: 13px;">على أن يكون آخر يوم عمل له هو</span></div>
+                    <div><span style="font-size: 13px;">${object.last_day_date}</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            ونحيطكم علماً بأن السجلات الخاصة بنا تفيد بوجود قرض شخصي للموظف ملزم لكم,, نأمل تأكيدكم ليتم تحويل المخالصة
+                            على الحساب البنكي الخاص به لدى ${object.l_bank_id.name_ar}.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            إذا كنتم بحاجة إلى أي معلومات أو مساعدة إضافية، فلا تترددوا في الاتصال بنا.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">مع أطيب التحيات</span></div>
+                    <div><span style="font-size: 13px;">فريق الموارد البشرية</span></div>
+                    <div><span style="font-size: 13px;">دار بيتا لتكنولوجيا المعلومات</span></div>
+                </div>
+            </div>             ]]>
+            </field>
+        </record>
+
+        <record id="od_sent_clearance_to_bank_termination" model="email.template">
+            <field name="name">KSA - Sent Clearance to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+         
+<div>Dear Team at ${object.l_bank_id.name}, </div><div><br></div><div>Greetings from Dar Beta for Information Technology. We hope this message finds you well. </div><div> </div><div>Attached is the summary of dues for our employee - ${object.employee_id.name} ( National ID: ${object.employee_id.identification_id} ) with his/her last working day being ${object.last_day_date} . Kindly note that the total amount of dues is XXXX Saudi Riyals with the expected transfer date being XXXXX.</div><div><br></div><div>We would appreciate your guidance on the process for transferring the loan clearance to his/her ${object.l_bank_id.name} account. </div><div><br></div><div>Thank you very much for your attention to this matter. </div><div><br></div><div>Best regards, </div><div>HR Team </div><div>Dar Beta for Information Technology </div>             ]]>
+            </field>
+        </record>
+
+        <record id="od_sent_clearance_to_bank_termination_saudi" model="email.template">
+            <field name="name">KSA - Sent Clearance to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_terminate_form"/>
+            <field name="body_html"><![CDATA[
+         
+				<div style="font-family: Arial, sans-serif; display: flex; justify-content: space-between; align-items: flex-start; margin: 20px; gap: 20px;">
+                <div class="text english" style="flex: 1; text-align: left;">
+                    <div><span style="font-size: 13px;">Peace be upon you and God's mercy and blessings.</span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">Dears at ${object.l_bank_id.name},</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            Attached is the clearance for employee ${object.employee_id.name}. Please note that her total dues amount to: ${'{0:,.2f}'.format(object.amount_to_pay or 0.0)} SAR. The expected date for the transfer of dues is (DD/MM/YYYY).
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            Thank you.
+                        </span>
+                    </div>
+                </div>
+            
+                <div class="text arabic" style="flex: 1; text-align: right; direction: rtl;">
+                    <div><span style="font-size: 13px;">السلام عليكم ورحمة الله وبركاته</span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">السادة في / ${object.l_bank_id.name_ar} تحية طيبة</span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;">مرفق لكم مخالصة الموظفة</span></div>
+                    <div><span style="font-size: 13px;">${object.employee_id.name}</span></div>
+                    <div><span style="font-size: 13px;">علما بأن مبلغ مستحقاتها هو:</span></div>
+                    <div><span style="font-size: 13px;">${'{0:,.2f}'.format(object.amount_to_pay or 0.0)}</span></div>
+                    <div><span style="font-size: 13px;">سعودي. وتاريخ تحويل المستحقات المتوقع: الخميس الموافق</span></div>
+                    <div><span style="font-size: 13px;">(DD/MM/YYYY)</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">ولكم جزيل الشكر</span></div>
+                </div>
+            </div> ]]>
+            </field>
+        </record>
+
+        <!--          End of Contract Mail Templates KSA -->
+
+        <record id="od_eoc_approval_it_saudi" model="email.template">
+            <field name="name">KSA - End of Contract IT Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Clearance - ${object.employee_id.name}</field>
+            <field name="email_to">it.ksa@betait.net</field>
+            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+         
+			<div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear IT Department,</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;"><br></span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has terminated his contract and the last working day will be ${object.last_day_date} . We need you to do the following:</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;"><br></span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 1. Retrieve all IT assets give to him (Laptop, PC, etc.)</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 2. Retrieve the attendance access cards and cancel his door access</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 3. Cancel his Office 365 access and forward his/her email as an alias to his manager - ${object.manager1_id.name}&nbsp;</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 4. Make sure that he/she has no access to any of our IT systems (cloud or on prem)</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure he/she has no access to any of our physical offices, warehouse, etc.</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear Administration Team,</span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;"><br></span></font></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Once the IT Team is done, we need you to kindly Approve this on the system using the following link </span></font><span style="font-size: 17.3333px;">:</span></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="font-size: 17.3333px;"><br></span></div><a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854"><span style="font-size: 12px;">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854</span><br></a><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="font-size: 17.3333px;">&nbsp;</span></div><div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Thank You</span></font></div>
+         
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_eoc_approval_cs_saudi" model="email.template">
+            <field name="name">KSA - End of Contract CS Approval</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Clearance - ${object.employee_id.name}</field>
+            <field name="email_to">cyber_sec.ksa@betait.net’</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+
+			<font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear CS Department,</span>
+                       </font>
+                       <div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has terminated his contract and the last working day
+                               will be ${object.last_day_date} . We need you to do the following:
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 1. Make sure Email Address Disabled?</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 2. Make sure Azure Active Directory User Disabled?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 3. Make sure Laptop Formatted (Sanitized)?
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 4. Make sure Physical Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure Lab Access Revoked
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Dear Administration Team,</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">
+                               <br>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Once the CS Team is done, we need you to kindly Approve this on the system using
+                               the following link :
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Link:
+                               <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854">
+                                   https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854
+                               </a>
+                           </span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
+                       </font>
+                       </div><div>
+                       <font color="#222222" face="FreeSerif, serif">
+                           <span style="font-size: 17.3333px;">Thank You</span>
+                       </font>
+                       </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_eoc_approval2_saudi" model="email.template">
+            <field name="name">KSA - End of Contract Second Approval</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">End of Contract - ${object.employee_id.name}</field>
+            <field name="email_to">osama.aldaour@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+				<div style=""><span style="font-size: 12px;">Dear Mr. Osama Aldour,</span></div><div style=""><span style="font-size: 12px;"><br></span></div><div style=""><span style="font-size: 12px;">We require your kind Approval for the Termination/End of Contract request of employee - ${object.employee_id.name} from Job Position ${object.job_id.name}</span></div><div style=""><span style="font-size: 12px;"><br></span></div><div style=""><ul><li><span style="font-size: 12px;">Last working day : ${object.last_day_date}&nbsp;</span></li><li><span style="font-size: 12px;">Branch : ${object.branch_id.name}</span></li><li><span style="font-size: 12px;">Department : ${object.department_id.name}</span></li><li><span style="font-size: 12px;">Link: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854</a></span></li></ul></div><div style=""><span style="font-size: 12px;"><br></span></div><div style=""><span style="font-size: 12px;">Thank You</span></div>             ]]>
+            </field>
+        </record>
+
+        <record id="od_eoc_notification_to_finance_saudi" model="email.template">
+            <field name="name">KSA - End of Contract Notification Finance</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">End of Contract - ${object.employee_id.name}</field>
+            <field name="email_to">finance.ksa@betait.net,hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+
+         <div class="oe_form_field oe_form_field_html oe_form_embedded_html oe_form_field_translatable" data-original-title="" title="" style="box-sizing: border-box; width: 826px; display: inline-block; padding: 2px 2px 2px 0px; vertical-align: top; position: relative; margin: auto; overflow: auto; text-align: justify; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);"><div style="box-sizing: border-box; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);"><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px;">Dear Finance Team,</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px;">Termination/End of Contract request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name} </span>from Job Position&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Approval.</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul><li><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.last_day_date}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Branch : <span style="font-weight: bold;">${object.branch_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Department : <span style="font-weight: bold;">${object.department_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Link:&nbsp;</span><a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854"><span style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important; font-size: 12px;">https://erp.betait.net/web#id=</span><span style="background: transparent; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.id}</span><span style="background: transparent; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important; font-size: 12px; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=18</span>54</a></li></ul><p></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></p><div><span style="box-sizing: border-box; font-size: 12px;"><br></span></div></div></div><div class="oe_fileupload" data-original-title="" title="" style="box-sizing: border-box; display: inline-block; clear: both; width: 826px; margin-bottom: -15px; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);">
+</div> 
+             
+                          ]]>
+            </field>
+        </record>
+
+        <record id="od_eoc_notification_to_hr_saudi" model="email.template">
+            <field name="name">KSA - End of Contract Notification HR</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">End of Contract - ${object.employee_id.name}</field>
+            <field name="email_to">hr.ksa@betait.net</field>
+            <field name="email_cc">BETATEAM@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+         
+<div class="oe_form_field oe_form_field_html oe_form_embedded_html oe_form_field_translatable" data-original-title="" title="" style="box-sizing: border-box; width: 826px; display: inline-block; padding: 2px 2px 2px 0px; vertical-align: top; position: relative; margin: auto; overflow: auto; text-align: justify; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);"><div style="box-sizing: border-box; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);"><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px;">Dear HR Manager,</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px;">Termination/End of Contract request of employee -&nbsp;<span style="font-weight: bold;">${object.employee_id.name} </span>from Job Position&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.job_id.name}</span><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">is Approved by&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.gm_approved_by.name}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">and waiting for your Validation.</span></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"></p><ul><li><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Last working day :&nbsp;</span><span style="font-weight: bold;"><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.last_day_date}</span><span style="box-sizing: border-box; color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">&nbsp;</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Branch : <span style="font-weight: bold;">${object.branch_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Department : <span style="font-weight: bold;">${object.department_id.name}</span></span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Link:&nbsp;</span><a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854"><span style="background: transparent; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important; font-size: 12px;">https://erp.betait.net/web#id=</span><span style="background: transparent; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">${object.id}</span><span style="background: transparent; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important; font-size: 12px; font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif;">&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=18</span>54</a></li></ul><p></p><p style="box-sizing: border-box; margin: 0px 0px 10px; margin-block: 1em; color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><span style="box-sizing: border-box; font-size: 12px;">Thank You</span></p><div><span style="box-sizing: border-box; font-size: 12px;"><br></span></div></div></div><div class="oe_fileupload" data-original-title="" title="" style="box-sizing: border-box; display: inline-block; clear: both; width: 826px; margin-bottom: -15px; color: rgb(64, 64, 64); background-color: rgb(255, 255, 255);">
+</div>            
+             
+             ]]>
+            </field>
+        </record>
+
+        <record id="eoc_notification_to_hr_finance_to_notify_bank" model="email.template">
+            <field name="name">KSA - End of Contract Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notify Bank About Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+         
+			<div style=""><span style="font-size: 13px;">Dear Team,&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">This is to inform you about the resignation of our employee - ${object.employee_id.name} (National ID: ${object.employee_id.identification_id}) with his/her last working day being ${object.last_day_date} . Kindly note that he/she has an outstanding personal loan with the bank.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Kindly inform the bank by pressing the Notify Bank button in ERP resignation form.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><ul style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854"><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;">https://erp.betait.net/web?#id=</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">${object.id}</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854</span></a></li></ul></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Thank you</span></div>				             ]]>
+            </field>
+        </record>
+
+        <record id="eoc_notification_to_hr_finance_to_notify_bank_saudi" model="email.template">
+            <field name="name">KSA - End of Contract Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notify Bank About Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+         
+			<div style=""><span style="font-size: 13px;">Dear Team,&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">This is to inform you about the resignation of our employee - ${object.employee_id.name} (National ID: ${object.employee_id.identification_id}) with his/her last working day being ${object.last_day_date} . Kindly note that he/she has an outstanding personal loan with the bank.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Kindly inform the bank by pressing the Notify Bank button in ERP resignation form.&nbsp;</span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><ul style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; text-align: justify;"><li>Link:&nbsp;<a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854"><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(124, 123, 173); text-decoration-line: none; cursor: pointer !important;">https://erp.betait.net/web?#id=</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">${object.id}</span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; box-sizing: border-box; color: rgb(34, 34, 34); text-decoration-line: none; cursor: pointer !important;">&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854</span></a></li></ul></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Thank you</span></div>					]]>
+            </field>
+        </record>
+
+        <record id="od_notify_bank_eoc" model="email.template">
+            <field name="name">KSA - End of Contract Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+         
+				<div style=""><span style="font-size: 13px;">Dear Team at ${object.l_bank_id.name}, </span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Greetings from Dar Beta for Information Technology. We hope this message finds you well. </span></div><div style=""><span style="font-size: 13px;"> </span></div><div style=""><span style="font-size: 13px;">We are writing to inform you of the resignation of our employee - ${object.employee_id.name} ( National ID: ${object.employee_id.identification_id} ) with his/her last working day being ${object.last_day_date} . Kindly note that he/she has an outstanding personal loan with your bank. </span></div><div style=""><span style="font-size: 13px;"> </span></div><div style=""><span style="font-size: 13px;">We would appreciate your guidance on the process for transferring the loan clearance to his/her ${object.l_bank_id.name} account. </span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Should you require any further information or assistance, please do not hesitate to contact us. </span></div><div style=""><span style="font-size: 13px;"> </span></div><div style=""><span style="font-size: 13px;"><br></span></div><div style=""><span style="font-size: 13px;">Best regards, </span></div><div style=""><span style="font-size: 13px;">HR Team </span></div><div style=""><span style="font-size: 13px;">Dar Beta for Information Technology </span></div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_notify_bank_eoc_saudi" model="email.template">
+            <field name="name">KSA - End of Contract Notification to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee Termination - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+         
+<div style="font-family: Arial, sans-serif; display: flex; justify-content: space-between; align-items: flex-start; margin: 20px; gap: 20px;">
+                <div class="text english" style="flex: 1; text-align: left;">
+                    <div><span style="font-size: 13px;">Dear Team at ${object.l_bank_id.name},</span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">Greetings from Dar Beta for Information Technology. We hope this message finds you well.</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            We are writing to inform you of the resignation of our employee - ${object.employee_id.name}
+                            (National ID: ${object.employee_id.identification_id}) with his/her last working day being ${object.last_day_date}.
+                            Kindly note that he/she has an outstanding personal loan with your bank.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            We would appreciate your guidance on the process for transferring the loan clearance to his/her ${object.l_bank_id.name} account.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div>
+                        <span style="font-size: 13px;">Should you require any further information or assistance, please do not hesitate to contact us.</span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">Best regards,</span></div>
+                    <div><span style="font-size: 13px;">HR Team</span></div>
+                    <div><span style="font-size: 13px;">Dar Beta for Information Technology</span></div>
+                </div>
+
+                <div class="text arabic" style="flex: 1; text-align: right; direction: rtl;">
+                    <div><span style="font-size: 13px;">السادة في ${object.l_bank_id.name_ar}         سلمهم الله, </span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">تهديكم شركة دار بيتا لتكنولوجيا المعلومات أطيب التحايا متمنين لكم موفور الصحة والعافية.</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;">ونفيدكم  بانتهاء العلاقة التعاقدية مع الموظف - </span></div>
+                    <div><span style="font-size: 13px;">${object.employee_id.name}</span></div>
+                    <div><span style="font-size: 13px;">هوية وطنية رقم : </span></div>
+                    <div><span style="font-size: 13px;">${object.employee_id.identification_id}</span></div>
+                    <div><span style="font-size: 13px;">على أن يكون آخر يوم عمل له هو</span></div>
+                    <div><span style="font-size: 13px;">${object.last_day_date}</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            ونحيطكم علماً بأن السجلات الخاصة بنا تفيد بوجود قرض شخصي للموظف ملزم لكم,, نأمل تأكيدكم ليتم تحويل المخالصة
+                            على الحساب البنكي الخاص به لدى ${object.l_bank_id.name_ar}.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            إذا كنتم بحاجة إلى أي معلومات أو مساعدة إضافية، فلا تترددوا في الاتصال بنا.
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">مع أطيب التحيات</span></div>
+                    <div><span style="font-size: 13px;">فريق الموارد البشرية</span></div>
+                    <div><span style="font-size: 13px;">دار بيتا لتكنولوجيا المعلومات</span></div>
+                </div>
+            </div>             ]]>
+            </field>
+        </record>
+
+        <record id="od_sent_clearance_to_bank_eoc" model="email.template">
+            <field name="name">KSA - Sent Clearance to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee End of Contract - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+         
+<div>Dear Team at ${object.l_bank_id.name}, </div><div><br></div><div>Greetings from Dar Beta for Information Technology. We hope this message finds you well. </div><div> </div><div>Attached is the summary of dues for our employee - ${object.employee_id.name} ( National ID: ${object.employee_id.identification_id} ) with his/her last working day being ${object.last_day_date} . Kindly note that the total amount of dues is XXXX Saudi Riyals with the expected transfer date being XXXXX.</div><div><br></div><div>We would appreciate your guidance on the process for transferring the loan clearance to his/her ${object.l_bank_id.name} account. </div><div><br></div><div>Thank you very much for your attention to this matter. </div><div><br></div><div>Best regards, </div><div>HR Team </div><div>Dar Beta for Information Technology </div>             ]]>
+            </field>
+        </record>
+
+        <record id="od_sent_clearance_to_bank_eoc_saudi" model="email.template">
+            <field name="name">KSA - Sent Clearance to Bank</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Notice of Employee End of Contract - ${object.employee_id.name}</field>
+            <field name="email_to">${object.bank_email}</field>
+            <field name="email_cc">hr.ksa@betait.net,finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_end_of_contract"/>
+            <field name="body_html"><![CDATA[
+         
+			<div style="font-family: Arial, sans-serif; display: flex; justify-content: space-between; align-items: flex-start; margin: 20px; gap: 20px;">
+                <div class="text english" style="flex: 1; text-align: left;">
+                    <div><span style="font-size: 13px;">Peace be upon you and God's mercy and blessings.</span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">Dears at ${object.l_bank_id.name},</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            Attached is the clearance for employee ${object.employee_id.name}. Please note that her total dues amount to: ${'{0:,.2f}'.format(object.amount_to_pay or 0.0)} SAR. The expected date for the transfer of dues is (DD/MM/YYYY).
+                        </span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div>
+                        <span style="font-size: 13px;">
+                            Thank you.
+                        </span>
+                    </div>
+                </div>
+            
+                <div class="text arabic" style="flex: 1; text-align: right; direction: rtl;">
+                    <div><span style="font-size: 13px;">السلام عليكم ورحمة الله وبركاته</span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">السادة في / ${object.l_bank_id.name_ar} تحية طيبة</span>
+                    </div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;">مرفق لكم مخالصة الموظفة</span></div>
+                    <div><span style="font-size: 13px;">${object.employee_id.name}</span></div>
+                    <div><span style="font-size: 13px;">علما بأن مبلغ مستحقاتها هو:</span></div>
+                    <div><span style="font-size: 13px;">${'{0:,.2f}'.format(object.amount_to_pay or 0.0)}</span></div>
+                    <div><span style="font-size: 13px;">سعودي. وتاريخ تحويل المستحقات المتوقع: الخميس الموافق</span></div>
+                    <div><span style="font-size: 13px;">(DD/MM/YYYY)</span></div>
+                    <div><span style="font-size: 13px;"> </span></div>
+                    <div><span style="font-size: 13px;"><br></span></div>
+                    <div><span style="font-size: 13px;">ولكم جزيل الشكر</span></div>
+                </div>
+            </div> ]]>
+
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

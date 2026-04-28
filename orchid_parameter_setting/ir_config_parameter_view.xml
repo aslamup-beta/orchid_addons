@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_ir_config_form">
+            <field name="model">ir.config_parameter</field>
+            <field name="inherit_id" ref="base.view_ir_config_form"/>
+            <field name="arch" type="xml">
+                <field name="key" position="after"> 
+                    <field name="od_model_id" on_change="onchange_od_model_id(od_model_id, context)"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

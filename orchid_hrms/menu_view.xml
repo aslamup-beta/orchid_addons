@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+<menuitem name="Document" parent="hr.menu_hr_root" id="menu_od_hr_documents" sequence="21"/>
+<menuitem name="Document" parent="hr.menu_hr_configuration" id="menu_od_hr_documents_config" sequence="1"/>
+
+<menuitem name="Employee" parent="hr.menu_hr_configuration" id="menu_od_hr_documents_config_emp" sequence="0"/>
+
+
+
+
+  <menuitem id="id_action_od_employee_air_route" name="Air Route" action="action_od_employee_air_route" parent="menu_od_hr_documents_config_emp" sequence="1"/>
+
+
+
+  <menuitem id="id_action_od_hr_employee_benefits" name="Benefits" action="action_od_hr_employee_benefits_form" parent="menu_od_hr_documents_config_emp" sequence="2"/>
+
+
+
+
+
+
+  <menuitem id="id_action_od_employee_academic_qualification" name="Academic Qualification" action="action_od_employee_academic_qualification" parent="menu_od_hr_documents_config_emp" sequence="2"/>
+  <menuitem id="id_action_od_employee_accomadation" name="Accomadation" action="action_od_employee_accomadation" parent="menu_od_hr_documents_config_emp" sequence="3"/>
+  <menuitem id="id_action_od_employee_relation" name="Relation" action="action_od_employee_relation" parent="menu_od_hr_documents_config_emp" sequence="4"/>
+  <menuitem id="id_action_od_employee_transportation" name="Transportation" action="action_od_employee_transportation" parent="menu_od_hr_documents_config_emp" sequence="5"/>
+
+<menuitem name="Document Types" action="od_employee_document_type_action" id="menu_od_employee_document_type_action" parent="menu_od_hr_documents_config" sequence="1"/>
+<menuitem name="Entitelment" action="action_od_employee_entitelment" id="menu_action_od_employee_entitelment" parent="hr.menu_hr_configuration" sequence="12"/> 
+<menuitem id="menu_action_od_document_request" name="Document Request" action="action_od_document_request" parent="menu_od_hr_documents" sequence="2"/>
+<menuitem id="menu_action_od_document_return" name="Document Return" action="action_od_document_return" parent="menu_od_hr_documents" sequence="3"/>
+
+
+<menuitem id="menu_action_od_document_approval" name="Document Request Approval" action="action_od_document_approval_request" parent="menu_od_hr_documents" sequence="4"/>
+
+
+<menuitem id="menu_od_employee_joining" name="Joining Form" action="action_od_employee_joining" parent="menu_od_hr_documents" sequence="1"/>
+
+
+<menuitem id="menu_od_on_hand" name="On Hand Document" action="action_od_on_hand_document" parent="menu_od_hr_documents" sequence="5"/>
+
+<menuitem name="Purpose" action="action_od_employee_purpose_view" id="menu_action_od_employee_purpose_view" parent="menu_od_hr_documents_config" sequence="2"/> 
+
+<menuitem name="Employee Type" action="action_od_employee_type" id="menu_action_od_employee_type" parent="menu_od_hr_documents_config_emp" sequence="6"/> 
+
+
+
+
+
+
+ </data>
+</openerp>

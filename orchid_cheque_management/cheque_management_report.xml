@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report auto="False" id="report_od_acc_voucher" model="account.voucher" name="od.account.voucher"
+                rml="orchid_cheque_management/report/od_acc_voucher_print.rml" string="Bank Voucher Print"
+                usage="default" header="True"/>
+
+    </data>
+</openerp>

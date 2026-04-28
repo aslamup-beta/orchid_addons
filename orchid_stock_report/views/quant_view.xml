@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <record model="ir.ui.view" id="view_stock_quant_graph_value">
+            <field name="name">stock.quant.graph</field>
+            <field name="model">stock.quant</field>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <graph string="Quants"  type="pivot">
+                    <field name="product_id"/>
+<!--                    <field name="qty" type="measure"/>-->
+<!--                    <field name="removal_date" type="col"/>-->
+<!--                    <field name="location_id"/>-->
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_quant_exp_analysis">
+            <field name="name">Expiry Analysis</field>
+            <field name="res_model">stock.quant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="context">{'search_default_internal_loc': 1,'search_default_productgroup':1}</field>
+        </record>
+
+
+</data>
+</openerp>

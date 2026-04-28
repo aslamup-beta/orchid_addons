@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_generate_task_picking_wizard" model="ir.ui.view">
+            <field name="name">Generate Purchase Order</field>
+            <field name="model">od.tsk.gen.picking.out</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Picking">
+                    <group col="4" colspan="4">
+                        <label colspan="4" width="500"
+                               string="You are on about to generate a Delivery Order from this Task To do so please complete the following mandatory fields first."/>
+                        <newline/>
+                        <field name="company_id" colspan="4" readonly="1" invisible="1"/>
+                        <field name="picking_type_id" colspan="4" domain="[('code','=','outgoing')]" />
+
+                      </group>
+                        <field name="od_tsk_picking_line" nolabel="1" readonly="1">
+                            <tree editable="top">
+                                    <field name="partner_id" readonly="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="qty" readonly="1"/>
+                             </tree>
+                        </field>
+                        <separator string="Notes to Delivery Order" />
+                        <field name="notes" />
+
+                   <footer>
+                      <button name="button_delivery_order" string="Delivey Orders" type="object" class="oe_highlight"/>
+                        or
+                      <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

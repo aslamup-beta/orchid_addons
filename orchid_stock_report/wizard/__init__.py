@@ -1,0 +1,8 @@
+#import wizard
+import od_stock_aging_report
+import od_closing_inventory_wiz
+import stock_move_wiz
+import stock_move_wiz_qty
+import od_quant_new_wiz
+import location_stock_wiz
+import stock_transfer_details

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record model="ir.ui.view" id="od_duty_reception_form">
+            <field name="name">hrd.holidays</field>
+            <field name="model">hr.holidays</field>
+            <field eval="50" name="priority"/>
+            <field name="arch" type="xml">
+<form string="Duty Resumption" create="false">
+                <field name="can_reset" invisible="1"/>
+                <field name="type" invisible="1"/>
+                <header>
+                    <button string="Confirm" name="confirm" states="draft" type="workflow" class="oe_highlight"/>
+                 <!--    <button string="Submit" name="od_submit_button" states="validate" type="object"/> -->
+                 <button string="Submit" name="resumption_to_approve" states="validate" type="workflow" groups="base.group_hr_user"/>
+                 
+                    <button string="Approve" name="od_submit_button" states="confirm" type="workflow" groups="base.group_hr_user" class="oe_highlight"/>
+                    <button string="Validate" name="second_validate" states="validate1" type="workflow" groups="base.group_hr_user" class="oe_highlight"/>
+<!--                    <button string="Refuse" name="refuse" states="confirm,validate,validate1" type="workflow" groups="base.group_hr_user"/>-->
+                    <button string="Reset to Draft" name="reset" type="workflow" attrs="{'invisible': ['|', ('can_reset', '=', False), ('state', 'not in', ['confirm', 'refuse'])]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate,od_resumption_to_approve,od_approved" statusbar_colors="{&quot;confirm&quot;:&quot;blue&quot;,&quot;validate1&quot;:&quot;blue&quot;,&quot;refuse&quot;:&quot;red&quot;}"/>
+
+
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" attrs="{'readonly':[('state','!=','draft'),('state','!=','confirm')], 'required': [('type', '=', 'add')]}" readonly="1"/>
+                            <field name="holiday_status_id" context="{'employee_id':employee_id}" readonly="1"/>
+                                <label for="number_of_days_temp" string="Duration"/>
+                            <div>
+                                <group col="3" attrs="{'invisible': [('type', '=', 'add')]}">
+                                    <field name="date_from" nolabel="1" on_change="onchange_date_from(date_to, date_from)" attrs="{'required':[('type', '=', 'remove')]}" class="oe_inline" readonly="1"/><label string="-" class="oe_inline"/>
+                                    <field name="date_to" nolabel="1" on_change="onchange_date_to(date_to, date_from)" attrs="{'required':[('type', '=', 'remove')]}" class="oe_inline" readonly="1"/>
+                                </group>
+                                <div>
+                                    <field name="number_of_days_temp" class="oe_inline" readonly="1"/> days
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="holiday_type" on_change="onchange_type(holiday_type)" attrs="{'readonly':[('type', '=', 'remove'),('state','!=','draft')]}" string="Mode" groups="base.group_hr_user" context="{'employee_id':employee_id}" readonly="1"/>
+                            <field name="employee_id" attrs="{'required':[('holiday_type','=','employee')],'invisible':[('holiday_type','=','category')]}" on_change="onchange_employee(employee_id)" groups="base.group_hr_user" readonly="1"/>
+                            <field name="category_id" attrs="{'required':[('holiday_type','=','category')], 'readonly': [('type', '=', 'remove'),('state','!=','draft'), ('state','!=','confirm')], 'invisible':[('holiday_type','=','employee')]}" readonly="1"/>
+                            <field name="department_id" attrs="{'readonly':['|', ('type','=','add'),('holiday_type','=','category')],'invisible':[('holiday_type','=','category')]}" groups="base.group_hr_user" readonly="1"/>
+                        </group>
+                        <group>
+
+                            <field name="od_resumption_date" attrs="{'invisible':[('state', 'in', ['confirm', 'draft','cancel','refuse'])],'required':[('state','=','validate')]}"/>
+<!--                             <field name="od_passport_recieved" attrs="{'invisible':[('state', 'in', ['confirm', 'draft','cancel','refuse'])]}" />-->
+
+                     </group>
+                    </group>
+                    <field name="notes" nolabel="1" colspan="4" placeholder="Add a reason..." attrs="{'invisible': [('type', '=', 'remove')]}"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_duty_reception_tree">
+            <field name="name">hrd.holidays.allocation.tree</field>
+            <field name="model">hr.holidays</field>
+            <field eval="50" name="priority"/>
+            <field name="arch" type="xml">
+<tree string="Duty Resumption" create="false">
+                    <field name="employee_id"/>
+                    <field name="holiday_type" string="Mode" groups="base.group_no_one"/>
+                    <field name="holiday_status_id"/>
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="number_of_days" string="Number of Days" sum="Remaining Days"/>
+                    <field name="state"/>
+                    <field name="category_id" invisible="1"/>
+                    <field name="department_id" invisible="not context.get('set_visible',False)"/>
+                    <field name="manager_id" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<record model="ir.actions.act_window" id="action_od_duty_reception11">
+        <field name="name">Duty Resumption</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.holidays</field>
+        
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+        <field name="domain">[('state','!=','od_approved')]</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Duty Resumption. 
+          </p>
+        </field>
+    </record>
+
+
+
+<!--<record model="ir.actions.act_window" id="od_stock_transfer_in_id">-->
+<!--        <field name="name">Stock Transfer In</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">od.stock.transfer</field>-->
+<!--        <field name="view_type">form</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+
+<!--            <field name="search_view_id" ref="od_stock_transfer_in_search"/>-->
+<!--            <field name="context">{'search_default_progressod':1}</field>-->
+<!--        <field name="domain">[('state','!=','draft')]</field>-->
+<!--         <field name="help" type="html">-->
+<!--          <p class="oe_view_nocontent_create">-->
+<!--            Click to add new Stock Transfer In. -->
+<!--          </p>-->
+<!--        </field>-->
+<!--    </record>-->
+
+		<record id="action_new_stock_in_tree00000" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+             <field name="view_id" ref="od_duty_reception_tree"/>
+            <field name="act_window_id" ref="action_od_duty_reception11"/>
+        </record>
+
+
+        <record id="action_new_stock_in565" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="od_duty_reception_form"/>
+            <field name="act_window_id" ref="action_od_duty_reception11"/>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <menuitem name="Duty Resumption" parent="hr_holidays.menu_open_ask_holidays" id="menu_ood_duty_reception" action="action_od_duty_reception11" sequence="38"/>
+
+
+    </data>
+</openerp>

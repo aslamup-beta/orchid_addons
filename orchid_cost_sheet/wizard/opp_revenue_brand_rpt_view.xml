@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        
+        <record id="view_opp_rev_brand_rpt_wizard" model="ir.ui.view">
+            <field name="name">Opp Revenue Brand</field>
+            <field name="model">opp.rev.brand.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group >
+                       
+                        <group>
+	                        <field name="date_start" />
+	                        <field name="date_end" />
+	                        <field name="company_id" invisible="1"/>
+                        </group>
+                        
+                        <group >
+                       	 <field name="lead_date_start" />
+	                        <field name="lead_date_end" />
+                        </group>
+                       
+                      </group>
+                        
+                            <group>
+                               <field name="branch_ids" widget="many2many_tags"/>
+                            </group>
+                              <group></group>
+                        	    <group></group>
+                        	    
+                       	    <group>
+                            		<field name="stage_ids" widget="many2many_tags"/>
+                            </group>
+                               <group></group>
+                        	    <group></group>
+                             
+                             <group>
+                                 <field name="sm_ids" widget="many2many_tags" context="{'sam_ids':1}" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188,__export__.res_groups_238,__export__.res_groups_239"/>
+                             </group>
+                               <group></group>
+                        	    <group></group>
+                        	    
+<!--                         	    <group> -->
+<!--                                <field name="copy_cust_am" string="Lead AM(Same as Customer AM)"/> -->
+<!--                             </group> -->
+<!--                               <group></group> -->
+<!--                         	    <group></group> -->
+                        	    
+                        	    <group>
+                                 <field name="lead_am_ids" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188,__export__.res_groups_244,__export__.res_groups_238,__export__.res_groups_172,__export__.res_groups_239" widget="many2many_tags" context="{'sam_ids':1}" />
+                             </group>
+                               <group></group>
+                        	    <group></group>
+                        	    
+                        	    <group>
+                         		<field name="cust_ids" widget="many2many_tags"/>
+                       		 </group>
+		                         <group></group>
+		                        <group></group>
+                        	    
+                             <group>
+                               <field name="created_by_ids" widget="many2many_tags" context="{'sam_ids':1}" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188"/> 
+                             </group>
+                        	  <group></group>
+                        	    <group></group>
+                        	    
+                            <group>
+                            	<field name="product_brand_ids" widget="many2many_tags" string="Product Brand"/>
+                            </group>
+                            	<group>
+		                             <button name="od_clear_brands" string="Clear Brands" type="object" />
+		                             <button name="od_load_brands" string="Load Brands" type="object" />
+                             	</group>
+
+                             
+                             <group />
+                              <group />
+                             
+                        		  
+                        		 
+                        		
+                       
+                      
+
+                      
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_opp_rev_brand_rpt_act" model="ir.actions.act_window">
+            <field name="name">Pipeline/Brand</field>
+            <field name="res_model">opp.rev.brand.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         
+         <menuitem
+         	
+			id="menu_opp_rev_brand_rpt"
+			parent="technology_rpt_gne"
+			sequence="1" 
+			action="action_opp_rev_brand_rpt_act" />
+
+
+	<record model="ir.ui.view" id="od_rev_opp_brand_tree_view">
+		<field name="name">wiz.rev.brand.rpt.data</field>
+		<field name="model">wiz.rev.brand.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Technology Brand Report">
+			<field name="opp_create_date" />
+				<field name="expected_booking" />
+				<field name="partner_id" />
+				<field name="od_class" />
+				<field name="stage_id" />
+				<field name="bdm_user_id" invisible="1"/>
+				<field name="cost_sheet_id" />
+				<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="product_brand_id" />
+				<field name="total_cost"  sum="Total"/>
+				<field name="total_sale"  sum="Total" />
+				<field name="sale_aftr_disc"  sum="Total" />
+				<field name="profit"  sum="Total" />
+				<field name="rebate_amnt" invisible="1"/>
+				<field name="sam_id" />
+				<field name="lead_am_id" invisible="0"/>
+				<field name="lst_up_dte" />
+				<field name="sm_io" />
+				
+				
+				
+			</tree>
+		</field>
+	</record>
+	
+	
+	
+
+	<record model="ir.ui.view" id="ood_rev_opp_brand_search_view">
+		<field name="name">wiz.rev.brand.rpt.data.search</field>
+		<field name="model">wiz.rev.brand.rpt.data</field>
+		<field name="arch" type="xml">
+			<search>
+			<field name="expected_booking" />
+			<field name="opp_id" />
+			<field name="stage_id" />
+			<field name="cost_sheet_id" />
+			<group expand="1" string="Group By">
+			            <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+			             <filter string="Expected Closing Month" domain="[]" context="{'group_by':'expected_booking'}"/>
+                        <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Brand" domain="[]" context="{'group_by':'product_brand_id'}"/>
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                         <filter string="Customer AM" domain="[]" context="{'group_by':'sam_id'}"/>
+                         <filter string="Lead AM" domain="[]" context="{'group_by':'lead_am_id'}"/>
+                        <filter string="Class" domain="[]" context="{'group_by':'od_class'}"/>
+                         
+                         <filter string="Created By" domain="[]" context="{'group_by':'bdm_user_id'}"/>
+                        <filter string="Stage" domain="[]" context="{'group_by':'stage_id'}"/>
+                        <filter string="Cost Sheet" domain="[]" context="{'group_by':'cost_sheet_id'}"/>
+                       <filter string="Opp Creation Date" domain="[]" context="{'group_by':'opp_create_date'}"/>
+                       
+                        
+                       
+                       
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+    </data>
+</openerp>

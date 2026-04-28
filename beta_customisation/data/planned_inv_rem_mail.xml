@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+    
+    	<record id="od_planned_invoice_reminder_email_template" model="email.template">
+             <field name="name">UAE - Planned Invoice Reminder Mail</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Invoice Planned for Next Week - ${object.name}</field>
+             <field name="email_to">${object.od_owner_id.email}</field>
+             <field name="email_cc">${object.od_branch_id.pmo_manager_id.email}</field>
+             <field name="model_id" ref="model_project_project"/>
+             <field name="body_html"><![CDATA[
+          
+          <div style="background-color: rgb(255, 255, 255);">
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear ${object.od_owner_id.name or ''},</p>
+              <p>We would like remind you about an invoice is planned for next week for the following project:</p>
+              
+              <ul>
+                    <li>Project Reference: ${object.code}  </li>
+                    <li>Project Name: ${object.name}</li>
+                    <li>Branch: ${object.od_branch_id.name}</li>
+                    <li>Customer: ${object.partner_id.name}</li><li>Project Sales Value: ${object.od_amended_sale_price}</li>
+                    <li>link:&nbsp;https://erp.betait.net/web?#id=<span style="text-align: justify;">${object.id}</span>&amp;view_type=form&amp;model=project.project&amp;menu_id=308&amp;action=390</li></ul>
+              
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Thank You</p>
+
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_planned_invoice_reminder_email_template_saudi" model="email.template">
+             <field name="name">KSA - Planned Invoice Reminder Mail</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Invoice Planned for Next Week - ${object.name}</field>
+             <field name="email_to">${object.od_owner_id.email}</field>
+             <field name="email_cc">${object.od_branch_id.pmo_manager_id.email}</field>
+             <field name="model_id" ref="model_project_project"/>
+             <field name="body_html"><![CDATA[
+          
+          <div style="background-color: rgb(255, 255, 255);">
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear ${object.od_owner_id.name or ''},</p>
+             <p>We would like remind you about an invoice is planned for next week for the following project:</p>
+             
+             <ul>
+                    <li>Project Reference: ${object.code}  </li>
+                    <li>Project Name: ${object.name}</li>
+                    <li>Branch: ${object.od_branch_id.name}</li>
+                    <li>Customer: ${object.partner_id.name}</li><li>Project Sales Value: ${object.od_amended_sale_price}</li>
+                    <li>link:&nbsp;https://erp.betait.net/web?#id=<span style="text-align: justify;">${object.id}</span>&amp;view_type=form&amp;model=project.project&amp;menu_id=308&amp;action=390</li></ul>
+             
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Thank You</p>
+
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_planned_a0_invoice_reminder_email_template" model="email.template">
+             <field name="name">UAE - Planned A0 Invoice Reminder Mail</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Invoice Planned for Next Week - ${object.name}</field>
+             <field name="email_to">${object.od_cost_sheet_id.reviewed_id.email}</field>
+             <field name="email_cc">${object.od_branch_id.pmo_manager_id.email}</field>
+             <field name="model_id" ref="model_account_analytic_account"/>
+             <field name="body_html"><![CDATA[
+          
+          <div style="background-color: rgb(255, 255, 255);">
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear ${object.od_cost_sheet_id.reviewed_id.name or ''},</p>
+             <p>We would like remind you about an invoice is planned for next week for the following project:</p>
+             
+             <ul>
+                    <li>Project Reference: ${object.code}  </li>
+                    <li>Customer: ${object.partner_id.name}</li>
+                    <li>Project Name: ${object.od_cost_sheet_id.name}</li>
+                    <li>Branch: ${object.od_branch_id.name}</li>
+                    <li>link:&nbsp;https://erp.betait.net/web?#id=<span style="text-align: justify;">${object.id}</span>&amp;view_type=form&amp;model=account.analytic.account&menu_id=1147&action=1603</li></ul>
+             
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Thank You</p>
+
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_planned_a0_invoice_reminder_email_template_saudi" model="email.template">
+             <field name="name">KSA - Planned A0 Invoice Reminder Mail</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Invoice Planned for Next Week - ${object.name}</field>
+             <field name="email_to">${object.od_cost_sheet_id.reviewed_id.email}</field>
+             <field name="email_cc">${object.od_branch_id.pmo_manager_id.email}</field>
+             <field name="model_id" ref="model_account_analytic_account"/>
+             <field name="body_html"><![CDATA[
+          
+          <div style="background-color: rgb(255, 255, 255);">
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear ${object.od_cost_sheet_id.reviewed_id.name or ''},</p>
+             <p>We would like remind you about an invoice is planned for next week for the following project:</p>
+             
+             <ul>
+                    <li>Project Reference: ${object.code}  </li>
+                    <li>Customer: ${object.partner_id.name}</li>
+                    <li>Project Name: ${object.od_cost_sheet_id.name}</li>
+                    <li>Branch: ${object.od_branch_id.name}</li>
+                    <li>link:&nbsp;https://erp.betait.net/web?#id=<span style="text-align: justify;">${object.id}</span>&amp;view_type=form&amp;model=account.analytic.account&menu_id=1147&action=1603</li></ul>
+             
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Thank You</p>
+
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_finance_a0_invoice_reminder_email_template" model="email.template">
+             <field name="name">UAE - Finance A0 Invoice Reminder Mail</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Upcoming Invoice for Project - ${object.name}</field>
+             <field name="email_to">sami.nazzal@betait.net, ramesh.poruppath@betait.net</field>
+             <field name="email_cc">${object.od_cost_sheet_id.reviewed_id.email}, ${object.od_branch_id.pmo_manager_id.email}, mohd.sageer@betait.net</field>
+             <field name="model_id" ref="model_account_analytic_account"/>
+             <field name="body_html"><![CDATA[
+          
+          <div style="background-color: rgb(255, 255, 255);">
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear Finanace Team and Project Team,</p>
+             <p>We would like remind you about an invoice is planned for next week for the following project. Please take the necessary action.</p>
+             
+             <ul>
+                    <li>Project Reference: ${object.code}  </li>
+                    <li>Customer: ${object.partner_id.name}</li>
+                    <li>Project Name: ${object.od_cost_sheet_id.name}</li>
+                    <li>Branch: ${object.od_branch_id.name}</li>
+                    <li>link:&nbsp;https://erp.betait.net/web?#id=<span style="text-align: justify;">${object.id}</span>&amp;view_type=form&amp;model=account.analytic.account&menu_id=1147&action=1603</li></ul>
+             
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Thank You</p>
+
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_finance_a0_invoice_reminder_email_template_saudi" model="email.template">
+             <field name="name">KSA - Finance A0 Invoice Reminder Mail</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Upcoming Invoice for Project - ${object.name}</field>
+             <field name="email_to">finance.ksa@betait.net</field>
+             <field name="email_cc">${object.od_cost_sheet_id.reviewed_id.email}, ${object.od_branch_id.pmo_manager_id.email}</field>
+             <field name="model_id" ref="model_account_analytic_account"/>
+             <field name="body_html"><![CDATA[
+          
+          <div style="background-color: rgb(255, 255, 255);">
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear Finance Team and Project Team,</p>
+             <p>We would like remind you about an invoice is planned for next week for the following project. Please take the necessary action.</p>
+             
+             <ul>
+                    <li>Project Reference: ${object.code}  </li>
+                    <li>Customer: ${object.partner_id.name}</li>
+                    <li>Project Name: ${object.od_cost_sheet_id.name}</li>
+                    <li>Branch: ${object.od_branch_id.name}</li>
+                    <li>link:&nbsp;https://erp.betait.net/web?#id=<span style="text-align: justify;">${object.id}</span>&amp;view_type=form&amp;model=account.analytic.account&menu_id=1147&action=1603</li></ul>
+             
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Thank You</p>
+
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         
+         
+         
+     </data>
+</openerp>

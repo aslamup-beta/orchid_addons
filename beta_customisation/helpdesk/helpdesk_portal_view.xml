@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	    <record model="ir.ui.view" id="view_helpdesk_portal_tree_view">
+	        <field name="name">helpdesk.portal.tree</field>
+	        <field name="model">helpdesk.portal</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	            	<field name="create_date"/>
+	            	<field name="name"/>
+	            	<field name="customer_id"/>
+	            	<field name="contact_id"/>
+	            	<field name="mobile"/>
+	            	<field name="landline"/>
+	            	<field name="email"/>
+	            	<field name="priority" />
+	            	<field name="notes"/>
+	            	<field name="state"/>
+	            </tree>
+	       </field>
+	    </record>
+	    
+        <record id="helpdesk_portal_form_view" model="ir.ui.view">
+            <field name="name">helpdesk.portal.form</field>
+            <field name="model">helpdesk.portal</field>
+            <field name="arch" type="xml">
+            <form string="Portal Access to Create Helpdesk Issue">
+            <header>
+				<button name="approve_hd_issue" type="object"  string="Accept" class="oe_highlight" attrs="{'invisible':[('state','!=','send')]}" groups="orchid_beta.group_od_sd_engineer,orchid_beta.group_od_sd_mananger,__export__.res_groups_171,__export__.res_groups_196,orchid_beta.groups_beta_admin"/>
+                <button name="reject_hd_issue" type="object"  string="Reject" class="oe_highlight" attrs="{'invisible':[('state','!=','send')]}" groups="orchid_beta.group_od_sd_engineer,orchid_beta.group_od_sd_mananger,__export__.res_groups_171,__export__.res_groups_196,orchid_beta.groups_beta_admin"/>
+                
+                <field name="state" widget="statusbar" />
+            </header>
+            	<sheet>
+	    			<div class="oe_title">
+	                    <label for="name"/>
+	                    <h1>
+	                        <field name="name" required="1"/>
+	                    </h1>
+	                </div>
+                <group>
+	               <group>
+	               
+	               		<field name="customer_id" required="1" readonly="1"/>
+		               <field name="contact_id" required="1" readonly="1"/>
+		               <field name="mobile" required="1"/>
+		               <field name="landline" required="1"/>
+		               <field name="email" required="1"/>
+		                
+	               </group>	
+	               <group>
+	              		 <field name="create_date" readonly="1"/>
+	               		<field name="priority"/>
+	               		<field name="project_id" />
+	               		<field name="start_date" invisible="1"/>
+	               		<field name="end_date" invisible="1"/>
+	               		<field name="po_number" invisible="1"/>
+	               		<field name="start_date_dummy" readonly="1"/>
+	               		<field name="end_date_dummy" readonly="1"/>
+	               		<field name="po_number_dummy" readonly="1"/>
+	               		
+	               		<field name="company_id" invisible="1"/>
+	               		<field name="od_hd_issue_seq" invisible="1" />
+	        		</group>              
+                </group>
+                <group>
+                <field name="notes" required="1" placeholder="Issue Details"/>
+                
+                </group>
+                
+                <div style="color:#DE63CF;font-size:22px;">
+                	<field name="warn_string" colspan="4" attrs="{'invisible': [('warn_string','=','')]}" nolabel="1"/>
+                </div>
+                
+                <group string="Service Desk Section" col="4" groups="orchid_beta.group_od_sd_engineer,orchid_beta.group_od_sd_mananger,__export__.res_groups_171,__export__.res_groups_196,orchid_beta.groups_beta_admin">
+                
+                		
+                		<field name="deadline" />
+                		<field name="od_responsible" />
+		               <field name="od_brand_ids" widget="many2many_tags" />
+		               <field name="od_categ_id" />
+		               <field name="od_channel_id" />
+		               
+		               
+                	
+                </group>
+                <group groups="orchid_beta.group_od_sd_engineer,orchid_beta.group_od_sd_mananger,__export__.res_groups_171,__export__.res_groups_196,orchid_beta.groups_beta_admin"><field name="note_frm_sd" placeholder="Feedback from Service Desk"/></group>
+                <group string="Summary" groups="orchid_beta.group_od_sd_engineer,orchid_beta.group_od_sd_mananger,__export__.res_groups_171,__export__.res_groups_196,orchid_beta.groups_beta_admin">
+                <field name="od_summary_lines">
+                            <tree editable="bottom">
+                                <field name="date" />
+                                <field name="name" />
+                            </tree>
+                        </field>
+                </group>
+               </sheet>
+            	<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+         </record>
+         
+	     <record model="ir.actions.act_window" id="action_heldesk_portal_form">
+	        <field name="name">Create draft Helpdesk issue</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">helpdesk.portal</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	         <field name="help" type="html">
+	          <p class="oe_view_nocontent_create">
+	            Click to Create a draft Helpdesk Issue.
+	          </p>
+	        </field>
+	    </record>
+	   
+    
+     <menuitem id="od_menu_beta_helpdesk_portal" name="Portal Helpdesk" action="action_heldesk_portal_form" parent="orchid_cost_sheet.od_menu_helpdesk_sub" sequence="100"/>
+    	
+    
+    </data>
+</openerp>

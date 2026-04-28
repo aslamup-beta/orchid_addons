@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_od_split_stock_enter_transfer_details" model="ir.ui.view">
+            <field name="name">Enter transfer details</field>
+            <field name="model">stock.transfer_details</field>
+            <field name="inherit_id" ref="stock.view_stock_enter_transfer_details"/>
+            <field name="arch" type="xml">
+
+               <xpath expr="//field[@name='item_ids']/tree/field[@name='quantity']" position="after">
+                     <button name="multi_split_quantities" string="Split All" type="object" icon="STOCK_PREFERENCES" attrs="{'invisible': [('quantity', '=', 1)]}" groups="orchid_stock_report.group_split_transfer_line"/>
+             </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

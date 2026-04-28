@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+	   <record id="view_orchid_partner_form_inherit_from_orchid_beta" model="ir.ui.view">
+	            <field name="name">res.partner.inherit.beta</field>
+	            <field name="model">res.partner</field>
+	            <field name="inherit_id" ref="base.view_partner_form"/>
+	            <field name="arch" type="xml">
+					
+<!-- 	            <xpath expr='//div[@name="buttons"]' position='inside'> -->
+<!--                       <button name="od_btn_open_lots" type="object" class="oe_stat_button"  icon="fa-list"  > -->
+<!--                        <div>Serial No's</div> -->
+<!--              		</button> -->
+<!--                 </xpath> -->
+					<page string="Contacts" position="after">
+					    <page string="CADP" invisible="1">
+						     <group>
+						          <group>
+						              <field name="od_annual_it_spending" />
+						          </group>
+						          <group>
+						               <field name="od_tendering_process" />
+						          </group>
+						          <group string="Swot Analysis">
+						               <field name="od_opportunities" />
+                                       <field name="od_strengths" />
+                                       <field name="od_weakness" />
+                                       <field name="od_threats" />
+						          </group>
+						      
+						          
+						     </group>
+						     <group string="Sales Action">
+						          <field name="od_sales_action_lines" nolabel="1">
+						              <tree editable="bottom">
+						                  <field name="sales_action_type" />
+						                  <field name="objective" />
+						                  <field name="date" />
+						              </tree>
+						          
+						          </field>
+						     </group>
+					     
+					     </page>
+					 </page>
+			    </field>
+		</record>
+	
+	</data>
+</openerp>
+    

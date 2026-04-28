@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="od_airfare_encashments_tree">
+        <field name="name">od.airfare.encashments</field>
+        <field name="model">od.airfare.encashments</field>
+        <field name="priority">70</field>
+        <field name="arch" type="xml">
+            <tree>
+
+
+                         <field name="employee_id"/>
+                          <field name="amount"/>
+                
+            </tree>
+       </field>
+    </record>
+
+
+<record model="ir.ui.view" id="od_airfare_encashments_form">
+        <field name="name">od.airfare.encashments</field>
+        <field name="model">od.airfare.encashments</field>
+        <field name="priority">70</field>
+        <field name="arch" type="xml">
+            <form string="Airfare Encashments" version="7.0">
+                <header>
+
+                                         <button name="submit" type="object" 
+                          string="Submit" attrs="{'invisible':[('state', 'in', ['approved','refused','to_approve'])]}"/>
+
+<button name="set_to_draft" type="object" 
+                          string="Reset To Draft" attrs="{'invisible':[('state', 'in', ['approved', 'draft','to_approve'])]}"/>
+<button name="to_refused" type="object" 
+                          string="Refuse" attrs="{'invisible':[('state', 'in', ['draft', 'refused'])]}"/>
+                   <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,refused,approved" statusbar_colors='{"approved":"blue"}'/>
+               </header>
+               <sheet>
+
+
+                <group>
+
+
+                      <group>
+
+                         <label for="employee_id" class="oe_edit_only"/>
+                         <h2><field name="employee_id" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/></h2>
+                          <field name="amount" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                      </group>
+                     <group>
+                          <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="address_home_id"/>
+                            <field name="od_eligibility_date"/>
+
+                     </group>
+                </group>
+
+
+
+
+
+                <group>
+                 <field name="notes" class="oe_inline" placeholder="Description" /> 
+               </group>
+
+
+               </sheet>
+            </form>
+  </field>
+ </record>
+
+
+<record model="ir.actions.act_window" id="action_od_airfare_encashments_master">
+        <field name="name">Airfare Encashment Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.airfare.encashments</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','!=','approved')]</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Airfare Encashment Request. 
+          </p>
+        </field>
+    </record>
+
+
+		<record id="act_airfare_encashments_1111" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_airfare_encashments_tree"/>
+            <field name="act_window_id" ref="action_od_airfare_encashments_master"/>
+        </record>
+
+
+        <record id="act_airfare_encashments_1111_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="od_airfare_encashments_form"/>
+            <field name="act_window_id" ref="action_od_airfare_encashments_master"/>
+        </record>
+
+
+<menuitem id="menu_od_airfare_encashments" name="Airfare Encashment Request" action="action_od_airfare_encashments_master" parent="hr_holidays.menu_open_ask_holidays" sequence="41"/>
+
+
+
+ </data>
+</openerp>

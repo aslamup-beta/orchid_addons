@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+
+   <record id="od_hr_leave_form_inherit_hrms" model="ir.ui.view">
+            <field name="name">hr.holidays</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="arch" type="xml">
+                 <field name="holiday_status_id" position="after">
+                        <field name="od_leave_encashment" attrs="{'invisible':[('holiday_status_id','!=',1)],'readonly':[('state', 'in', ['approved', 'refused'])]}" group="base.group_hr_manager"/>
+
+<field name="od_ticket_required" attrs="{'invisible':[('holiday_status_id','!=',1)],'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                  </field>
+
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="od_hr_job_applicationd" model="ir.ui.view">
+        <field name="name">hr.applicant.beta</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+        <field name="arch" type="xml">
+        	<field name="partner_mobile" position="after">
+	            <field name="od_father_name" invisible="1"/>
+	            <field name="od_passport_no" invisible="1"/>
+	            <field name="od_nationality" />
+	            <field name="od_gender" />
+	            <field name="od_dob" invisible="0"/>
+	            
+	        </field>
+	        <field name="reference" position="after">
+	            
+	  			<field name="od_place_of_birth" invisible="1" />
+	            
+	        </field>
+	        <field name="priority" position="before">
+	  			<field name="second_interview_date" />
+	            
+	        </field>
+	         <xpath expr="//field[@name='partner_id']" position="attributes">
+            	<attribute name="invisible">True</attribute>
+            </xpath>
+             <xpath expr="//field[@name='type_id']" position="attributes">
+            	<attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+            	<attribute name="invisible">True</attribute>
+            </xpath>
+             <xpath expr="//field[@name='partner_phone']" position="attributes">
+            	<attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='availability']" position="attributes">
+            	<attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_ids']" position="attributes">
+            	<attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='description']" position="attributes">
+            	<attribute name="invisible">True</attribute>
+            </xpath>
+<!-- 	        <field name="emp_id" position="replace"> -->
+<!-- 	            <field name="beta_join_id" /> -->
+<!-- 	        </field> -->
+<!-- 	        <field name="job_id" position="before"> -->
+<!-- 	            <field name="od_manager_id"/> -->
+<!-- 	        </field> -->
+<!--            <button name="create_employee_from_applicant" position="replace"> -->
+<!--                 <button string="Create Employee" name="create_joining_form" type="object" -->
+<!--                                     class="oe_link oe_inline" style="margin-left: 8px;" -->
+<!--                                     attrs="{'invisible': [('emp_id', '!=', False)]}"/>  -->
+<!--            </button> -->
+           <xpath expr="//field[@name='description']" position="after">
+           <notebook>
+           <page string="First Interview Details">
+           <field name="feedback1" />
+           
+           </page>
+           <page string="Second Interview Details">
+           <field name="feedback2" />
+           
+           </page>
+           
+		     <page string="Manager Details" attrs="{'invisible': [('stage_id','!=', 5)]}" >
+	                <group>
+	               <group string="Public Info (To be Filled by Manager)">
+	               		<field name="od_work_email" />
+<!-- 	                   <field name="department_id" attrs="{'required': [('state','=','manager')]}"/> -->
+<!-- 	                   <field name="job_id" attrs="{'required': [('state','=','manager')]}"/> -->
+	                   <field name="od_manager_id" />
+	                   <field name="od_coach_id" />
+	                   <field name="od_manager1_id" />
+	                   <field name="od_manager2_id" />
+	                   <field name="od_joining_date" />
+	               </group>
+	               </group>
+	               </page >
+	               <page string="HR/Finance Details" attrs="{'invisible': [('stage_id','!=', 5)]}">
+	               <group>
+	               <group string="Contract Info (To be filled by Finance)">
+	                   <field name="od_type_id" />
+	                   <field name="od_mode_of_pay_id" />
+	                   <field name="od_total_wage" />
+	                   <field name="od_basic_wage" />
+	                   <field name="od_allowance_rule_line_ids" nolabel="1" colspan="2">
+		                    <tree editable="bottom">
+		                        <field name="rule_type" on_change="onchange_rule_type(rule_type)" required="1" domain="[('category_id.code','in',('ALW','DED'))]" />
+		                        <field name="code"/>
+		                        <field name="amt"/>
+		                    </tree>
+            </field>
+	                   <field name="od_work_sched" />
+	                   <field name="od_salary_struct" />
+	                   <field name="od_analytic_account_id"/>
+	                 <!--   <field name="work_hrs" required="1"/>
+	                   <field name="schedule_pay" required="1"/>
+	                   <field name="journal_id" required="1"/>
+	                   <field name="audit_temp_id" /> -->
+	               </group>
+	               <group string="HR Settings (To be filled by Finance)">
+	                   <field name="od_branch_id" />
+	                   <field name="od_tech_dept_id" />
+	                   <field name="od_pay_salary_during_annual_leave" />
+	                   <field name="od_cost_centre_id" />
+	              </group>
+                </group>
+		     </page>  
+		    
+
+		 </notebook>
+		 </xpath>
+           
+        </field>
+        </record>
+    </data>
+</openerp>

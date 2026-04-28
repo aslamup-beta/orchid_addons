@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_company" name="Company" sequence="0"/>
+        <menuitem id="menu_company_sub" name="Company" parent="menu_company" sequence="100"/>
+
+        <record model="ir.ui.view" id="od_beta_structures_tree">
+            <field name="name">beta.structures.tree</field>
+            <field name="model">beta.structures</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_structures_form">
+            <field name="name">beta.structures.form</field>
+            <field name="model">beta.structures</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <label for="name"/>
+                            <h2>
+                                <field name="name"/>
+                            </h2>
+                            <field name="company_id"/>
+                        </group>
+                        <field name="image" widget="image" nolabel="1"/>
+                        <group string="Description">
+                            <field name="description" widget="html" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_beta_structures">
+            <field name="name">Structure</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">beta.structures</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new Structure.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_role_desc_tree">
+            <field name="name">role.description.tree</field>
+            <field name="model">role.description</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_role_desc_form">
+            <field name="name">role.description.form</field>
+            <field name="model">role.description</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <label for="name"/>
+                            <h2>
+                                <field name="name"/>
+                            </h2>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="eng_video" widget="url"/>
+                            <field name="arb_video" widget="url"/>
+                        </group>
+                        <field name="image" widget="image" nolabel="1"/>
+                        <group string="Description">
+                            <field name="description" widget="html" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_beta_role_desc">
+            <field name="name">Role Description</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">role.description</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new Role Description.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_procedures_tree">
+            <field name="name">beta.procedures.tree</field>
+            <field name="model">beta.procedures</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_procedures_form">
+            <field name="name">beta.procedures.form</field>
+            <field name="model">beta.procedures</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <label for="name"/>
+                            <h2>
+                                <field name="name"/>
+                            </h2>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="eng_video" widget="url"/>
+                            <field name="arb_video" widget="url"/>
+                        </group>
+                        <field name="image" widget="image" nolabel="1"/>
+                        <group string="Description">
+                            <field name="description" widget="html" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_beta_procedures">
+            <field name="name">Procedures</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">beta.procedures</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new Procedure.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_kpis_tree">
+            <field name="name">beta.kpi.tree</field>
+            <field name="model">beta.kpi</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_kpis_form">
+            <field name="name">beta.kpi.form</field>
+            <field name="model">beta.kpi</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <label for="name"/>
+                            <h2>
+                                <field name="name"/>
+                            </h2>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="eng_video" widget="url"/>
+                            <field name="arb_video" widget="url"/>
+                        </group>
+                        <!--                   	<field name="image" widget="image" nolabel="1" invisible="1"/> -->
+                        <group string="Description">
+                            <field name="description" widget="html" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_beta_kpis">
+            <field name="name">KPIs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">beta.kpi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new KPIs.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_docs_tree">
+            <field name="name">beta.docs.tree.view</field>
+            <field name="model">beta.docs</field>
+            <field name="arch" type="xml">
+                <tree string="General Documents" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" required="1"/>
+                    <field name="attach_file" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="issue_date" invisible="1"/>
+                    <field name="expiry_date" required="1"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_beta_docs">
+            <field name="name">General Documents</field>
+            <field name="res_model">beta.docs</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_docs_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_videos_tree">
+            <field name="name">beta.videos.tree.view</field>
+            <field name="model">beta.videos</field>
+            <field name="arch" type="xml">
+                <tree string="Beta Documents" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" required="1"/>
+                    <field name="url" required="1"/>
+                    <field name="url2" widget="url"/>
+                    <field name="issue_date"/>
+                    <field name="expiry_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_beta_videos">
+            <field name="name">Video Trainings</field>
+            <field name="res_model">beta.videos</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_videos_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_sale_temp_tree">
+            <field name="name">od.sale.temp.tree.view</field>
+            <field name="model">od.sale.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Government Documents" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name1" required="1"/>
+
+                    <field name="temp1" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="expiry_date" required="1"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_od_beta_sale_temp">
+            <field name="name">Government Documents</field>
+            <field name="res_model">od.sale.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_sale_temp_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_presale_temp_tree">
+            <field name="name">od.presale.temp.tree.view</field>
+            <field name="model">od.presale.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Template-PreSales" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name2" required="1"/>
+
+                    <field name="temp2" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_od_beta_presale_temp">
+            <field name="name">Template-PreSales</field>
+            <field name="res_model">od.presale.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_presale_temp_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_postsale_temp_tree">
+            <field name="name">od.postsale.temp.tree.view</field>
+            <field name="model">od.postsale.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Template-PostSales" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name3" required="1"/>
+
+                    <field name="temp3" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_od_beta_postsale_temp">
+            <field name="name">Template-PostSale</field>
+            <field name="res_model">od.postsale.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_postsale_temp_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_service_temp_tree">
+            <field name="name">od.service.temp.tree.view</field>
+            <field name="model">od.service.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Template-Service" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name4" required="1"/>
+
+                    <field name="temp4" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_od_beta_service_temp">
+            <field name="name">Template-Service</field>
+            <field name="res_model">od.service.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_service_temp_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_proj_temp_tree">
+            <field name="name">od.proj.temp.tree.view</field>
+            <field name="model">od.proj.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Template-Sales" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name5" required="1"/>
+
+                    <field name="temp5" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_od_beta_proj_temp">
+            <field name="name">Template-Projects</field>
+            <field name="res_model">od.proj.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_proj_temp_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_hr_temp_tree">
+            <field name="name">od.hr.temp.tree.view</field>
+            <field name="model">od.hr.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Template-HR" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name6" required="1"/>
+
+                    <field name="temp6" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_od_beta_hr_temp">
+            <field name="name">Template-HR</field>
+            <field name="res_model">od.hr.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_hr_temp_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_msp_temp_tree">
+            <field name="name">od.msp.temp.tree.view</field>
+            <field name="model">od.msp.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Template-MSP" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name7" required="1"/>
+
+                    <field name="temp7" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_od_beta_msp_temp">
+            <field name="name">Template-MSP</field>
+            <field name="res_model">od.msp.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_msp_temp_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_beta_governance_temp_tree">
+            <field name="name">od.governance.temp.tree.view</field>
+            <field name="model">od.governance.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Company Governance" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name8" required="1"/>
+
+                    <field name="temp8" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_od_beta_governance_temp">
+            <field name="name">Company Governance</field>
+            <field name="res_model">od.governance.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_beta_governance_temp_tree"/>
+        </record>
+        <record model="ir.ui.view" id="od_infosec_temp_tree">
+            <field name="name">od.infosec.temp.tree.view</field>
+            <field name="model">od.infosec.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Template-InfoSec" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name9" required="1"/>
+
+                    <field name="temp9" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="expiry_date" required="1"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_od_infosec_temp">
+            <field name="name">Template-InfoSec</field>
+            <field name="res_model">od.infosec.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_infosec_temp_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="od_vendor_temp_tree">
+            <field name="name">od.vendor.temp.tree.view</field>
+            <field name="model">od.vendor.temp</field>
+            <field name="arch" type="xml">
+                <tree string="Templates - Vendor Management" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="vendor_id"/>
+                    <field name="name10" required="1"/>
+                    <field name="temp10" filename="attach_fname"/>
+                    <field name="attach_fname"/>
+                    <field name="expiry_date"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_vendor_temp_search">
+            <field name="name">od.vendor.temp.search</field>
+            <field name="model">od.vendor.temp</field>
+            <field name="arch" type="xml">
+                <search string="Templates - Vendor Management">
+                    <field name="vendor_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_vendor" string="Vendor" domain="[]" context="{'group_by':'vendor_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_vendor_temp">
+            <field name="name">Templates - Vendor Management</field>
+            <field name="res_model">od.vendor.temp</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="od_vendor_temp_search"/>
+            <field name="view_id" ref="od_vendor_temp_tree"/>
+            <field name="context">{"search_default_group_by_vendor" : True}</field>
+
+        </record>
+
+
+<!--        <record model="ir.ui.view" id="employee_certificate_line_inherit">-->
+<!--            <field name="name">employee.certificate.line.inherit</field>-->
+<!--            <field name="model">od.hr.employee.certificate.line</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="Career Certificates">-->
+<!--                    <field name="employee_id"/>-->
+<!--                    <field name="document_type_id"/>-->
+<!--                    <field name="document_referance" string="Name"/>-->
+<!--                    <field name="attach_file" filename="attach_fname"/>-->
+<!--                    <field name="attach_fname" invisible="1"/>-->
+<!--                    <field name="issue_date"/>-->
+<!--                    <field name="expiry_date" required="1"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record model="ir.ui.view" id="employee_certificate_line_search2">-->
+<!--            <field name="name">employee.certificate.line.search2</field>-->
+<!--            <field name="model">od.hr.employee.certificate.line</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Career Certificates">-->
+<!--                    <field name="employee_id"/>-->
+<!--                    <field name="document_type_id"/>-->
+<!--                    <group expand="0" string="Group By">-->
+<!--                        <filter name="group_by_employee" string="Employee" domain="[]" context="{'group_by':'employee_id'}"/>-->
+<!--                        <filter name="group_by_document_type" string="Document Type" domain="[]" context="{'group_by':'document_type_id'}"/>-->
+<!--                    </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record model="ir.actions.act_window" id="action_employee_certificate_line_2">-->
+<!--            <field name="name">Career Certificates</field>-->
+<!--            <field name="res_model">od.hr.employee.certificate.line</field>-->
+<!--            <field name="view_mode">tree</field>-->
+<!--            <field name="search_view_id" ref="employee_certificate_line_search2"/>-->
+<!--            <field name="view_id" ref="employee_certificate_line_inherit"/>-->
+<!--            <field name="context">{"search_default_group_by_employee" : True}</field>-->
+<!--        </record>-->
+
+
+        <menuitem id="od_menu_beta_structure" name="Structure" action="action_od_beta_structures"
+                  parent="beta_procedures.menu_company_sub" sequence="1"/>
+        <menuitem id="od_menu_role_description" name="Role Description" action="action_od_beta_role_desc"
+                  parent="beta_procedures.menu_company_sub" sequence="2"/>
+        <menuitem id="od_menu_beta_procedures" name="Procedures" action="action_od_beta_procedures"
+                  parent="beta_procedures.menu_company_sub" sequence="3"/>
+        <menuitem id="od_menu_beta_kpis" name="KPIs" action="action_od_beta_kpis"
+                  parent="beta_procedures.menu_company_sub" sequence="4"/>
+        <menuitem id="od_menu_beta_docs" name="General Documents" action="action_od_beta_docs"
+                  parent="beta_procedures.menu_company_sub" sequence="5"/>
+        <menuitem id="od_menu_beta_sales_temp" name="Government Documents" action="action_od_beta_sale_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="6"/>
+        <menuitem id="od_menu_beta_presales_temp" name="Templates - PreSales" action="action_od_beta_presale_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="7"/>
+        <menuitem id="od_menu_beta_postsales_temp" name="Templates - PostSales" action="action_od_beta_postsale_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="8"/>
+        <menuitem id="od_menu_beta_service_temp" name="Templates - Services" action="action_od_beta_service_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="9"/>
+        <menuitem id="od_menu_beta_proj_temp" name="Templates - Projects" action="action_od_beta_proj_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="10"/>
+        <menuitem id="od_menu_beta_hr_temp" name="Templates - HR" action="action_od_beta_hr_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="11"/>
+        <menuitem id="od_menu_infosec_temp" name="Templates - InfoSec" action="action_od_infosec_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="12"/>
+        <menuitem id="od_menu_vendor_temp" name="Templates - Vendor Management" action="action_od_vendor_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="13"/>
+        <menuitem id="od_menu_beta_msp_temp" name="Templates - MSP" action="action_od_beta_msp_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="14"/>
+        <menuitem id="od_menu_beta_governance_temp" name="Company Governance" action="action_od_beta_governance_temp"
+                  parent="beta_procedures.menu_company_sub" sequence="15"/>
+        <menuitem id="od_menu_beta_videos" name="Video Trainings" action="action_od_beta_videos"
+                  parent="beta_procedures.menu_company_sub" sequence="16"/>
+<!--        <menuitem id="menu_employee_certificate_line_2" name="Career Certificates"-->
+<!--                  action="action_employee_certificate_line_2"-->
+<!--                  parent="beta_procedures.menu_company_sub" sequence="16"/>-->
+
+
+    </data>
+</openerp>

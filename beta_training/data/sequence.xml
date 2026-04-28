@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record model="ir.sequence.type" id="seq_type_od_assign_training">
+            <field name="name">Assign Training</field>
+            <field name="code">od.assign.training</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_od_assign_training">
+            <field name="name">Assign Training</field>
+            <field name="code">od.assign.training</field>
+            <field name="prefix">KSA/TRN/%(year)s/</field>
+            <field name="padding">3</field>
+            <!--        <field name="company_id" eval="6"/>-->
+        </record>
+
+
+        <record model="ir.sequence.type" id="seq_type_od_assign_training_uae">
+            <field name="name">Assign Training UAE</field>
+            <field name="code">od.assign.training.uae</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_od_assign_training_uae">
+            <field name="name">Assign Training UAE</field>
+            <field name="code">od.assign.training.uae</field>
+            <field name="prefix">UAE/TRN/%(year)s/</field>
+            <field name="padding">3</field>
+            <!--        <field name="company_id" eval="6"/>-->
+        </record>
+
+        <record id="training_certificate_paper_format" model="report.paperformat">
+            <field name="name">Training Certificate Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+    </data>
+</openerp>

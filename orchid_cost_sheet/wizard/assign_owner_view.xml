@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_assign_owner_form" model="ir.ui.view">
+            <field name="name">Assingn owner costsheet</field>
+            <field name="model">wiz.assign.owner</field>
+            <field name="arch" type="xml">
+                <form string="Assign Owner" >
+                    <group string="Assign Owner">
+                        <field name="reviewer_id" context="{'project_manager':1}"/>
+                    </group>
+                <footer>
+                  <button name="assign_owner" string="Assign" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="assign_owner_action" model="ir.actions.act_window">
+            <field name="name">Assign Owner</field>
+            <field name="res_model">wiz.assign.owner</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

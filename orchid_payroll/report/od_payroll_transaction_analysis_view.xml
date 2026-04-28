@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <record id="od_payroll_transaction_analysis_graph" model="ir.ui.view">
+         <field name="name">od.payroll.transaction.analysis.view.graph</field>
+         <field name="model">od.payroll.transaction.analysis.view</field>
+         <field name="arch" type="xml">
+             <graph string="Payroll Transaction" type="pivot">
+                 <field name="employee_id" type="row"/>
+                 <field name="date"/>
+                 <field name="period_id"/>
+
+                 <field name="description"/>
+                 <field name="product_id"/>
+
+
+                 <field name="transaction_note_id"/>
+                 <field name="allowance"/>
+
+                 <field name="deduction"/>
+                 <field name="state"/>
+          
+             </graph>
+         </field>
+    </record>
+
+
+
+    <record id="od_payroll_transaction_analysis_tree" model="ir.ui.view">
+         <field name="name">od.payroll.transaction.analysis.view.tree</field>
+         <field name="model">od.payroll.transaction.analysis.view</field>
+         <field name="arch" type="xml">
+             <tree string="Payroll Transaction">
+                 <field name="employee_id" />
+                 <field name="date"/>
+                 <field name="period_id"/>
+
+                 <field name="description"/>
+                 <field name="product_id"/>
+
+
+                 <field name="transaction_note_id"/>
+                 <field name="allowance"/>
+
+                 <field name="deduction"/>
+                 <field name="state"/>
+          
+             </tree>
+         </field>
+    </record>
+
+
+
+
+    <record id="od_payroll_transaction_analysis_search" model="ir.ui.view">
+        <field name="name">od.payroll.transaction.analysis.view.search</field>
+        <field name="model">od.payroll.transaction.analysis.view</field>
+        <field name="arch" type="xml">
+            <search string="Payroll Transaction Analysis">
+            
+                <field name="employee_id"/>
+                <field name="period_id"/>
+               
+
+                <group expand="1" string="Group By">
+                    <filter string="Employee" icon="terp-personal" name="employee" context="{'group_by':'employee_id'}"/>
+                    <filter string="Period" name="Period" context="{'group_by':'period_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_od_payroll_transaction_analysis" model="ir.actions.act_window">
+        <field name="name">Payroll Transaction Analysis</field>
+        <field name="res_model">od.payroll.transaction.analysis.view</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph,tree</field>
+        <field name="search_view_id" ref="od_payroll_transaction_analysis_search"/>
+        <field name="view_id" ref="od_payroll_transaction_analysis_graph"/>
+        <field name="context">{}</field>
+        <field name="help"></field>
+    </record>
+
+ <menuitem action="action_od_payroll_transaction_analysis" id="menu_od_payroll_transaction" parent="hr.menu_hr_reporting" sequence="2"/>
+    </data>
+</openerp>

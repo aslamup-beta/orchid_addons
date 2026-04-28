@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+         <record id="orchid_cost_sheet_invoice_inherit_view" model="ir.ui.view">
+          <field name="name">orchid.invoice.costsheet.form.view</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_form" />
+          <field name="arch" type="xml">
+          
+          <field name="move_id" position="after">
+          	 <field name="od_original_invoice_id"        
+            attrs="{'invisible':[('type','not in',('in_refund','out_refund'))]}" />
+          </field>
+          <field name="move_id" position="before">
+          	 <field name="od_part_ref"/>
+          </field>
+          <xpath expr="/form/sheet/notebook/page[@string='Other Info']/group/group/field[@name='name']" position="attributes">
+             <attribute name="invisible">True</attribute>
+          </xpath>
+          
+             <xpath expr="//notebook[last()]" position="inside">
+                <page string="Cost Sheet">
+                   <group>
+                        <group>
+                             <field name="od_cost_sheet_id" />
+                             
+                             <!-- <field name="od_cost_centre_id" />
+                            <field name="od_branch_id" />
+                            <field name="od_division_id" /> -->
+                            <field name="fin_approved_date" />
+                            <field name="od_closing_date" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="lead_id" />
+                            <field name="od_sale_team_id" />
+                            <field name="op_stage_id" />
+                            <field name="op_expected_booking" />
+                            
+                        </group>
+                      </group>
+                </page>
+             </xpath>
+          
+          </field>
+          </record>
+          
+          
+        <record id="orchid_cost_sheet_invoice_sup_inherit_view" model="ir.ui.view">
+          <field name="name">orchid.invoice.costsheet.form.view</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_supplier_form" />
+          <field name="arch" type="xml">
+          
+          <field name="move_id" position="after">
+          	 <field name="od_original_invoice_id"        
+            attrs="{'invisible':[('type','not in',('in_refund','out_refund'))]}" />
+          </field>
+          </field>
+         </record>
+    
+    </data>
+</openerp>

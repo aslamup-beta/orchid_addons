@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_hr_holidays_beta_custom" model="ir.ui.view">
+            <field name="name">hr.holidays.custom.beta.form</field>
+            <field name="model">hr.holidays</field>
+            <field name="priority">14</field>
+            <field name="arch" type="xml">
+                <form string="Employee Vacation Form">
+                    <header>
+                        <button string="Confirm" name="confirm" states="draft" type="workflow" class="oe_highlight"/>
+                        <button string="Approve" name="validate" states="confirm" type="workflow"
+                                groups="orchid_beta.group_executive_management_beta_1,__export__.res_groups_186,orchid_beta.group_beta_hr_officers,__export__.res_groups_188,__export__.res_groups_192,__export__.res_groups_193,__export__.res_groups_196,__export__.res_groups_222,__export__.res_groups_172,__export__.res_groups_227"
+                                class="oe_highlight"/>
+                        <button string="Validate" name="second_validate" states="validate1" type="workflow"
+                                groups="orchid_beta.group_executive_management_beta_1,__export__.res_groups_186,__export__.res_groups_188,__export__.res_groups_192,orchid_beta.group_buisiness_development_mananger,__export__.res_groups_171,orchid_beta.group_beta_hr_officers,__export__.res_groups_257"
+                                class="oe_highlight"/>
+                        <button string="Refuse" name="refuse" states="confirm,validate,validate1" type="workflow"
+                                groups="__export__.res_groups_186,orchid_beta.group_beta_hr_officers,__export__.res_groups_188,__export__.res_groups_192,__export__.res_groups_193,__export__.res_groups_196,__export__.res_groups_227,orchid_beta.groups_beta_admin,__export__.res_groups_245"/>
+                        <button string="Reset to Draft" name="reset" type="workflow"
+                                attrs="{'invisible': ['|', ('can_reset', '=', False), ('state', 'not in', ['confirm', 'refuse'])]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate"
+                               statusbar_colors="{&quot;confirm&quot;:&quot;blue&quot;,&quot;validate1&quot;:&quot;blue&quot;,&quot;refuse&quot;:&quot;red&quot;}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Description" required="1"/>
+                                <field name="holiday_status_id" context="{'employee_id':employee_id}"
+                                       on_change="od_onchange_holiday_status_id(holiday_status_id, employee_id,date_from)"/>
+
+
+                                <field name="date_from" attrs="{'invisible':[('holiday_status_id','!=',5)]}"
+                                       on_change="od_onchange_holiday_status_id(holiday_status_id, employee_id,date_from)"/>
+                                <field name="date_to" attrs="{'invisible':[('holiday_status_id','!=',5)]}"
+                                       on_change="od_onchange_holiday_status_id(holiday_status_id, employee_id,date_from)"/>
+                                <field name="od_remark" attrs="{'invisible':[('holiday_status_id','!=',5)]}"
+                                       placeholder="Remarks...."/>
+                                <field name="od_hour" widget="float_time"
+                                       attrs="{'invisible':[('holiday_status_id','!=',5)]}"/>
+                                <field name="od_start" string="Start Date"
+                                       attrs="{'invisible':[('holiday_status_id','=',5)],'required':[('holiday_status_id','!=',5)],'readonly':[('state','not in',('draft','confirm'))]}"/>
+                                <field name="od_end" string="End Date"
+                                       attrs="{'invisible':[('holiday_status_id','=',5)],'required':[('holiday_status_id','!=',5)],'readonly':[('state','not in',('draft','confirm'))]}"/>
+                                <field name="number_of_days_temp" string="Number of Days" invisible="1"/>
+                                <field name="od_number_of_days" string="Number of Days" readonly="1"
+                                       attrs="{'invisible':[('holiday_status_id','=',5)]}"/>
+                                <field name="od_resumption_date" string="Resumption Date"
+                                       attrs="{'invisible':[('allow_resumption','=',False)]}"/>
+                                <field name="allow_resumption" invisible="1"/>
+                                <field name="ignore_exception" invisible="1"/>
+                                <!--<div style="color:#7D376A;font-size:21px;">
+                                    <field name="vac_terms" colspan="4"/>
+                                </div>-->
+
+                            </group>
+
+                            <group>
+
+                                <field name="type" invisible="1"/>
+                                <field name="can_reset" invisible="1"/>
+                                <field name="holiday_type" on_change="onchange_type(holiday_type)"
+                                       attrs="{'readonly':[('type', '=', 'remove'),('state','!=','draft')]}"
+                                       string="Mode" groups="base.group_hr_user" context="{'employee_id':employee_id}"
+                                       colspan="4"/>
+                                <field name="employee_id"
+                                       attrs="{'required':[('holiday_type','=','employee')],'invisible':[('holiday_type','=','category')]}"
+                                       on_change="onchange_employee(employee_id)" groups="base.group_hr_user"
+                                       colspan="4"/>
+                                <field name="category_id"
+                                       attrs="{'required':[('holiday_type','=','category')], 'readonly': [('type', '=', 'remove'),('state','!=','draft'), ('state','!=','confirm')], 'invisible':[('holiday_type','=','employee')]}"
+                                       colspan="4"/>
+                                <field name="department_id"
+                                       attrs="{'readonly':['|', ('type','=','add'),('holiday_type','=','category')],'invisible':[('holiday_type','=','category')]}"
+                                       groups="base.group_hr_user" colspan="4"/>
+
+
+                                <field name="od_leave_eligible" readonly="1" invisible="1"/>
+                                <field name="od_total_leave_taken_invisible" invisible="1"/>
+                                <field name="od_leave_eligible_invisible" invisible="1"/>
+                                <field name="od_total_leave_taken" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <!--<div style="color:#7D376A;font-size:21px;">
+
+                                    <field name="vac_terms_ar" style="direction: rtl;" nolabel="1" colspan="4"/>
+                                </div>-->
+
+
+                            </group>
+
+                        </group>
+                        <separator style="color:#BA2929;font-size:21px;" string="Note:- Leaves cannot be transferred to the next year."
+                                   attrs="{'invisible': [('holiday_status_id','!=', 1)]}"/>
+                        <separator style="color:#7D376A;font-size:21px;" string="Terms &amp; Conditions"
+                                   attrs="{'invisible': [('company_id','!=', 6)]}"/>
+                        <div attrs="{'invisible': [('company_id','!=', 6)]}">
+                            <field name="vac_terms" colspan="4" readonly="1"/>
+                        </div>
+                        <div attrs="{'invisible': [('company_id','!=', 6)]}">
+
+                            <field name="vac_terms_ar" style="direction: rtl;text-align:right;" nolabel="1" colspan="4"
+                                   readonly="1"/>
+                        </div>
+
+
+                        <div style="color:#7D376A;font-size:21px;">
+                            <field name="od_warn2" colspan="4" attrs="{'invisible': [('od_warn2','=','')]}"
+                                   nolabel="1"/>
+                            <separator/>
+                            <field name="od_warning" colspan="4" attrs="{'invisible': [('od_warning','=','')]}"
+                                   nolabel="1"/>
+
+                        </div>
+
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_holidays_status_form_inherit_company" model="ir.ui.view">
+            <field name="name">hr.holidays.status.form.inherit.company</field>
+            <field name="model">hr.holidays.status</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="company_id" groups="orchid_beta.group_beta_workers"/>
+                    <!--<field name="vac_terms" nolabel="1" colspan="4"
+                                   placeholder="Please provide the terms and condition"
+                            />-->
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Terms &amp; Conditions (KSA)">
+                        <separator string="Terms In English"/>
+                        <field name="vac_terms" colspan="4"
+                               placeholder="Please provide the terms and condition"
+                        />
+                        <separator string="Terms In Arabic"/>
+                        <field name="vac_terms_ar" style="direction: rtl;" nolabel="1" colspan="4"
+                               placeholder="Please provide the terms and condition in arabic"
+                        />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	    <record model="ir.ui.view" id="view_beta_loan_salaf_tree_view">
+	        <field name="name">beta.loan.salaf.tree</field>
+	        <field name="model">beta.loan.salaf</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	            	<field name="name"/>	            	
+	            	<field name="job_id" />
+	            	<field name="emp_id"/>
+<!-- 	            	<field name="loan_amount"/> -->
+<!-- 	            	<field name="purpose"/> -->
+	            	<field name="state"/>
+	            	
+	            </tree>
+	       </field>
+	    </record>
+	    
+        <record id="view_beta_loan_salaf_form_view" model="ir.ui.view">
+            <field name="name">beta.loan.salaf.form</field>
+            <field name="model">beta.loan.salaf</field>
+            <field name="arch" type="xml">
+            <form string="SALAF Internal Procedure">
+            <header>
+				<button name="send_to_hr" type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=', 'draft')]}" string="Submit for Reviewal" />
+				<button name="send_to_finance" type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=', 'hr')]}" string="Proceed To Finance" />
+				<button name="od_confirm" type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=', 'finance')]}" string="Finance Approval" groups="__export__.res_groups_186, orchid_beta.groups_beta_admin"/>
+				<button name="reject_request" type="object" string="Reject" attrs="{'invisible':[('state', 'not in', ('manager','hr','finance'))]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,hr,finance,confirm" statusbar_colors='{"confirm":"blue"}'/>
+            </header>
+            <sheet>
+            	<div class="oe_title">
+	                 <label for="name" class="oe_edit_only"/>
+	                 <h1>
+	                     <field name="name" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>
+	                 </h1>
+	                 <label for="work_email" class="oe_edit_only"/>
+	                 <field name="work_email" widget="email" attrs="{'required': [('state','=','draft')],'readonly':[('state','!=','draft')]}"/>
+
+                 </div>
+            	
+                <group> 
+	               <group>
+	               		<field name="job_id" attrs="{'required': [('state','=','draft')],'readonly':[('state','!=','draft')]}"/>
+	                   <field name="department_id" attrs="{'required': [('state','=','draft')],'readonly':[('state','!=','draft')]}"/>
+	                   <field name="manager_id" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>
+	                   <field name="branch_id" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>	                    
+	                   <field name="joining_date" readonly ="1"/> 
+	                    
+	               </group>	 
+	               <group>  
+	               		<field name="create_date" readonly="1" />     
+	               		<field name="govt_id" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>       
+	               	   <field name="emp_id" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>
+	               	   <field name="passport_no" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>
+	                   <field name="lab_no" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>
+	                  
+	               </group>
+                </group>
+                
+                <group string="Loan Details"> 
+	               <group>
+	               		<field name="loan_amount" attrs="{'required': [('state','=','draft')],'readonly':[('state','=','confirm')]}"/>    
+	               		<field name="monthly_salary" invisible="1"/>   
+	               		<field name="monthly_instalment" attrs="{'required': [('state','=','draft')],'readonly':[('state','=','confirm')]}"/>
+	                    <field name="purpose" attrs="{'required': [('state','=','draft')],'readonly':[('state','!=','draft')]}"/> 
+	                    
+	               </group>	 
+	               <group > 
+	               		<field name="repay_period" readonly="1" /> 
+	               		<field name="start_date" attrs="{'required': [('state','not in',('draft', 'hr'))], 'invisible': [('state','in',('draft', 'hr'))], 'readonly':[('state','=','confirm')]}"/> 
+	               		<field name="end_date" attrs="{'required': [('state','not in',('draft', 'hr'))], 'invisible': [('state','in',('draft', 'hr'))], 'readonly':[('state','=','confirm')]}"/>     
+	               		
+	               </group>
+	               		<field name="other_purpose" attrs="{'invisible': [('purpose','!=','others')], 'required': [('purpose','=','others')]}" string="For Others, please specify the details." colspan="4"/>
+                </group>
+                
+                 <notebook>
+                    <page string="Terms &amp; Conditions">
+                    
+                    <separator/>
+							 <field name="loan_terms" colspan="4" />
+							
+							<div>
+							<field name="company_authorize" required= "1" colspan="4" /> I authorize the company, in accordance with the terms and conditions of this loan agreement, to deduct the specified installment amount from my monthly salary.
+							<br></br>
+							<field name="accept_terms" required= "1" colspan="4" /> I accept the terms and conditions.
+							</div>
+							<br></br>
+					<group col="3" string="Logs">                 
+	                      
+	                       <group>
+	                      	<field name="h_approved_by" invisible="1"/>
+	                      	<field name="h_review" readonly="1"/>
+	                      	<field name="h_appr_date" readonly="1"/>
+	                      </group>
+	                      <group>
+	                      	<field name="f_approved_by" invisible="1"/>
+	                      	<field name="f_review" readonly="1"/>
+	                      	<field name="f_appr_date" readonly="1"/>
+	                      </group>
+                       </group>
+                    </page>
+                    
+                              
+                </notebook>
+               </sheet>
+               
+            	<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+         </record>
+         
+        <record model="ir.actions.act_window" id="action_beta_loan_salaf">
+        <field name="name">Beta IT Loan Assistance Program (SALAF)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">beta.loan.salaf</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new loan approval from Beta
+          </p>
+        </field>
+    </record>
+    
+     <menuitem id="od_menu_beta_loan_salaf" name="Beta Loan Assist. (SALAF)" action="action_beta_loan_salaf" parent="orchid_hrms.menu_od_hr_documents" sequence="100"/>
+    
+    
+    </data>
+</openerp>

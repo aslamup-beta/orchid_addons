@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <record model="ir.ui.view" id="view_costsheet_attachement_inherit">
+          <field name="name">od.attachement.tree.inherit</field>
+          <field name="model">od.attachement</field>
+          <field name="inherit_id" ref="orchid_attachement.od_attachement_tree"/>
+          <field name="arch" type="xml">
+              <field name="expiry_date" position="after">
+                  <field name="owner_feedback_id" />
+                  <field name="finance_feedback_id" />
+                  <field name="costsheet_doc" invisible="1"/>
+              </field>
+          </field>
+      </record>
+    </data>
+</openerp>

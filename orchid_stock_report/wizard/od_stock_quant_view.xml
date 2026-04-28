@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_od_stock_quant_tree" model="ir.ui.view">
+            <field name="name">od.stock.quant.report.tree</field>
+            <field name="model">od.stock.quant.report</field>
+            <field name="arch" type="xml">
+                <tree string="Quant Report">
+                   <field name="product_id" />
+                   <field name="qty" />
+                   <field name="lot_id" />
+                   <field name="location_id" />
+                   <field name="in_date" />
+                   <field name="product_categ_id" />
+                   <field name="od_pdt_group_id" />
+                   <field name="od_pdt_sub_group_id" />
+                   <field name="od_pdt_brand_id" />
+                   <field name="od_pdt_classification_id" />
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_od_stock_quant_form" model="ir.ui.view">
+            <field name="name">od.stock.quant.report.form</field>
+            <field name="model">od.stock.quant.report</field>
+            <field name="arch" type="xml">
+                <form string="Quant Report">
+                <group>
+                   <field name="product_id" />
+                   <field name="qty" />
+                   <field name="lot_id" />
+                   <field name="location_id" />
+                   <field name="in_date" />
+                   <field name="product_categ_id" />
+                   <field name="od_pdt_group_id" />
+                   <field name="od_pdt_sub_group_id" />
+                   <field name="od_pdt_brand_id" />
+                   <field name="od_pdt_classification_id" />
+                 </group>
+                </form>
+            </field>
+        </record>
+
+         <record id="view_od_stock_quant_graph" model="ir.ui.view">
+            <field name="name">od.stock.quant.report.graph</field>
+            <field name="model">od.stock.quant.report</field>
+            <field name="arch" type="xml">
+                <graph string="Quant Report" type="pivot">
+                   <field name="product_categ_id" type="col" />
+                   <field name="location_id" type="row" />
+                    <field name="qty" type="measure" />
+                       <field name="cost" type="measure" />
+                </graph>
+            </field>
+        </record>
+
+
+<!--No cost-->
+
+         <record id="view_od_stock_quant_no_cost_graph" model="ir.ui.view">
+            <field name="name">od.stock.quant.report.no.cost.graph</field>
+            <field name="model">od.stock.quant.report.no.cost</field>
+            <field name="arch" type="xml">
+                <graph string="Quant Report" type="pivot">
+                   <field name="product_categ_id" type="col" />
+                   <field name="location_id" type="row" />
+                    <field name="qty" type="measure" />
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_od_stock_quant_tree" model="ir.ui.view">
+            <field name="name">od.stock.quant.report.no.cost.tree</field>
+            <field name="model">od.stock.quant.report.no.cost</field>
+            <field name="arch" type="xml">
+                <tree string="Quant Report">
+                   <field name="product_id" />
+                   <field name="qty" />
+                   <field name="lot_id" />
+                   <field name="location_id" />
+                   <field name="in_date" />
+                   <field name="product_categ_id" />
+                   <field name="od_pdt_group_id" />
+                   <field name="od_pdt_sub_group_id" />
+                   <field name="od_pdt_brand_id" />
+                   <field name="od_pdt_classification_id" />
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

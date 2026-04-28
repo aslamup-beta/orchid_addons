@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- QWeb Reports -->
+        <record id="po_paper_format" model="report.paperformat">
+            <field name="name">PO Custom Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="po_custom_report" model="ir.actions.report.xml">
+            <field name="name">Purchase Order - DXB</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">beta_extended.custom_po_report</field>
+            <field name="report_file">beta_extended.custom_po_report</field>
+            <field name="paperformat_id" ref="beta_extended.po_paper_format"/>
+            <field name="groups_id" eval="[(4, ref('__export__.res_groups_249'))]"/>
+        </record>
+
+
+        <record id="po_custom_report_auh" model="ir.actions.report.xml">
+            <field name="name">Purchase Order - ADH</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">beta_extended.custom_po_report_auh</field>
+            <field name="report_file">beta_extended.custom_po_report_auh</field>
+            <field name="paperformat_id" ref="beta_extended.po_paper_format"/>
+            <field name="groups_id" eval="[(4, ref('__export__.res_groups_249'))]"/>
+        </record>
+
+
+        <record id="po_custom_report_ksa" model="ir.actions.report.xml">
+            <field name="name">Purchase Order - KSA</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">beta_extended.custom_po_report_ksa</field>
+            <field name="report_file">beta_extended.custom_po_report_ksa</field>
+            <field name="paperformat_id" ref="beta_extended.po_paper_format"/>
+            <field name="groups_id" eval="[(4, ref('__export__.res_groups_248'))]"/>
+        </record>
+    </data>
+</openerp>

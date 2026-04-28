@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <record model="ir.ui.view" id="crm_case_tree_view_cost_sheet_c_tab">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+
+                <field name="name" position="after">
+                    <field name="od_number"/>
+                </field>
+                <field name="probability" position="after">
+                    <field name="od_forecasted_value" invisible="1"/>
+                    <field name="od_costsheet_cost" />
+                    <field name="od_costsheet_profit"/>
+                    <field name="od_costsheet_profit_percent"/>
+                                      
+                    
+                </field>
+                
+                 <field name="user_id" position="after">
+                    <field name="od_bdm_user_id"/>
+                    <field name="od_responsible_id"/>
+                </field>
+               
+            </field>
+   </record>
+
+   <record model="ir.ui.view" id="crm_case_lead_form_view_cost_sheet_c_tab">
+           <field name="name">Lead Form</field>
+           <field name="model">crm.lead</field>
+           <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+           <field name="arch" type="xml">
+
+
+               <field name="partner_id" position="after">
+                   <field name="od_forecasted_value" />
+
+               </field>
+           </field>
+  </record>
+   <record id="view_crm_lead_cost_sheet_inherited" model="ir.ui.view">
+            <field name="name">crm.lead.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+               <field name="phone" position="after">
+                <field name="od_cost_sheet_line" invisible="1"/>
+               </field>
+               <field name='planned_revenue' position="attributes">
+               	<attribute name="readonly">True</attribute>
+               </field>
+               <field name="date_deadline" position="attributes">
+               <attribute name="invisible">True</attribute>
+               </field>
+               <xpath expr="/form/sheet/group/group/label[@for='title_action']" position="attributes">
+                  	<attribute name="string">Expected Booking</attribute>
+               </xpath>
+                <!-- <field name="title_action" position="attributes">
+               <attribute name="string">Expected Booking</attribute>
+               </field> -->
+               <field name="phone" position="after">
+               	<field name="od_forecasted_value" required="0" invisible="1"/>
+               </field>
+                 <xpath expr="/form/sheet/div[@class='oe_title']/label[@for='name']" position="before">
+                           <label for="od_number" class="oe_edit_only"/>
+                            <h1><field name="od_number" style="color:skyblue;font-size:22pt;" nolabel="1"/></h1>
+
+                </xpath>
+                 <xpath expr="/form/sheet/div/button[@name='action_schedule_meeting']" position="after">
+                           <button class="oe_inline oe_stat_button" name="od_view_costing_sheet"   type="object" icon="fa-book" attrs="{'invisible': [('od_approval_state','=','pending')]}">
+								<field name="od_costsheet_count" widget="statinfo" string="Cost Sheet"/>
+							</button>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[@string='Lead']" position="after">
+               		<page string="Cost Sheet">
+	               		<group>
+	               			<field name="od_costsheet_sale" />
+	               			<field name="od_costsheet_cost" />
+	               			<field name="od_costsheet_profit" />
+	               			<field name="od_costsheet_profit_percent" />
+	               			   <field name="od_costsheet_manpower_cost" readonly="1"/>
+			                     <field name="od_costsheet_new_profit" readonly="1"/>
+			                     <field name="od_costsheet_new_profit_percent" readonly="1"/>
+	               			
+
+	               		</group>
+               		</page>
+               		</xpath>
+                <!--  <xpath expr="/form/sheet/notebook/page[@string='Lead']" position="after">
+               		<page string="Cost Sheet Profit">
+               		<div>
+                   	<table style="width:100%" class="table table-bordered">
+               	 	<thead>
+               	 	     <th>Description</th>
+               	 	     <th style="text-align:right">Profit</th>
+               	 	     <th style="text-align:right">Profit Percentage</th>
+
+
+               	 	</thead>
+               	 	<tbody>
+               	 		<tr class="info">
+               	 			<td>Material</td>
+                  			<td style="text-align:right"> <field name="od_mat_profit"/></td>
+                  			<td style="text-align:right"> <field name="od_mat_profit_percent"/></td>
+               	 		</tr>
+               	 		<tr class="success">
+               	 			<td>Training</td>
+                  			<td style="text-align:right"> <field name="od_trn_profit"/></td>
+                  			<td style="text-align:right"> <field name="od_trn_profit_percent"/></td>
+               	 		</tr>
+               	 		<tr class="active">
+               	 			<td>BIM</td>
+                  			<td style="text-align:right"> <field name="od_bim_profit"/></td>
+                  			<td style="text-align:right"> <field name="od_bim_profit_percent"/></td>
+               	 		</tr>
+               	 		<tr class="warning">
+               	 			<td>OIM</td>
+                  			<td style="text-align:right"> <field name="od_oim_profit"/></td>
+                  			<td style="text-align:right"> <field name="od_oim_profit_percent"/></td>
+               	 		</tr>
+               	 		<tr class="danger">
+               	 			<td>BMN</td>
+                  			<td style="text-align:right"> <field name="od_bmn_profit"/></td>
+                  			<td style="text-align:right"> <field name="od_bmn_profit_percent"/></td>
+               	 		</tr>
+               	 		<tr class="info">
+               	 			<td>OMN</td>
+                  			<td style="text-align:right"> <field name="od_omn_profit"/></td>
+                  			<td style="text-align:right"> <field name="od_omn_profit_percent"/></td>
+               	 		</tr>
+               	 		<tr class="success">
+               	 			<td>Operation And Maintenance</td>
+                  			<td style="text-align:right"> <field name="od_o_m_profit"/></td>
+                  			<td style="text-align:right"> <field name="od_o_m_profit_percent"/></td>
+               	 		</tr>
+               	 		</tbody>
+               	 		</table>
+               	 	</div>
+               		</page>
+               </xpath> -->
+            </field>
+        </record>
+
+    </data>
+</openerp>

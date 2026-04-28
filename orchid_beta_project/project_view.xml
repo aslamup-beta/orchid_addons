@@ -1,0 +1,1640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+     <record id="view_project_task_tree_od_inherit" model="ir.ui.view">
+            <field name="name">project.task.tree.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2" />
+            <field name="arch" type="xml">
+
+              <field name='planned_hours' position="replace">
+            	   <field name="od_total_planned" widget="float_time"/>
+            	</field>
+
+              <field name="remaining_hours" position="replace">
+            		    <field name="od_total_remain" widget="float_time"/>
+            	</field>
+
+
+
+              <field name="progress" position="before">
+                <field name="od_total_time_spent" widget="float_time"/>
+              </field>
+              <field name="user_id" position="after">
+                  <field name="od_type" />
+                  <field name="reviewer_id" attrs="{'invisible':[('od_type','!=','activities')]}" groups="analytic.group_analytic_accounting"/>
+                  <field name="od_owner_id" groups="analytic.group_analytic_accounting"/>
+                  <field name="od_opp_id" groups="analytic.group_analytic_accounting"/>
+                  <field name="od_help_desk_issue_id" />
+              </field>
+              <field name="progress" position="after">
+                  <field name="od_quality_of_implementation" groups="analytic.group_analytic_accounting"/>
+                  <field name="od_quality_of_documentation" groups="analytic.group_analytic_accounting"/>
+                  <field name="od_complexiety" groups="analytic.group_analytic_accounting"/>
+                  <field name="od_overnight" />
+                  <field name="od_outstation" />
+              <!--     <field name="od_owner_approval" />
+                  <field name="od_satisfaction" />
+                  <field name="od_auto_approved" /> -->
+
+              </field>
+
+            </field>
+     </record>
+
+
+
+
+     <record id="view_project_task_form_od_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+
+    		<field name="date_start" position="replace" />
+            <field name="date_end" position="replace" />
+            <field name="planned_hours" position="replace" />
+
+            <field name="stage_id" position="replace">
+                <field name="od_stage" widget="statusbar" />
+                 <button string="Done" name="btn_done" type="object" class="oe_highlight"  attrs="{'invisible':[('od_stage','!=','draft')]}" groups="analytic.group_analytic_accounting"/>
+                <!--  <button string="Cancel" name="%(od_task_wiz_confirm_action)d" type="action" class="oe_highlight" attrs="{'invisible':[('od_stage','!=','draft')]}" /> -->
+                  <button string="Cancel By TL" name="btn_cancel_by_tl" type="object" class="oe_highlight" attrs="{'invisible':[('od_stage','!=','draft')]}" groups="analytic.group_analytic_accounting" />
+                   <button string="Cancel By Owner" name="btn_cancel_by_owner" type="object" class="oe_highlight" attrs="{'invisible':[('od_stage','!=','draft')]}" groups="analytic.group_analytic_accounting"/>
+                 
+                 <button string="Reset" name="btn_reset" type="object" class="oe_highlight" attrs="{'invisible':[('od_stage','!=','done')]}" groups="orchid_beta.groups_beta_admin"/>
+            </field>
+            <field name="categ_ids" position="after">
+                    <field name="od_help_desk_issue_id" attrs="{'required':[('od_state','=', 8), ('od_type','=', 'activities')]}"/>
+                    <field name="od_actual" widget="float_time" attrs="{'invisible': [('od_type','!=','activities')]}"  />
+                    <field name="ignore_warning" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='categ_ids']" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</xpath>
+
+
+        <xpath expr="/form/sheet/notebook/page[@string='Extra Info']/group/group[@string='Gantt View']" position="replace" />
+				<xpath expr="//field[@name='date_deadline']" position="before">
+					<field name="od_block_start" invisible="1" />
+					<field name="od_duplicated" invisible="1" />
+					<field name="od_write_count" invisible="1" />
+					<field name="od_state" attrs="{'required': [('od_type','=','milestone')]}" options="{'no_create':True}"/>
+					<field name="od_implementation_id" domain="[('project_phase','=',od_state)]" invisible="1" on_change="onchange_imp_id(od_implementation_id)"/>
+				</xpath>
+				<xpath expr="//field[@name='project_id']" position="before">
+					<!-- <field name="id" invisible="1"/> -->
+					<field name="od_by_delegate" invisible="1"/>
+          
+          <field name="id" attrs="{'invisible':[('od_type','!=','activities')]}" string="Activity ID" />
+					<field name="od_type"  on_change="onchange_od_type(od_type)"/>
+          <!-- <field name="od_status" attrs="{'invisible': [('od_type','!=','activities')]}" /> -->
+					<field name="od_material_request" invisible="1" />
+					<field name="od_material_status" attrs="{'invisible': [('od_material_request','!=',True)]}" />
+					<!-- <field name="od_costsheet_tab" attrs="{'invisible': [('od_type','!=','milestone')]}" /> -->
+					
+					<!-- <field name="od_depend_id" />
+					<field name="od_condition" attrs="{'invisible':[('od_depend_id','=',False)],'required':[('od_depend_id','!=',False)]}" /> -->
+				</xpath>
+				<xpath expr="//field[@name='project_id']" position="attributes">
+					<attribute name="attrs">{'required': [('od_type','=','milestone')]}</attribute>
+				</xpath>
+
+                <field name="project_id" position="after">
+                	<field name="od_parent_id" string="Parent Milestone" domain="[('od_type','!=','activities'),('project_id','=', project_id)]" attrs="{'invisible': [('od_type','not in',('activities','workpackage'))],'required': [('od_type','in',('activities','workpackage'))]}"/>
+                    <field name="od_opp_id" domain="[('stage_id','not in',(6,7,8,2))]" attrs="{'invisible':[('od_type','!=','activities')]}" />
+                </field>
+        
+
+              <xpath expr="//field[@name='progress']" position="attributes">
+               <attribute name="invisible">True</attribute>
+              </xpath>
+            	<xpath expr="/form/sheet/notebook/page[@string='Description']" position="attributes">
+            	 <attribute name="attrs">{'invisible': ['|',('od_type','!=','activities'),('od_material_request','!=',False)]}</attribute>
+            	</xpath>
+            	<xpath expr="/form/sheet/notebook/page[@string='Delegation']" position="attributes">
+            		<attribute name="invisible">True</attribute>
+            	</xpath>
+            	<xpath expr="/form/sheet/notebook/page[@string='Extra Info']" position="attributes">
+            	 <attribute name="attrs">{'invisible': [('od_type','not in',['milestone', 'workpackage'])]}</attribute>
+            	</xpath>
+            	<xpath expr="//field[@name='reviewer_id']" position="after">
+            		<!-- <field name="od_total_planned" widget="float_time" attrs="{'invisible': [('od_type','=','activities')]}" /> -->
+            		<!-- <field name="od_end_time" attrs="{'invisible':[('od_type','!=','activities')]}" /> -->
+                    <field name="partner_ids" widget="many2many_tags" invisible="1"/>
+                    <field name="od_owner_id" />
+	                  <field name="od_task_reset_log_ids">
+	                    <tree>
+	                      <field name="user_id" />
+	                      <field name="date" />
+	                    </tree>
+	                  </field>
+                    
+                    
+            		<!-- <field name="od_total_time_spent" widget="float_time" attrs="{'invisible': ['|',('od_type','!=','activities'),('od_material_request','!=',False)]}"/> -->
+            		<!-- <field name="od_remaining" widget="float_time" attrs="{'invisible': ['|',('od_type','!=','activities'),('od_material_request','!=',False)]}"  /> -->
+            		<!-- <field name="od_total_remain" widget="float_time"  attrs="{'invisible': ['|',('od_type','!=','activities'),('od_material_request','!=',False)]}" /> -->
+
+                <!-- <field name="kind_of_work" attrs="{'invisible':[('od_type','!=','activities')]}" /> -->
+              </xpath>
+            	<!-- <xpath expr="//field[@name='planned_hours']" position="attributes">
+            	<attribute name="attrs">{'invisible': ['|',('od_type','!=','activities'),('od_material_request','!=',False)]}</attribute>
+            	<attribute name="on_change">onchange_date_start_end(date_start,od_type,planned_hours)</attribute>
+                </xpath> -->
+
+            	<xpath expr="//field[@name='date_deadline']" position="attributes">
+            		<!-- <attribute name="attrs">{'required': [('od_type','=','activities')],'invisible': [('od_type','!=','activities')]}</attribute> -->
+            		<attribute name="string">Date Deadline</attribute>
+            		<attribute name="invisible">True</attribute>
+                    <!-- <attribute name="on_change">onchange_date_deadline(date_deadline)</attribute> -->
+            	</xpath>
+            	<xpath expr="//field[@name='date_deadline']" position="after">
+            		<!-- <field name="date_start" attrs="{'invisible': [('od_type','=','activities')],'required': [('od_type','!=','activities')]}"/>
+            		 -->
+                    <field name="date_start" required="1" on_change="onchange_date_start_end(date_start,od_type,planned_hours)" attrs="{'readonly':[('od_type','=','activities'),('od_block_start','!=',False),('od_duplicated','=',False)]}"/>
+                    <!-- <field name="date_end" attrs="{'invisible': [('od_type','=','activities')],'required': [('od_type','!=','activities')]}" /> -->
+                    <field name="planned_hours" widget="float_time" on_change="onchange_date_start_end(date_start,od_type,planned_hours)" attrs="{'invisible': ['|',('od_type','!=','activities'),('od_material_request','!=',False)]}" invisible="1"/>
+                    
+                    
+                    
+                    
+                    <field name="date_end" required="1" on_change="onchange_date_end(date_end,od_type)" attrs="{'readonly':[('od_type','=','activities'),('od_block_start','!=',False),('od_duplicated','=',False)]}"/>
+                    <field name="b_date_end" invisible="1"/>
+                    <field name="b_plan_hr" widget="float_time" />
+                    <field name="od_access_method" attrs="{'invisible': [('od_type','!=','activities')],'required': [('od_type','=','activities')]}"/>
+            	</xpath>
+
+            	<xpath expr="/form/sheet/notebook/page[@string='Delegation']/button[@string='Delegate']" position="attributes">
+            		<!--  <attribute name="attrs">{'invisible': [('od_type','=','activities')]}</attribute> -->
+            		<attribute name="invisible">True</attribute>
+            	</xpath>
+            	<xpath expr="/form/sheet/notebook/page[@string='Delegation']/field[@name='parent_ids']" position="attributes">
+            		 <attribute name="attrs">{'invisible': [('od_type','=','milestone')]}</attribute>
+
+            	</xpath>
+
+            	<xpath expr="/form/sheet/notebook/page[@string='Delegation']/separator[@string='Delegated tasks']" position="attributes">
+            		 <attribute name="attrs">{'invisible': [('od_type','=','activities')]}</attribute>
+            	</xpath>
+
+            	<xpath expr="/form/sheet/notebook/page[@string='Delegation']/separator[@string='Parent Tasks']" position="attributes">
+            		 <attribute name="attrs">{'invisible': [('od_type','=','milestone')]}</attribute>
+            	</xpath>
+
+            	<xpath expr="/form/sheet/notebook/page[@string='Delegation']/field[@name='child_ids']" position="attributes">
+            		 <attribute name="attrs">{'invisible': [('od_type','=','activities')]}</attribute>
+            	</xpath>
+            	<xpath expr="/form/sheet/notebook/page/field[@name='work_ids']/tree/field[@name='date']" position="replace" />
+            	<xpath expr="/form/sheet/notebook/page/field[@name='work_ids']/tree/field[@name='hours']" position="replace" />
+            	<xpath expr="/form/sheet/notebook/page/field[@name='work_ids']/tree/field[@name='name']" position="after">
+            		
+            		<field name="locked" invisible="1" />
+            		<field name="date" string="Start Date/Time" on_change="onchange_time(date,od_complete_date)"/>
+            		<!-- <field name="od_start_date"  /> -->
+            		<field name="od_complete_date" on_change="onchange_time(date,od_complete_date)" />
+            		<field name="hours" widget="float_time" invisible="1"/>
+            		<field name="b_hours" widget="float_time" />
+            	</xpath>
+
+            	<xpath expr="/form/sheet/notebook/page/field[@name='work_ids']/tree/field[@name='user_id']" position="after">
+            		<field name="state" />
+            		<field name="overtime" invisible="1"/>
+                    <field name="overtime_type" domain="[('category_id.code','=','OT')]" 
+                    	attrs="{'readonly':[('overtime','=',False)],'required':[('overtime','=',True)]}" invisible="1"/>
+            	</xpath>
+
+            	 <xpath expr="//div" position="inside">
+                 <div class="oe_right oe_button_box" name="buttons">
+                        <button class="oe_inline oe_stat_button" type="object" name="od_delegate_wp" icon="fa-star"  attrs="{'invisible': [('od_type','not in',('workpackage','milestone'))]}">
+                            <div class="info">Work Package</div>
+                        </button>
+                         <button class="oe_inline oe_stat_button" type="object" name="od_delegate_act" icon="fa-tasks"  attrs="{'invisible': [('od_type','not in',('workpackage','milestone'))]}">
+                            <div class="info">Activity</div>
+                        </button>
+                        <button class="oe_inline oe_stat_button" name="od_open_attachement"  type="object" icon="fa-book" groups="analytic.group_analytic_accounting">
+                           <field name="od_attachement_count" widget="statinfo" string="Documents"/>
+                        </button>
+                     
+                    </div>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[@string='Extra Info']" position="after">
+                	<page string="Child Tasks"  attrs="{'invisible': [('od_type','=','activities')]}">
+                		<field name="od_child_ids" readonly="1" />
+                	</page>
+                </xpath>
+            	<xpath expr="/form/sheet/notebook/page[@string='Description']" position="attributes">
+            	<attribute name="string">Do</attribute>
+            	</xpath>
+            	
+            	<xpath expr="/form/sheet/notebook/page[@string='Do']" position="before">
+            	<page string="Plan" attrs="{'invisible': [('od_type','!=','activities')]}">
+                  <group>
+                    <field name="od_activity_technical_obj" attrs="{'required': [('od_type','=','activities')]}" />
+                    <field name="od_eqp_application" attrs="{'required': [('od_type','=','activities')]}" />
+                    <field name="od_prior_arrangement" attrs="{'required': [('od_type','=','activities')]}" />
+                    
+                    	<field name="od_common_partner_id" />
+                        <field name="od_contact_ids" domain="[('parent_id','=',od_common_partner_id)]" string="Contact Person"/>
+                        <field name="od_city" attrs="{'invisible': [('od_type','!=','activities')]}" />
+                        <field name="od_location" attrs="{'invisible': [('od_type','!=','activities')]}" />
+                        <field name="od_contact_person_details" attrs="{'invisible':[('od_type','!=','activities')]}" />
+                    
+                  </group>
+                </page>
+                </xpath >
+               <!--  <page string="Customer">
+
+                    <group>
+                        
+
+                    </group>
+
+
+                </page> -->
+                <xpath expr="/form/sheet/notebook/page[@string='Do']" position="after">
+                <page string="Check" attrs="{'invisible': ['|',('od_type','!=','activities'),('od_material_request','!=',False)]}" groups="analytic.group_analytic_accounting">
+            	<group colspan="4">
+            		<field name="od_categ_id" attrs="{'invisible':  [('od_type','!=','activities')]}"/>
+            		<field name="od_sub_categ_id" attrs="{'invisible':  [('od_type','!=','activities')]}"/>
+                    <field name="od_method" />
+            	</group>
+            	<field name="od_checklist_ids" >
+            	<tree editable="bottom">
+            		<field name="name" />
+            		<field name="state" />
+            	</tree>
+            	</field>
+            	</page>
+            	</xpath >
+            	
+            	<xpath expr="/form/sheet/notebook/page[@string='Do']/group/group[@class='oe_subtotal_footer oe_right']" position="attributes">
+            		<attribute name="invisible">True</attribute>
+            	</xpath>
+            	
+            	 	<xpath expr="/form/sheet/notebook/page[@string='Do']/field[@name='work_ids']" position="before">
+            	 	   	<group string="Activity Report">
+	            		<field name="od_date_done" readonly="1"/>
+	                    <field name="od_initial_description" />
+	            		<field name="od_action_taken" />
+	            		<field name="od_final_result" />
+
+            	</group>
+            	 	  
+            	 	</xpath>
+            	
+            	<xpath expr="/form/sheet/notebook/page[@string='Check']" position="after">
+            <!-- 	<page string="Activity Report" attrs="{'invisible': [('od_type','!=','activities')]}">
+                       	</page> -->
+            	<page string="Act - Technical Evaluation" attrs="{'invisible': [('od_stage','!=','done')]}" groups="analytic.group_analytic_accounting">
+            		<group>
+            			<field name="od_quality_of_implementation" />
+	            		<field name="od_quality_of_documentation" />
+	            		<field name="od_complexiety" invisible="1"/>
+	            		<field name="od_overnight" />
+	            		<field name="od_outstation" />
+                        <field name="od_late_in_tech_eval" />
+	            		<field name="od_consultant_comment" />
+
+            		</group>
+                <separator string="Evaluation Logs"/>
+                  <field name="od_tech_eval_log_ids">
+                    <tree>
+                      <field name="evaluated_by" />
+                      <field name="date" />
+                    </tree>
+                  </field>
+            	</page>
+            	<!-- <page string="Owner Evaluation" attrs="{'invisible': [('od_stage','!=','done')]}">
+            		<group>
+            			<field name="od_owner_approval" string="Owner Feedback" />
+            			<field name="od_satisfaction" />
+            			<field name="od_auto_approved" />
+            		</group>
+                <separator string="Evaluation Logs"/>
+                  <field name="od_owner_eval_log_ids">
+                    <tree>
+                      <field name="evaluated_by" />
+                      <field name="date" />
+                    </tree>
+                  </field>
+            	</page> -->
+            	<page string="Act - Owner Escalation" groups="analytic.group_analytic_accounting">
+            		<group>
+	            		<field name="od_reason_for_esc" />
+            		</group>
+            		<field name="od_own_esc" invisible="1" />
+            		 <button string="Escalate" type="object" class="oe_highlight" name="btn_owner_esclate" attrs="{'invisible':[('od_own_esc','!=',False)]}"/>
+            		 <button string="Resolved" type="object" class="oe_highlight" name="btn_owner_resolved" attrs="{'invisible':['|',('od_own_esc','=',False),('od_owner_esc_status','in',('resolved','not_solved'))]}"/>
+            		 <table style="width:100%" class="table table-striped">
+                  	<thead>
+                  	 	<th>Escalation Time</th>
+                  	 	<th>Resolution Time</th>
+                  	 	<th>Resolution By</th>
+                  	 	<th>Status</th>
+                  	 </thead>
+                  	 <tbody>
+                     <tr>
+                       <td><field name="od_owner_esc_time" readonly="1"/></td>
+                       <td><field name="od_owner_res_time" readonly="1"/></td>
+                       <td><field name="esc_resolved_by" readonly="1"/></td>
+                       <td><field name="od_owner_esc_status" readonly="1"/></td>
+                     </tr>
+                     </tbody>
+                    </table>
+            		
+            	
+            	</page>
+                <page string="Act - KPI" attrs="{'invisible': [('od_type','!=','activities')]}" groups="analytic.group_analytic_accounting">
+                <separator string="Engineer" />
+                    <table style="width:100%" class="table table-striped">
+                  	<thead>
+                  	 	<th>Description </th>
+                  	 	<th>Points</th>
+                  	 </thead>
+                  	 <tbody>
+                  	<!--  <tr>
+                       <td>Planned Hours - Actual Hours</td>
+                       <td><field name="od_time_kpi" /></td>
+                     </tr> -->
+                     <tr>
+                       <td>Finished On Time</td>
+                       <td><field name="od_end_kpi" /></td>
+                     </tr>
+                     <tr>
+                       <td>Quality of Activity Implementation</td>
+                       <td><field name="od_qualiy_kpi" /></td>
+                     </tr>
+                      <tr>
+                        <td>Quality of Documentation</td>
+                        <td><field name="od_doc_kpi" /></td>
+                      </tr>
+                      <!-- <tr>
+                        <td>Complexiety Points</td>
+                        <td><field name="od_complexiety_kpi" /></td>
+                      </tr> -->
+                      <tr>
+                        <td>Overnight Activity</td>
+                        <td><field name="od_overnight_kpi" /></td>
+                      </tr>
+                       <tr>
+                         <td>Outstation Activity</td>
+                         <td><field name="od_outstation_kpi" /></td>
+                       </tr>
+                       	 <tr>
+                         <td> <strong> Total Score </strong> </td>
+                         <td> <strong> <field name="od_total_kpi" /> </strong>  </td>
+                       </tr>
+                     </tbody>
+                     </table>
+                     <separator string="Technical Consultant" />
+                     <table style="width:100%" class="table table-striped">
+                       	<thead>
+                       	 	<th>Description </th>
+                       	 	<th>Points</th>
+                       	 </thead>
+                       	 <tbody>
+                       	 <tr>
+                            <td>Evaluation On Time</td>
+                            <td><field name="od_technical_kpi" /></td>
+                          </tr>
+                          </tbody>
+                          </table>
+                     <separator string="Owner" />
+                     <table style="width:100%" class="table table-striped">
+                       	<thead>
+                       	 	<th>Description </th>
+                       	 	<th>Points</th>
+                       	 </thead>
+                       	 <tbody>
+                       	 <tr>
+                            <td>Feed Back On Time</td>
+                            <td><field name="od_ownr_eval_kpi" /></td>
+                          </tr>
+
+                          </tbody>
+                          </table>
+                </page>
+				
+				<page string="UAE - Service Team Overtime" attrs="{'invisible': [('od_stage','!=','done')]}" groups="__export__.res_groups_200">
+					<group>
+	            		<group>
+		            		<field name="od_normal_ot" />
+		            		<field name="od_overnight_ot" />
+		            		<field name="od_friday_ot" />
+		            		<field name="od_holiday_ot" />
+		            		<field name="od_manually_set_ot" />
+	            		</group>
+	            		<group>
+		            		<field name="od_man_normal_ot" attrs="{'invisible': [('od_manually_set_ot','=', False)]}"/>
+		            		<field name="od_man_overnight_ot" attrs="{'invisible': [('od_manually_set_ot','=',False)]}"/>
+		            		<field name="od_man_friday_ot" attrs="{'invisible': [('od_manually_set_ot','=',False)]}"/>
+		            		<field name="od_man_holiday_ot" attrs="{'invisible': [('od_manually_set_ot','=',False)]}"/>
+	            		</group>
+            		</group>
+            		</page>
+
+              <page string="Dependant Task" attrs="{'invisible': [('od_type','=','activities')]}">
+                <field name="od_max_date" invisible="1" />
+                <field name="od_depend_task_lines">
+                    <tree editable="bottom">
+                        <field name="task_id" required="1" domain="[('od_type','in',('workpackage','milestone')),('project_id','=',parent.project_id)]"/>
+                        <field name="condition" required="1"/>
+                        <field name="date_start" readonly="1"/>
+                        <field name="date_end" readonly="1" />
+
+                    </tree>
+                </field>
+              </page>
+
+            	</xpath>
+
+            </field>
+     </record>
+
+
+     <record id="view_project_task_form_od_search_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.search.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form" />
+            <field name="arch" type="xml">
+           <search>
+
+             <field name="od_owner_id" />
+             <field name="od_help_desk_issue_id" />
+             <field name="od_opp_id" />
+            <filter string="Activities" name="activities" domain="[('od_type', '=', 'activities')]"/>
+            <filter string="Work Packages" name="workpackage" domain="[('od_type', '=', 'workpackage')]"/>
+            <filter string="Milestones" name="milestone" domain="[('od_type', '=', 'milestone')]"/>
+            <filter icon="terp-go-month" string="Today " separator="1"
+                           domain="[('date_start','&lt;=', (datetime.date.today()).strftime('%Y-%m-%d')),('date_start','&gt;=',(datetime.date.today()).strftime('%Y-%m-%d'))]"
+                           help="Created today"/>
+
+          <filter icon="terp-go-week"
+              string="Week"
+              separator="1"
+              name="week"
+              domain="[('date_start','&lt;=', (context_today() + relativedelta(weeks=0,day=7, weekday=-1)).strftime('%Y-%m-%d')),('date_start','&gt;=',(context_today() - relativedelta(weeks=1, weekday=0)).strftime('%Y-%m-%d'))]" />
+
+              <group expand="0" string="Group By">
+              	 <filter string="Phase" name="phase" context="{'group_by':'od_state'}"/>
+              	 <filter string="Type" name="type" context="{'group_by':'od_type'}"/>
+              	 <filter string="Parent" name="parent" context="{'group_by':'od_parent_id'}"/>
+              </group>
+           </search>
+            </field>
+     </record>
+
+
+     <record id="view_project_issue_form_od_inherit" model="ir.ui.view">
+            <field name="name">project.issue.form.inherit</field>
+            <field name="model">project.issue</field>
+            <field name="inherit_id" ref="project_issue.project_issue_form_view" />
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='priority']" position="after">
+            		<field name="od_log" />
+            		<field name="od_category_id" />
+            	</xpath>
+            </field>
+        </record>
+        <record id="view_project_project_tree_od_inherit" model="ir.ui.view">
+            <field name="name">project.project.tree.beta.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project" />
+            <field name="arch" type="xml">
+              <field name="partner_id" position="after">
+                <field name="od_territory_id" />
+                <field name="od_section_id" />
+                <field name="date_start" />
+                <field name="date" string="End Date"/>
+                <field name="od_cost_sheet_id" />
+                <field name="od_state" />
+                <field name="od_type_of_project" />
+            
+
+              </field>
+            </field>
+        </record>
+
+         <record id="view_project_project_od_search_inherit" model="ir.ui.view">
+                <field name="name">project.project.tree.search.inherit</field>
+                <field name="model">project.project</field>
+                <field name="inherit_id" ref="project.view_project_project_filter" />
+                <field name="arch" type="xml">
+                   <search>
+                       <field name="od_territory_id" />
+                        <field name="od_section_id" />
+                        <field name="code" />
+                   </search>
+                </field>
+        </record>
+
+        <record id="view_project_project_form_od_inherit" model="ir.ui.view">
+            <field name="name">project.project.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project" />
+            <field name="arch" type="xml">
+            	<xpath expr="/form/sheet/div[@name='buttons']/button[@name='attachment_tree_view']" position="replace">
+                           <button class="oe_inline oe_stat_button" name="od_open_attachement"  type="object" icon="fa-book" >
+                           <field name="od_attachement_count" widget="statinfo" string="Documents"/>
+                           </button>
+                           <!--  <button class="oe_inline oe_stat_button" name="od_open_change_req"  type="object" icon="fa-book" >
+                           <field name="od_change_req_count" widget="statinfo" string="Changes"/>
+                           </button> -->
+                              <button name="od_btn_open_customer_invoice" type="object" class="oe_stat_button"  icon="fa-pencil-square-o"  >
+				                        <div><strong><field name="od_amnt_invoiced" /></strong><br/>Customer Invoices</div>
+				            </button>
+				            
+<!-- 				             <button name="od_btn_open_customer_refund" type="object" class="oe_stat_button"  icon="fa-pencil-square-o"  > -->
+<!-- 				                        <div><strong><field name="od_cust_refund_amt" /></strong><br/>Customer Refund</div> -->
+<!-- 				            </button> -->
+				            
+				             <button name="od_btn_open_sup_invoice" type="object" class="oe_stat_button"  icon="fa-pencil-square-o"  >
+				                        <div><strong><field name="od_sup_inv_amt" /></strong><br/>Supplier Invoice</div>
+				            </button>
+				            
+				             <button name="od_btn_open_sup_refund" type="object" class="oe_stat_button"  icon="fa-pencil-square-o"  >
+				                        <div><strong><field name="od_sup_refund_amt" /></strong><br/>Supplier Refund</div>
+				            </button>
+                           <button name="od_btn_open_purchase_lines" type="object" class="oe_stat_button"  icon="fa-list"  >
+                                     <div><strong><field name="od_amnt_purchased" /></strong><br/>Supplier PO's</div>
+                           </button>
+                           <button name="od_btn_open_lots" type="object" class="oe_stat_button"  icon="fa-list"  >
+                                     <div>Serial No's</div>
+                           </button>
+                             <button class="oe_inline oe_stat_button" name="od_btn_open_account_move_lines" type="object"  icon="fa-list">
+                                     <div><strong><field name="od_journal_amount" /></strong><br/>Journal Items</div>
+                             </button>
+                             <!-- <button class="oe_inline oe_stat_button" name="od_btn_open_account_move_lines_draft" type="object"  icon="fa-list">
+                                     <div style="color:#C7ABA5"><strong><field name="od_journal_amount_draft" /></strong><br/>Journal Drafts</div>
+                             </button> -->
+                           <!-- <button class="oe_inline oe_stat_button" type="object" name="od_btn_open_cost_revenue"
+                        icon="fa-usd"  string="Cost/Revenue" widget="statinfo"/> -->
+                        <button class="oe_inline oe_stat_button" name="od_open_hr_expense_claim" type="object"  icon="fa-list">
+                                <div><strong><field name="od_hr_claim_amount" /></strong><br/>HR Expense</div>
+                        </button>
+                        <!-- <button class="oe_inline oe_stat_button" name="od_open_hr_expense_claim_draft" type="object"  icon="fa-list">
+                                <div style="color:#C7ABA5"><strong><field name="od_hr_claim_amount_draft" /></strong><br/>HR Expense</div>
+                        </button> -->
+
+                         <button name="od_btn_open_delivery_orders" type="object" class="oe_stat_button"  icon="fa-list"  >
+                                   <div>Delivery/GRN</div>
+                         </button>
+                        <!--  <button class="oe_inline oe_stat_button" type="object" context="{'partner_id': partner_id}" name="od_action_schedule_meeting" icon="fa-calendar">
+                               <field string="Meetings" name="od_meeting_count" widget="statinfo"/>
+                       </button> -->
+
+                </xpath>
+                
+                <!-- <group name="group_alias" position="attributes">
+                 <attribute>{'invisible':True}</attribute>
+                </group> -->
+            <!--  <group name="group_alias" invisible="1"/> -->
+                <group name="group_alias" position="after">
+                   <group>  <field name="r_invoice_progress" widget="progressbar" /></group>
+                  <group>
+                    <field name="r_budget_consumption" widget="progressbar" />
+                  </group>
+                  	
+                </group>
+                 <xpath expr="//sheet/group" position="after">       
+				     <div style="color:#DE63CF;font-size:22px;">
+				     	<field name="warn_string" attrs="{'invisible': [('warn_string','=','')]}" nolabel="1"/>
+				     </div>
+   	 			</xpath>
+               
+                
+                
+                
+                <field name="date_start" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </field>
+                <field name="date" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </field>
+                <field name="date" position="after">
+                    <field name="od_quantity_max" readonly="1"/>
+                    <field name="od_type_of_project" readonly="1"/>
+                </field>
+
+            <xpath expr="//field[@name='user_id']" position="after">
+            	<newline/>
+            	<field name="od_state" widget="selection"/>
+            <!-- 	<newline/>
+                <field name="od_branch_id" />
+              <newline/> -->
+            </xpath>
+             <xpath expr="//field[@name='user_id']" position="attributes">
+             <attribute name="invisible">True</attribute>
+             </xpath>
+
+            <!-- <field name="partner_id" position="after">
+              <newline/>
+              <field name="od_territory_id" />
+              <newline/>
+               <field name="od_section_id" />
+               <newline/> 
+            </field>
+            -->
+            <xpath expr="/form/sheet/group/p" position="replace" />
+            <xpath expr="//field[@name='parent_id']" position="after">
+             <p attrs="{'invisible': [('analytic_account_id','=',False)]}">
+               To invoice or setup invoicing and renewal options, go to the related contract:
+               <field name="analytic_account_id" readonly="1" required="0" class="oe_inline" nolabel="1"/>.
+              </p>
+            </xpath>
+            <xpath expr="//field[@name='date_start']" position="replace" />
+           <xpath expr="//field[@name='date']" position="replace" />
+
+            <xpath expr="/form/sheet/notebook/page[@string='Team']" position="before">
+            	
+            	
+            	<page string="Contract Information">
+            	   <field name="od_analytic_level" invisible="1" />
+            	
+            	<table style="width:100%" class="table table-striped">
+                   <thead>
+                       <th></th>
+                       <th>Analytic</th>
+                       <th attrs="{'invisible':[('od_analytic_level','!=','level_old')]}">Project</th>
+                       <th attrs="{'invisible':[('od_analytic_level','!=','level_old')]}">AMC</th>
+                       <!-- <th>O&amp;M</th> -->
+                      
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <td><strong>Date Start</strong></td>
+                    <td><field name="date_start" readonly="1"/></td>
+                    <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_start" readonly="1" /></td>
+                    <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_start" readonly="1"/></td>
+                  
+                    
+                    
+                    
+                    </tr>
+                    <tr>
+                    <td><strong>Date End</strong></td>
+                    <td><field name="date"  readonly="1"/></td>
+                    <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_end" readonly="1"/></td>
+                    <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_end" readonly="1"/></td>
+                   
+                    </tr>
+                    
+                     <tr>
+                    <td><strong>Original Date End</strong></td>
+                    <td><field name="od_date_end_original" readonly="1" /></td>
+                      <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                       <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                   
+                    </tr>
+                   
+                    <tr>
+                    <td><strong>PMO Expected Closing</strong></td>
+                    <td><field name="od_analytic_pmo_closing" readonly="0"/></td>
+                    <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_pmo_closing"  readonly="0"/></td>
+                    <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_pmo_closing"  readonly="0"/></td>
+                   
+                    </tr>
+                   
+                   
+                   
+                     <tr>
+                   <td><strong>Owner</strong></td>
+                   <td><field name="od_owner_id" readonly="0"/></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_owner_id" readonly="0"/></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_owner_id" readonly="0"/></td>
+                   
+                    </tr>
+                    
+                    
+                   
+                   
+                   <tr>
+                   <td><strong>Original Sale</strong></td>
+                   <td><field name="od_original_sale_price" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_original_sale" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_original_sale" /></td>
+                   
+                    </tr>
+                    
+                   <tr>
+                   <td><strong>Original Cost</strong></td>
+                   <td><field name="od_original_sale_cost" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_original_cost" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_original_cost" /></td>
+                 
+                    </tr>
+                   
+                   <tr>
+                   <td><strong>Original Returned MP</strong></td>
+                   <td><field name="od_original_mp" readonly="1" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                  
+                    </tr>
+                    
+                    <tr>
+                   <td><strong>Original Profit W/O MP</strong></td>
+                   <td><field name="od_original_profit" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                  
+                    </tr>
+                   
+                   <tr>
+                   <td><strong>Original Profit with MP</strong></td>
+                   <td><field name="od_original_sale_profit" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_original_profit" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_original_profit" /></td>
+                  
+                    </tr>
+                   
+                   
+                   
+                     <tr>
+                   <td><strong>Amended Sale</strong></td>
+                   <td><field name="od_amended_sale_price" readonly="1"/></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_amend_sale" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_amend_sale" /></td>
+                   
+                    </tr>
+                    
+                   <tr>
+                   <td><strong>Amended Cost</strong></td>
+                   <td><field name="od_amended_sale_cost" readonly="1"/></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_amend_cost" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_amend_cost" /></td>
+                   
+                    </tr>
+                    
+                    <tr>
+                   <td><strong>Amended Returned MP</strong></td>
+                   <td><field name="od_amended_mp" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                  
+                    </tr>
+                    
+                    <tr>
+                   <td><strong>Amended Profit W/O MP</strong></td>
+                   <td><field name="od_amended_prof" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                  
+                    </tr>
+                   
+                   
+                   <tr>
+                   <td><strong>Amended Profit with MP</strong></td>
+                   <td><field name="od_amended_profit" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_amend_profit" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_amend_profit" /></td>
+                  
+                    </tr>
+                   
+                   
+                   
+                   
+                   
+                   <tr>
+                   <td><strong>Actual Sale</strong></td>
+                   <td><field name="od_actual_sale" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_sale" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_sale" /></td>
+                   
+                    </tr>
+                    
+                     <tr>
+                   <td><strong>Actual Cost</strong></td>
+                   <td><field name="od_actual_cost" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_cost" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_cost" /></td>
+                  
+                    </tr>
+                    
+                    <tr>
+	                   <td><strong>Actual MP</strong></td>
+	                   <td><field name="od_timesheet_amount2"/></td>
+	                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+	                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                   </tr>
+                   
+                   <tr>
+	                   <td><strong>Actual Outsourced</strong></td>
+	                   <td><field name="od_actual_outsource"/></td>
+	                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+	                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                   </tr>
+                    
+                    <tr>
+                   <td><strong>Actual Profit W/O MP</strong></td>
+                   <td><field name="od_actual_prof" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                  
+                    </tr>
+                   
+                    <tr>
+                   <td><strong>Actual Profit with MP</strong></td>
+                   <td><field name="od_actual_profit" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_profit" /></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_profit" /></td>
+                 
+                    </tr>
+                   
+                   
+                    <tr attrs="{'invisible':[('od_analytic_level','!=','level_old')]}">
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><strong>Status</strong></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_status" readonly="1"/></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_status" readonly="1"/></td>
+                   
+                    </tr> 
+                  
+                     <tr>
+                   <td><strong>Closing Date</strong></td>
+                   <td><field name="od_closing_date" readonly="1"/></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_project_closing" readonly="1"/></td>
+                   <td attrs="{'invisible':[('od_analytic_level','!=','level_old')]}"><field name="od_amc_closing" readonly="1" /></td>
+                  
+                    </tr>
+                   <tr>
+                   	<td><strong>Rebate</strong></td>
+                   	<td><field name="od_rebate" readonly="1"/></td>
+                   	<td></td>
+                  	<td></td>
+                    </tr>
+                  
+                   
+                   
+                    
+                    
+                    
+                    </tbody>
+                    
+                    
+               </table>
+            	
+            	
+            	
+            	
+            	    <!-- <table style="width:100%" class="table table-striped">
+                   <thead>
+                       <th></th>
+                       <th>Analytic</th>
+                       <th>Project</th>
+                       <th>AMC</th>
+                       <th>O&amp;M</th>
+                      
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <td><strong>Date Start</strong></td>
+                    <td><field name="date_start" readonly="1"  /></td>
+                    <td><field name="od_project_start" readonly="1" /></td>
+                    <td><field name="od_amc_start" readonly="1"/></td>
+                    <td><field name="od_om_start" readonly="1"/></td>
+                    
+                    
+                    
+                    </tr>
+                    <tr>
+                    <td><strong>Date End</strong></td>
+                    <td><field name="date" readonly="1" /></td>
+                    <td><field name="od_project_end" readonly="1"/></td>
+                    <td><field name="od_amc_end" readonly="1"/></td>
+                    <td><field name="od_om_end" readonly="1"/></td>
+                    </tr>
+                    
+                     <tr>
+                    <td><strong>PMO Expected Closing</strong></td>
+                    <td><field name="od_analytic_pmo_closing" readonly="0"/></td>
+                    <td><field name="od_project_pmo_closing"  readonly="0"/></td>
+                    <td><field name="od_amc_pmo_closing"  readonly="0"/></td>
+                   
+                    </tr>
+                   
+                     <tr>
+                   <td><strong>Owner</strong></td>
+                   <td></td>
+                   <td><field name="od_project_owner_id" readonly="0"/></td>
+                   <td><field name="od_amc_owner_id" readonly="0"/></td>
+                   <td><field name="od_om_owner_id" readonly="1"/></td>
+                    </tr>
+                    
+                    
+                   
+                    
+                   <tr>
+                   <td><strong>Original Sale</strong></td>
+                   <td><field name="od_original_sale_price" /></td>
+                   <td><field name="od_project_original_sale" /></td>
+                   <td><field name="od_amc_original_sale" /></td>
+                   <td></td>
+                    </tr>
+                    
+                   <tr>
+                   <td><strong>Original Cost</strong></td>
+                   <td><field name="od_original_sale_cost" /></td>
+                   <td><field name="od_project_original_cost" /></td>
+                   <td><field name="od_amc_original_cost" /></td>
+                   <td></td>
+                    </tr>
+                   
+                   
+                   <tr>
+                   <td><strong>Original Profit</strong></td>
+                   <td><field name="od_original_sale_profit" /></td>
+                   <td><field name="od_project_original_profit" /></td>
+                   <td><field name="od_amc_original_profit" /></td>
+                   <td></td>
+                    </tr>
+                   
+                   
+                   
+                     <tr>
+                   <td><strong>Amended Sale</strong></td>
+                   <td><field name="od_amended_sale_price" /></td>
+                   <td><field name="od_project_amend_sale" /></td>
+                   <td><field name="od_amc_amend_sale" /></td>
+                   <td></td>
+                    </tr>
+                    
+                   <tr>
+                   <td><strong>Amended Cost</strong></td>
+                   <td><field name="od_amended_sale_cost" /></td>
+                   <td><field name="od_project_amend_cost" /></td>
+                   <td><field name="od_amc_amend_cost" /></td>
+                   <td></td>
+                    </tr>
+                   
+                   
+                   <tr>
+                   <td><strong>Amended Profit</strong></td>
+                   <td><field name="od_amended_profit" /></td>
+                   <td><field name="od_project_amend_profit" /></td>
+                   <td><field name="od_amc_amend_profit" /></td>
+                   <td></td>
+                    </tr>
+                   
+                   
+                   
+                   
+                   
+                   <tr>
+                   <td><strong>Actual Sale</strong></td>
+                   <td><field name="od_actual_sale" /></td>
+                   <td><field name="od_project_sale" /></td>
+                   <td><field name="od_amc_sale" /></td>
+                   <td><field name="od_om_sale" readonly="1"/></td>
+                    </tr>
+                    
+                     <tr>
+                   <td><strong>Actual Cost</strong></td>
+                   <td><field name="od_actual_cost" /></td>
+                   <td><field name="od_project_cost" /></td>
+                   <td><field name="od_amc_cost" /></td>
+                   <td><field name="od_om_cost" readonly="1"/></td>
+                    </tr>
+                   
+                    <tr>
+                   <td><strong>Actual Profit</strong></td>
+                   <td><field name="od_actual_profit" /></td>
+                   <td><field name="od_project_profit" /></td>
+                   <td><field name="od_amc_profit" /></td>
+                   <td><field name="od_om_profit" readonly="1"/></td>
+                    </tr>
+                   
+                   
+                    <tr>
+                   <td><strong>Status</strong></td>
+                   <td></td>
+                   <td><field name="od_project_status" readonly="1"/></td>
+                   <td><field name="od_amc_status" readonly="1"/></td>
+                   <td><field name="od_om_status" readonly="1"/></td>
+                    </tr>
+                    
+                     
+                   
+                    
+                    
+                    <tr>
+                   <td><strong>Closing Date</strong></td>
+                   <td></td>
+                   <td><field name="od_project_closing" readonly="1"/></td>
+                   <td><field name="od_amc_closing" readonly="1" /></td>
+                   <td><field name="od_om_closing"  readonly="1" /></td>
+                    </tr>
+                   
+                   
+                   
+                   
+                    
+
+                    
+                    
+                    </tbody>
+                    
+                    
+               </table> -->
+               
+            	
+            	
+            	</page>
+            	
+            	
+            	<page string="Invoice Plan">
+            	<separator string="Invoice Schedule" />
+               <field name="od_project_invoice_schedule_line" readonly="0">
+               	<tree editable="bottom" create="false" delete="false">
+               		<field name="name" readonly="1"/>
+               		<field name="date" readonly="1"/>
+               		<field name="pmo_date" required="1"/>
+               		<field name="amount" readonly="1"/>
+               		<button name="create_invoice" string="Create Invoice" context="{'old':True}" type="object" icon="STOCK_EXECUTE"/>
+               		<field name="invoice_id" readonly="1"/>
+               		<field name="invoice_amount" />
+               		<field name="invoice_status" />
+               		<field name="date_invoice" />
+               		<field name="cust_date" />
+               		<field name="paid_amount" />
+               	</tree>
+               </field>
+               
+               
+               
+                <separator string="AMC Invoice Schedule" />
+               <field name="od_amc_invoice_schedule_line" readonly="0">
+               	<tree editable="bottom" create="false" delete="false">
+               		<field name="name" readonly="1"/>
+               		<field name="date" readonly="1"/>
+               		<field name="pmo_date" required="1"/>
+               		<field name="amount" readonly="1"/>
+               		<field name="invoice_id" readonly="1"/>
+               		<field name="invoice_amount" readonly="1"/>
+               		<field name="invoice_status" readonly="1"/>
+               		<field name="date_invoice" readonly="1"/>
+               		<field name="cust_date" readonly="1"/>
+               		
+               	</tree>
+               </field>
+            	
+            	
+            	</page>
+            	
+            	<page string="BOQ" >
+              <field name="od_sale_line" readonly="1">
+                <tree editable="bottom">
+                   <field name="od_inactive" />
+                     <field name="od_manufacture_id" />
+                    <field name="od_tab_type" />
+                    <field name="product_id" />
+                    <field name="name" />
+                    
+                    <field name="od_original_qty" />
+                    <field name="od_original_price" />
+                    <field name="od_original_line_price" />
+                    <field name="od_original_unit_cost" />
+                    <field name="od_original_line_cost" />
+                    
+                     <field name="product_uom_qty" />
+                    <field name="price_unit" />
+                      <field name="price_subtotal"/>
+                    <field name="purchase_price"/>
+                     <field name="od_amended_line_cost"/>
+                     <field name="od_sup_unit_cost"/>
+                      <field name="od_sup_line_cost"/>
+                   
+                   <field name="od_po_request_qty" />
+                    <field name="od_po_qty" />
+                    <field name="od_issue_req_qty" />
+                    <field name="od_issued_qty" />
+                    <field name="state" />
+                </tree>
+              </field>
+             </page>
+            	
+            	
+            	 <page string="Project Compliance" attrs="{'invisible':[('od_type_of_project','not in',('sup','imp','sup_imp','o_m','credit'))]}">
+            	 <group>
+            	 	<group><field name="start_project_comp" /></group>
+            	 	<group></group>
+            	 </group>
+            <separator string="Initiation" attrs="{'invisible':[('start_project_comp','=',False)]}"/>
+            <field name="od_comp_initiation_line" attrs="{'invisible':[('start_project_comp','=',False)]}">
+                <tree editable="bottom">
+                		<field name="name" />
+                		<field name="add_score" />
+                	 	<field name="score" attrs="{'readonly':[('add_score','=',False)]}"/>
+                </tree>
+            </field>
+            <separator string="Planning" attrs="{'invisible':[('start_project_comp','=',False)]}"/>
+            <field name="od_comp_planning_line" attrs="{'invisible':[('start_project_comp','=',False)]}">
+                <tree editable="bottom">
+                		<field name="name" />
+                	 	<field name="add_score" />
+                	 	<field name="score" attrs="{'readonly':[('add_score','=',False)]}"/>
+                </tree>
+            </field>
+            
+            <separator string="Execution" attrs="{'invisible':[('start_project_comp','=',False)]}"/>
+            <field name="od_comp_excecution_line" attrs="{'invisible':[('start_project_comp','=',False)]}">
+                <tree editable="bottom">
+                		<field name="name" />
+                	 	<field name="add_score" />
+                	 	<field name="score" attrs="{'readonly':[('add_score','=',False)]}"/>
+                </tree>
+            </field>
+           
+            
+            <separator string="Monitoring &amp; Control" attrs="{'invisible':[('start_project_comp','=',False)]}"/>
+            <field name="od_comp_monitor_line" attrs="{'invisible':[('start_project_comp','=',False)]}">
+                <tree editable="bottom">
+                		<field name="name" />
+                	 	<field name="add_score" />
+                	 	<field name="score" attrs="{'readonly':[('add_score','=',False)]}"/>
+                </tree>
+            </field>
+            
+            <separator string="Closing" attrs="{'invisible':[('start_project_comp','=',False)]}"/>
+            <field name="od_comp_closing_line" attrs="{'invisible':[('start_project_comp','=',False)]}">
+                <tree editable="bottom">
+                		<field name="name" />
+                	 	<field name="add_score" />
+                	 	<field name="score" attrs="{'readonly':[('add_score','=',False)]}"/>
+                </tree>
+            </field>
+            
+            
+            </page>
+            
+            <page string="AMC Compliance" attrs="{'invisible':[('od_type_of_project','!=','amc')]}">
+             <group>
+            	 	<group><field name="start_amc_comp" /></group>
+            	 	<group></group>
+            	 </group>
+            	 
+            	 <separator string="SLA Metrics"/>
+				<table style="width:100%" class="table table-striped">
+					<thead>
+						<th></th>
+						<th>Response Time</th>
+						<th>Resolution Time</th>
+						
+					</thead>
+					<tbody>
+						<tr>
+							<td>Critical (Hours)</td>
+							<td>
+								<field name="od_proj_respons_time_ctc"/>
+							</td>
+							<td>
+								<field name="od_proj_resol_time_ctc"/>
+							</td>
+							
+						</tr>
+
+						<tr>
+							<td>Major (Hours)</td>
+							<td>
+								<field name="od_proj_respons_time_maj"/>
+							</td>
+							<td>
+								<field name="od_proj_resol_time_maj"/>
+							</td>
+							
+						</tr>
+
+						<tr>
+							<td>Minor (Hours)</td>
+							<td>
+								<field name="od_proj_respons_time_min"/>
+							</td>
+							<td>
+								<field name="od_proj_resol_time_min"/>
+							</td>
+							
+						</tr>
+						
+					</tbody>
+				</table>
+				
+            		<separator string="Handover from Projects" attrs="{'invisible':[('start_amc_comp','=',False)]}"/>
+	            <field name="od_comp_handover_line" attrs="{'invisible':[('start_amc_comp','=',False)]}">
+	                <tree editable="bottom">
+	                		<field name="name" />
+	                	 	<field name="add_score" />
+                	 	<field name="score" attrs="{'readonly':[('add_score','=',False)]}"/>
+	                </tree>
+	            </field>
+                
+                <separator string="Maintenance" attrs="{'invisible':[('start_amc_comp','=',False)]}"/>
+	            <field name="od_comp_maint_line" attrs="{'invisible':[('start_amc_comp','=',False)]}">
+	                <tree editable="bottom">
+	                		<field name="name" />
+	                	 	<field name="add_score" />
+                	 	<field name="score" attrs="{'readonly':[('add_score','=',False)]}"/>
+	                </tree>
+	            </field>
+            </page>
+            
+            
+                 <page string="Preventive Maintenance Schedule" attrs="{'invisible':[('od_type_of_project','!=','amc')]}">
+            	<field name="preventive_maint_line" readonly="1">
+            		<tree editable="bottom">
+            			<field name="date" />
+            			<field name="name" string="Description" />
+            			<field name="help_desk_id" readonly="1"/>
+            			
+            		</tree>
+            	</field>
+            </page>
+            	
+            	
+            	
+            	<page string="Issue Log">
+            		<field name="od_issue_log_line" >
+            		<tree>
+            			<field name="od_issue_description" invisible="1"/>
+            			<field name="od_issue_description1" />
+            			<field name="od_priority" />
+            			<field name="od_date_reported" />
+            			<field name="od_assigned_to" />
+            			<field name="od_date_resolved" />
+            			<field name="od_status" />
+            			<field name="od_resolution" />
+            			<field name="od_related_to" />
+            		</tree>
+            		<form>
+            			<group>
+	            			<field name="od_issue_description" invisible="1"/>
+	            			<field name="od_issue_description1" />
+	            			<field name="od_priority" />
+	            			<field name="od_date_reported" />
+            			</group>
+            			<group>
+            				<field name="od_assigned_to" />
+	            			<field name="od_date_resolved" />
+	            			<field name="od_status" />
+            			</group>
+            			<group col="4" colspan="2">
+            				<field name="od_resolution" />
+            			</group>
+            			<group>
+            				<field name="od_related_to" />
+            			</group>
+
+            		</form>
+            		</field>
+
+            	</page>
+
+            	<page string="Risk Register">
+            		<field name="od_risk_log_line" >
+            		<tree>
+            			<field name="od_risk_description" />
+	            		<field name="od_date_identified" />
+	            		<field name="od_impact" />
+	            		<field name="od_risk_priority" />
+	            		<field name="od_responsible" />
+	            		<field name="od_risk_status" />
+            			<field name="od_action_taken" />
+            			<field name="od_action_needed" />
+            		</tree>
+            		<form>
+            			<group>
+            			<field name="od_risk_description" />
+	            		<field name="od_date_identified" />
+	            		<field name="od_impact" />
+            			</group>
+            			<group>
+	            			<field name="od_risk_priority" />
+	            			<field name="od_responsible" />
+	            			<field name="od_risk_status" />
+            			</group>
+            			<group col="4" colspan="2">
+            				<field name="od_action_taken" />
+            			</group>
+            			<group col="4" colspan="2">
+            			<field name="od_action_needed" />
+            			</group>
+            		</form>
+            		</field>
+            	</page>
+            	
+            	
+            	
+               <!--  <page string="KPI">
+                    <separator string="Project KPI" />
+                    <table style="width:100%" class="table table-striped">
+                       <thead>
+                           <th></th>
+                           <th>Sale</th>
+                           <th>Cost</th>
+                           <th>Profit</th>
+                           <th>Profit %</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                           <td>Original</td>
+                           <td><field name="od_original_sale_price"/></td>
+                           <td><field name="od_original_sale_cost"/></td>
+                           <td><field name="od_original_sale_profit"/></td>
+                           <td><field name="od_original_sale_profit_perc"/></td>
+                         </tr>
+                         <tr>
+                            <td>Amended</td>
+                            <td><field name="od_amended_sale_price"/></td>
+                            <td><field name="od_amended_sale_cost"/></td>
+                            <td><field name="od_amended_profit"/></td>
+                            <td><field name="od_amended_profit_perc"/></td>
+                          </tr>
+                           <tr>
+                              <td>Invoiced</td>
+                              <td><field name="od_amnt_invoiced2"/></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                               <td>Purchased</td>
+                               <td></td>
+                               <td><field name="od_amnt_purchased2"/></td>
+                               <td></td>
+                               <td></td>
+                             </tr>
+                             <tr>
+                                <td>Planned Timesheets</td>
+                                <td></td>
+                                <td><field name="od_planned_timesheet_cost"/></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                 <td>Actual Timesheets</td>
+                                 <td></td>
+                                 <td><field name="od_timesheet_amount2"/></td>
+                                 <td></td>
+                                 <td></td>
+                               </tr>
+                         </tbody>
+                         </table>
+                         <separator string="Project Manager" />
+                         <table style="width:100%" class="table table-striped">
+                            <thead>
+                                <th>Description</th>
+                                <th>Points</th>
+
+                             </thead>
+                             <tbody>
+                             <tr>
+                                <td>Cost Control</td>
+                                <td><field name="od_cost_control_kpi"/></td>
+                              </tr>
+                               <tr>
+                                  <td>Scope Control</td>
+                                  <td><field name="od_scope_control_kpi"/></td>
+                                </tr>
+
+                              </tbody>
+                              </table>
+                              <separator string="Technical Consultant" />
+                             <table style="width:100%" class="table table-striped">
+                                <thead>
+                                    <th>Description</th>
+                                    <th>Points</th>
+
+                                 </thead>
+                                 <tbody>
+                                 <tr>
+                                    <td>Manpower Cost Control</td>
+                                    <td><field name="od_manpower_kpi"/></td>
+                                  </tr>
+                                  </tbody>
+                                  </table>
+                </page>
+ -->
+            	<!-- <page string="Material Budget">
+                <field name="material_pulled" invisible="1" />
+
+            	   <field name="od_material_budget_line">
+            	       <tree editable="bottom">
+                           <field name="product_id"/>
+                            <field name="od_manufacture_id"/>
+                           <field name="planned"/>
+                           <field name="requested"/>
+                           <field name="balance"/>
+                           <field name="po"/>
+                           <field name="received"/>
+                           <field name="delivered"/>
+            	       </tree>
+            	   </field>
+            	</page> -->
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[@string='Project Stages']" position="after">
+            	<page string="Post Project Evaluation - KPI">
+            <table style="width:100%" class="table table-striped">
+                   <thead>
+                       <th>Components</th>
+                       <th>Score</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                       <td>5 Day Processing</td>
+                       <td><field name="day_process_score"/></td>
+                     </tr>
+                    
+                    <tr>
+                       <td>Invoice Schedule</td>
+                       <td><field name="invoice_schedule_score"/></td>
+                     </tr>
+                     
+                     <tr>
+                       <td>Cost Control</td>
+                       <td><field name="cost_control_score"/></td>
+                     </tr>
+                     
+                     <tr>
+                       <td>Compliance Provided By PMO</td>
+                       <td><field name="compliance_score"/></td>
+                     </tr>
+                    
+                     <tr>
+                       <td><strong>Total Score</strong></td>
+                       <td><strong><field name="total_score"/></strong></td>
+                     </tr>
+                    
+                      </tbody>
+                     </table>
+            
+            </page>
+            </xpath>
+      		</field>
+     	</record>
+
+      <record id="od_beta_view_project_kanban_inherited" model="ir.ui.view">
+          <field name="name">project.project.kanban.beta.inherited</field>
+          <field name="model">project.project</field>
+          <field name="inherit_id" ref="project.view_project_kanban"/>
+          <field name="arch" type="xml">
+              <field name="name" position="before">
+                  <field name="code"/>
+                  <field name="user_id"/>
+                  <field name="partner_id"/>
+                  <field name="od_state"/>
+                  <field name="state"/>
+                  <field name="date_start"/>
+                  <field name="date"/>
+              </field>
+
+             <xpath expr="//div[contains(@class, 'oe_kanban_project_list')]" position="before">
+       				<a style="margin-right: 10px" name="project_bulk_activities_issue" type="object">
+                        Bulk Activities
+                    </a>
+ 			</xpath>
+              
+              <xpath expr="//div[contains(@class, 'oe_kanban_content')]" position="inside">
+                      <h3 class="text-left" style="color:blue"><field name="code"/></h3>
+                 <h4 class="text-left" style="color:red"><field name="user_id"/></h4>
+                 <h4 class="text-left" style="color:green"><field name="partner_id"/></h4>
+                 <h4 class="text-left" style="color:black"><field name="od_state"/> - <field name="state"/></h4>
+                 <h4 class="text-left" style="color:black"><field name="date_start"/>  To  <field name="date"/></h4>
+                 <h4 class="text-left" style="color:black">PO Status: <field name="od_po_status"/> </h4>
+                   <div style="color:green">
+
+                            <b><field name="od_amended_sale_price"/>
+                            </b> @ <b><field name="od_profit_percent"/>%</b>
+
+                        </div>
+                
+              </xpath>
+
+          </field>
+      </record>
+
+
+
+      <record model="ir.ui.view" id="project.view_task_kanban">
+          <field name="name">project.task.kanban</field>
+          <field name="model">project.task</field>
+          <field name="arch" type="xml">
+              <kanban default_group_by="od_stage" >
+                  <field name="color"/>
+                  <field name="priority"/>
+                  <field name="od_type"/>
+                  <field name="od_stage"/>
+                  <field name="user_id"/>
+                  <field name="user_email"/>
+                  <field name="description"/>
+                  <field name="sequence"/>
+                  <field name="kanban_state"/>
+                  <field name="remaining_hours" sum="Remaining Time" groups="project.group_time_work_estimation_tasks"/>
+                  <field name="date_deadline"/>
+                  <field name="message_summary"/>
+                  <field name="categ_ids"/>
+                  <templates>
+                  <t t-name="kanban-box">
+                      <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                          <div class="oe_dropdown_toggle oe_dropdown_kanban" groups="base.group_user">
+                              <span class="oe_e">í</span>
+                              <ul class="oe_dropdown_menu">
+                                  <t t-if="widget.view.is_action_enabled('edit')"><li><a type="edit">Edit...</a></li></t>
+                                  <t t-if="widget.view.is_action_enabled('delete')"><li><a type="delete">Delete</a></li></t>
+                                  <li>
+                                    <ul class="oe_kanban_project_times" groups="project.group_time_work_estimation_tasks">
+                                      <li><a name="set_remaining_time_1" type="object" class="oe_kanban_button">1</a></li>
+                                      <li><a name="set_remaining_time_2" type="object" class="oe_kanban_button">2</a></li>
+                                      <li><a name="set_remaining_time_5" type="object" class="oe_kanban_button">5</a></li>
+                                      <li><a name="set_remaining_time_10" type="object" class="oe_kanban_button">10</a></li>
+                                    </ul>
+                                  </li>
+                                  <br/>
+                                  <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                              </ul>
+                          </div>
+
+                          <div class="oe_kanban_content">
+                              <div><h4 style="color:green">Task ID: <field name="id"/></h4></div>
+                              <div><b><field name="name"/></b></div>
+                              <br/>
+                              <div><h4 style="color:blue"><field name="od_type"/> - <field name="od_state"/> </h4></div>
+                               <div><h4 ><field name="date_start"/> </h4></div> <div><h4><field name="date_end"/> </h4></div>
+                               <div><h4 style="color:green">Assigned To: <field name="user_id" /></h4></div>
+                               <div><h4 style="color:blue">Consultant: <field name="reviewer_id" /></h4></div>
+                                <div><h4 style="color:red">Owner: <field name="od_owner_id" /></h4></div>
+                               <div><h4 style="color:blue">Customer Name: <field name="partner_id" /></h4></div>
+                              <div>
+                                  <field name="project_id"/><br/>
+                                  <t t-if="record.date_deadline.raw_value and record.date_deadline.raw_value lt (new Date())" t-set="red">oe_kanban_text_red</t>
+                                  <span t-attf-class="#{red || ''}"><i><field name="date_deadline"/></i></span>
+                              </div>
+                              <div>
+                                  <t t-if="record.od_type.raw_value=='activities'"><span>Quality Of Imp Points: <field name="od_quality_of_implementation"/></span></t>
+                            </div>
+                            <div>
+                                  <t t-if="record.od_type.raw_value=='activities'"><span>Quality Of Doc Points: <field name="od_quality_of_documentation"/></span></t>
+                            </div>
+                            <div>
+                                  <t t-if="record.od_type.raw_value=='activities'"><span>Complexity Points: <field name="od_complexiety"/></span></t>
+                            </div>
+                           <!--  <div>
+                                  <t t-if="record.od_type.raw_value=='activities'"><span>Owner Approval: <field name="od_owner_approval"/></span></t>
+                            </div>
+                            <div>
+                                  <t t-if="record.od_type.raw_value=='activities'"><span>Owner Satisfaction: <field name="od_satisfaction"/></span></t>
+                            </div> -->
+                              <div class="oe_kanban_footer_left">
+                                  <span groups="project.group_time_work_estimation_tasks" title="Remaining hours">
+                                      <span class="oe_e">N</span>
+                                      <t t-esc="Math.round(record.remaining_hours.raw_value)"/>
+                                  </span>
+                              </div>
+                              <div class="oe_kanban_footer_left" style="margin-top:5px;">
+                                  <t t-raw="record.message_summary.raw_value"/>
+                                  <field name="categ_ids"/>
+                              </div>
+                                  <div class="oe_kanban_bottom_right">
+                                      <img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)" t-att-title="record.user_id.value" width="24" height="24" class="oe_kanban_avatar pull-right"/>
+                                      <div class="pull-left" groups="base.group_user">
+                                          <field name="kanban_state" widget="kanban_state_selection"/>
+                                          <field name="priority" widget="priority"/>
+                                      </div>
+                                  </div>
+                          </div>
+                          <div class="oe_clear"></div>
+                      </div>
+                  </t>
+                  </templates>
+              </kanban>
+          </field>
+       </record>
+         <record id="view_od_product_sub_group_od_inherit" model="ir.ui.view">
+            <field name="name">od.product.sub.group.form.inherit</field>
+            <field name="model">od.product.sub.group</field>
+            <field name="inherit_id" ref="orchid_product.od_product_sub_group_form" />
+            <field name="arch" type="xml">
+            	<xpath expr="/form/sheet/group/group[1]" position="inside">
+            		<field name="phase_id" />
+            	</xpath>
+            </field>
+            </record>
+
+        <record model="ir.actions.act_window" id="action_od_task_calendar">
+      		<field name="name">My Technical Tasks</field>
+      		<field name="res_model">project.task</field>
+          <field name="domain">[('user_id','=',uid),('od_type','=','activities')]</field>
+      		<field name="view_mode">calendar,form</field>
+		</record>
+
+    <record model="ir.actions.act_window" id="action_od_all_task_calendar">
+      <field name="name">All Technical Tasks</field>
+      <field name="res_model">project.task</field>
+      <field name="domain">[('od_type','=','activities')]</field>
+      <field name="view_mode">calendar,form</field>
+</record>
+
+          <menuitem name="My Technical Tasks" id="od_task_calendar" action="action_od_task_calendar" parent="mail.mail_my_stuff" sequence="107"/>
+          <menuitem name="All Technical Tasks" id="od_all_task_calendar" action="action_od_all_task_calendar" parent="mail.mail_my_stuff" sequence="108" groups="orchid_beta.groups_beta_techinical_consultant,orchid_beta.groups_beta_techinical_manager,project.group_project_manager"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <openerp>
+    <data>
+    	
+            
+            <record model="ir.ui.view" id="beta_replace_account_tree_view">
+                <field name="name">beta.replace.account.tree</field>
+                <field name="model">beta.replace.account</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="tree_string">
+                        <field name="name"/>
+                        <field name="journal_id" />
+                        <field name="fiscalyear_id" />
+						<field name="period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special','=',True)]" />
+					
+						
+                    </tree>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="beta_replace_account_form_view">
+                <field name="name">beta.replace.account.form</field>
+                <field name="model">beta.replace.account</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="replace Account Wizard" >
+                    <header>
+                    <button name="button_replace" string="Replace" type="object" class="oe_highlight" states='draft'/>
+                     <button name="button_reset" string="Reset" type="object" class="oe_highlight" states='done'/>
+                     <field name="state" widget="statusbar"/>
+                    </header>
+					<sheet>
+				<group>
+					<group>
+						<field name="journal_id" />
+						<field name="name" />
+					</group>
+					<group>
+					<field name="fiscalyear_id" />
+						<field name="period_id" domain="[('fiscalyear_id', '=', fiscalyear_id),('special','=',True)]" />
+					
+					</group>
+				</group>
+					<notebook>
+						<page string="Detail">
+							<field name="transfer_line_ids">
+								<tree editable="bottom">
+									<field name="old_account_id"  required="1" domain="[('type', 'not in', ('view','consolidation'))]"/>
+									<field name="od_cost_centre_id" />
+									<field name="od_branch_id" />
+									<field name="od_division_id" />
+									<field name="new_account_id" required="1" domain="[('type', 'not in', ('view','consolidation'))]"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+					
+				</sheet>
+				</form>
+                </field>
+            </record>
+
+            <record model="ir.actions.act_window" id="action_beta_replace_account_tree_view">
+                <field name="name">Replace Account </field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">beta.replace.account</field>
+		   <!-- <field name="domain">[('field_name','condition',criteria)]</field>-->
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="view_id" ref="beta_replace_account_tree_view"/>
+            </record>
+
+<!-- 			<menuitem id="beta_replace_account_menu"  parent="account.account_account_menu" action="action_beta_replace_account_tree_view"/>
+ -->
+    
+    
+    </data>
+</openerp>

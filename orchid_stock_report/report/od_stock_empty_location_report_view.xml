@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_stock_empty_location_report_view" model="ir.ui.view">
+            <field name="name">od.stock.empty.location.report.tree</field>
+            <field name="model">od.stock.empty.location.report</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Empty Location" create="false">
+                    <field name="location_id" />
+                    <field name="complete_name"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="od_stock_empty_location_report_search" model="ir.ui.view">
+            <field name="name">od.stock.empty.location.report.search</field>
+            <field name="model">od.stock.empty.location.report</field>
+            <field name="arch" type="xml">
+                <search string="Empty Location">
+                    <field name="location_id" />
+                    <field name="complete_name"/>
+                    <group expand="1" string="Group By...">
+                    <filter string="Location" icon="terp-personal" name="odqntlocation" context="{'group_by':'location_id'}"/>
+                    <filter string="Name" icon="terp-personal" name="complete_name" context="{'group_by':'complete_name'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_stock_empty_location_report_graph">
+            <field name="name">od.stock.empty.location.report.graph</field>
+            <field name="model">od.stock.empty.location.report</field>
+            <field name="arch" type="xml">
+                <graph string="Empty Location" type="bar">
+                    <field name="location_id" />
+                    <field name="complete_name"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_stock_empty_location_report" model="ir.actions.act_window">
+            <field name="name">Empty Location List</field>
+            <field name="res_model">od.stock.empty.location.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="search_view_id" ref="od_stock_empty_location_report_search"/>
+            <field name="view_id" ref="od_stock_empty_location_report_view"/>
+            <field name="help">Empty Location List.</field>
+        </record>
+        <menuitem parent="stock.menu_traceability" action="action_od_stock_empty_location_report" id="menu_od_empty_location" sequence="21"/>
+    </data>
+</openerp>

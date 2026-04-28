@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_asn_voucher_form_inherit">
+            <field name="name">asn.account.voucher.form.inherit.view</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="orchid_cheque_management.view_voucher_form_inherit"/>
+            <field name="arch" type="xml">
+                <button name="od_deallocate" position="attributes">
+                    <attribute name="string">Invoices</attribute>
+                    <attribute name="context">{'journal_id':journal_id, 'type':type, 'partner_id':partner_id,'od_group_pay':od_group_pay}</attribute>
+                </button>
+                <field name="od_manual_allocate" position="replace">
+                    <field name="od_manual_allocate" context="{'od_manual_allocate':od_manual_allocate}" invisible="1"/>
+                    <field name="od_populate" invisible="1"/>
+                </field>
+
+                <field name="writeoff_acc_id" position="attributes">
+                    <attributes name="domain">[('type','in',('other','receivable','payable'))]</attributes>
+                </field>
+
+
+
+
+            </field>
+        </record>
+
+
+		<record model="ir.ui.view" id="view_asn_vendor_payment_form_inherit">
+            <field name="name">account.voucher.payment.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="orchid_cheque_management.view_vendor_payment_form_inherit"/>
+            <field name="arch" type="xml">
+                <button name="od_deallocate" position="attributes">
+                    <attribute name="string">Invoices</attribute>
+                    <attribute name="context">{'journal_id':journal_id, 'type':type, 'partner_id':partner_id,'od_group_pay':od_group_pay}</attribute>
+                </button>
+
+                <field name="od_manual_allocate" position="replace">
+                    <field name="od_manual_allocate" context="{'od_manual_allocate':od_manual_allocate}" invisible="1"/>
+                    <field name="od_populate" invisible="1"/>
+                </field>
+
+                <field name="writeoff_acc_id" position="attributes">
+                    <attributes name="domain">[('type','in',('other','receivable','payable'))]</attributes>
+                </field>
+
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="view_asn_pdc_view_form">
+            <field name="name">account.voucher.receipt.form</field>
+            <field name="model">account.voucher</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="orchid_cheque_management.view_pdc_view_form"/>
+            <field name="arch" type="xml">
+
+                <field name="od_manual_allocate" position="replace">
+                    <field name="od_manual_allocate" context="{'od_manual_allocate':od_manual_allocate}" invisible="1"/>
+                    <field name="od_populate" invisible="1"/>
+                    <field name="od_group_pay" invisible="1"/>
+                </field>
+
+                <button name="od_deallocate" position="attributes">
+                    <attribute name="string">Invoices</attribute>
+                    <attribute name="context">{'journal_id':journal_id, 'type':type, 'partner_id':partner_id,'od_group_pay':od_group_pay}</attribute>
+                </button>
+                <field name="writeoff_acc_id" position="replace">
+                     <field name="writeoff_acc_id" attrs="{'invisible':['|', ('payment_option','!=','with_writeoff'), ('writeoff_amount','=',0)], 'required':[('payment_option','=','with_writeoff')]}"/>
+                </field>
+
+
+
+            </field>
+        </record>
+
+    </data>
+</openerp>
+
+

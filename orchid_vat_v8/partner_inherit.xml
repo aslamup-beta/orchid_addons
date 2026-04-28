@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="partner_form_view_inherit" model="ir.ui.view">
+            <field name="name">partner.inherit form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"></field>
+            <field name="arch" type="xml">
+               <xpath expr="//div[2]" position="after">
+                  <label for="vat"/>
+                    <field name="vat" style="width:30%%" string="TIN"/>
+              </xpath>
+            </field>
+    </record>
+  </data>
+</openerp>

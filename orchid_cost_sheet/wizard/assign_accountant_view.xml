@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_assign_accountant_form" model="ir.ui.view">
+            <field name="name">Ren Fill form</field>
+            <field name="model">wiz.assign.accountant</field>
+            <field name="arch" type="xml">
+                <form string="Assign accountant" >
+                    <group string="Assign accountant">
+                        <field name="accountant_id" />
+                    </group>
+                <footer>
+                  <button name="assign_accountant" string="Assign" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="assign_accountant_action" model="ir.actions.act_window">
+            <field name="name">Assign accountant</field>
+            <field name="res_model">wiz.assign.accountant</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

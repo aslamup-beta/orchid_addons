@@ -1,0 +1,1464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+        <data noupdate="0">
+        
+            <record id="od_branch_named_account_submit_mail1" model="email.template">
+                     <field name="name">UAE - Branch Named Account List for Approval</field>
+                     <field name="email_from">${(user.email or '')|safe}</field>
+                     <field name="subject">Named Account List for Approval</field>
+                     <field name="email_to">osama.aldaour@betait.net</field>
+
+                     <field name="model_id" ref="model_named_accounts"/>
+
+                     <field name="body_html"><![CDATA[
+         				
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Osama Al Daour ,</p>
+
+         				    <p>Kindly Approve Named Accounts </p>
+         				    <p><span style="font-weight: bold;">Link</span>: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts</a></p><p><span style="font-weight: bold;">Branch</span>: ${object.branch_id.name}</p>
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     
+                     ]]></field>
+                 </record>
+                 
+                 
+                 <record id="od_branch_named_account_submit_mail1_saudi" model="email.template">
+                     <field name="name">KSA - Branch Named Account List for Approval</field>
+                     <field name="email_from">${(user.email or '')|safe}</field>
+                     <field name="subject">Named Account List for Approval</field>
+                     <field name="email_to">osama.aldaour@betait.net</field>
+
+                     <field name="model_id" ref="model_named_accounts"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Osama Al Daour ,</p>
+
+         				    <p>Kindly Approve Named Accounts </p>
+         				    <p><span style="font-weight: bold;">Link</span>: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts</a></p><p><span style="font-weight: bold;">Branch</span>: ${object.branch_id.name}</p>
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+              <record id="od_branch_named_account_change_submit_mail1" model="email.template">
+                     <field name="name">UAE - Branch Named Account List Change for Approval</field>
+                     <field name="email_from">${(user.email or '')|safe}</field>
+                     <field name="subject">Named Account List Change for Approval</field>
+                     <field name="email_to">osama.aldaour@betait.net</field>
+
+                     <field name="model_id" ref="model_named_accounts"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Osama Al Daour ,</p>
+
+         				    <p>Kindly Approve Change of Named Accounts </p>
+         				    <p><span style="font-weight: bold;">Link</span>: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts</a></p><p><span style="font-weight: bold;">Branch</span>: ${object.branch_id.name}</p>
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 <record id="od_branch_named_account_change_submit_mail1_saudi" model="email.template">
+                     <field name="name">KSA - Branch Named Account List Change for Approval</field>
+                     <field name="email_from">${(user.email or '')|safe}</field>
+                     <field name="subject">Named Account List Change for Approval</field>
+                     <field name="email_to">osama.aldaour@betait.net</field>
+
+                     <field name="model_id" ref="model_named_accounts"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Osama Al Daour ,</p>
+
+         				    <p>Kindly Approve Change of Named Accounts </p>
+         				    <p><span style="font-weight: bold;">Link</span>: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts</a></p><p><span style="font-weight: bold;">Branch</span>: ${object.branch_id.name}</p>
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                   <record id="od_branch_named_account_approved_mail1" model="email.template">
+                     <field name="name">UAE - Branch Named Account Approved</field>
+                     <field name="email_from">${(user.email or '')|safe}</field>
+                     <field name="subject">Named Account Approved</field>
+                     <field name="email_to">${object.branch_id.email}</field>
+
+                     <field name="model_id" ref="model_named_accounts"/>
+
+                     <field name="body_html"><![CDATA[
+         				
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.branch_id.manager_user_id.name}  ,</p>
+
+         				    <p> Named Accounts Approved </p>
+         				    <p>Link: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts</a></p><p>Branch:&nbsp;${object.branch_id.name}</p>
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_branch_named_account_approved_mail1_saudi" model="email.template">
+                     <field name="name">KSA - Branch Named Account Approved</field>
+                     <field name="email_from">${(user.email or '')|safe}</field>
+                     <field name="subject">Named Account Approved</field>
+                     <field name="email_to">${object.branch_id.email}</field>
+
+                     <field name="model_id" ref="model_named_accounts"/>
+
+                     <field name="body_html"><![CDATA[
+         				
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.branch_id.manager_user_id.name}  ,</p>
+
+         				    <p> Named Accounts Approved </p>
+         				    <p>Link: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts</a></p><p>Branch:&nbsp;${object.branch_id.name}</p>
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_branch_named_account_change_mail1" model="email.template">
+                     <field name="name">UAE - Branch Named Account Change</field>
+                     <field name="email_from">${(user.email or '')|safe}</field>
+                     <field name="subject">Named Account Change</field>
+                     <field name="email_to">${object.branch_id.email}</field>
+
+                     <field name="model_id" ref="model_named_accounts"/>
+
+                     <field name="body_html"><![CDATA[
+         				
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.branch_id.manager_user_id.name}  ,</p>
+
+         				    <p>Kindly Re Assign Named Accounts  </p>
+         				    <p>Link: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts</a></p><p>Branch: ${object.branch_id.name}</p>
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                 
+                 <record id="od_branch_named_account_change_mail1_saudi" model="email.template">
+                     <field name="name">KSA - Branch Named Account Change</field>
+                     <field name="email_from">${(user.email or '')|safe}</field>
+                     <field name="subject">Named Account Change</field>
+                     <field name="email_to">${object.branch_id.email}</field>
+
+                     <field name="model_id" ref="model_named_accounts"/>
+
+                     <field name="body_html"><![CDATA[
+         				
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.branch_id.manager_user_id.name}  ,</p>
+
+         				    <p>Kindly Re Assign Named Accounts  </p>
+         				    <p>Link: <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=named.accounts</a></p><p>Branch: ${object.branch_id.name}</p>
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                 
+                 
+                  <record id="crm_cancel_email_template" model="email.template">
+                     <field name="name">UAE -Opportunity Cancelled</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Opportunity Cancelled</field>
+                     <field name="email_to">${object.od_lead_user_id.email}</field>
+
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear   ,</p>
+
+         				    <p>
+         				    The Following Opportunity Set to Cancel..
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+                               		
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>Why lost?: ${object.sm_io1}</li>
+			                    	<li>What we should/shouldn’t do to avoid losing it?: ${object.sm_io2}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+			                    </ul>         		
+         				              				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="crm_cancel_email_template_saudi" model="email.template">
+                     <field name="name">KSA -Opportunity Cancelled</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Opportunity Cancelled</field>
+                     <field name="email_to">${object.od_lead_user_id.email}</field>
+
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear   ,</p>
+
+         				    <p>
+         				    The Following Opportunity  Set to Cancel..
+         				     </p>
+         				    <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>Why lost?: ${object.sm_io1}</li>
+			                    	<li>What we should/shouldn’t do to avoid losing it?: ${object.sm_io2}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+			                    </ul>       
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 <record id="crm_cancel_request_email_template" model="email.template">
+                     <field name="name">UAE -Opportunity Cancel Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request for Canceling Opportunity</field>
+                     <field name="email_to">${object.od_branch_id.email},${object.section_id.user_id.email}</field>
+
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear   ,</p>
+
+         				    <p>
+         				    Kindly Cancel the below Opportunity.
+         				     </p>
+         				    <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>Why lost?: ${object.sm_io1}</li>
+			                    	<li>What we should/shouldn’t do to avoid losing it?: ${object.sm_io2}</li>
+			                    	<li>Sales Value: ${object.od_costsheet_sale}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+			                    </ul>       
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="crm_cancel_request_email_template_saudi" model="email.template">
+                     <field name="name">KSA -Opportunity Cancel Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request for Canceling Opportunity</field>
+                     <field name="email_to">${object.section_id.user_id.email}</field>
+                      <field name="email_cc">osama.aldaour@betait.net,${object.od_branch_id.email}</field>
+
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.section_id.user_id.name},</p>
+
+         				    <p>
+         				    Kindly Cancel the below Opportunity.
+         				     </p>
+         				   <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>Why lost?: ${object.sm_io1}</li>
+			                    	<li>What we should/shouldn’t do to avoid losing it?: ${object.sm_io2}</li>
+			                    	<li>Sales Value: ${object.od_costsheet_sale}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+			                    </ul>       
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="crm_lost_request_email_template" model="email.template">
+                     <field name="name">UAE -Opportunity Lost Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request for Marking Opportunity as Lost</field>
+                     <field name="email_to">${object.od_branch_id.email},${object.section_id.user_id.email}</field>
+
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear   ,</p>
+
+         				    <p>
+         				    Kindly requesting you to Mark below Opportunity as Lost.
+         				     </p>
+         				    <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>Sales Value: ${object.od_costsheet_sale}</li>
+			                    	<li>Why lost?: ${object.sm_io1}</li>
+			                    	<li>What we should/shouldn’t do to avoid losing it?: ${object.sm_io2}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+			                    </ul>       
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="crm_lost_request_email_template_saudi" model="email.template">
+                     <field name="name">KSA -Opportunity Lost Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request for Marking Opportunity as Lost</field>
+                     <field name="email_to">${object.section_id.user_id.email}</field>
+                      <field name="email_cc">osama.aldaour@betait.net,${object.od_branch_id.email}</field>
+
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.section_id.user_id.name},</p>
+
+         				    <p>
+         				    Kindly requesting you to Mark below Opportunity as Lost.
+         				     </p>
+         				    <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>Sales Value: ${object.od_costsheet_sale}</li>
+			                    	<li>Why lost?: ${object.sm_io1}</li>
+			                    	<li>What we should/shouldn’t do to avoid losing it?: ${object.sm_io2}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+			                    </ul>       
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="crm_reject_request_email_template" model="email.template">
+                     <field name="name">UAE -Opportunity Cancel Request Rejected</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Opportunity Cancellation Rejected</field>
+					 <field name="email_to">${object.od_lead_user_id.email}</field>
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear   ,</p>
+
+         				    <p>
+         				    Cancellation Rejected for the below Opportunity.
+         				     </p>
+         				    <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+			                    </ul>       
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="crm_reject_request_email_template_saudi" model="email.template">
+                     <field name="name">KSA -Opportunity Cancel Request Rejected</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Opportunity Cancellation Rejected</field>
+					<field name="email_to">${object.od_lead_user_id.email}</field>
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear   ,</p>
+
+         				    <p>
+         				    Cancellation Rejected for the below Opportunity. </p>
+         				    
+         				    <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+			                    </ul>       
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="beta_lead_assigned_template" model="email.template">
+                     <field name="name">All - New Lead Assigned</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">New Lead Assigned</field>
+					<field name="email_to">${object.od_lead_user_id.email}</field>
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.od_lead_user_id.name},</p>
+
+         				    <p>
+         				    You have a new Lead Assigned to you:</p>
+         				    
+						<p>Info</p>
+			                    <ul>
+			                    <li>Opportunity Number: ${object.od_number}</li>
+                                <li>Subject: ${object.name}</li>
+			                    <li>Customer:${object.partner_id.name}</li>
+			                   <li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               	<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    <li>Created by:${object.create_uid.name}</li>
+			                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=crm.lead&menu_id=136&action=143</li>
+			                    </ul>         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 <record id="crm_return_to_pipeline_request_email_template" model="email.template">
+                     <field name="name">UAE -Return Lost/Cancel Opportunity to Pipeline</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Return Lost/Cancel Opportunity to ${object.destination_stage_id.name}</field>
+					 <field name="email_to">${object.section_id.user_id.email}</field>
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.section_id.user_id.name},</p>
+
+         				    <p>
+         				    Kindly need your support to return below Opportunity to ${object.destination_stage_id.name} Stage.
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>Sales Value: ${object.od_costsheet_sale}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=1166&action=1691</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="crm_return_to_pipeline_request_email_template_saudi" model="email.template">
+                     <field name="name">KSA -Return Lost/Cancel Opportunity to Pipeline</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Return Lost/Cancel Opportunity to ${object.destination_stage_id.name}</field>
+					 <field name="email_to">${object.section_id.user_id.email}</field>
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.section_id.user_id.name},</p>
+
+         				    <p>
+         				    Kindly need your support to return below Opportunity to ${object.destination_stage_id.name} Stage.
+         				     </p>
+         				    <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>Sales Value: ${object.od_costsheet_sale}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=1166&action=1691</li>
+			                    </ul>     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="crm_returned_to_pipeline_email_template" model="email.template">
+                     <field name="name">UAE -Returned Opportunity to Pipeline</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Returned Opportunity back to ${object.destination_stage_id.name}</field>
+					 <field name="email_to">${object.od_lead_user_id.email}</field>
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.od_lead_user_id.name},</p>
+
+         				    <p>
+         				    Opportunity Returned back to ${object.destination_stage_id.name} Stage.
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=1162&action=1676</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="crm_returned_to_pipeline_email_template_saudi" model="email.template">
+                     <field name="name">KSA -Returned Opportunity to Pipeline</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Returned Opportunity back to ${object.destination_stage_id.name}</field>
+					 <field name="email_to">${object.od_lead_user_id.email}</field>
+                     <field name="model_id" ref="model_crm_lead"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.od_lead_user_id.name},</p>
+
+         				    <p>
+         				    Opportunity Returned back to ${object.destination_stage_id.name} Stage.
+         				     </p>
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.od_number}</li>
+                                	<li>Subject: ${object.name}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.od_lead_user_id.name}</li>
+			                    	<li>Created by: ${object.create_uid.name}</li>
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=1162&action=1676</li>
+			                    </ul>     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="activity_approval_request_email_template" model="email.template">
+                     <field name="name">UAE -Activity Approval Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request for Reviewing Service team Activity</field>
+                     <field name="email_to">${object.user_id.email}</field>
+                     <field name="model_id" ref="model_od_tech_ticket_approval"/>
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.user_id.name}, ,</p>
+
+         				    <p>
+         				    Kindly review the service team activities.
+         				     </p>
+         				    <p>https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.tech.ticket.approval&menu_id=1183&action=1783</p>
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+             
+             
+             <record id="handover_to_service_email_template" model="email.template">
+                     <field name="name">UAE -Handover to Service</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Handover from Projects to Service Desk - Project #: ${object.final_doc_folder.analytic_account_id.code}</field>
+					 <field name="email_to">support@betait.net</field>
+					 <field name="email_cc">khalid.eqtifan@betait.net</field>
+                     <field name="model_id" ref="model_handover_service"/>
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Service Desk Team,</p>
+
+         				    <p>
+         				    The below project is handed over to you. You need to review it, ensure that all supporting documents, backup configurations, SLA contracts, principle vendor license activation, serial numbers, etc. are available.
+
+							Make sure you set all necessary Preventive Maintenance dates if requested in the contract.
+
+         				     </p>
+         				     <ul>
+						    <li>Customer Name: ${object.customer_id.name}</li>
+						    <li>Project Name: ${object.final_doc_folder.name}</li>
+						    <li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=handover.service&menu_id=1181&action=1774</li>
+                    				</ul>
+         				   
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="handover_to_service_email_template_saudi" model="email.template">
+                     <field name="name">KSA -Handover to Service</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Handover from Projects to Service Desk - Project #: ${object.final_doc_folder.analytic_account_id.code}</field>
+					 <field name="email_to">shameer.sheik@betait.net</field>
+					 <field name="email_cc">mahmoud.alkhatib@betait.net</field>
+                     <field name="model_id" ref="model_handover_service"/>
+                      <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Service Desk Team,</p>
+
+         				    <p>
+         				    The below project is handed over to you. You need to review it, ensure that all supporting documents, backup configurations, SLA contracts, principle vendor license activation, serial numbers, etc. are available.
+
+							Make sure you set all necessary Preventive Maintenance dates if requested in the contract.
+
+         				     </p>
+         				   <ul>
+						    <li>Customer Name: ${object.customer_id.name}</li>
+						    <li>Project Name: ${object.final_doc_folder.name}</li>
+						    <li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=handover.service&menu_id=1181&action=1774</li>
+                    				</ul>
+         				   
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 <record id="handover_rejected_by_sd_email_template" model="email.template">
+                     <field name="name">UAE -Handover Rejected</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Handover Rejected by Service Desk - Project #: ${object.final_doc_folder.analytic_account_id.code}</field>
+					 <field name="email_to">${object.od_proj_manager.email}</field>
+					 <field name="email_cc">khalid.eqtifan@betait.net</field>
+                     <field name="model_id" ref="model_handover_service"/>
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.od_proj_manager.name},</p>
+
+         				    <p>
+         				    The below project hand over is rejected by service desk. Make sure that all supporting documents, backup configurations, SLA contracts, principle vendor license activation, serial numbers, etc. are provided.
+
+         				     </p>
+         				     <ul>
+         				     
+						    <li>Customer Name: ${object.customer_id.name}</li>
+						    <li>Project Name: ${object.final_doc_folder.name}</li>
+						    <li>Reason for reject: ${object.rej_reasn}</li>
+						    <li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=handover.service&menu_id=1181&action=1774</li>
+                    				</ul>
+         				   
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="handover_rejected_by_sd_email_template_saudi" model="email.template">
+                     <field name="name">KSA -Handover Rejected</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                    <field name="subject">Handover Rejected by Service Desk - Project #: ${object.final_doc_folder.analytic_account_id.code}</field>
+					 <field name="email_to">${object.od_proj_manager.email}</field>
+					 <field name="email_cc">mahmoud.alkhatib@betait.net</field>
+                     <field name="model_id" ref="model_handover_service"/>
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear ${object.od_proj_manager.name},</p>
+
+         				    <p>
+         				    The below project hand over is rejected by service desk. Make sure that all supporting documents, backup configurations, SLA contracts, principle vendor license activation, serial numbers, etc. are provided.
+
+         				     </p>
+         				     <ul>
+         				     
+						    <li>Customer Name: ${object.customer_id.name}</li>
+						    <li>Project Name: ${object.final_doc_folder.name}</li>
+						    <li>Reason for reject: ${object.rej_reasn}</li>
+						    <li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=handover.service&menu_id=1181&action=1774</li>
+                    				</ul>
+         				   
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                 <record id="od_notify_finance_verify_lg_request" model="email.template">
+                     <field name="name">UAE -Request to Verify a Bid Bond LG</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request to Verify a ${object.guarantee_name} LG; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">mohd.sageer@betait.net, sami.nazzal@betait.net, ramesh.poruppath@betait.net</field>
+                     <field name="model_id" ref="model_od_lg_request_form"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Finance Team,</p>
+
+         				    <p>
+         				     We need to issue a ${object.guarantee_name} LG for the following. Kindly review & verify it.
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.lead_id.od_lead_user_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>L/G Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.lg.request.form</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_notify_finance_verify_lg_request_saudi" model="email.template">
+                     <field name="name">KSA -Request to Verify a Bid Bond LG</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request to Verify a ${object.guarantee_name} LG; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">esraa.aljuhami@betait.net, bashayer.alshahrani@betait.net, ethar.aldakheel@betait.net</field>
+                     <field name="model_id" ref="model_od_lg_request_form"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Finance Team,</p>
+
+         				    <p>
+         				     We need to issue a ${object.guarantee_name} LG for the following. Kindly review & verify it.
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.lead_id.od_lead_user_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>L/G Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.lg.request.form</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="od_notify_gm_approve_lg_request" model="email.template">
+                     <field name="name">UAE -Request to Approve a Bid Bond LG</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request to Approve a ${object.guarantee_name} LG; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">mamoun.daour@betait.net</field>
+					 <field name="email_cc">${object.lead_id.od_lead_user_id.email}</field>
+                     <field name="model_id" ref="model_od_lg_request_form"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear General Manager,</p>
+
+         				    <p>
+								The below ${object.guarantee_name} LG request has been reviewed and verified by Finance Team. We require your approval. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.lead_id.od_lead_user_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>L/G Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.lg.request.form</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_notify_gm_approve_lg_request_saudi" model="email.template">
+                     <field name="name">KSA -Request to Approve a Bid Bond LG</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request to Approve a ${object.guarantee_name} LG; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">mohammad.zaben@betait.net</field>
+					 <field name="email_cc">${object.lead_id.od_lead_user_id.email}</field>
+                     <field name="model_id" ref="model_od_lg_request_form"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Finance Manager,</p>
+
+         				    <p>
+								The below ${object.guarantee_name} LG request has been reviewed and verified by Finance Team. We require your approval. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.lead_id.od_lead_user_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>L/G Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.lg.request.form</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="od_notify_sam_verify_lg_request" model="email.template">
+                     <field name="name">UAE -Approval Notification to SAM - Bid Bond LG</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request Approved by GM for ${object.guarantee_name} LG; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">${object.lead_id.od_lead_user_id.email}</field>
+					 <field name="email_cc">mohd.sageer@betait.net, sami.nazzal@betait.net, ramesh.poruppath@betait.net</field>
+                     <field name="model_id" ref="model_od_lg_request_form"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Account Manager,</p>
+
+         				    <p>
+								The below ${object.guarantee_name} LG request has been approved by GM. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>L/G Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.lg.request.form</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_notify_sam_verify_lg_request_saudi" model="email.template">
+                     <field name="name">KSA -Approval Notification to SAM - Bid Bond LG</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request Approved by Finance Manager for ${object.guarantee_name} LG; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">${object.lead_id.od_lead_user_id.email}</field>
+                     <field name="email_cc">bashayer.alshahrani@betait.net</field>
+                     <field name="model_id" ref="model_od_lg_request_form"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Account Manager,</p>
+
+         				    <p>
+								The below ${object.guarantee_name} LG request has been approved by Finance Manager. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>L/G Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.lg.request.form</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="od_notify_sam_refuse_lg_request" model="email.template">
+                     <field name="name">UAE -Approval Rejected Notification to SAM - Bid Bond LG</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Approval Rejected- ${object.guarantee_name} LG; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">${object.lead_id.od_lead_user_id.email}</field>
+					 <field name="email_cc">mohd.sageer@betait.net, sami.nazzal@betait.net</field>
+                     <field name="model_id" ref="model_od_lg_request_form"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Account Manager,</p>
+
+         				    <p>
+								The below ${object.guarantee_name} LG request has been rejected. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>L/G Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.lg.request.form</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_notify_sam_refuse_lg_request_saudi" model="email.template">
+                    <field name="name">KSA -Approval Rejected Notification to SAM - Bid Bond LG</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Approval Rejected- ${object.guarantee_name} LG; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">${object.lead_id.od_lead_user_id.email}</field>
+					 <field name="email_cc">mohammad.zaben@betait.net, bashayer.alshahrani@betait.net</field>
+                     <field name="model_id" ref="model_od_lg_request_form"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Account Manager,</p>
+
+         				    <p>
+								The below ${object.guarantee_name} LG request has been rejected. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>Tender Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.lg.request.form</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="od_notify_finance_verify_tender_request" model="email.template">
+                     <field name="name">UAE -Request to Verify a Tender Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request to Verify a Tender Request; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">mohd.sageer@betait.net, sami.nazzal@betait.net, ramesh.poruppath@betait.net</field>
+                     <field name="model_id" ref="model_od_tender_request"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Finance Team,</p>
+
+         				    <p>
+         				     We need to issue a Tender Payment for the following. Kindly review & verify it.
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.lead_id.od_lead_user_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>Tender Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.tender.request</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_notify_finance_verify_tender_request_saudi" model="email.template">
+                     <field name="name">KSA -Request to Verify a Tender Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request to Verify a Tender Request; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">esraa.aljuhami@betait.net, bashayer.alshahrani@betait.net, ethar.aldakheel@betait.net</field>
+                     <field name="model_id" ref="model_od_tender_request"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Finance Team,</p>
+
+         				    <p>
+         				     We need to issue a Tender Payment for the following. Kindly review & verify it.
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.lead_id.od_lead_user_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>Tender Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.tender.request</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="od_notify_gm_approve_tender_request" model="email.template">
+                     <field name="name">UAE -Request to Approve a Tender Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request to Approve a Tender Request; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">mamoun.daour@betait.net</field>
+					 <field name="email_cc">${object.lead_id.od_lead_user_id.email}</field>
+                     <field name="model_id" ref="model_od_tender_request"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear General Manager,</p>
+
+         				    <p>
+								The below Tender Payment request has been reviewed and verified by Finance Team. We require your approval. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.lead_id.od_lead_user_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>Tender Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.tender.request</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_notify_gm_approve_tender_request_saudi" model="email.template">
+                     <field name="name">KSA -Request to Approve a Tender Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request to Approve a Tender Request; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">mohammad.zaben@betait.net</field>
+					 <field name="email_cc">${object.lead_id.od_lead_user_id.email}</field>
+                     <field name="model_id" ref="model_od_tender_request"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Finance Manager,</p>
+
+         				    <p>
+								The below Tender Payment request has been reviewed and verified by Finance Team. We require your approval. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Customer AM: ${object.partner_id.user_id.name}</li>	                    
+                               		<li>Lead AM: ${object.lead_id.od_lead_user_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>Tender Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.tender.request</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="od_notify_sam_verify_tender_request" model="email.template">
+                     <field name="name">UAE -Approval Notification to SAM - Tender Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request Approved by GM for Tender Request; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">${object.lead_id.od_lead_user_id.email}</field>
+					 <field name="email_cc">mohd.sageer@betait.net, sami.nazzal@betait.net, ramesh.poruppath@betait.net</field>
+                     <field name="model_id" ref="model_od_tender_request"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Account Manager,</p>
+
+         				    <p>
+								The below Tender Payment request has been approved by GM. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>Tender Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.tender.request</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_notify_sam_verify_tender_request_saudi" model="email.template">
+                     <field name="name">KSA -Approval Notification to SAM - Tender Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Request Approved by Finance Manager forTender Request; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">${object.lead_id.od_lead_user_id.email}</field>
+                     <field name="email_cc">bashayer.alshahrani@betait.net</field>
+                     <field name="model_id" ref="model_od_tender_request"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Account Manager,</p>
+
+         				    <p>
+								The below Tender Payment request has been approved by Finance Manager. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>Tender Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.tender.request</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="od_notify_sam_refuse_tender_request" model="email.template">
+                     <field name="name">UAE -Approval Rejected Notification to SAM - Tender Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Approval Rejected- Tender Request; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">${object.lead_id.od_lead_user_id.email}</field>
+					 <field name="email_cc">mohd.sageer@betait.net, sami.nazzal@betait.net</field>
+                     <field name="model_id" ref="model_od_tender_request"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Account Manager,</p>
+
+         				    <p>
+								The below Tender Payment request has been rejected. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>Tender Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.tender.request</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 
+                 
+                  <record id="od_notify_sam_refuse_tender_request_saudi" model="email.template">
+                    <field name="name">KSA -Approval Rejected Notification to SAM - Tender Request</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Approval Rejected- Tender Request; ${object.partner_id.name} - ${object.lead_id.name}</field>
+					 <field name="email_to">${object.lead_id.od_lead_user_id.email}</field>
+					 <field name="email_cc">mohammad.zaben@betait.net, bashayer.alshahrani@betait.net</field>
+                     <field name="model_id" ref="model_od_tender_request"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Account Manager,</p>
+
+         				    <p>
+								The below Tender Payment request has been rejected. 
+
+         				     </p>
+         				     
+         				     <p>Info</p>
+			                    <ul>
+			                    	<li>Opportunity Number: ${object.lead_id.od_number}</li>
+			                    	<li>Customer: ${object.partner_id.name}</li>
+                               		<li>Job Name/Desc: ${object.job_name}</li>
+			                    	<li>Job Amount: ${object.job_amt}</li>
+<!-- 			                    	<li>Tender Amount: ${object.lg_amt} or ${object.lg_amt1}</li> -->
+			                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.tender.request</li>
+			                    </ul>     
+         				     
+         				    
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="send_mail_hd_service_desk" model="email.template">
+                     <field name="name">UAE - Help Issue created through Portal</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Query Submitted through Portal - ${object.name}</field>
+                     <field name="email_to">support@betait.net</field>
+					 <field name="email_cc">khalid.eqtifan@betait.net, khalid.lebbeh@betait.net</field>
+                     <field name="model_id" ref="model_helpdesk_portal"/>
+                     <field name="body_html"><![CDATA[
+						<div>Dear Support Team,</div><div><br></div><div>A query has been submitted by ${object.contact_id.name}, your immediate action and timely update is highly appreciated.</div><div><br></div><div>Query Name : ${object.name}</div><div>Customer Name : ${object.customer_id.name}</div><div>Priority : ${object.priority}</div><div><br></div><div>Link : <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=helpdesk.portal&amp;action=1816">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=helpdesk.portal&amp;menu_id=1189&amp;action=1821</a></div><div><br></div><div>Thank You.</div>                     ]]></field>
+                 </record>
+                  <record id="send_mail_hd_service_desk_saudi" model="email.template">
+                     <field name="name">KSA - Help Issue created through Portal</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Query Submitted through Portal - ${object.name}</field>
+                     <field name="email_to">support@betait.net</field>
+					 <field name="email_cc">mahmoud.alkhatib@betait.net, fakhri.amaireh@betait.net</field>
+                     <field name="model_id" ref="model_helpdesk_portal"/>
+                     <field name="body_html"><![CDATA[
+						<div>Dear Support Team,</div><div><br></div><div>A query has been submitted by ${object.contact_id.name}, your immediate action and timely update is highly appreciated.</div><div><br></div><div>Query Name : ${object.name}</div><div>Customer Name : ${object.customer_id.name}</div><div>Priority : ${object.priority}</div><div><br></div><div>Link : <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=helpdesk.portal&amp;action=1816">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=helpdesk.portal&amp;menu_id=1189&amp;action=1821</a></div><div><br></div><div>Thank You.</div>                     ]]></field>
+                 </record>
+                 <record id="approve_mail_hd_portal_user" model="email.template">
+                     <field name="name">UAE - Help Issue created through Portal Approved</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Query Submitted through Portal Approved - Ticket # ${object.od_hd_issue_seq}</field>
+                     <field name="email_to">${object.email}</field>
+                     <field name="model_id" ref="model_helpdesk_portal"/>
+                     <field name="body_html"><![CDATA[
+						<div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Dear Valued Customer,</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Thanks for submitting the request. Ticket has been raised. We will look into the request and process accordingly.</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">You will be receiving further updates/notifications on the ticket.</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><div>Query Name : ${object.name}</div></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Best Regards,</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Service Desk - Beta IT</span></font></div>                     ]]></field>
+                 </record>
+                 <record id="approve_mail_hd_portal_user_saudi" model="email.template">
+                     <field name="name">KSA - Help Issue created through Portal Approved</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Query Submitted through Portal Approved - Ticket # ${object.od_hd_issue_seq}</field>
+                     <field name="email_to">${object.email}</field>
+                     <field name="model_id" ref="model_helpdesk_portal"/>
+                     <field name="body_html"><![CDATA[
+						<div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Dear Valued Customer,</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Thanks for submitting the request. Ticket has been raised. We will look into the request and process accordingly.</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">You will be receiving further updates/notifications on the ticket.</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><div>Query Name : ${object.name}</div></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Best Regards,</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Service Desk - Beta IT</span></font></div>                     ]]></field>
+                 </record>
+                 <record id="reject_hd_mail_to_portal_user" model="email.template">
+                     <field name="name">UAE - Help Issue Rejected by Service Desk</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Query Rejected By Service Desk - ${object.name}</field>
+                     <field name="email_to">${object.email}</field>
+					 <field name="email_cc">support@betait.net, khalid.eqtifan@betait.net, khalid.lebbeh@betait.net</field>
+                     <field name="model_id" ref="model_helpdesk_portal"/>
+                     <field name="body_html"><![CDATA[
+         				<div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Dear Valued Customer,</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Thanks for submitting the request, we regret to inform that request has been rejected as it is out of SLA Scope. Kindly contact your Account Manager and we thank you for your understanding.</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Query Name : ${object.name}</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Link : <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=helpdesk.portal&amp;action=1816">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=helpdesk.portal&amp;action=1816</a></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Best Regards,</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Service Desk - Beta IT</span></font></div>
+                     ]]></field>
+                 </record>
+                 <record id="reject_hd_mail_to_portal_user_saudi" model="email.template">
+                     <field name="name">KSA - Help Issue Rejected by Service Desk</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Query Rejected By Service Desk - ${object.name}</field>
+                     <field name="email_to">${object.email}</field>
+					 <field name="email_cc">support.ksa@betait.net,mahmoud.alkhatib@betait.net, fakhri.amaireh@betait.net</field>
+                     <field name="model_id" ref="model_helpdesk_portal"/>
+                     <field name="body_html"><![CDATA[
+         				<div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Dear Valued Customer,</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Thanks for submitting the request, we regret to inform that request has been rejected as it is out of SLA Scope. Kindly contact your Account Manager and we thank you for your understanding.</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Query Name : ${object.name}</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Link : <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=helpdesk.portal&amp;action=1816">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=helpdesk.portal&amp;action=1816</a></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;"><br></span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Best Regards,</span></font></div><div style=""><font color="#4c4c4c" face="Lucida Grande, Helvetica, Verdana, Arial, sans-serif"><span style="font-size: 13px;">Service Desk - Beta IT</span></font></div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="send_mail_customer_visit_approval" model="email.template">
+                     <field name="name">KSA - Customer Visit by SA Approval</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Customer Visit Approval - ${object.name}</field>
+                     <field name="email_to">${object.manager_id.email}</field>
+					 <field name="email_cc">fakhri.amaireh@betait.net</field>
+                     <field name="model_id" ref="model_customer_visit_report"/>
+                     <field name="body_html"><![CDATA[
+						<div style='color: rgb(76, 76, 76); font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif; font-size: 13px;'><span style="font-size: 13px;">Dear </span>${object.manager_id.name}<span style="font-size: 13px;">,</span></div><div style='color: rgb(76, 76, 76); font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif; font-size: 13px;'><span style="font-size: 13px;"><br></span></div><div style='color: rgb(76, 76, 76); font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif; font-size: 13px;'>Kindly Approve the below Customer Visit Report of Engineer ${object.employee_id.name}</div><div style='color: rgb(76, 76, 76); font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif; font-size: 13px;'><br></div><div style=""><span style='color: rgb(76, 76, 76); font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif; font-size: 13px;'>Link : </span><span style="font-size: 13px;"><a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=customer.visit.report&amp;menu_id=1196&amp;action=1874">https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=customer.visit.report&amp;menu_id=1196&amp;action=1874</a></span></div><div style='color: rgb(76, 76, 76); font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif; font-size: 13px;'><span style="font-size: 13px;"><br></span></div><div style='color: rgb(76, 76, 76); font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif; font-size: 13px;'>Thank you</div>
+                     ]]></field>
+                 </record>
+                 
+                 <record id="od_approve_outsource_mail_finance_saudi" model="email.template">
+                     <field name="name">KSA - Out Sourced Employee Approval</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Out Sourced Employee Approval - ${object.name}</field>
+                     <field name="email_to">hr.ksa@betait.net</field>
+					 <field name="email_cc">fakhri.amaireh@betait.net, mahmoud.alkhatib@betait.net</field>
+                     <field name="model_id" ref="model_outsource_employee_join_form"/>
+                     <field name="body_html"><![CDATA[
+								<div>Dear Team,</div><div><br></div><div>Kindly Approve the Joining form of Out Sourced Employee</div><div><br></div><div>Link : https://erp.betait.net//web#id=${object.id}&amp;amp;&amp;view_type=form&amp;amp;model=outsource.employee.join.form&amp;amp;menu_id=1201&amp;action=1873</div><div><br></div><div>Thank you</div><div>ERP Automatic Email<br></div>                     ]]></field>
+                 </record>
+                 
+                 <record id="od_approved_outsource_mail_project_saudi" model="email.template">
+                     <field name="name">KSA - Out Sourced Employee Approved</field>
+                     <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+                     <field name="subject">Out Sourced Employee Approved - ${object.name}</field>
+                     <field name="email_to">${object.proj_manager.email}</field>
+					 <field name="email_cc">fakhri.amaireh@betait.net, mahmoud.alkhatib@betait.net</field>
+                     <field name="model_id" ref="model_outsource_employee_join_form"/>
+                     <field name="body_html"><![CDATA[
+							<div>Dear Project Manager,</div><div><br></div><div>Joining form of Out Sourced Employee Approved and Employee Created.<br></div><div><br></div><div>Link : https://erp.betait.net//web#id=${object.id}&amp;amp;&amp;view_type=form&amp;amp;model=outsource.employee.join.form&amp;amp;menu_id=1201&amp;action=1873</div><div><br></div><div>Thank you</div><div>ERP Automatic Email<br></div>                     ]]></field>
+                 </record>
+                 
+                  
+                 
+             </data>
+            </openerp>
+            
+            
+            

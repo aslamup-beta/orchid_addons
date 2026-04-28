@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="employee_training_contract_form_view">
+            <field name="name">Employee Training Contract</field>
+            <field name="model">employee.training.contract</field>
+            <field name="arch" type="xml">
+                <form string="Employee Training Contract" create="false">
+                    <header>
+                        <button string="Confirm And Accept" type="object" name="action_confirm_training" states="draft"
+                                class="oe_highlight"/>
+                        <button string="Reject" type="object" name="action_reject_training" states="draft"/>
+                        <button name="%(action_attach_emp_feedback)d" string="Mark As Completed" type="action" class="oe_highlight" states="confirm"/>
+                        <button name="%(action_attach_hr_feedback)d" string="Confirm Attendance" type="action" class="oe_highlight" states="waiting_hr"/>
+                        <button string="Mark As Absent" type="object" name="action_mark_absent" states="confirm,waiting_hr"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box" groups="base.group_user">
+                            <button name="od_view_training_events" class="oe_inline oe_stat_button" type="object"
+                                    icon="fa-calendar">
+                                <field name="event_count" widget="statinfo" string="Training Events"/>
+                            </button>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="name" invisible="1"/>
+                                <field name="employee_user_id" invisible="1"/>
+                                <field name="employee_name"/>
+                                <field name="manager_id"/>
+                                <field name="employee_id" invisible="1"/>
+                                <field name="training_card_id"/>
+                                <field name="trainer_id"/>
+                                <field name="confirmed_date" readonly="1"
+                                       attrs="{'invisible':[('confirmed_date','=',False)]}"/>
+                            </group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="training_type_id"/>
+                                <field name="training_location"/>
+                                <field name="total_training_hours"/>
+                                <field name="training_certificate_img_id" invisible="1"/>
+                                <field name="rejection_date" readonly="1"
+                                       attrs="{'invisible':[('rejection_date','=',False)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Training Time">
+                                <field name="training_plan_ids">
+                                    <tree editable="bottom">
+                                        <field name="start_date" required="1"/>
+                                        <field name="end_date" required="1"/>
+                                        <field name="duration" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Training Budget">
+                                <group>
+                                    <group>
+                                        <field name="budget_per_emp"/>
+                                        <field name="additional_budget"/>
+                                    </group>
+                                    <group>
+                                        <field name="total_budget"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Act HR Evaluation" states="waiting_hr,completed">
+                                <group string="Employee">
+                                    <field name="completed_date" readonly="1"/>
+                                    <field name="training_feedback" readonly="1"/>
+                                    <field name="emp_comments" readonly="1"/>
+                                    <field name="attach_file_emp" filename="attach_fname_emp" readonly="1"/>
+                                    <field name="attach_fname_emp" invisible="1"/>
+                                </group>
+                                <group string="HR">
+                                    <field name="hr_feedback" readonly="1"/>
+                                    <field name="hr_comments" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_training_contract_tree_view">
+            <field name="name">employee.training.contract.tree</field>
+            <field name="model">employee.training.contract</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Training Contract" create="false">
+                    <field name="employee_user_id"/>
+                    <!--                    <field name="training_date"/>-->
+                    <field name="training_card_id"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_employee_training_contract_search_view">
+            <field name="name">employee.training.contract.search.view</field>
+            <field name="model">employee.training.contract</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="training_card_id"/>
+                    <field name="state"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" domain="[]" context="{'group_by':'employee_user_id'}"/>
+                        <filter string="Training Name" domain="[]" context="{'group_by':'training_card_id'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Assigned By" domain="[]" context="{'group_by':'user_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_open_employee_training_contract">
+            <field name="name">Employee Training Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.training.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new request.
+                </p>
+            </field>
+        </record>
+
+        <!--<menuitem name="Calendar" action="calendar.action_calendar_event"
+                  parent="menu_training_main"
+                  id="menu_open_employee_training_calendar" sequence="1"/>-->
+        <!--<menuitem name="Dashboard" parent="menu_training"
+                  id="menu_contract_main" sequence="0"/>-->
+
+        <menuitem name="Employee Training Contract" action="action_open_employee_training_contract"
+                  parent="menu_training_main"
+                  id="menu_open_employee_training_contract" sequence="1"/>
+
+
+    </data>
+</openerp>

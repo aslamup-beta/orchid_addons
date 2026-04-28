@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record model="ir.ui.view" id="od_beta_crm_lead_form_inherit">
+            <field name="name">Lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='description']" position="after">
+                    <field name="od_activity_lines1">
+                            <tree editable="bottom">
+                                <field name="date" readonly="1"/>
+                                <field name="user_id" readonly="1"/>
+                                <field name="name" required="1"/>
+                            </tree>
+                        </field>
+               </xpath>
+               
+               <xpath expr="//field[@name='categ_ids']" position="after">
+                     <field name="expiry_date" string="Expiry Date"/> 
+               </xpath>
+               
+            </field>
+         </record>
+         
+</data>
+</openerp>

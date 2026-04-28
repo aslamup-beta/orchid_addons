@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="view_stock_inv_rpt_wizard" model="ir.ui.view">
+            <field name="name">Print Current Inventory Valuation</field>
+            <field name="model">od.beta.stock.print.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+	                <group >
+	                	<group col="4">
+		            		<field name="product_id" />
+		            		<field name="company_id" readonly="1"/>
+		            	</group>
+		            	</group>
+		                    <footer>
+			                    <button name="print_directly" string="Print Current Inventory" class="oe_highlight" type="object" />
+			                    or
+			                    <button string="Cancel" special="cancel" />
+		                    </footer>
+	                
+                </form>
+            </field>
+        </record>
+        
+         <record id="action_print_history_tree" model="ir.actions.act_window">
+            <field name="name">Print Current Inventory Valuation</field>
+            <field name="res_model">od.beta.stock.print.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+            <menuitem action="action_print_history_tree"
+            id="menu_action_print_history_tree1"
+            parent="stock.menu_stock_inventory_control"
+            sequence="330"/>
+    
+    </data>
+</openerp>

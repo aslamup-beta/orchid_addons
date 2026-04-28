@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_brand_vendor_rpt" model="ir.ui.view">
+            <field name="name">Vendor Brand Report</field>
+            <field name="model">brand.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+                         
+                          <group>
+                             <field name="company_id" invisible="1"/>
+                          <field name="date_from"/>
+                          <field name="date_to"/>
+                          
+                         </group>
+                         
+                       
+                          <br/>
+                           <label string="Suppliers" />
+                          <field name="partner_ids" widget="many2many_tags"/>
+                          <br/>
+                          <br/>
+                          <br/>
+                            <label string="Customers" />
+                          <field name="customer_ids" widget="many2many_tags"/>
+                          <br/>
+                          <br/>
+                          <br/>
+                           <label string="Brands" />
+                          <field name="od_pdt_brand_ids" widget="many2many_tags"/>
+                          <br/>
+                          <br/>
+                          <br/>
+                          <label string="Projects" />
+                          <field name="project_ids" widget="many2many_tags"/>
+                          <br/>
+                          <br/>
+                          <br/>
+                          <br/>
+                          <br/>
+                          <br/>
+                          
+                            
+                       
+                       
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                         or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_brand_rpt" model="ir.actions.act_window">
+            <field name="name">Principle Vendor Orders</field>
+            <field name="res_model">brand.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         
+        <menuitem
+         	
+			id="od_menu_brand_rpt"
+			parent="orchid_beta.menu_mis_reporting"
+			sequence="200" 
+			action="action_brand_rpt" />
+			
+	
+	 
+	 
+	 
+	 <record id="view_vendor_brand_rpt_search" model="ir.ui.view">
+            <field name="name">od.vendor.brand.rpt.search</field>
+            <field name="model">od.vendor.brand.rpt</field>
+            <field name="arch" type="xml">
+                <search string="Vendor Brand Report">
+                    <field name="od_pdt_brand_id" />
+                    <field name="partner_id" />
+                   
+                    
+                    <group expand="0" string="Group By">
+                        <filter name='brand' string="Brand" domain="[]" context="{'group_by':'od_pdt_brand_id'}"/>
+                        <filter string="Supplier" domain="[]" context="{'group_by':'partner_id'}"/>
+                         <filter string="Product/Part No" domain="[]" context="{'group_by':'product_id'}"/>
+                          <filter name="po" string="Purchase Order" domain="[]" context="{'group_by':'order_id'}"/>
+                          <filter name="state" string="State" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Customer" domain="[]" context="{'group_by':'customer_id'}"/>
+                        <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Project" domain="[]" context="{'group_by':'project_id'}"/>
+                      
+                    </group>
+                </search>
+            </field>
+        </record>
+	 
+	 <record id="view_vendor_brand_rpt_tree" model="ir.ui.view">
+            <field name="name">od.vendor.brand.rpt.tree</field>
+            <field name="model">od.vendor.brand.rpt</field>
+            <field name="arch" type="xml">
+                <tree string="Brand Report">
+                 
+                    <field name="od_pdt_brand_id"/>
+                     <field name="partner_id"/>
+                      <field name="product_id"/>
+                      <field name="order_id"/>
+                       <button name="btn_open_po" type="object" icon="STOCK_FIND" string="Open" />
+                    <field name="price_total" sum="Total"/>
+                  
+                </tree>
+            </field>
+        </record>
+			
+			
+			
+			
+			
+</data>
+</openerp>
+			

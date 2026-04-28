@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_hr_document_expiry_view_tree" model="ir.ui.view">
+            <field name="name">od.hr.document.expiry.view</field>
+            <field name="model">od.hr.document.expiry.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Document Expiry" create="false" colors="blue:expiry_date==0">
+                    <field name="employee_id"/>
+                    <field name="document_type_id"/>
+                    <field name="document_referance"/>
+                    <field name="issue_date"/>
+                    <field name="expiry_date"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+
+
+        <record id="od_hr_document_expiry_view_search" model="ir.ui.view">
+            <field name="name">od.hr.document.expiry.view.search</field>
+            <field name="model">od.hr.document.expiry.view</field>
+            <field name="arch" type="xml">
+                <search string="Document Expiry">
+                     <field name="employee_id"/>
+                    <field name="document_type_id"/>
+                    <field name="issue_date"/>
+                    <field name="expiry_date"/>
+                        <filter string="Immediate Expiry" name="od_imm" domain="[('expiry_date','&gt;=', ((context_today()+datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d'))),('expiry_date','&lt;=', ((context_today()+datetime.timedelta(days=45)).strftime('%%Y-%%m-%%d')))]"/>
+
+                    <group expand="1" string="Group By...">
+                        <filter string="Employee" icon="terp-personal" name="odemployee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Document Type" icon="terp-personal" name="document_type_id" context="{'group_by':'document_type_id'}"/>
+                        <filter string="Issue Date" icon="terp-personal" name="issue_date" context="{'group_by':'issue_date'}"/>
+                        <filter string="Expiry Date" icon="terp-personal" name="expiry_date" context="{'group_by':'expiry_date'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_hr_document_expiry_view_graph">
+            <field name="name">od.hr.document.expiry.view.graph</field>
+            <field name="model">od.hr.document.expiry.view</field>
+            <field name="arch" type="xml">
+                <graph string="Document Expiry" type="bar">
+                    <field name="employee_id"/>
+                    <field name="document_type_id"/>
+                    <field name="document_referance"/>
+                    <field name="issue_date"/>
+                    <field name="expiry_date"/>
+
+
+
+
+
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_hr_document_expiry_view" model="ir.actions.act_window">
+            <field name="name">Document Expiry</field>
+            <field name="res_model">od.hr.document.expiry.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="search_view_id" ref="od_hr_document_expiry_view_search"/>
+            <field name="view_id" ref="od_hr_document_expiry_view_tree"/>
+            <field name="context">{'search_default_od_imm':1}</field>
+            <field name="help">This report Document Expiry.</field>
+        </record>
+        <menuitem parent="hr.menu_hr_reporting" action="action_od_hr_document_expiry_view" id="menu_od_hr_document_expiry_view" sequence="2"/>
+    </data>
+</openerp>

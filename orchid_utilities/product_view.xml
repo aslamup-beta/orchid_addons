@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+
+   <record id="od_hiding_update_button_in_product_template" model="ir.ui.view">
+            <field name="name">od.product.template.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+             <xpath expr="////button[@name='303']" position="replace">
+                  <button name="303" string="⇒ Update" type="action" class="oe_link" groups="orchid_utilities.group_od_stock_adjustment_group"/>
+            </xpath>
+
+            </field>
+        </record>
+
+
+
+
+   <record id="od_view_template_property_form" model="ir.ui.view">
+            <field name="name">od.product.template.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock_account.view_template_property_form"/>
+            <field name="arch" type="xml">
+                  <xpath expr="////field[@name='standard_price']" position="replace">
+                            <field name="standard_price" groups="orchid_utilities.group_od_view_cost_group"/>
+                  </xpath>
+                  <xpath expr="////label[@string='Cost Price']" position="replace">
+                           <label string="Cost Price" for="standard_price" align="1.0" groups="orchid_utilities.group_od_view_cost_group"/>
+                  </xpath>
+
+            </field>
+        </record>
+
+	
+    </data>
+</openerp>
+
+
+
+
+
+
+
+
+
+

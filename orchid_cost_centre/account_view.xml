@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+   <record id="view_move_form_orchid_cost_inherit" model="ir.ui.view">
+       <field name="name">account.move.form.cost.inherit</field>
+       <field name="model">account.move</field>
+       <field name="inherit_id" ref="account.view_move_form"/>
+       <field name="arch" type="xml">
+
+                                        <field name="journal_id" position="replace">
+                                              <field name="journal_id" on_change="od_onchange_journal_id(journal_id)"/>
+
+                                        </field>
+           <xpath expr="/form/notebook/page/field[@name='line_id']/tree/field[@name='account_id']" position="after">
+                <field name="od_cost_centre_id"  />
+                 <field name="od_branch_id"  />
+                  <field name="od_division_id"  />
+                <field name="od_product_brand_id" groups="orchid_cost_centre.group_orchid_product_brand"/>
+                 <field name="analytic_account_id" domain="[('od_type_of_project','not in',('parent_level0','amc_view','o_m_view'))]" groups="orchid_cost_centre.group_orchid_cost_centre_analytic"/>
+                     <field name="asset_id" groups="orchid_cost_centre.group_orchid_cost_centre_asset"/>
+                    <field name="product_id" groups="orchid_cost_centre.group_orchid_cost_centre_product" />
+<!--                <field name="od_warehouse_id" groups="orchid_cost_centre.group_orchid_cost_centre_warehouse"/>-->
+                
+           </xpath>
+
+
+           <xpath expr="/form/notebook/page/field[@name='line_id']/tree/field[@name='partner_id']" position="replace">
+               
+<field name="partner_id" on_change="onchange_partner_id(False, partner_id, account_id, debit, credit, parent.date, parent.journal_id, context)" groups="orchid_cost_centre.group_orchid_cost_centre_partner"/>
+                
+           </xpath>
+
+
+       </field>
+    </record>
+
+ <record id="view_move_form_orchid_inherit" model="ir.ui.view">
+       <field name="name">account.move.form.od.inherit</field>
+       <field name="model">account.move</field>
+       <field name="inherit_id" ref="orchid_acc_voucher.view_move_orchid_form"/>
+       <field name="arch" type="xml">
+
+           <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='account_id']" position="replace">
+
+            <field name="account_id" domain="[('journal_id','=',parent.journal_id),('company_id', '=', parent.company_id)]" on_change="od_onchange_account_id(account_id,parent.journal_id)"/>
+                <field name="od_cost_centre_id" groups="orchid_cost_centre.group_orchid_cost_centre_centre" required="1"/>
+            </xpath>
+<!--     <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='product_id']" position="before">-->
+<!--            <field name="od_warehouse_id" groups="orchid_cost_centre.group_orchid_cost_centre_warehouse"/>-->
+<!--    </xpath>  -->
+
+
+     <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='product_id']" position="after">
+            <field name="od_product_brand_id" groups="orchid_cost_centre.group_orchid_product_brand"/>
+    </xpath>  
+
+
+     <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='asset_id']" position="replace">
+         <field name="asset_id"  context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_asset"/>
+  
+    </xpath> 
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='partner_id']" position="replace">
+        <field name="partner_id" on_change="onchange_partner_id(False, partner_id, account_id, debit, credit, parent.date, parent.journal_id, context)" context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_partner"/>
+    </xpath>
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='analytic_account_id']" position="replace">
+       <field name="analytic_account_id" context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_analytic"/>
+    </xpath>
+
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='product_id']" position="replace">
+       <field name="product_id" groups="orchid_cost_centre.group_orchid_cost_centre_product" context="{'account_id' : account_id}"/>
+    </xpath>
+
+
+       </field>
+    </record>
+
+
+
+
+
+
+
+
+
+ <record id="view_move_form_orchid_general_journal_inherit" model="ir.ui.view">
+       <field name="name">account.move.form.od.general.journal.inherit</field>
+       <field name="model">account.move</field>
+       <field name="inherit_id" ref="orchid_acc_voucher.view_move_general_journal_orchid_form"/>
+       <field name="arch" type="xml">
+
+                                        <field name="journal_id" position="replace">
+                                              <field name="journal_id" on_change="od_onchange_journal_id(journal_id)"/>
+
+                                        </field>
+
+           <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='account_id']" position="replace">
+
+            <field name="account_id" domain="[('journal_id','=',parent.journal_id),('company_id', '=', parent.company_id)]" on_change="od_onchange_account_id(account_id,parent.journal_id)"/>
+                <field name="od_cost_centre_id" groups="orchid_cost_centre.group_orchid_cost_centre_centre" required="1"/>
+ <field name="od_is_analytic_req" invisible="1"/>
+ <field name="od_is_product_req" invisible="1"/>
+ <field name="od_is_asset_req" invisible="1"/>
+
+
+            </xpath>
+
+
+
+<!--     <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='product_id']" position="after">-->
+<!--            <field name="od_product_brand_id" groups="orchid_cost_centre.group_orchid_product_brand"/>-->
+<!--    </xpath>  -->
+
+
+<!--     <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='asset_id']" position="replace">-->
+<!--         <field name="asset_id"  context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_asset" attrs="{'required': [('od_is_asset_req','=',True)]}"/>-->
+<!--  -->
+<!--    </xpath> -->
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='partner_id']" position="replace">
+        <field name="partner_id" on_change="onchange_partner_id(False, partner_id, account_id, debit, credit, parent.date, parent.journal_id, context)" context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_partner"/>
+        <field name="od_opp_id"/>
+    </xpath>
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='analytic_account_id']" position="replace">
+       <field name="analytic_account_id" context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_analytic" />
+    </xpath>
+
+
+<!--    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='product_id']" position="replace">-->
+<!--       <field name="product_id" groups="orchid_cost_centre.group_orchid_cost_centre_product" context="{'account_id' : account_id}" attrs="{'required': [('od_is_product_req','=',True)]}"/>-->
+<!--    </xpath>-->
+
+
+       </field>
+    </record>
+
+
+
+
+
+ <record id="view_move_form_orchid_inventory_journal_inherit" model="ir.ui.view">
+       <field name="name">account.move.form.od.inventory.journal.inherit</field>
+       <field name="model">account.move</field>
+       <field name="inherit_id" ref="orchid_acc_voucher.view_move_invenory_journal_orchid_form"/>
+       <field name="arch" type="xml">
+
+                                        <field name="journal_id" position="replace">
+                                              <field name="journal_id" on_change="od_onchange_journal_id(journal_id)"/>
+
+                                        </field>
+
+           <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='account_id']" position="replace">
+
+            <field name="account_id" domain="[('journal_id','=',parent.journal_id),('company_id', '=', parent.company_id)]" on_change="od_onchange_account_id(account_id,parent.journal_id)"/>
+                <field name="od_cost_centre_id" groups="orchid_cost_centre.group_orchid_cost_centre_centre" required="1"/>
+
+ <field name="od_is_analytic_req" invisible="1"/>
+ <field name="od_is_product_req" invisible="1"/>
+ <field name="od_is_asset_req" invisible="1"/>
+            </xpath>
+
+
+
+     <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='product_id']" position="after">
+            <field name="od_product_brand_id" groups="orchid_cost_centre.group_orchid_product_brand"/>
+    </xpath>  
+
+
+<!--     <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='asset_id']" position="replace">-->
+
+<!--  -->
+<!--    </xpath> -->
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='partner_id']" position="replace">
+        <field name="partner_id" on_change="onchange_partner_id(False, partner_id, account_id, debit, credit, parent.date, parent.journal_id, context)" context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_partner"/>
+    </xpath>
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='analytic_account_id']" position="replace">
+       <field name="analytic_account_id" context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_analytic" />
+    </xpath>
+
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='product_id']" position="replace">
+       <field name="product_id" groups="orchid_cost_centre.group_orchid_cost_centre_product" context="{'account_id' : account_id}" />
+    </xpath>
+
+
+       </field>
+    </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <record id="view_move_form_orchid_asset_journal_inherit" model="ir.ui.view">
+       <field name="name">account.move.form.od.asset.journal.inherit</field>
+       <field name="model">account.move</field>
+       <field name="inherit_id" ref="orchid_acc_voucher.view_move_asset_journal_orchid_form"/>
+       <field name="arch" type="xml">
+
+                                        <field name="journal_id" position="replace">
+                                              <field name="journal_id" on_change="od_onchange_journal_id(journal_id)"/>
+
+                                        </field>
+
+           <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='account_id']" position="replace">
+
+            <field name="account_id" domain="[('journal_id','=',parent.journal_id),('company_id', '=', parent.company_id)]" on_change="od_onchange_account_id(account_id,parent.journal_id)"/>
+                <field name="od_cost_centre_id" groups="orchid_cost_centre.group_orchid_cost_centre_centre" required="1"/>
+
+
+ <field name="od_is_analytic_req" invisible="1"/>
+ <field name="od_is_product_req" invisible="1"/>
+ <field name="od_is_asset_req" invisible="1"/>
+            </xpath>
+
+
+
+<!--     <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='product_id']" position="after">-->
+<!--            <field name="od_product_brand_id" groups="orchid_cost_centre.group_orchid_product_brand" invisible="1"/>-->
+<!--    </xpath>  -->
+
+
+     <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='asset_id']" position="replace">
+         <field name="asset_id"  context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_asset" />
+  
+    </xpath> 
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='partner_id']" position="replace">
+        <field name="partner_id" on_change="onchange_partner_id(False, partner_id, account_id, debit, credit, parent.date, parent.journal_id, context)" context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_partner"/>
+    </xpath>
+
+    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='analytic_account_id']" position="replace">
+       <field name="analytic_account_id" context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_analytic" />
+    </xpath>
+
+
+<!--    <xpath expr="/form/sheet/notebook/page/field[@name='line_id']/tree/field[@name='product_id']" position="replace">-->
+<!--       <field name="product_id" groups="orchid_cost_centre.group_orchid_cost_centre_product" context="{'account_id' : account_id}" invisible="1" attrs="{'required': [('od_is_product_req','=',True)]}"/>-->
+<!--    </xpath>-->
+
+
+       </field>
+    </record>
+
+
+
+        <record id="view_account_journal_cost_form" model="ir.ui.view">
+            <field name="name">account.journal.cost.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="account_control_ids" position="after">
+
+                <group string="Default Cost Centre">
+                    <group>
+                         <field name="od_default_cost_centre_id" groups="orchid_cost_centre.group_orchid_cost_centre_centre"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                </field>
+            </field>
+        </record>
+
+       <record id="view_account_form_orchid_inherit" model="ir.ui.view">
+            <field name="name">account.account.form.inherit11</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="orchid_acc_filters.view_account_form_orchid_inherit" /> 
+            <field name="arch" type="xml">
+                <field name="balance" position="after">
+                    <field name="od_branch_id"/>
+                    <field name="od_cost_centre_id"/>
+                    
+                </field>
+                <xpath expr="//notebook/page[@string='Asset']" position="after">
+                    <page string="Cost Centre">
+                            <group>
+                                <field name="od_is_cc_required"/>
+                            </group>
+                           <!-- <field name="od_cost_centre_ids">
+                                <tree string="Cost Centre" editable="bottom">
+									<field name="name"></field>
+								</tree>
+						 	</field>
+                        -->
+                    
+                    </page>
+                </xpath>
+
+
+
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

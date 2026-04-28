@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="customer_visit_approval_form">
+			<field name="name">customer visit report form view</field>
+			<field name="model">customer.visit.report</field>
+			<field name="arch" type="xml">
+			<form string="Customer Visits Log">
+	 			<header>
+	 					<button name="submit_to_manager" class="oe_highlight" states="draft" string="Submit to Manager" type="object" />
+	 			         <button name="btn_done" class="oe_highlight" states="approval1" string="Approve" type="object" />
+	 			         <button name="btn_reject" states="draft,approval1" string="Reject" type="object" />
+	                    <field name="state" widget="statusbar" nolabel="1" />
+	                </header>
+	 			<sheet>
+	 			
+				<group>
+				     <group>
+				       <field name="employee_id" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+				       <field name="manager_id" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+				        <field name="company_id" invisible="1"/>
+				     </group>
+				     <group>
+				    	 <field name="name" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+				         <field name="create_date" string="Created On" readonly="1"/>
+				     </group>
+				      
+						
+				</group>
+				<notebook>
+				  <page string="Customer Visits Details">
+				    <field name="visit_line_ids" attrs="{'readonly':[('state', '=', 'done')]}">
+				       <tree editable="bottom">
+				         <field name="approval_form_id" invisible="1" />
+				         <field name="assigned_id" context="{'solution_arch_ids':1}" required="1" />
+				         <field name="sam" context="{'sam_ids':1}" required="1" />
+				         <field name="partner_id" domain="[('is_company','=',True)]" required="1" />
+				         <field name="date" required="1" />
+				          <field name="visit_type" required="1"/>
+				          <field name="activity_type" required="1"/>
+				          <field name="business_req" required="1"/>
+				          <field name="notes" required="1"/>
+				       </tree>
+				    </field>
+				  </page>
+				</notebook>
+				</sheet>
+				<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+			</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="customer_visit_tree">
+		<field name="name">Customer Visits tree view</field>
+		<field name="model">customer.visit.report</field>
+		<field name="arch" type="xml">
+			<tree string="Activities Approval ">
+				<field name="employee_id" />
+				<field name="manager_id" />
+		        <field name="create_date" />
+		        <field name="state" />
+		        
+			</tree>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="customer_visit_search">
+			<field name="name">Customer Visits search view</field>
+			<field name="model">customer.visit.report</field>
+			<field name="arch" type="xml">
+				<search>
+			        <field name="employee_id" />
+			        <group expand="0" string="Group By" colspan="16">
+	                        <filter string="Employee" context="{'group_by':'employee_id'}"/>
+	                         <filter name= "state" string="State" context="{'group_by':'state'}"/>
+						</group>
+				</search>
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_customer_visit_approval">
+			<field name="name">Customer Visits</field>
+			<field name="res_model">customer.visit.report</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+	          <p class="oe_view_nocontent_create">
+	            Click to Add Customer Visits here.
+	          </p>
+	        </field>
+		</record>
+
+
+<!-- 		<menuitem  -->
+<!-- 	  		id="menu_customer_visit_approval" -->
+<!-- 	  		name="SA Customer Visits" -->
+<!-- 	  		parent="orchid_hrms.menu_od_hr_documents" -->
+<!--             action="action_customer_visit_approval" sequence="100"/> -->
+            
+        <menuitem id="menu_od_customer_visit" name="Customer Visits" parent="base.menu_base_partner" sequence="1" />
+         <menuitem
+         	
+			id="menu_customer_visit_approval"
+			parent="menu_od_customer_visit"
+			name="SA Customer Visits"
+			sequence="1" 
+			action="action_customer_visit_approval" />
+            
+        <!-- Customer Visit Log Menu -->
+            
+                <record id="view_customer_visits_log_lines_tree" model="ir.ui.view">
+            <field name="name">customer.visit.log.line.tree</field>
+            <field name="model">customer.visit.log.line</field>
+            <field name="arch" type="xml">
+				<tree string="Employee Payroll Transactions" create="false" edit="false">
+				         <field name="assigned_id"  />
+				         <field name="sam"  />
+				         <field name="partner_id"  />
+				         <field name="date"  />
+				          <field name="visit_type" />
+				          <field name="activity_type" />
+				          <field name="business_req" />
+				          <field name="notes" />
+				          <field name="company_id" invisible="1"/>
+				</tree>
+			</field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_customer_visits_log_lines_search">
+			<field name="name">customer.visit.log.line.search</field>
+			<field name="model">customer.visit.log.line</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="assigned_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="Solutions Architect" context="{'group_by':'assigned_id'}"/>
+                        <filter string="Account Manager" context="{'group_by':'sam'}"/>
+                        <filter string="Customer" context="{'group_by':'partner_id'}"/>
+                         <filter string="Visit Month" context="{'group_by':'date:month'}"/>
+                        <filter string="Visit Quarter" context="{'group_by':'date:quarter'}"/>
+                        <filter string="Visit Year" context="{'group_by':'date:year'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+        <record id="action_customer_visits_log_lines" model="ir.actions.act_window">
+            <field name="name">Customers Visits - Log Report</field>
+            <field name="res_model">customer.visit.log.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('status','=','done')]</field>
+            <field name="search_view_id" ref="view_customer_visits_log_lines_search" />
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+        
+<menuitem id="menu_customer_visits_log_lines" name="Customer Visit/Log Report" action="action_customer_visits_log_lines" groups="__export__.res_groups_188,__export__.res_groups_192,__export__.res_groups_193,orchid_beta.groups_beta_admin,orchid_beta.groups_beta_techinical_consultant,__export__.res_groups_206" parent="menu_od_customer_visit" sequence="2"/>
+        
+
+	</data>
+</openerp>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+
+      <record id="view_od_leave_on_particular_period_report_wizard_form" model="ir.ui.view">
+            <field name="name">Leave On Particular Date</field>
+            <field name="model">od.leave.on.particular.period.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Leave On Particular Date" version="7.0">
+                 
+                    <group>
+                   <group>
+                    <field name="from_date" />
+                    <field name="to_date" />
+
+
+
+
+
+
+
+                    </group>
+                    <group>
+                                            <field name="stage" />
+                    </group>
+                    </group>
+
+<footer>
+    <button name="od_generate_report" string="Generate" type="object" class="oe_highlight"/>
+
+</footer>
+                 
+
+               </form>
+            </field>
+        </record>
+
+
+
+        <record id="action_view_od_leave_on_particular_period_report_wizard_form" model="ir.actions.act_window">
+            <field name="name">Leave On Particular Date</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">od.leave.on.particular.period.report.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_od_leave_on_particular_period_report_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+ <menuitem parent="hr.menu_hr_reporting" action="action_view_od_leave_on_particular_period_report_wizard_form" id="menu_action_view_od_leave_on_particular_period_report_wizard_form" name="Leave On Particular Date" sequence="2"/>
+
+
+
+
+
+
+    </data>
+</openerp>

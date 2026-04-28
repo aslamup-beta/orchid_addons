@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_assign_presales_form" model="ir.ui.view">
+            <field name="name">Assign Leading Pre-Sales</field>
+            <field name="model">wiz.assign.presale</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                    <group string="Assign">
+                        <field name="od_responsible_id" context="{'solution_arch_ids':1}"/>
+                    </group>
+                <footer>
+                  <button name="assign_presales" string="Assign" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="od_assign_presales_action" model="ir.actions.act_window">
+            <field name="name">Assign Pre-Sales Engineer</field>
+            <field name="res_model">wiz.assign.presale</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        
+        <record id="wiz_assign_supp_presales_form" model="ir.ui.view">
+            <field name="name">Assign Supporting Pre-Sales</field>
+            <field name="model">wiz.assign.supp.presale</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                    <group string="Assign">
+                        <field name="other_presale_ids" context="{'presale_ids':1}" widget="many2many_tags"/>
+                    </group>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                <footer>
+                  <button name="assign_presales" string="Assign" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="od_assign_supp_presales_action1" model="ir.actions.act_window">
+            <field name="name">Assign Supporting Pre-Sales Engineer</field>
+            <field name="res_model">wiz.assign.supp.presale</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+
+    </data>
+</openerp>

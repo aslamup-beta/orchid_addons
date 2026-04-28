@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_import_csv_wizard" model="ir.ui.view">
+            <field name="name">Import Data</field>
+            <field name="model">import.csv.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+                     
+                         <group>
+                          <field name="file_data" required="1" filename="file_name"/>
+                          <field name="file_name" />
+                         </group>
+                         
+                           <group/>
+                            <group/>
+                          
+                            
+                       
+                       
+                       <footer>
+                       <button name="update" string="Update" type="object" />
+                       
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+        
+       
+       
+
+        <record id="action_import_data" model="ir.actions.act_window">
+            <field name="name">Import Data</field>
+            <field name="res_model">import.csv.wiz</field>
+            <field name="view_mode">form</field>
+<!--             <field name="context">{'default_partner_id':cont}</field> -->
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem
+         	
+			id="import_csv_data"
+			parent="beta_invoice.customer_aging_rpt_gne"
+			sequence="200" 
+			action="action_import_data" />
+
+       
+			
+	
+    </data>
+</openerp>

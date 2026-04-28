@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_crm_lead_form_inherit_opp_warning" model="ir.ui.view">
+            <field name="name">view.crm.lead.form.inherit.opp.warning</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <div style="color:#7D376A;font-size:21px;">
+                        <field name="opp_warn_flag" colspan="4"
+                               nolabel="1" invisible="1"/>
+                        <field name="opp_warning" colspan="4" attrs="{'invisible': [('opp_warn_flag','=', False)]}"
+                               nolabel="1" readonly="1"/>
+                    </div>
+                </xpath>
+                <xpath expr="//notebook[last()]" position="inside">
+                    <page string="Etimad Summary" attrs="{'invisible': [('company_id','!=', 6)]}">
+                        <field name="etimad_summary_line">
+                            <tree editable="bottom">
+                                <field name="vendor_id" string="الفئة Category"/>
+                                <field name="product_id" string="البند Item"/>
+                                <field name="uom_id" string="وحدة القياس UOM"/>
+                                <field name="quantity" sum="Total" string="الكمية Quantity"/>
+                                <field name="name" string="وصف البند Item Description"/>
+                                <field name="specifications" string="المواصفات
+Specifications"/>
+                                <field name="unit_price" string="سعر الوحدة
+Unit Price in Numbers"/>
+                                <field name="unit_price_in_words" string="سعر الوحدة كتابة
+Unit Price in Wirting"/>
+                                <field name="discount_percentage" string="نسبة الخصم للوحدة (%)
+Discount Percentage"/>
+                                <field name="vat_percentage" string="نسبة ضريبة القيمة المضافة (%)
+VAT Percentage"/>
+                                <field name="total_price" sum="Total" string="إجمالى المبلغ رقماً
+Total Price in Numbers"/>
+                                <field name="total_price_in_words" string="إجمالى المبلغ كتابة
+Total Price in Writing"/>
+                                <field name="country_of_origin" string="بلدالمنشأ
+Country of Origin"/>
+                                <field name="certificate_of_origin" string="شهادة بلد المنشأ
+Certificate of Origin"/>
+                                <field name="product_of_mandatory_list" string="منتج من القائمة الإلزامية
+Product of Mandatory List"/>
+                                <field name="code" string="الرمز الإنشائي
+Code"/>
+                                <field name="availability" string="حالة الصنف
+Availability"/>
+                                <field name="attachment" string="مرفقات
+Attachements"/>
+                                <field name="attach_fname" invisible="1"/>
+                            </tree>
+                        </field>
+
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

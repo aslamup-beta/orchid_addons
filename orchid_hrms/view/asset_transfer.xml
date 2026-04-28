@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="asset_transfer_form">
+		<field name="name">asset transfer form view</field>
+		<field name="model">asset.transfer</field>
+		<field name="arch" type="xml">
+		<form string="Asset Transfer" version="7.0">
+ 			 <header>
+                    <button name="transfer_asset" string="Transfer" type="object" attrs="{'invisible':[('od_type','=','issue')]}" class="oe_highlight"/>
+                    <button name="issue_asset" string="Issue" type="object" attrs="{'invisible':[('od_type','=','transfer')]}" class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+            </header>
+ 			<sheet>
+ 			<div class="oe_title">
+						<h1>
+                            <field name="name" readonly='1'/>
+                        </h1>
+                        <label for="od_asset_id" class="oe_edit_only"/>
+                        <h1>
+                            <field name="od_asset_id" attrs="{'readonly':[('state','=','transferred')]}"/>
+                        </h1>
+            </div>
+			<group>
+				<group>
+					<field name="od_type" />
+					<field name="od_current_emp_id" attrs="{'required':[('od_type','=', 'transfer')],'invisible':[('od_type','=','issue')],'readonly':[('state','=','transferred')]}"/>
+					<field name='od_from_date' attrs="{'required':[('od_type','=', 'transfer')],'invisible':[('od_type','=','issue')],'readonly':[('state','=','transferred')]}"/>
+					<field name="od_trans_emp_id" attrs="{'required':[('od_type','=', 'transfer')],'readonly':[('state','=','transferred')]}"/>
+					<field name="od_date" attrs="{'required':[('od_type','=', 'transfer')],'readonly':[('state','=','transferred')]}"/>
+				</group>
+
+			</group>
+			</sheet>
+		</form>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="asset_transfer_tree">
+		<field name="name">asset transfer tree view</field>
+		<field name="model">asset.transfer</field>
+		<field name="arch" type="xml">
+			<tree string="Asset Transfer">
+					<field name="name" />
+					<field name="od_current_emp_id" />
+					<field name="od_asset_id" />
+					<field name="od_trans_emp_id" />
+					<field name="od_date" />
+			</tree>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="asset_transfer_search">
+		<field name="name">asset transfer search view</field>
+		<field name="model">asset.transfer</field>
+		<field name="arch" type="xml">
+			<search>
+					<field name="name" />
+					<field name="od_current_emp_id" />
+					<field name="od_asset_id" />
+					<field name="od_trans_emp_id" />
+					<field name="od_date" />
+			</search>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="asset_transfer_graph">
+		<field name="name">asset transfer graph view</field>
+		<field name="model">asset.transfer</field>
+		<field name="arch" type="xml">
+			<graph>
+					<field name="name" />
+					<field name="od_current_emp_id" />
+					<field name="od_asset_id" />
+					<field name="od_trans_emp_id" />
+					<field name="od_date" />
+			</graph>
+		</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_asset_transfer">
+		<field name="name">Asset Transfer</field>
+		<field name="res_model">asset.transfer</field>
+		<field name="view_mode">tree,form,graph</field>
+		</record>
+
+		<menuitem name="Asset Transfer" 
+	  		id="menu_asset_transfer" 
+	  		parent="account_asset.menu_finance_assets"
+            action="action_asset_transfer" />
+
+	</data>
+</openerp>

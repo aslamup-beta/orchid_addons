@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_task_purchase_order_1" model="ir.ui.view">
+            <field name="name">Purchase Task </field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                 <field name="picking_type_id" position="after">
+                        <field name="od_task_ids" widget="many2many_tags" />
+                 </field>
+                  <notebook position="inside">
+                    <page string="Notes">
+                      <separator string="Notes From Task" />
+                        <field name="od_notes" readonly="1"/>
+                    </page>
+                  </notebook>
+
+
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="od_training_line_tree">
+            <field name="name">Training Item Line</field>
+            <field name="model">od.cost.trn.customer.training.line</field>
+            <field name="arch" type="xml">
+                <tree string="training">
+                      <field name="cost_sheet_id"/>
+                       <field name="group"/>
+                       <field name="trn_section_id"/>
+                      <field name="item" invisible="0"/>
+                      <field name="manufacture_id"/>
+                      <field name="part_no" string="Product Part Number" domain="[('od_pdt_brand_id','=', manufacture_id)]"/>
+                      <field name="name"/>
+                      <field name="types"/>
+                </tree>
+            </field>
+        </record>
+        <record id="od_training_search" model="ir.ui.view">
+            <field name="name">od.cost.trn.customer.training.line.search</field>
+            <field name="model">od.cost.trn.customer.training.line</field>
+            <field name="arch" type="xml">
+                <search string="training">
+                     <field name="cost_sheet_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Cost Sheet" name="costsheet" icon="terp-partner"  context="{'group_by':'cost_sheet_id'}" help="Cost Sheet"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_training_line">
+            <field name="name">Training Line</field>
+            <field name="res_model">od.cost.trn.customer.training.line</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_costsheet': 1}</field>
+        </record>
+
+        <menuitem name="Customer Training" id="menu_training_material" parent="menu_od_cost_sheet_import_export"
+            action="action_od_training_line" />
+
+    </data>
+</openerp>

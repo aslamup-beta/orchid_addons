@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record id="view_amc_rev_rpt_wizard" model="ir.ui.view">
+			<field name="name">AMC Rev Form</field>
+			<field name="model">amc.rev.rpt.wiz</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Report">
+					<group>	
+						<group>
+							<field name="approved_date_from" required="1"/>
+							<field name="approved_date_to" required="1"/>
+						</group>
+					</group>
+
+					<group>
+						<field name="branch_ids" widget="many2many_tags"/>
+					</group>
+					<group/>
+					<group/>
+					<footer>
+						<button name="export_rpt" string="Export" type="object" />
+                       or
+						<button string="Cancel" special="cancel" />
+
+					</footer>
+
+				</form>
+			</field>
+		</record>
+
+
+
+		<record id="action_amc_rev_rpt_act" model="ir.actions.act_window">
+			<field name="name">AMC Revenue Report</field>
+			<field name="res_model">amc.rev.rpt.wiz</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+
+		<menuitem id="menu_amc_rev_rpt" parent="project.menu_project_management" sequence="11" action="action_amc_rev_rpt_act" />
+
+
+		<record model="ir.ui.view" id="od_amc_rev_data_tree_view">
+			<field name="name">amc.rev.rpt.data.tree</field>
+			<field name="model">amc.rev.rpt.data</field>
+			<field name="arch" type="xml">
+				<tree string="AMC Revenue">
+					<field name="company_id" invisible="1" />
+					<field name="approved_date" />
+					<field name="partner_id" />
+					<field name="project_id" invisible="1"/>
+					<field name="analytic_account_id" />
+					<button name="btn_open_analytic" type="object" icon="STOCK_FIND" string="Open" />
+					<field name="cost_sheet_id" invisible="1"/>
+<!-- 					<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" /> -->
+					<field name="amended_sale" string="Sale" sum="Total" />
+<!-- 					<field name="amended_cost" string="Amended Cost" sum="Total" /> -->
+					<field name="amended_profit" string="Amended Profit with MP" sum="Total" />
+					<field name="actual_profit" string="Actual Profit with MP" sum="Total" />
+					
+					<field name="contract_status" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_amc_rev_search_view">
+			<field name="name">amc.rev.rpt.data.search</field>
+			<field name="model">amc.rev.rpt.data</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="cost_sheet_id" />
+					<field name="analytic_account_id" />
+					<field name="project_id" />
+					<field name="branch_id" />
+					<field name="contract_status" />
+					<group expand="1" string="Group By">
+						<filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+						<filter string="State" domain="[]" context="{'group_by':'contract_status'}"/>
+						<filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+						<filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+						<filter string="Approved Date Year" name="year" context="{'group_by':'approved_date:year'}" />
+						<filter string="Approved Date Month" context="{'group_by':'approved_date:month'}"/>
+						<filter string="Approved Date Quarter" context="{'group_by':'approved_date:quarter'}"/>
+					</group>
+
+				</search>
+
+
+			</field>
+		</record>
+	</data>
+</openerp>

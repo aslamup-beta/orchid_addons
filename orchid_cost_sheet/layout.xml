@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="layout" inherit_id="web.layout">
+            <xpath expr="." positon="inside">
+                <link rel="stylesheet" href='/orchid_cost_sheet/static/src/css/remove_sheet.css'/>
+            </xpath>
+        </template>
+        <template id="minimal_layout_pdf" inherit_id="report.minimal_layout">
+            <xpath expr="//head" position="inside">
+                <link href="/orchid_cost_sheet/static/src/css/report_style.css" rel="stylesheet"/>
+            </xpath>
+            <xpath expr="//head" position="inside">
+                <link href="/orchid_cost_sheet/static/src/css/report_style.css" rel="stylesheet"/>
+                <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&amp;display=swap"
+                      rel="stylesheet"/>
+                <link href="https://fonts.googleapis.com/css2?family=Amiri&amp;display=swap" rel="stylesheet"/>
+            </xpath>
+        </template>
+        <template id="minimal_layout_html" inherit_id="report.external_layout">
+            <xpath expr="." position="inside">
+                <link href="/orchid_cost_sheet/static/src/css/report_style.css" rel="stylesheet"/>
+            </xpath>
+        </template>
+
+        <template id="external_layout_main_header_footer_inherit">
+            <div class="header">
+                <div class="banner-bg-big">
+                    <div class="row">
+                        <div class="col-xs-12 mt64 mb64">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="https://betait.net/" class="text-black">
+                            <span class="fa fa-globe mr4"/>
+                            <span>https://betait.net/</span>
+                        </a>
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-4 text-right">
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_header_footer_inherit">
+            <div class="header">
+                <div class="banner-bg">
+                    <div class="row">
+                        <div class="col-xs-10 mt32">
+                            <p class="uni-title"><span t-field="o.od_customer_id"/></p>
+                            <p class="uni-big-title">
+                                <span t-field="o.name"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-2 mt32">
+                            <p class="right-title mt16">
+                                <span t-field="o.number"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="https://betait.net/" class="text-black">
+                            <span class="fa fa-globe mr4"/>
+                            <span>https://betait.net/</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_header_footer_inherit_main_proposal_bom">
+            <div class="header">
+                <div class="banner-bg">
+                    <div class="row">
+                        <div class="col-xs-10 mt32">
+                            <p class="uni-title"><span t-field="o.od_customer_id"/></p>
+                            <p class="uni-big-title">
+                                <span t-field="o.name"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-2 mt32">
+                            <p class="right-title mt16">
+                                <span t-field="o.number"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <p class="uni-sub-title">Main Proposal - Bill of Material</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="https://betait.net/" class="text-black">
+                            <span class="fa fa-globe mr4"/>
+                            <span>https://betait.net/</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_header_footer_inherit_optional_items_bom">
+            <div class="header">
+                <div class="banner-bg">
+                    <div class="row">
+                        <div class="col-xs-10 mt32">
+                            <p class="uni-title"><span t-field="o.od_customer_id"/></p>
+                            <p class="uni-big-title">
+                                <span t-field="o.name"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-2 mt32">
+                            <p class="right-title mt16">
+                                <span t-field="o.number"/>
+                            </p>
+                        </div>
+                        <t t-if="o.show_to_opt">
+                        <div class="col-xs-12">
+                            <p class="uni-sub-title">Optional Items - Bill of Material</p>
+                        </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="https://betait.net/" class="text-black">
+                            <span class="fa fa-globe mr4"/>
+                            <span>https://betait.net/</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_header_footer_inherit_main_proposal_renew">
+            <div class="header">
+                <div class="banner-bg">
+                    <div class="row">
+                        <div class="col-xs-10 mt32">
+                            <p class="uni-title"><span t-field="o.od_customer_id"/></p>
+                            <p class="uni-big-title">
+                                <span t-field="o.name"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-2 mt32">
+                            <p class="right-title mt16">
+                                <span t-field="o.number"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <p class="uni-sub-title">Main Proposal - Renewals Serial Numbers/Licenses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="https://betait.net/" class="text-black">
+                            <span class="fa fa-globe mr4"/>
+                            <span>https://betait.net/</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_header_footer_inherit_customer_training_details">
+            <div class="header">
+                <div class="banner-bg">
+                    <div class="row">
+                        <div class="col-xs-10 mt32">
+                            <p class="uni-title"><span t-field="o.od_customer_id"/></p>
+                            <p class="uni-big-title">
+                                <span t-field="o.name"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-2 mt32">
+                            <p class="right-title mt16">
+                                <span t-field="o.number"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <p class="uni-sub-title">Customer Training Details</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="https://betait.net/" class="text-black">
+                            <span class="fa fa-globe mr4"/>
+                            <span>https://betait.net/</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_header_footer_inherit_implementation">
+            <div class="header">
+                <div class="banner-bg">
+                    <div class="row">
+                        <div class="col-xs-10 mt32">
+                            <p class="uni-title"><span t-field="o.od_customer_id"/></p>
+                            <p class="uni-big-title">
+                                <span t-field="o.name"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-2 mt32">
+                            <p class="right-title mt16">
+                                <span t-field="o.number"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <p class="uni-sub-title">Implementation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="https://betait.net/" class="text-black">
+                            <span class="fa fa-globe mr4"/>
+                            <span>https://betait.net/</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <template id="external_layout_header_footer_inherit_info_sec">
+			<div class="header">
+				<div class="banner-bg">
+						<div class="row">
+							<div class="col-xs-10 mt32">
+								<p class="uni-title"><span t-field="o.od_customer_id"/></p>
+								<p class="uni-big-title">
+								<span t-field="o.name"/>
+								</p>
+							</div>
+							<div class="col-xs-2 mt32">
+								<p class="right-title mt16">
+								<span t-field="o.number"/>
+								</p>
+							</div>
+							<div class="col-xs-12">
+								<p class="uni-sub-title">Information Security &amp;amp; GRC</p>
+							</div>
+						</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="row">
+					<div class="col-xs-6">
+						<a href="https://betait.net/" class="text-black">
+						<span class="fa fa-globe mr4"/>
+						<span>https://betait.net/</span>
+						</a>
+					</div>
+				</div>
+				</div>
+		</template>
+
+        <template id="external_layout_header_footer_inherit_beta_maintenance">
+            <div class="header">
+                <div class="banner-bg">
+                    <div class="row">
+                        <div class="col-xs-10 mt32">
+                            <p class="uni-title"><span t-field="o.od_customer_id"/></p>
+                            <p class="uni-big-title">
+                                <span t-field="o.name"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-2 mt32">
+                            <p class="right-title mt16">
+                                <span t-field="o.number"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <p class="uni-sub-title">Beta Maintenance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="https://betait.net/" class="text-black">
+                            <span class="fa fa-globe mr4"/>
+                            <span>https://betait.net/</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_header_footer_inherit_operation_maintenance">
+            <div class="header">
+                <div class="banner-bg">
+                    <div class="row">
+                        <div class="col-xs-10 mt32">
+                            <p class="uni-title"><span t-field="o.od_customer_id"/></p>
+                            <p class="uni-big-title">
+                                <span t-field="o.name"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-2 mt32">
+                            <p class="right-title mt16">
+                                <span t-field="o.number"/>
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <p class="uni-sub-title">Operation &amp; Maintenance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="https://betait.net/" class="text-black">
+                            <span class="fa fa-globe mr4"/>
+                            <span>https://betait.net/</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </data>
+</openerp>

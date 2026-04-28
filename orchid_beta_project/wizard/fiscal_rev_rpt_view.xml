@@ -1,0 +1,257 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record id="view_fiscal_rev_rpt_wizard" model="ir.ui.view">
+			<field name="name">Fiscal Rev Form</field>
+			<field name="model">fiscal.rev.rpt.wiz</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Report">
+					<group>
+						<group>
+							<field name="wip"/>
+						</group>
+						<group>
+							<field name="date_end_from" attrs="{'readonly':[('wip','=',False)]}"/>
+							<field name="date_end_to" attrs="{'readonly':[('wip','=',False)]}" />
+						</group>
+					</group>
+
+					<group>
+
+						<group>
+							<field name="closed"/>
+						</group>
+						<group>
+							<field name="closing_date_from" attrs="{'readonly':[('closed','=',False)]}"/>
+							<field name="closing_date_to" attrs="{'readonly':[('closed','=',False)]}"/>
+						</group>
+					</group>
+
+					<group>
+
+						<field name="include_invoice" />
+					</group>
+
+					<group>
+						<field name="branch_ids" widget="many2many_tags"/>
+					</group>
+					<group/>
+					<group/>
+					<group>
+						<field name="partner_ids" widget="many2many_tags"/>
+					</group>
+					<group/>
+					<group/>
+					<group>
+						<field name="pm_ids" widget="many2many_tags" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_beta_finance_manger_acc,__export__.res_groups_188, __export__.res_groups_200,  __export__.res_groups_171,  __export__.res_groups_196"/>
+					</group>
+					<group/>
+					<group/>
+					<group>
+						<field name="sam_ids" widget="many2many_tags"/>
+					</group>
+					<group/>
+					<group/>
+
+					<group>
+						<group>
+							<!-- <field name="inactive"/> -->
+						</group>
+
+					</group>
+					<footer>
+						<button name="export_rpt" string="Export" type="object" />
+                       or
+						<button string="Cancel" special="cancel" />
+
+					</footer>
+
+				</form>
+			</field>
+		</record>
+
+
+
+		<record id="action_fiscal_rev_rpt_act" model="ir.actions.act_window">
+			<field name="name">Fiscal Revenue</field>
+			<field name="res_model">fiscal.rev.rpt.wiz</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+
+		<menuitem id="menu_fiscal_rev_rpt_1" parent="orchid_beta.menu_mis_reporting" sequence="0" action="action_fiscal_rev_rpt_act" />
+
+
+		<record model="ir.ui.view" id="od_fiscal_rev_data_tree_view">
+			<field name="name">fiscal.rev.rpt.data.tree</field>
+			<field name="model">fiscal.rev.rpt.data</field>
+			<field name="arch" type="xml">
+				<tree string="Sale In">
+					<field name="company_id" invisible="1" />
+					<field name="approved_date" />
+					<field name="partner_id" />
+					<field name="project_id" invisible="1"/>
+					<field name="analytic_account_id" />
+					<button name="btn_open_analytic" type="object" icon="STOCK_FIND" string="Open" />
+					<field name="cost_sheet_id" />
+					<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+
+
+
+
+					<field name="amended_sale" string="Sale" sum="Total" />
+					<field name="amended_cost" string="Amended Cost" sum="Total" />
+					<field name="amended_prof" string="Amended Profit" sum="Total" />
+					<field name="amended_mp" string="Returned MP" sum="Total" />
+					<field name="wip" string="WIP Cost" sum="Total" />
+
+					<field name="invoiced_amnt" sum="Total" />
+					<field name="collected_amount" sum="Total" />
+					<field name="date_end" string="PMO Expected Closing Date"/>
+					<field name="closing_date" />
+					<field name="rebate_amnt" sum="Total"/>
+
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="od_fiscal_rev_data_closed_tree_view">
+			<field name="name">fiscal.rev.rpt.data.tree</field>
+			<field name="model">fiscal.rev.rpt.data</field>
+			<field name="arch" type="xml">
+				<tree string="Sale In">
+					<field name="company_id" invisible="1" />
+					<field name="approved_date" />
+					<field name="partner_id" />
+					<field name="project_id" invisible="1"/>
+					<field name="analytic_account_id" />
+					<button name="btn_open_analytic" type="object" icon="STOCK_FIND" string="Open" />
+					<field name="cost_sheet_id" />
+					<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+					<field name="amended_sale" string="Sale" sum="Total" />
+					<field name="amended_cost" string="Amended Cost" sum="Total" />
+					<field name="amended_prof" string="Amended Profit" sum="Total" />
+					<field name="amended_mp" string="Returned MP" sum="Total" />
+					<field name="wip" string="Actual Cost" sum="Total" />
+					<field name="actual_profit" string="Actual Profit" sum="Total" />
+					<field name="actual_mp" string="Actual MP" sum="Total" />
+					<field name="invoiced_amnt" sum="Total" />
+					<field name="collected_amount" sum="Total" />
+					<field name="date_end" string="PMO Expected Closing Date"/>
+					<field name="closing_date" />
+					<field name="rebate_amnt" sum="Total"/>
+
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="no_inv_od_fiscal_rev_data_tree_view">
+			<field name="name">fiscal.rev.rpt.data.tree</field>
+			<field name="model">fiscal.rev.rpt.data</field>
+			<field name="arch" type="xml">
+				<tree string="Sale In">
+					<field name="company_id" invisible="1" />
+					<field name="approved_date" />
+					<field name="partner_id" />
+					<field name="project_id" invisible="1"/>
+					<field name="analytic_account_id" />
+					<button name="btn_open_analytic" type="object" icon="STOCK_FIND" string="Open" />
+					<field name="cost_sheet_id" />
+					<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+
+
+
+
+					<field name="amended_sale" string="Sale" sum="Total" />
+					<field name="amended_cost" string="Amended Cost" sum="Total" />
+					<field name="amended_prof" string="Amended Profit" sum="Total" />
+					<field name="amended_mp" string="Returned MP" sum="Total" />
+					<field name="wip" string="WIP Cost" sum="Total" />
+					<!-- <field name="collected_amount" sum="Total" />
+				<field name="invoiced_amnt" sum="Total" /> -->
+					<field name="date_end" string="PMO Expected Closing Date"/>
+					<field name="closing_date" />
+					<field name="rebate_amnt" sum="Total"/>
+
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="no_inv_od_fiscal_rev_data_closed_tree_view">
+			<field name="name">fiscal.rev.rpt.data.tree</field>
+			<field name="model">fiscal.rev.rpt.data</field>
+			<field name="arch" type="xml">
+				<tree string="Sale In">
+					<field name="company_id" invisible="1" />
+					<field name="approved_date" />
+					<field name="partner_id" />
+					<field name="project_id" invisible="1"/>
+					<field name="analytic_account_id" />
+					<button name="btn_open_analytic" type="object" icon="STOCK_FIND" string="Open" />
+					<field name="cost_sheet_id" />
+					<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+					<field name="amended_sale" string="Sale" sum="Total" />
+					<field name="amended_cost" string="Amended Cost" sum="Total" />
+					<field name="amended_prof" string="Amended Profit" sum="Total" />
+					<field name="amended_mp" string="Returned MP" sum="Total" />
+					<field name="wip" string="Actual Cost" sum="Total" />
+					<field name="actual_profit" string="Actual Profit" sum="Total" />
+					<field name="actual_mp" string="Actual MP" sum="Total" />
+					<!-- <field name="collected_amount" sum="Total" />
+				<field name="invoiced_amnt" sum="Total" /> -->
+					<field name="date_end" string="PMO Expected Closing Date"/>
+					<field name="closing_date" />
+					<field name="rebate_amnt" sum="Total"/>
+
+				</tree>
+			</field>
+		</record>
+
+
+
+		<record model="ir.ui.view" id="ood_fiscal_rev_search_view">
+			<field name="name">fiscal.rev.rpt.data.search</field>
+			<field name="model">fiscal.rev.rpt.data</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="cost_sheet_id" />
+					<field name="analytic_account_id" />
+					<field name="pm_id" />
+					<field name="sam_id" />
+					<field name="project_id" />
+					<field name="branch_id" />
+					<group expand="1" string="Group By">
+						<filter string="Approved Date" context="{'group_by':'approved_date:month'}"/>
+						<filter string="Actual Closing Date" context="{'group_by':'closing_date:month'}"/>
+						<filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+						<filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+						<filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+						<filter string="Cost Sheet" domain="[]" context="{'group_by':'cost_sheet_id'}"/>
+						<filter string="Contract Status" name ="status" domain="[]" context="{'group_by':'contract_status'}"/>
+						<filter string="Contract Start Date" context="{'group_by':'contract_start_date:month'}"/>
+						<filter string="Contract End Date" context="{'group_by':'contract_end_date:month'}"/>
+						<filter string="Project Start Year" context="{'group_by':'date_start:year'}" name="Year"/>
+						<filter string="Project Start Month" context="{'group_by':'date_start:month'}"/>
+						<filter string="Project Start Quarter" context="{'group_by':'date_start:quarter'}"/>
+						<filter string="PMO Expected Closing Year" context="{'group_by':'date_end:year'}" name="Year"/>
+						<filter string="PMO Expected Closing Month" context="{'group_by':'date_end:month'}"/>
+						<filter string="PMO Expected Closing Quarter" context="{'group_by':'date_end:quarter'}"/>
+						<filter string="Project Manager" domain="[]" context="{'group_by':'pm_id'}"/>
+						<filter string="Status" domain="[]" context="{'group_by':'status'}"/>
+						<filter string="Sale Account Manager" domain="[]" context="{'group_by':'sam_id'}"/>
+						<filter string="Type" domain="[]" context="{'group_by':'project_type'}"/>
+					</group>
+
+				</search>
+
+
+			</field>
+		</record>
+	</data>
+</openerp>

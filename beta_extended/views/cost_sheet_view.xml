@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="od_cost_sheet_form_inherit_renewal" model="ir.ui.view">
+            <field name="name">od.cost.sheet.form.inherit.renewal</field>
+            <field name="model">od.cost.sheet</field>
+            <field name="inherit_id" ref="orchid_cost_sheet.od_cost_sheet_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='id']" position="after">
+                    <field name="show_managed_services" invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Managed Services" attrs="{'invisible':[('show_managed_services','=',False)]}">
+                        <group string="Managed Services">
+                            <field name="managed_services_line" nolabel="1">
+                                <tree editable="bottom" delete="false" create="false">
+                                    <field name="cost_sheet_id" invisible="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="description" readonly="1"/>
+                                    <field name="product_qty" readonly="1"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

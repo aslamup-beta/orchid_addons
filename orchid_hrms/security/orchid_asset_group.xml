@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data noupdate="1">
+
+
+
+
+
+
+
+        <record model="ir.module.category" id="module_orchid_hrms">
+            <field name="name">Entitelment Type</field>
+            <field name="description">Entitelment Type</field>
+            <field name="sequence">3</field>
+        </record>
+
+
+
+    <record id="group_od_entitelment_by_assets" model="res.groups">
+        <field name="name">Asset</field>
+        <field name="category_id" ref="orchid_hrms.module_orchid_hrms"/>
+        <field name="description"></field>
+    </record>
+
+
+    <record id="group_od_entitelment_by_entitlements" model="res.groups">
+        <field name="name">Entitelment</field>
+    <field name="category_id" ref="orchid_hrms.module_orchid_hrms"/>
+        <field name="description"></field>
+    </record>
+
+
+
+
+
+    </data>
+</openerp>

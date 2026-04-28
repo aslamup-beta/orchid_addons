@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        
+        <record id="view_public_od_holidays_tree" model="ir.ui.view">
+            <field name="name">od.hr.holidays.public.tree</field>
+            <field name="model">od.hr.holidays.public</field>
+            <field name="arch" type="xml">
+                <tree string="Public Holidays">
+                    <field name="year"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_public_od_holidays_form" model="ir.ui.view">
+            <field name="name">od.hr.holidays.public.form</field>
+            <field name="model">od.hr.holidays.public</field>
+            <field name="arch" type="xml">
+                <form string="Public Holidays">
+                    <group>
+                        <field name="year"/>
+                        <field name="company_id"/>
+                    </group>
+                    <newline/>
+                    <group string="Public Holidays" colspan="4" col="1">
+                        <field name="line_ids" nolabel="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_public_od_holiday_line_tree" model="ir.ui.view">
+            <field name="name">od.hr.public.holidays.line.tree</field>
+            <field name="model">od.hr.public.holidays.line</field>
+            <field name="arch" type="xml">
+                <tree string="Public Holidays" editable="top">
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="variable"/>
+                    <button name="od_allocate" string="Allocate" type="object" />
+
+                    <button name="od_deallocate" string="De Allocate" type="object" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id="open_public_od_holidays_view" model="ir.actions.act_window">
+            <field name="name">Public Holidays</field>
+            <field name="res_model">od.hr.holidays.public</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="open_public_od_holidays_view"
+                  id="menu_public_holidays_od_view"
+                  parent="hr.menu_hr_configuration"
+                  sequence="20"/>
+        
+    </data>
+</openerp>

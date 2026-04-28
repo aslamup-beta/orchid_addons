@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+         <record id="od_account_invoice_line_cost_up_inherit" model="ir.ui.view">
+          <field name="name">beta.invoice.form.view</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="orchid_invoice.od_account_invoice_line_cost_up" />
+          <field name="arch" type="xml">
+           <field name="od_analytic_account" position="after">
+           	 	<field name="od_remarks" />
+           	 	<field name="od_refund" attrs="{'invisible':[('type','!=','out_invoice')]}"/>
+           	 	<field name="inv_status" attrs="{'invisible':[('od_refund','=',False)], 'required':[('od_refund','=',True)]}"/>
+           	 	
+           		<field name="od_ignore" invisible="1" groups="orchid_beta.groups_beta_admin"/>
+           </field>
+            </field>
+         </record>
+         
+         <record id="od_invoice_supplier_form_inherit" model="ir.ui.view">
+          <field name="name">beta.invoice.form.view</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_supplier_form" />
+          <field name="arch" type="xml">
+           <field name="fiscal_position" position="before">
+           	 	<field name="od_remarks" />
+           	 	<field name="od_ignore" invisible="1" groups="orchid_beta.groups_beta_admin"/>
+           </field>
+            </field>
+         </record>
+         
+         <menuitem
+                icon="STOCK_PRINT"
+                name="Trial Balance"
+                parent="account.menu_finance_legal_statement"
+                action="account.action_account_balance_menu"
+                id="menu_general_Balance_report"
+                sequence="1"
+               />
+    
+    </data>
+</openerp>

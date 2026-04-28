@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="od_employee_academic_qualification_view_tree">
+        <field name="name">od.employee.academic.qualification</field>
+        <field name="model">od.employee.academic.qualification</field>
+        <field name="arch" type="xml">
+            <tree>
+                  <field name="name"/>
+            </tree>
+       </field>
+    </record>
+  <record model="ir.ui.view" id="od_employee_academic_qualification_view_form">
+        <field name="name">od.employee.academic.qualification</field>
+        <field name="model">od.employee.academic.qualification</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                  <group>
+                      <group>
+                         <label for="name" class="oe_edit_only"/>
+                         <h2><field name="name"/></h2>
+                      </group>
+                      <group></group>
+                  </group>
+                  <group>
+                           <field name="notes"/>
+                  </group>
+       </sheet>
+    </form>
+  </field>
+ </record>
+<record model="ir.actions.act_window" id="action_od_employee_academic_qualification">
+        <field name="name">Academic Qualification</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.employee.academic.qualification</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Academic Qualification. 
+          </p>
+        </field>
+    </record>
+ </data>
+</openerp>

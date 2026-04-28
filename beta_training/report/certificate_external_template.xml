@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <template t-name="beta_training.certificate_external_layout_footer">
+            <t t-foreach="docs" t-as="o">
+                <div class="header">
+                    <div class="watermark"
+                         style="position:absolute;opacity:.5;z-index:-1;align:center;margin-top:10cm;margin-left:8cm;">
+                        <img t-if="o.training_certificate_img_id.watermark"
+                             t-att-src="'data:image/png;base64,%s' % o.training_certificate_img_id.watermark"
+                             style="width:100%;"/>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

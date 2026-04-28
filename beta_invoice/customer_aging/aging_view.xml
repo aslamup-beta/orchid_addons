@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- <record id="aging_rept_list" model="ir.ui.view">
+            <field name="name">beta.customer.aging.wiz.tree</field>
+            <field name="model">beta.customer.aging.wiz</field>
+            <field name="arch" type="xml">
+                <tree string="list">
+                    <field name="name"></field>
+                    <button name="export_rpt" string="Export" type="object" />
+
+                </tree>
+            </field>
+        </record> -->
+        <record id="view_aging_rpt_wizard" model="ir.ui.view">
+            <field name="name">Aging Form</field>
+            <field name="model">beta.customer.aging.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                   
+                    
+                       
+                        <group>
+                        	<field name="date_from" />
+                        </group>
+                        <group>
+                            <field name="branch_ids" widget="many2many_tags"/>
+                        </group>
+                         <group />
+                         <group />
+                        <group>
+                        <field name="partner_ids" widget="many2many_tags"/>
+                        
+                        </group>
+                        
+                        
+                      
+                   
+
+                      
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_aging_rpt_act" model="ir.actions.act_window">
+            <field name="name">Receivable Aging Report</field>
+            <field name="res_model">beta.customer.aging.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         
+          <menuitem id="customer_aging_rpt_gne" name="Receivable Aging Report" parent="base.menu_base_partner" sequence="3" />
+         <menuitem
+         	
+			id="menu_cust_aging_rpt"
+			parent="customer_aging_rpt_gne"
+			sequence="1" 
+			action="action_aging_rpt_act" />
+
+
+
+	<record model="ir.ui.view" id="od_customer_aging_data_tree_view">
+		<field name="name">beta.customer.aging.datatree</field>
+		<field name="model">beta.customer.aging.data</field>
+		<field name="arch" type="xml">
+			<tree string="Cusotmer Aging Report">
+			<field name="company_id" invisible="1" />
+				<field name="partner_id" />
+				<field name="current" sum="Total" />
+				<field name="bal1" sum="Total" />
+				<field name="bal2" sum="Total" />
+				<field name="bal3" sum="Total" />
+				<field name="bal4" sum="Total" />
+				<field name="bal5" sum="Total" />
+				<field name="balance" sum="Total" />
+				<field name="payment_term_id" />
+				
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="ood_customer_aging_search_view">
+		<field name="name">beta.customer.aging.data.search</field>
+		<field name="model">beta.customer.aging.data</field>
+		<field name="arch" type="xml">
+			<search>
+			
+				
+				<field name="partner_id" />
+			<group expand="1" string="Group By">
+                       
+                 
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                     
+                       
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+    </data>
+</openerp>

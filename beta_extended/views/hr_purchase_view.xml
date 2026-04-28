@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_purchase_rfq" model="ir.actions.act_window">
+            <field name="name">Purchase Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{'default_first_approval_id':2380,
+                'default_od_cost_centre_id':58,'default_pricelist_id':17,'default_invoice_method':'order',
+                'default_od_part_delvry':'not_allowed','default_od_order_type_id':28,
+                'default_order_line':
+                [(0, 0, {
+                'product_id': 297417,
+                'od_pdt_brand_id': 99,
+                'name': 'HR Purchase',
+                'state': 'draft',
+                'account_analytic_id': 17958,
+                'product_uom': 1,
+                'od_gross': 1,
+                'price_unit': 1,
+                'product_qty': 1,
+                'taxes_id': [(6, 0, [31])],
+                }
+                )]}
+            </field>
+            <field name="domain">[('od_cost_centre_id', '=', 58)]
+            </field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p>
+                <p>
+                    The quotation contains the history of the discussion/negotiation
+                    you had with your supplier. Once confirmed, a request for
+                    quotation is converted into a purchase order.
+                </p>
+                <p>
+                    Most propositions of purchase orders are created automatically
+                    by Odoo based on inventory needs.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem name="Purchase" id="menu_hr_purchase" parent="hr.menu_hr_root" sequence="30"
+                  groups="__export__.res_groups_256"/>
+        <menuitem
+                id="od_menu_hr_rfq"
+                parent="beta_extended.menu_hr_purchase"
+                sequence="2"
+                action="hr_purchase_rfq" groups=""/>
+
+    </data>
+</openerp>

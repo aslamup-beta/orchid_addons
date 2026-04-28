@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_business_trip,access_hr_business_trip,model_hr_business_trip,,1,1,1,1
+access_hr_holidays_wfh,access_hr_holidays_wfh,model_hr_holidays_wfh,,1,1,1,1
+access_date_log_wfh,access_date_log_wfh,model_date_log_wfh,,1,1,1,1
+access_date_log_business_trip,access_date_log_business_trip,model_date_log_business_trip,,1,1,1,1
+access_commitment_letter,access_commitment_letter,model_commitment_letter,,1,1,1,1
+access_wfh_days_limit,access_wfh_days_limit,model_wfh_days_limit,,1,1,1,0
+access_managed_services,access_managed_services,model_managed_services,,1,1,1,1
+access_hr_contract_quarterly,access_hr_contract_quarterly,model_hr_contract_quarterly,,1,1,1,1
+access_emp_contract_line,access_emp_contract_line,model_emp_contract_line,,1,1,1,1
+access_etimad_summary,access_etimad_summary,model_etimad_summary,,1,1,1,1
+
+

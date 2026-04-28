@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+
+        <record id="od_commitment_letter_approval_manager" model="email.template">
+            <field name="name">UAE - Approve Commitment Letter</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Approval of Project Commitment Letter -</field>
+            <field name="email_to">khalid.eqtifan@betait.net</field>
+            <field name="email_cc">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_commitment_letter"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Khalid Eqtifan,</p>
+	             	<p>Kindly need your approval for the below Project Commitment Letter. Could you please review and approve at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>S.No: ${object.name}</li>
+	                    	<li>Project: ${object.project_id.name}</li>
+	                        <li>Customer: ${object.customer_id.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=commitment.letter&menu_id=1207&action=1913</li>
+	                    </ul>    		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_commitment_letter_approval_manager_saudi" model="email.template">
+            <field name="name">KSA - Approve Commitment Letter</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Approval of Project Commitment Letter -</field>
+            <field name="email_to">mahmoud.alkhatib@betait.net</field>
+            <field name="email_cc">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_commitment_letter"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Mahmoud Alkhatib,</p>
+	             	<p>Kindly need your approval for the below Project Commitment Letter. Could you please review and approve at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.name}</li>
+	                    	<li>Project: ${object.project_id.name}</li>
+	                        <li>Customer: ${object.customer_id.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=commitment.letter&menu_id=1207&action=1913</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_commitment_letter_notify_project" model="email.template">
+            <field name="name">UAE - Commitment Letter Approved by PMO</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Commitment Letter Approved- ${object.employee_id.name}</field>
+            <field name="email_to">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_commitment_letter"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.manager_id.name},</p>
+	             	<p>Project Commitment Letter has been approved by your manager.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.name}</li>
+	                    	<li>Project: ${object.project_id.name}</li>
+	                        <li>Customer: ${object.customer_id.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=commitment.letter&menu_id=1207&action=1913</li>
+	                    </ul>    	 		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_commitment_letter_notify_project_saudi" model="email.template">
+            <field name="name">KSA - Commitment Letter Approved by PMO</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Commitment Letter Approved - ${object.employee_id.name}</field>
+            <field name="email_to">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_commitment_letter"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.manager_id.name},</p>
+	             	<p>Project Commitment Letter has been approved by your manager.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.name}</li>
+	                    	<li>Project: ${object.project_id.name}</li>
+	                        <li>Customer: ${object.customer_id.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=commitment.letter&menu_id=1207&action=1913</li>
+	                    </ul>    	  		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+
+        <record id="od_commitment_letter_refused" model="email.template">
+            <field name="name">UAE - Commitment Letter Refused by PMO</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Commitment Letter Refused</field>
+            <field name="email_to">${object.manager_id.email}</field>
+            <!--              <field name="email_cc">${object.employee_id.email}</field> -->
+            <field name="model_id" ref="model_commitment_letter"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.manager_id.name},</p>
+	             	<p>Kindly note that your Commitment Letter is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.name}</li>
+	                    	<li>Project: ${object.project_id.name}</li>
+	                        <li>Customer: ${object.customer_id.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=commitment.letter&menu_id=1207&action=1913</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_commitment_letter_refused_saudi" model="email.template">
+            <field name="name">KSA - Commitment Letter Refused by PMO</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Commitment Letter Refused</field>
+            <field name="email_to">${object.manager_id.email}</field>
+            <!--              <field name="email_cc">${object.employee_id.email}</field> -->
+            <field name="model_id" ref="model_commitment_letter"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.manager_id.name},</p>
+	             	<p>Kindly note that your Commitment Letter is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.name}</li>
+	                    	<li>Project: ${object.project_id.name}</li>
+	                        <li>Customer: ${object.customer_id.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=commitment.letter&menu_id=1207&action=1913</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
+

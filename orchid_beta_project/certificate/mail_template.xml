@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+    
+<!-- 		Sale sesssion enablement templates     -->
+
+    	<record id="od_sale_enablement_email_to_attendies" model="email.template">
+             <field name="name">UAE - Sale Enablement Session - Email to attendies</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Sale Enablement Session</field>
+             <field name="email_to">${context["attendies_emails"]}</field>
+             <field name="email_cc">${object.user_id.email},aslam.up@betait.net</field>
+             <field name="model_id" ref="model_sale_enablement"/>
+             <field name="body_html"><![CDATA[
+
+           		<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear,</p><p>The Following session is enabled for you:</p><ul>
+                    <li>Session Name: ${object.name}</li>
+                    <li>Assigned by: ${object.user_id.name}</li>
+                    <li>Date: ${object.date}</li>
+                    <li>link: <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.enablement&amp;menu_id=1134&amp;action=1562">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.enablement&amp;menu_id=1134&amp;action=1562</a></li></ul>
+                    
+                </div> 
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_sale_enablement_email_to_attendies_saudi" model="email.template">
+             <field name="name">KSA - Sale Enablement Session - Email to attendies</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Sale Enablement Session</field>
+             <field name="email_to">${context["attendies_emails"]}</field>
+             <field name="email_cc">${object.user_id.email},aslam.up@betait.net</field>
+             <field name="model_id" ref="model_sale_enablement"/>
+             <field name="body_html"><![CDATA[
+          
+           		<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear,</p><p>The following session is enabled for you:</p><ul>
+                    <li>Session Name: ${object.name}</li>
+                    <li>Assigned by: ${object.user_id.name}</li>
+                    <li>Date: ${object.date}</li>
+                    <li>link: <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.enablement&amp;menu_id=1134&amp;action=1562">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.enablement&amp;menu_id=1134&amp;action=1562</a></li></ul>
+                    
+                </div> 
+             ]]>
+             </field>
+         </record>
+         
+<!--          Sale ceretificate Templates -->
+         
+         <record id="od_sale_certificate_email_to_attendies" model="email.template">
+             <field name="name">UAE - Sale certificate - Email to attendies</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Sale Certificate - ${object.certificate_id.name}</field>
+             <field name="email_to">${context["attendies_emails"]}</field>
+             <field name="email_cc">${object.user_id.email},aslam.up@betait.net</field>
+             <field name="model_id" ref="model_sale_certificate"/>
+             <field name="body_html"><![CDATA[
+
+           		<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear,</p><p>The following certificate is enabled for you:</p><ul>
+                    <li>Certificate Name: ${object.certificate_id.name}</li>
+                    <li>Assigned by: ${object.user_id.name}</li>
+                    <li>link: <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.certificate&menu_id=1135&action=1563">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.certificate&menu_id=1135&action=1563</a></li></ul>
+                    
+                </div> 
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_sale_certificate_email_to_attendies_saudi" model="email.template">
+             <field name="name">KSA - Sale certificate - Email to attendies</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Sale Certificate - ${object.certificate_id.name}</field>
+             <field name="email_to">${context["attendies_emails"]}</field>
+             <field name="email_cc">${object.user_id.email},aslam.up@betait.net</field>
+             <field name="model_id" ref="model_sale_certificate"/>
+             <field name="body_html"><![CDATA[
+
+           		<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear,</p><p>The following certificate is enabled for you:</p><ul>
+                    <li>Certificate Name: ${object.certificate_id.name}</li>
+                    <li>Assigned by: ${object.user_id.name}</li>
+                    <li>link: <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.certificate&menu_id=1135&action=1563">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.certificate&menu_id=1135&action=1563</a></li></ul>
+                    
+                </div> 
+             ]]>
+             </field>
+         </record>
+         
+<!--          Engineer certificate templates -->
+         
+         <record id="od_engineer_certificate_email_to_attendies" model="email.template">
+             <field name="name">UAE - Engineer certificate - Email to attendies</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Engineer Certificate - ${object.certificate_id.name}</field>
+             <field name="email_to">${context["attendies_emails"]}</field>
+             <field name="email_cc">${object.user_id.email},aslam.up@betait.net</field>
+             <field name="model_id" ref="model_engineer_certificate"/>
+             <field name="body_html"><![CDATA[
+
+           		<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear,</p><p>The following certificate is enabled for you:</p><ul>
+                    <li>Certificate Name: ${object.certificate_id.name}</li>
+                    <li>Assigned by: ${object.user_id.name}</li>
+                    <li>link: <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=engineer.certificate&menu_id=1136&action=1564">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=engineer.certificate&menu_id=1136&action=1564</a></li></ul>
+                    
+                </div> 
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_engineer_certificate_email_to_attendies_saudi" model="email.template">
+             <field name="name">UAE - Engineer certificate - Email to attendies</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Engineer Certificate - ${object.certificate_id.name}</field>
+             <field name="email_to">${context["attendies_emails"]}</field>
+             <field name="email_cc">${object.user_id.email},aslam.up@betait.net</field>
+             <field name="model_id" ref="model_engineer_certificate"/>
+             <field name="body_html"><![CDATA[
+
+           		<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear,</p><p>The following certificate is enabled for you:</p><ul>
+                    <li>Certificate Name: ${object.certificate_id.name}</li>
+                    <li>Assigned by: ${object.user_id.name}</li>
+                    <li>link: <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=engineer.certificate&menu_id=1136&action=1564">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=engineer.certificate&menu_id=1136&action=1564</a></li></ul>
+                    
+                </div> 
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_sale_enablement_achieve_notification" model="email.template">
+             <field name="name">UAE - Sale Enablement Achieved - Email to Assigned Person</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Sale Enablement Achieved - </field>
+             <field name="email_to">${object.user_id.email}</field>
+             <field name="email_cc">aslam.up@betait.net</field>
+             <field name="model_id" ref="model_sale_enablement"/>
+             <field name="body_html"><![CDATA[
+
+           		<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear,</p><p>The Following session is achieved by ${context["emp_name"]}. It is waiting for your confirmation. Kindly confirm if it is achieved.</p><ul>
+                    <li>Session Name: ${object.name}</li>
+                    <li>link: <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.enablement&amp;menu_id=1134&amp;action=1562">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.enablement&amp;menu_id=1134&amp;action=1562</a></li></ul><div>Thank You</div>
+                    
+                </div> 
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_sale_enablement_achieve_notification_saudi" model="email.template">
+             <field name="name">KSA - Sale Enablement Achieved - Email to Assigned Person</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Sale Enablement Achieved - </field>
+             <field name="email_to">${object.user_id.email}</field>
+             <field name="email_cc">aslam.up@betait.net</field>
+             <field name="model_id" ref="model_sale_enablement"/>
+             <field name="body_html"><![CDATA[
+
+           		<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear,</p><p>The Following session is achieved by ${context["emp_name"]}. It is waiting for your confirmation. Kindly confirm if it is achieved.</p><ul>
+                    <li>Session Name: ${object.name}</li>
+                    <li>link: <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.enablement&amp;menu_id=1134&amp;action=1562">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=sale.enablement&amp;menu_id=1134&amp;action=1562</a></li></ul><div>Thank You</div>
+                    
+                </div> 
+             ]]>
+             </field>
+         </record>
+         
+         
+     </data>
+</openerp>

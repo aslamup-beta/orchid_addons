@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="od_crm_approve_mail" model="email.template">
+                 <field name="name">Opportunity Approved Mail</field>
+                 <field name="email_from">${object.section_id.user_id.login}</field>
+                 <field name="subject">Opportunity Approved - ${object.partner_id.name}</field>
+                 <field name="email_to">${object.create_uid.login}</field>
+                 <field name="model_id" ref="model_crm_lead"/>
+
+                 <field name="body_html"><![CDATA[
+             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                 <p>Dear ${object.create_uid.name or ''},</p>
+
+                 <p>Opportunity Approved</p>
+                 <p>Info</p>
+                 <ul>
+
+                 <li> Opportunity No: ${object.od_number}</li>
+                 <li> Customer Name: ${object.partner_id.name}</li>
+                 <li> Financial Proposal Required On Date: ${object.od_req_on_7}</li>
+                 <li> link: http://betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+                 </ul>
+                 <p>Thank You</p>
+
+             </div>
+                 ]]></field>
+             </record>
+                <record id="od_crm_approve_mail_saudi" model="email.template">
+                         <field name="name">Opportunity Approved Mail Saudi</field>
+                         <field name="email_from">${object.section_id.user_id.login}</field>
+                         <field name="subject">Opportunity Approved - ${object.partner_id.name} </field>
+                         <field name="email_to">${object.create_uid.login}</field>
+                         <field name="model_id" ref="model_crm_lead"/>
+
+                         <field name="body_html"><![CDATA[
+                     <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                         <p>Dear ${object.create_uid.name or ''},</p>
+
+                         <p>Opportunity Approved</p>
+                         <p>Info</p>
+                         <ul>
+
+                         <li> Opportunity No: ${object.od_number}</li>
+                         <li> Customer Name: ${object.partner_id.name}</li>
+                         <li> Financial Proposal Required On Date: ${object.od_req_on_7}</li>
+                         <li> link: http://betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+                         </ul>
+                         <p>Thank You</p>
+
+                     </div>
+                         ]]></field>
+            </record>
+        <record id="od_crm_reject_mail" model="email.template">
+                 <field name="name">Opportunity Rejected Mail</field>
+                 <field name="email_from">${object.section_id.user_id.login}</field>
+                 <field name="subject">Opportunity Rejected</field>
+                 <field name="email_to">${object.create_uid.login}</field>
+                 <field name="model_id" ref="model_crm_lead"/>
+
+                 <field name="body_html"><![CDATA[
+             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                 <p>Dear ${object.create_uid.name or ''},</p>
+
+                 <p>Opportunity Rejected</p>
+                 <p>Info</p>
+                 <ul>
+
+                 <li> Opportunity No: ${object.od_number}</li>
+                 <li> Customer Name: ${object.partner_id.name}</li>
+                 <li> Financial Proposal Required On Date: ${object.od_req_on_7}</li>
+                 <li> link: http://betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+                 </ul>
+                 <p>Thank You</p>
+
+             </div>
+                 ]]></field>
+             </record>
+        <record id="od_crm_reject_mail_saudi" model="email.template">
+                 <field name="name">Opportunity Rejected Mail</field>
+                 <field name="email_from">${object.section_id.user_id.login}</field>
+                 <field name="subject">Opportunity Rejected</field>
+                 <field name="email_to">${object.create_uid.login}</field>
+                 <field name="model_id" ref="model_crm_lead"/>
+
+                 <field name="body_html"><![CDATA[
+             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                 <p>Dear ${object.create_uid.name or ''},</p>
+
+                 <p>Opportunity Rejected</p>
+                 <p>Info</p>
+                 <ul>
+
+                 <li> Opportunity No: ${object.od_number}</li>
+                 <li> Customer Name: ${object.partner_id.name}</li>
+                 <li> Financial Proposal Required On Date: ${object.od_req_on_7}</li>
+                 <li> link: http://betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+                 </ul>
+                 <p>Thank You</p>
+
+             </div>
+                 ]]></field>
+             </record>
+             
+             
+             
+              <record id="od_opportunity_assigned_presales" model="email.template">
+                 <field name="name">Opportunity Assigned</field>
+                 <field name="email_from">${(user.email or '')|safe}</field>
+                 <field name="subject">Opportunity Assigned: ${object.partner_id.name}</field>
+                 <field name="email_to">${object.od_responsible_id.login}</field>
+                 <field name="model_id" ref="model_crm_lead"/>
+
+                 <field name="body_html"><![CDATA[
+             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                 <p>Dear ${object.od_responsible_id.name or ''},</p>
+
+                 <p>Opportunity Assigned for you.</p>
+                 <p>Info</p>
+                 <ul>
+
+                 <li> Opportunity No: ${object.od_number}</li>
+                 <li> Customer Name: ${object.partner_id.name}</li>
+                 <li> Financial Proposal Required On Date: ${object.od_req_on_7}</li>
+                 <li> link: http://betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+                 </ul>
+                 <p>Thank You</p>
+
+             </div>
+                 ]]></field>
+             </record>
+             
+        <record id="od_opportunity_assigned_presales_saudi" model="email.template">
+                 <field name="name">Opportunity Assigned</field>
+                 <field name="email_from">${(user.email or '')|safe}</field>
+                 <field name="subject">Opportunity Assigned: ${object.partner_id.name}</field>
+                 <field name="email_to">${object.od_responsible_id.login}</field>
+                 <field name="model_id" ref="model_crm_lead"/>
+
+                 <field name="body_html"><![CDATA[
+             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                 <p>Dear ${object.od_responsible_id.name or ''},</p>
+
+                 <p>Opportunity Assigned for you.</p>
+                 <p>Info</p>
+                 <ul>
+
+                 <li> Opportunity No: ${object.od_number}</li>
+                 <li> Customer Name: ${object.partner_id.name}</li>
+                 <li> Financial Proposal Required On Date: ${object.od_req_on_7}</li>
+                 <li> link: http://betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+                 </ul>
+                 <p>Thank You</p>
+
+             </div>
+                 ]]></field>
+             </record>
+             
+             <record id="od_opportunity_assigned_supporting_presales" model="email.template">
+                 <field name="name">Opportunity Assigned</field>
+                 <field name="email_from">${(user.email or '')|safe}</field>
+                 <field name="subject">Opportunity Assigned: ${object.partner_id.name}</field>
+                 <field name="email_to">${object.support_presales_emails}</field>
+                 <field name="model_id" ref="model_crm_lead"/>
+
+                 <field name="body_html"><![CDATA[
+             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                 <p>Dear,</p>
+
+                 <p>Opportunity Assigned for your support.</p>
+                 <p>Info</p>
+                 <ul>
+
+                 <li> Opportunity No: ${object.od_number}</li>
+                 <li> Customer Name: ${object.partner_id.name}</li>
+                 <li> Financial Proposal Required On Date: ${object.od_req_on_7}</li>
+                 <li> link: http://betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+                 </ul>
+                 <p>Thank You</p>
+
+             </div>
+                 ]]></field>
+             </record>
+             
+             <record id="od_opportunity_assigned_supporting_presales_saudi" model="email.template">
+                 <field name="name">Opportunity Assigned</field>
+                 <field name="email_from">${(user.email or '')|safe}</field>
+                 <field name="subject">Opportunity Assigned: ${object.partner_id.name}</field>
+                 <field name="email_to">${object.support_presales_emails}</field>
+                 <field name="model_id" ref="model_crm_lead"/>
+
+                 <field name="body_html"><![CDATA[
+             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                 <p>Dear,</p>
+
+                 <p>Opportunity Assigned for your support.</p>
+                 <p>Info</p>
+                 <ul>
+
+                 <li> Opportunity No: ${object.od_number}</li>
+                 <li> Customer Name: ${object.partner_id.name}</li>
+                 <li> Financial Proposal Required On Date: ${object.od_req_on_7}</li>
+                 <li> link: http://betait.net/web#id=${object.id}&view_type=form&model=crm.lead&menu_id=137&action=144</li>
+                 </ul>
+                 <p>Thank You</p>
+
+             </div>
+                 ]]></field>
+             </record>
+             
+             
+    </data>
+</openerp>

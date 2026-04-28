@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	<menuitem id="msg_cost_branch_menu" name="Branch" parent="mail.mail_my_stuff" action="orchid_cost_centre.od_cost_branch_action" groups="orchid_beta.groups_beta_admin,__export__.res_groups_190,__export__.res_groups_191,__export__.res_groups_192"  sequence="200"/>
+<!--<od.cost.branch form>-->
+        <record id="od_cost_branch_form_inherit" model="ir.ui.view">
+            <field name="name">Branch Form inherit</field>
+            <field name="model">od.cost.branch</field>
+            <field name="inherit_id" ref="orchid_cost_centre.od_cost_branch_form"/>
+            <field name="arch" type="xml">
+                <field name="pmo_manager_id" position="after">
+           <field name="manager_user_id" />
+           <field name="sm_user_id" />
+           <field name="active" />
+       </field>
+       <xpath expr="/form/sheet" position="inside">
+            <notebook>
+
+		        <page string="Named Accounts">
+		        <group col="4">
+		        	<field name="approval_state" widget="statusbar" statusbar_visible="pending"/>
+		         </group>   
+		         <field name="named_account_ids" readonly="1">
+		               <tree>
+		                  <field name="name" />
+		                   <field name="user_id" />
+		               </tree>
+		            </field>
+		            
+		            
+		            <field name="submit" invisible="1" />
+		            <field name="approval" invisible="1" />
+<!-- 		            <button name="btn_submit" type="object" class="oe_highlight" groups="orchid_beta.groups_beta_admin,__export__.res_groups_190,__export__.res_groups_192,orchid_beta.group_executive_management_beta_1" string="Submit" attrs="{'invisible':['|',('submit','=',True),('approval_state','=','change')]}"/> -->
+<!-- 		            <button name="btn_submit_change" type="object" class="oe_highlight" groups="orchid_beta.groups_beta_admin,__export__.res_groups_190,__export__.res_groups_192,orchid_beta.group_executive_management_beta_1" string="Submit Change" attrs="{'invisible':[('approval_state','!=','change')]}"/> -->
+<!-- 		            <button name="btn_approval" type="object" class="oe_highlight" groups="__export__.res_groups_191" string="Approve" attrs="{'invisible':[('approval_state','!=','pending')]}"/> -->
+<!-- 		            <button name="btn_change" type="object" class="oe_highlight" groups="__export__.res_groups_191,orchid_beta.groups_beta_admin,__export__.res_groups_192,__export__.res_groups_190" string="Change" attrs="{'invisible':[('approval','=',False)]}"/> -->
+<!-- 		           	<button name="btn_approve_change" type="object" class="oe_highlight" groups="__export__.res_groups_191" string="Approve Change" attrs="{'invisible':[('approval_state','!=','approve_change')]}"/> -->
+		             
+		        </page>
+		        <page string="GP Approval">
+		          <table style="width:100%" class="table table-bordered">
+		                    <thead>
+		                    <tr class="text-center">
+		                     <th>Enable</th>
+		                     <th>Name</th>
+		                     <th colspan="3">Approval Range</th>
+		                     <th>Approval Manager</th>
+		                     </tr>
+		                     <tr>
+		                        <th></th>
+		                        <th></th>
+		                         <th>From</th>
+		                        <th></th>
+		                        <th>To</th>
+		                        <th></th>
+		                     </tr>
+		                    </thead>
+                                  
+		                    <tbody>
+		                     
+		                     <tr>
+		                      <td></td>
+  							   <td>No Approval Range</td>
+  							   <td><field name="range_ch" /></td>
+  							   <td>  GP%   </td>
+  							   <td></td>
+  							   <td></td>
+                             </tr>
+		                     
+		                     <tr>
+		                     	<td><field name="enab_1" /></td>
+  							   <td>1st Approval Range</td>
+  							   <td><field name="range_fr_1" attrs="{'readonly':[('enab_1','=',False)],'required':[('enab_1','=',True)]}" /></td>
+  							   <td>  GP% </td>
+  							   <td><field name="range_to_1" attrs="{'readonly':[('enab_1','=',False)],'required':[('enab_1','=',True)]}" /></td>
+  							   
+  							   <td><field name="user_id_1" attrs="{'readonly':[('enab_1','=',False)],'required':[('enab_1','=',True)]}"/></td>
+                             </tr>
+                             
+                             <tr>
+                               <td><field name="enab_2" attrs="{'readonly':[('enab_1','=',False)]}"/></td>
+  							   <td> 2nd Approval Range </td>
+  							   <td><field name="range_fr_2" attrs="{'readonly':[('enab_2','=',False)],'required':[('enab_2','=',True)]}"/></td>
+  							    <td>  GP% </td>
+  							    <td><field name="range_to_2" attrs="{'readonly':[('enab_2','=',False)],'required':[('enab_2','=',True)]}"/></td>
+  							   <td><field name="user_id_2" attrs="{'readonly':[('enab_2','=',False)],'required':[('enab_2','=',True)]}"/></td>
+                             </tr>
+                             
+                             <tr>
+                              <td><field name="enab_3" attrs="{'readonly':[('enab_2','=',False)]}"/></td>
+  							   <td>3rd Approval Range </td>
+  							   <td><field name="range_fr_3" attrs="{'readonly':[('enab_3','=',False)],'required':[('enab_3','=',True)]}"/></td>
+  							    <td> GP% </td>
+  							    <td><field name="range_to_3" attrs="{'readonly':[('enab_3','=',False)],'required':[('enab_3','=',True)]}"/></td>
+  							   <td><field name="user_id_3" attrs="{'readonly':[('enab_3','=',False)],'required':[('enab_3','=',True)]}" /></td>
+                             </tr>
+                             
+                              <tr>
+                               <td><field name="enab_4" attrs="{'readonly':[('enab_3','=',False)]}"/></td>
+  							   <td>4th Approval Range </td>
+  							   <td></td>
+  							   <td> GP% </td>
+  							   <td><field name="range_to_4" attrs="{'readonly':[('enab_4','=',False)],'required':[('enab_4','=',True)]}"/></td>
+  							   <td><field name="user_id_4" attrs="{'readonly':[('enab_4','=',False)],'required':[('enab_4','=',True)]}" /></td>
+                             </tr>
+                              
+                             
+		               		</tbody>
+		                </table>
+		        
+		        
+		        </page>
+		        
+		        </notebook>
+		       </xpath>
+	        
+	        
+
+           </field>
+        </record>
+
+		<record id="od_cost_division_form_inherit" model="ir.ui.view">
+            <field name="name">Division Form inherit</field>
+            <field name="model">od.cost.division</field>
+            <field name="inherit_id" ref="orchid_cost_centre.od_cost_division_form"/>
+            <field name="arch" type="xml">
+                <field name="tech_consult_id" position="after">
+           			<field name="manager_user_id" invisible="1"/>
+           			<field name="od_tech_lead" />
+           			<field name="od_presales_lead" />
+           			
+       			</field>
+       			<xpath expr="/form/sheet/group" position="inside">
+	       			<group><field name="active"/></group>
+       			</xpath>
+       			
+       <xpath expr="/form/sheet" position="inside">
+            <notebook>
+       <page string="Technology Consultant">
+       <group>
+       <field name="mp_target" />
+       <field name="tc" />
+       </group>
+       <field name="division_staff_ids" >
+           <tree editable="bottom">
+                    <field name="branch_id"/>
+                    <field name="job_id" domain="[('id','in',(78,107))]"/>
+                    <field name="required"/>
+                    <field name="available"/>
+                    <field name="weight"/>
+        </tree>
+       </field>
+       </page>
+       </notebook>
+        </xpath> 
+      
+           </field>
+        </record>
+        
+        <record id="od_cost_centre_form_inherit" model="ir.ui.view">
+            <field name="name">Cost Centre Form inherit</field>
+            <field name="model">od.cost.centre</field>
+            <field name="inherit_id" ref="orchid_cost_centre.od_cost_centre_form"/>
+            <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+           			<field name="active" />
+       			</field>
+             </field>
+        </record>
+
+    </data>
+</openerp>

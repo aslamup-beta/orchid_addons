@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_move_form_expiry_inherit" model="ir.ui.view">
+            <field name="name">view.move.form.expiry.inherit</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="product_expiry.view_move_form_expiry"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='use_date']" position="attributes">
+                    <attribute name="string">Start Date</attribute>
+                </xpath>
+                <xpath expr="//field[@name='life_date']" position="attributes">
+                    <attribute name="string">End Date</attribute>
+                </xpath>
+                <xpath expr="//field[@name='removal_date']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='alert_date']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='use_date']" position="after">
+                    <field name="customer_id"/>
+                    <field name="supplier_id"/>
+                </xpath>
+                <xpath expr="//field[@name='life_date']" position="after">
+                    <field name="analytic_account_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="beta_inherit_view_picking_form_lot" model="ir.ui.view">
+            <field name="name">beta.inherit.view.picking.form.lot</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Operations']/field[@name='pack_operation_ids']/tree/field[@name='lot_id']"
+                       position="after">
+                    <field name="lot_start_date"/>
+                    <field name="lot_end_date"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="beta_inherit_view_stock_enter_transfer_details" model="ir.ui.view">
+            <field name="name">beta.inherit.stock.transfer_details</field>
+            <field name="model">stock.transfer_details</field>
+            <field name="inherit_id" ref="stock.view_stock_enter_transfer_details"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='item_ids']/tree/field[@name='product_id']"
+                       position="after">
+                    <field name="supplier_id" invisible="1"/>
+                    <field name="customer_id" invisible="1"/>
+                    <field name="analytic_account_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='item_ids']/tree/field[@name='lot_id']"
+                       position="attributes">
+                    <attribute name="context">{'default_product_id': product_id,
+                        'default_supplier_id':supplier_id,
+                        'default_customer_id':customer_id,
+                        'default_analytic_account_id':analytic_account_id}
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

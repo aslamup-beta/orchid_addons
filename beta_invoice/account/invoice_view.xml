@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="beta_invoice_inherit_view" model="ir.ui.view">
+			<field name="name">beta.invoice.form.view</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form" />
+			<field name="arch" type="xml">
+
+
+				<field name="date_invoice" position="after">
+					<field name="bt_supply_date" />
+					<field name="bt_po_ref" />
+				</field>
+
+
+
+				<xpath
+					expr="//page[@string='Invoice Lines']/field[@name='invoice_line']/tree/field[@name='price_unit']"
+					position="after">
+					<!-- <field name="bt_enable" invisible="1" /> -->
+					<field name="bt_pay_perc" />
+
+
+				</xpath>
+
+				<xpath
+					expr="//page[@string='Invoice Lines']/field[@name='invoice_line']/tree/field[@name='name']"
+					position="after">
+					<field name="name_ar" />
+				</xpath>
+
+
+				<field name="payment_term" position="after">
+
+
+					<field name="payment_term_detail_line">
+						<tree editable="bottom">
+							<field name="name" />
+						</tree>
+					</field>
+					<group>
+						<group>
+							<field name="bank1_id" domain="[('partner_id.ref_companies', 'in', [company_id])]"/>
+							<field name="bank2_id" domain="[('partner_id.ref_companies', 'in', [company_id])]"/>
+						</group>
+						<br />
+						<group>
+							<field name="bt_enable" />
+							<field name="bt_pay_perc"
+								attrs="{'invisible':[('bt_enable','=',False)]}" />
+							<button name="bt_apply_percent" string="Apply"
+								class="oe_link" type="object" attrs="{'invisible':[('state','!=','draft')]}"/>
+						</group>
+
+					</group>
+
+
+				</field>
+				<xpath expr="//notebook[last()]" position="inside">
+					<page string="Government Print">
+						<button name="copy_from_invoice_lines"
+							string="Copy from Invoice Lines" class="oe_link" type="object" />
+						<field name="gov_alternate_line" attrs="{'readonly':[('state','not in',['draft']),('company_id','=',6)]}">
+							<tree editable="bottom">
+								<field name="name" required="1" />
+								<field name="name2" required="1" />
+								<field name="section2" />
+								<field name="quantity" required="1" sum="Total" />
+								<field name="unit_price" required="1" />
+								<field name="bt_pay_perc" />
+								<field name="discount" invisible="1" />
+								<field name="disc_amount" />
+								<field name="total_bf_discount" sum="Total" />
+								<field name="total_bf_tax" sum="Total" />
+								<field name="tax_rate" required="1" />
+								<field name="tax_amount" sum="Total" />
+								<field name="total_amount" sum="Total" />
+
+
+								<field name="original_total_bf_discount" sum="Total"
+									invisible="1" />
+								<field name="original_total_bf_tax" sum="Total"
+									invisible="1" />
+
+								<field name="original_tax_amount" sum="Total"
+									invisible="1" />
+								<field name="original_total_amount" sum="Total"
+									invisible="1" />
+
+							</tree>
+						</field>
+
+					</page>
+					<page string="Cost Center">
+						<group>
+							<group>
+								<field name="od_cost_centre_id" />
+								<field name="od_branch_id" />
+								<field name="od_division_id" />
+							</group>
+						</group>
+
+					</page>
+					<page string="Finance Stamp/Seal">
+						<group>
+							<field name="add_fin_stamp" string="Add My Signature" />
+						</group>
+						<group>
+
+							<group attrs="{'invisible':[('add_fin_stamp','=',False)]}">
+								<field name="fin_stamp_date" invisible="1"/>
+								<field name="fin_stamp_user_id" />
+							</group>
+
+						<!-- 	<group attrs="{'invisible':[('add_fin_stamp','=',False)]}">
+								<field name="fin_stamp_img" widget="image" />
+								<field name="fin_sign" widget="signature" />
+							</group> -->
+
+						</group>
+
+
+					</page>
+				</xpath>
+
+			</field>
+		</record>
+
+
+		<record id="beta_invoice_ex_sup_inherit_view"
+			model="ir.ui.view">
+			<field name="name">orchid.beta.form.view</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form" />
+			<field name="arch" type="xml">
+
+				<field name="partner_id" position="after">
+					<field name="od_analytic_account" required="1" />
+				</field>
+
+
+
+				<xpath expr="//notebook[last()]" position="inside">
+					<page string="Cost Center">
+						<group>
+							<group>
+								<field name="od_cost_centre_id" />
+								<field name="od_branch_id" />
+								<field name="od_division_id" />
+							</group>
+						</group>
+
+					</page>
+
+				</xpath>
+
+			</field>
+		</record>
+		
+		<record id="od_view_partner_bank_form_inherit" model="ir.ui.view">
+            <field name="name">Partner Bank Account Form inherit</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+	        	<field name="acc_number" position="after">
+	            	<field name="od_account_no"/>
+	        	</field>
+           </field>
+        </record>
+
+	</data>
+</openerp>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    
+    <t t-name="OdAccountMoveLineQuickAdd">
+        <div class="oe_orchid_bank_reconcile_quickadd ui-toolbar" style="margin-bottom:0px;">
+
+            <div class="oe_form_dropdown_section">
+                <h4>Bank :</h4> 
+                <select class="oe_orchid_bank_reconcile_select_account" >
+                    
+                </select>
+            </div>
+
+            <div class="oe_form_dropdown_section">
+                <h4>Journal :</h4> 
+                <select class="oe_orchid_bank_reconcile_select_journal" >
+                    
+                </select>
+            </div>
+
+            <div class="oe_form_dropdown_section">
+                <h4>Period :</h4> 
+                <select class="oe_orchid_bank_reconcile_select_period">
+                    
+                </select>
+            </div>
+
+            <div class="oe_form_dropdown_section">
+                <div class="od_book_balance"><h4>Book Balance :</h4> </div>
+                <div class="od_bank_balance"><h4>Bank Balance :</h4></div>
+            </div>    
+
+            <div class="oe_form_dropdown_section">
+                <div class="od_fc_book_balance" style="color: blue;"><h4>FC:</h4> </div>
+                <div class="od_fc_bank_balance" style="color: blue;"><h4>FC:</h4></div>
+            </div>              
+            <div class="oe_form_dropdown_section">
+                <div class="od_reco_button"><a>Reconcile</a> </div>
+            </div>
+
+
+        </div>
+    </t>
+
+</templates>

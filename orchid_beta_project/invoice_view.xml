@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+          <record id="beta_project_invoice_inherit_view" model="ir.ui.view">
+          <field name="name">beta.project.invoice.form.view</field>
+          <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_form" />
+          <field name="arch" type="xml">
+          
+          
+           <button name="invoice_print" position="after">
+           	 	<button name="od_accept" groups="orchid_beta.group_beta_finance_manger_acc,orchid_beta.group_beta_finance_entry_cancel,account.group_account_manager" string="Accept" type="object" class="oe_highlight" states="open"/>
+           </button>
+           <button name="invoice_print" position="after">
+           	 	<button name="od_accept_paid" attrs="{'invisible': ['|',('cust_date','!=',False),('state', '!=','paid')]}" groups="orchid_beta.group_beta_finance_manger_acc,orchid_beta.group_beta_finance_entry_cancel,account.group_account_manager" string="Accept" type="object" class="oe_highlight"/>
+           </button>
+           
+           <field name="date_invoice" position="after">
+           	<field name="cust_date" readonly="1" />
+           </field>
+           
+           
+             <xpath expr="//notebook[last()]" position="inside">
+                <page string="Analytic Distribution">
+                	<group>
+                	   <group>
+                	      <field name="inv_seq"/>
+                		  <field name="grand_analytic_id" />
+                	   </group>
+                	</group>
+                	<button name="update_share" string="Update" type="object" />
+                	<field name="dist_line">
+                	   <tree editable="bottom">
+                	       <field name="analytic_id"/>
+                	       <field name="inv_seq"/>
+                	       <field name="value"/>
+                	   </tree>
+                	</field>
+                	
+                </page>
+           </xpath>
+           
+           
+           
+           
+           </field>
+           </record>
+	</data>
+</openerp>

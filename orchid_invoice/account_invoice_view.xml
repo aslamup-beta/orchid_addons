@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="od_account_invoice_line_cost_up" model="ir.ui.view">
+            <field name="name">Orchid Invoice Cost Updation View</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+            <data>
+	             <xpath expr="//field[@name='fiscal_position']" position="after">
+	            	<field name="od_analytic_account"  attrs="{'readonly':[('od_analytic_account','!=',False)]}"/>
+	             </xpath>
+<!--	             <xpath expr="/form/sheet/notebook/page[@string='Invoice Lines']/field[@name='invoice_line']/tree/field[@name='price_subtotal']" position="after">-->
+<!--	               <field name="od_line_cost" invisible="1"/>-->
+<!--	             </xpath>-->
+            </data>
+            </field>
+        </record>
+	</data>
+</openerp>

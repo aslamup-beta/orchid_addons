@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_purchase_order_search" model="ir.ui.view">
+            <field name="name">report.purchase.order.search</field>
+            <field name="model">purchase.report</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_search"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="order_id"/>
+                    <field name="state"/>
+                    <!--                <field name="od_order_type_id"/>-->
+                    <!--                <field name="currency_id"/>-->
+                </field>
+                <xpath expr="//filter[@string='Status']" position="replace">
+                    <filter string="Order Status" context="{'group_by':'state'}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--    <record id="action_purchase_order_report_all" model="ir.actions.act_window">-->
+        <!--        <field name="name">Purchase Order Analysis</field>-->
+        <!--        <field name="res_model">purchase.report</field>-->
+        <!--        <field name="view_type">form</field>-->
+        <!--        <field name="view_mode">graph</field>-->
+        <!--        <field name="view_id" ref="view_purchase_order_graph"></field>-->
+        <!--        <field name="context">{'search_default_orders': 1, 'group_by_no_leaf':1,'group_by':[]}</field>-->
+        <!--        <field name="help">Purchase Analysis allows you to easily check and analyse your company purchase history and performance. From this menu you can track your negotiation performance, the delivery performance of your suppliers, etc.</field>-->
+        <!--    </record>-->
+
+        <menuitem action="purchase.action_purchase_order_report_all" id="purchase.menu_action_purchase_order_report_all"
+                  parent="base.next_id_73" name="Purchase Order Analysis" sequence="3"/>
+
+
+    </data>
+</openerp>
+

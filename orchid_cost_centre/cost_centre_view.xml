@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!--<od.cost.division form>-->
+        <record id="od_cost_division_form" model="ir.ui.view">
+            <field name="name">Division Form</field>
+            <field name="model">od.cost.division</field>
+            <field name="arch" type="xml">
+                <form string="Division" version="7.0">
+                    <sheet>
+                    <group>
+                        <group>
+                            <label for="code"/>
+                            <h2><field name="code" /></h2>
+                            <label for="name"/>
+                            <h2><field name="name"/>    </h2>
+                               <label for="unit_alias"/>
+                            <h2><field name="unit_alias"/>    </h2>
+                        </group>
+                        <group>
+						<field name="company_id"/>
+						<field name="manager_id" on_change="onchange_manager_id(manager_id)" invisible="1"/>
+						<field name="email" invisible="1"/>
+						<field name="tech_consult_id" />
+						<field name="pdt_grp_id" />
+                        </group>
+                    </group>
+                <div class="oe_clear"/>
+                            <field name="description" class="oe_inline" placeholder="Description....."/>
+                </sheet>
+                </form>
+           </field>
+        </record>
+
+<!--od.cost.division tree-->
+        <record id="od_cost_division_tree" model="ir.ui.view">
+            <field name="name">Division Tree</field>
+            <field name="model">od.cost.division</field>
+            <field name="arch" type="xml">
+                <tree string="Unit Type" version="7.0">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="company_id"/>
+                </tree>
+           </field>
+        </record>
+
+<!--action od.cost.division-->
+        <record id="od_cost_division_action" model="ir.actions.act_window">
+            <field name="name">Division</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">od.cost.division</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a new Division.
+              </p>
+            </field>
+        </record>
+
+
+<!--<od.cost.branch form>-->
+        <record id="od_cost_branch_form" model="ir.ui.view">
+            <field name="name">Branch Form</field>
+            <field name="model">od.cost.branch</field>
+            <field name="arch" type="xml">
+                <form string="Branch" version="7.0">
+                    <sheet>
+                    <group>
+                        <group>
+                            <label for="code"/>
+                            <h2><field name="code" /></h2>
+                            <label for="name"/>
+                            <h2><field name="name"/>    </h2>
+                            <!-- <label for="unit_alias"/>
+                            <h2><field name="unit_alias"/>    </h2> -->
+                        </group>
+                        	
+                        <group>
+							<field name="company_id"/>
+						<field name="manager_id" on_change="onchange_manager_id(manager_id)"/>
+						<field name="email"/>
+						<field name="pmo_manager_id"/>
+						<field name="tech_consult_id" invisible="1"/>
+                        </group>
+                    </group>
+                <div class="oe_clear"/>
+                            <field name="description" class="oe_inline" placeholder="Description....."/>
+                </sheet>
+                </form>
+           </field>
+        </record>
+
+<!--od.cost.branch tree-->
+        <record id="od_cost_branch_tree" model="ir.ui.view">
+            <field name="name">Branch Tree</field>
+            <field name="model">od.cost.branch</field>
+            <field name="arch" type="xml">
+                <tree string="Branch" version="7.0">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="company_id"/>
+                </tree>
+           </field>
+        </record>
+
+<!--action od.cost.branch-->
+        <record id="od_cost_branch_action" model="ir.actions.act_window">
+            <field name="name">Branch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">od.cost.branch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a new Branch.
+              </p>
+            </field>
+        </record>
+
+
+<!--<od.cost.centre form>-->
+        <record id="od_cost_centre_form" model="ir.ui.view">
+            <field name="name">Cost Centre Form</field>
+            <field name="model">od.cost.centre</field>
+            <field name="arch" type="xml">
+                <form string="Cost Centre" version="7.0">
+                    <sheet>
+                    <group>
+                        <group>
+                            <label for="code"/>
+                            <h2><field name="code" /></h2>
+                            <label for="name"/>
+                            <h2><field name="name"/>    </h2>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="branch_id" />
+                            <field name="division_id"/>
+                            
+                            <field name="currency_id"/>
+                            
+                        </group>
+                    </group>
+                <div class="oe_clear"/>
+                            <field name="description" class="oe_inline" placeholder="Description....."/>
+                </sheet>
+                </form>
+           </field>
+        </record>
+
+<!--od.cost.centre tree-->
+        <record id="od_cost_centre_tree" model="ir.ui.view">
+            <field name="name">Cost Centre Tree</field>
+            <field name="model">od.cost.centre</field>
+            <field name="arch" type="xml">
+                <tree string="Cost Centre" version="7.0">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+           </field>
+        </record>
+
+<!--action od.cost.centre-->
+        <record id="od_cost_centre_action" model="ir.actions.act_window">
+            <field name="name">Cost Centre</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">od.cost.centre</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a new Cost Centre.
+              </p>
+            </field>
+        </record>
+
+<menuitem id="cost_centre_main_menu" name="Cost Centre" parent="account.menu_finance_configuration" sequence="15"/>
+
+   <menuitem id="cost_divison_menu" name="Division" parent="cost_centre_main_menu" action="od_cost_division_action" sequence="1"/>
+    <menuitem id="cost_branch_menu" name="Branch" parent="cost_centre_main_menu" action="od_cost_branch_action" sequence="2"/>
+    <menuitem id="cost_centre_menu" name="Cost Centre" parent="cost_centre_main_menu" action="od_cost_centre_action" sequence="3"/>
+    </data>
+</openerp>
+

@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record model="ir.ui.view" id="named_accounts_tree_view">
+            <field name="name">named.accounts.tree</field>
+            <field name="model">named.accounts</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="branch_id"/>
+                    <field name="company_id"/>
+                    <field name="approval_state"/>
+                </tree>
+           </field>
+        </record>
+        
+        <record id="named_accounts_form_view" model="ir.ui.view">
+            <field name="name">named.accounts.form</field>
+            <field name="model">named.accounts</field>
+            <field name="arch" type="xml">
+            <form string="Named Accounts">
+            <header>
+		            <field name="submit" invisible="1" />
+		            <field name="approval" invisible="1" />
+		            <field name="change1" invisible="1" />
+		            <button name="btn_submit" type="object" class="oe_highlight" groups="orchid_beta.groups_beta_admin,__export__.res_groups_190,__export__.res_groups_192,orchid_beta.group_executive_management_beta_1" string="Submit" attrs="{'invisible':['|',('submit','=',True),('approval_state','=','change')]}"/>
+		            <button name="btn_submit_change" type="object" class="oe_highlight" groups="orchid_beta.groups_beta_admin,__export__.res_groups_190,__export__.res_groups_192,orchid_beta.group_executive_management_beta_1" string="Submit Change" attrs="{'invisible':[('approval_state','!=','change')]}"/>
+		            <button name="btn_approval" type="object" class="oe_highlight" groups="__export__.res_groups_191" string="Approve" attrs="{'invisible':[('approval_state','!=','pending')]}"/>
+		            <button name="btn_change" type="object" class="oe_highlight" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,__export__.res_groups_190,__export__.res_groups_191" string="Change" attrs="{'invisible':[('approval_state','=','change')]}"/>
+		           	<button name="btn_approve_change" type="object" class="oe_highlight" groups="__export__.res_groups_191" string="Approve Change" attrs="{'invisible':[('approval_state','!=','approve_change')]}"/>
+		           	<field name="approval_state" widget="statusbar" statusbar_visible="pending"/>
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="branch_id" invisible="1" attrs="{'readonly':[('submit','=',True)]}"/>
+                        <field name="name" required="1" attrs="{'readonly':[('submit','=',True)]}"/>
+                    </h1>
+                </div>
+				<group>
+              		<group col="4">
+                		</group>
+             		<group col="4">
+                    		<field name="select_all" attrs="{'readonly':[('submit','=',True)]}"/>
+                		</group>
+				</group>            
+				<group>
+            	<notebook>
+               		<page string="Named Accounts">
+               			<field name="named_accounts_lines" attrs="{'readonly':[('submit','=',True)]}">
+                 		<tree editable="bottom" delete="false" colors="gray:remove == True;">
+                               <field name="account_id"/>
+                               <field name="user_id"/>
+                               <field name="od_part_class"/>
+                              <field name="remove"/>                                
+                         </tree>
+               			</field>
+               		<group string="New Added Accounts">
+               			<field name="new_added_named_account_ids" attrs="{'readonly':[('submit','=',True)]}" nolabel="1">
+               				<tree editable="bottom">
+	                				<field name="name" string="Account Name"/>
+	                 			<field name="user_id" />
+ 	                 			<field name="od_class" />
+              				</tree>
+               			</field>
+               		</group>
+               		</page>
+               </notebook>
+            	</group>
+           	</sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+         </record>
+         
+         <record model="ir.actions.act_window" id="action_named_accounts_form">
+            <field name="name">Named Accounts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">named.accounts</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+             <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Create Named Accounts List.
+              </p>
+            </field>
+        </record>
+        
+<!--         <record model="ir.actions.act_window" id="action_named_accounts_for_partner_level"> -->
+<!--             <field name="name">Named Accounts</field> -->
+<!--             <field name="type">ir.actions.act_window</field> -->
+<!--             <field name="res_model">res.partner</field> -->
+<!--             <field name="view_type">form</field> -->
+<!--             <field name="view_mode">tree,form</field> -->
+<!--              <field name="domain">[('named_account','=',True)]</field> -->
+<!--         </record> -->
+
+<!--         Organisation Customer         -->
+                
+          <record model="ir.ui.view" id="od_organisation_customer_tree_view">
+			<field name="name">res.partner.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<tree string="Organisations-Customers" create="false">
+                    <field name="display_name"/>
+                    <button name="btn_open_partner" type="object" icon="STOCK_FIND" string="Open" />
+                    <field name="is_company" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                    <field name="od_industry_id"/>
+                    <field name="is_company" invisible="1"> </field>
+                    <field name="city" invisible="1"> </field>
+                    <field name="od_class"/>
+                    <field name="country_id" invisible="1"/>
+                    <field name="website" invisible="1"> </field>
+                    <field name="user_id"> </field>
+                    <field name="od_territory_id"/>
+                    <field name="phone" invisible="1"> </field>
+                    <field name="use_parent_address" invisible="1"> 
+                    </field>
+                </tree>
+			</field>
+		</record>
+        
+        <record id="od_view_named_account_filter" model="ir.ui.view">
+            <field name="name">res.partner.select1</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <filter help="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <filter string="Customers" name="customer" domain="[('customer','=',1)]" help="Customer Partners"/>
+                   <separator/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <field name="user_id"/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                   <group expand="0" string="Group By">
+                       <filter string="Customer AM" icon="terp-personal" domain="[]" context="{'group_by' : 'user_id'}" />
+                       <filter string="Company" context="{'group_by': 'parent_id'}"/>
+                       <filter string="Country" context="{'group_by': 'country_id'}"/>
+                       <filter string="Industry" context="{'group_by': 'od_industry_id'}"/>
+                       <filter string="City" context="{'group_by': 'city'}"/>
+                       <filter string="Class" name="class" context="{'group_by':'od_class'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+        
+        
+        <record model="ir.actions.act_window" id="action_named_accounts_for_partner_level">
+                <field name="name">Organisation-Customers</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">res.partner</field>
+                <field name="view_type">form</field>
+                <field name="domain">[('is_company','=',True),('customer','=',True)]</field>
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="od_organisation_customer_tree_view"/>
+                <field name="search_view_id" ref="od_view_named_account_filter"/>
+                 <field name="help" type="html">
+                  <p class="oe_view_nocontent_create">
+                    Click to add new Named Accounts.
+                  </p>
+                </field>
+            </record>
+        
+    <menuitem id="named_accounts_parent" name="Named Accounts" parent="base.menu_base_partner" sequence="1"/>
+    <menuitem id="named_accounts" name="Named Accounts Management" action="action_named_accounts_form" parent="beta_customisation.named_accounts_parent" sequence="10"/>
+    <menuitem id="named_accounts_list" name="Organisations-Customers" action="action_named_accounts_for_partner_level" parent="mail.mail_my_stuff" sequence="201"/>
+    
+<!--     Organisation Supplier -->
+    
+    <record model="ir.ui.view" id="od_organisation_supplier_tree_view">
+			<field name="name">res.partner.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<tree string="Organisation-Suppliers" create="false">
+                    <field name="display_name"/>
+                    <button name="btn_open_partner" type="object" icon="STOCK_FIND" string="Open" />
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="mobile"> </field>
+                    <field name="user_id" invisible="1"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                    <field name="od_territory_id" invisible="1"/>
+                    <field name="is_company" invisible="1"> </field>
+                    <field name="city"> </field>
+                    <field name="state_id" invisible="1"/>
+                    <field name="country_id" invisible="1"/>
+                    <field name="website" invisible="1"> </field>
+                    <field name="phone" invisible="1"> </field>
+                    <field name="use_parent_address" invisible="1"> </field>
+                </tree>
+			</field>
+		</record>
+        
+        <record id="od_view_named_organisation_supplier_filter" model="ir.ui.view">
+            <field name="name">res.partner.select2</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <filter help="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <filter string="Suppliers" name="supplier" domain="[('supplier','=',1)]" help="Supplier Partners"/>
+                   <separator/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <field name="user_id"/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                   <group expand="0" string="Group By">
+                       <filter string="City" context="{'group_by': 'city'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+        
+        
+        <record model="ir.actions.act_window" id="action_organisation_supplier_for_partner_level">
+                <field name="name">Organisations-Suppliers</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">res.partner</field>
+                <field name="view_type">form</field>
+                <field name="domain">[('is_company','=',True),('customer','=',False),('supplier','=',True)]</field>
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="od_organisation_supplier_tree_view"/>
+                <field name="search_view_id" ref="od_view_named_organisation_supplier_filter"/>
+                 <field name="help" type="html">
+                  <p class="oe_view_nocontent_create">
+                    Click to add new Named Accounts.
+                  </p>
+                </field>
+            </record>
+            
+            <menuitem id="organisation_supplier_list" name="Organisations-Suppliers" action="action_organisation_supplier_for_partner_level" parent="mail.mail_my_stuff" sequence="202"/>
+            
+            
+<!--             Organisation - People Suppliers -->
+
+	<record model="ir.ui.view" id="od_organisation_people_tree_view">
+			<field name="name">res.partner.inherit2</field>
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<tree string="People" create="false">
+<!--                     <field name="display_name"/> -->
+					<field name="name"/>
+					<field name="active"/>
+                    <field name="parent_id" />
+                    <field name="parent_supplier"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="mobile"> </field>
+                    <field name="city"> </field>
+                </tree>
+			</field>
+		</record>
+        
+        <record id="od_view_named_organisation_people_filter" model="ir.ui.view">
+            <field name="name">res.partner.select2</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <filter help="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <filter string="Suppliers" name="supplier" domain="[('supplier','=',1)]" help="Supplier Partners"/>
+                   <separator/>
+                   <filter string="Inactive" name="inactive" domain="[('active','=',0)]"/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <field name="user_id"/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                   <group expand="0" string="Group By">
+                   		<filter string="Company" context="{'group_by': 'parent_id'}"/>
+                        <filter string="City" context="{'group_by': 'city'}"/>
+                       
+                   </group>
+               </search>
+            </field>
+        </record>
+        
+        
+        <record model="ir.actions.act_window" id="action_organisation_people_for_partner_level">
+                <field name="name">People-Suppliers</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">res.partner</field>
+                <field name="view_type">form</field>
+                <field name="domain">[('is_company','=',False),('employee','=',False),('supplier','=',True)]</field>
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="od_organisation_people_tree_view"/>
+                <field name="search_view_id" ref="od_view_named_organisation_people_filter"/>
+                 <field name="help" type="html">
+                  <p class="oe_view_nocontent_create">
+                    Click to add new Named Accounts.
+                  </p>
+                </field>
+            </record>
+            
+            <menuitem id="organisation_people_list" name="People-Suppliers" action="action_organisation_people_for_partner_level" parent="mail.mail_my_stuff" sequence="203"/>
+
+
+<!--             Organisation - People Customers -->
+
+	<record model="ir.ui.view" id="od_organisation_people_cust_tree_view">
+			<field name="name">res.partner.inherit2</field>
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<tree string="People" create="false">
+<!--                     <field name="display_name"/> -->
+					
+					<field name="name"/>
+					<field name="active"/>
+					<field name="function"/>
+					<field name="parent_id" />
+					<button name="btn_open_parent" type="object" icon="STOCK_FIND" string="Open" />
+                    <field name="email"/>
+                    <field name="parent_supplier" invisible="1"/>
+                    <field name="mobile"> </field>
+                    <field name="phone"/>
+                    <field name="state_id"> </field>
+                    <field name="city"> </field>
+                    <field name="parent_class"/>
+                    <field name="parent_sam"/>
+                    <field name="parent_territory"/>
+                    <field name="parent_industry"/>
+                </tree>
+			</field>
+		</record>
+        
+        <record id="od_view_named_organisation_people_cust_filter" model="ir.ui.view">
+            <field name="name">res.partner.select2</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                   <field name="name"
+                       filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <filter help="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <filter string="Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Companies" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <filter string="Suppliers" name="supplier" domain="[('supplier','=',1)]" help="Supplier Partners"/>
+                   <separator/>
+                   <filter string="Inactive" name="inactive" domain="[('active','=',0)]"/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <field name="user_id"/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" operator="child_of"/>
+                   <group expand="0" string="Group By">
+                   		<filter string="Company" context="{'group_by': 'parent_id'}"/>
+                       <filter string="State" context="{'group_by': 'state_id'}"/>
+                       <filter string="City" context="{'group_by': 'city'}"/>
+                       <filter string="Customer AM" context="{'group_by': 'user_id'}"/>
+<!--                        <filter string="Class" context="{'group_by': 'parent_class'}"/> -->
+<!--                        <filter string="SAM" context="{'group_by': 'parent_sam'}"/> -->
+<!--                        <filter string="Territory" context="{'group_by': 'parent_territory'}"/> -->
+<!--                        <filter string="Industry" context="{'group_by': 'parent_industry'}"/> -->
+                   </group>
+               </search>
+            </field>
+        </record>
+        
+        
+        <record model="ir.actions.act_window" id="action_organisation_people_cust_for_partner_level">
+                <field name="name">People-Customers</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">res.partner</field>
+                <field name="view_type">form</field>
+                <field name="domain">[('is_company','=',False),('employee','=',False),('supplier','=',False)]</field>
+                <field name="view_mode">tree</field>
+                <field name="view_id" ref="od_organisation_people_cust_tree_view"/>
+                <field name="search_view_id" ref="od_view_named_organisation_people_cust_filter"/>
+                 <field name="help" type="html">
+                  <p class="oe_view_nocontent_create">
+                    Click to add new Named Accounts.
+                  </p>
+                </field>
+            </record>
+            
+            <menuitem id="organisation_cust_people_list" name="People-Customers" action="action_organisation_people_cust_for_partner_level" parent="mail.mail_my_stuff" sequence="202"/>
+
+    
+    </data>
+</openerp>

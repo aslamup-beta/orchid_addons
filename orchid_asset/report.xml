@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="action_report_asset_statement" 
+            model="account.asset.asset" 
+            string="Asset Register"
+            report_type="qweb-pdf"
+            name="orchid_asset.report_asset_statement" 
+            file="orchid_asset.report_asset_statement" 
+            menu="False"
+        />
+    </data>
+</openerp>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+
+        <record id="view_analytic_entries_report_search_inherit_beta" model="ir.ui.view">
+            <field name="name">analytic.entries.report.search</field>
+            <field name="model">analytic.entries.report</field>
+            <field name="inherit_id" ref="account.view_analytic_entries_report_search"/>
+            <field name="arch" type="xml">
+                <filter string="My Entries" position="after">
+                    <filter icon="terp-go-year" string="Year"
+                            domain="[('date','&lt;=', time.strftime('%Y-%m-%d')),('date','&gt;=',time.strftime('%Y-01-01'))]"
+                            help="Current Year"/>
+                    <filter string="Active" domain="[('state','=','open')]" help="In Progress"/>
+                </filter>
+                <filter string="Journal" position="after">
+                    <filter string="Status" context="{'group_by':'state'}"/>
+                    <filter string="General Account Type" context="{'group_by':'user_type'}"/>
+                </filter>
+            
+            </field>
+        </record>
+
+     </data>
+    </openerp>

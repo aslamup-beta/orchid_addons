@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		
+		<record id="view_audit_sample_search" model="ir.ui.view">
+            <field name="name">audit.sample.search</field>
+            <field name="model">audit.sample</field>
+            <field name="arch" type="xml">
+                <search string="Audit Sample">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]" string="Name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="employee_id" />
+                    <field name="company_id"/>
+                    <field name="aud_temp_id"/>
+                    <field name="type"/>
+                   <group expand="1" string="Group By">
+                       <filter string="Comapny" domain="[]" name="g_company" context="{'group_by':'company_id'}"/>
+                        <filter string="Year" domain="[]" name="g_date_year" context="{'group_by':'date_end:year'}"/>
+                         <filter string="Month" domain="[]" name="g_date_month" context="{'group_by':'date_end'}"/>
+                        <filter string="Audit Template" name="g_template" domain="[]" context="{'group_by':'aud_temp_id'}"/>
+                        <filter string="Employee" domain="[]" context="{'group_by':'employee_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+		
+		
+		
+		
+		<record model="ir.ui.view" id="audit_sample_form">
+			<field name="name">Audit Sample form view</field>
+			<field name="model">audit.sample</field>
+			<field name="arch" type="xml">
+				<form string="Course" version="7.0">
+					<sheet>
+
+						<div class="oe_title oe_left">
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+
+						</div>
+						<group>
+							<group>
+								
+								<field name="date_start" readonly="1" />
+								<field name="date_end" readonly="1" />
+							</group>
+							<group>
+								<field name="aud_temp_id" readonly="1"/>
+								<field name="type" readonly="1"/>
+								<h2>
+								<label for ="avg_score" />
+								<field name="avg_score" readonly="1"/></h2>
+								
+								
+							</group>
+							<group>
+								<field name="employee_id" readonly="1" />
+								<field name="company_id" readonly="1" />
+								<field name="method" readonly="1"  />
+							</group>
+							<group>
+							<field name="target" readonly="1" attrs="{'invisible':[('type','not in',('sales_acc_mgr','bdm','bdm_sec','bdm_net'))]}"/>
+								<field name="utilization" readonly="1"   attrs="{'invisible':[('type','!=','post_sales')]}"/>
+							</group>
+						</group>
+						<notebook>
+						       
+						     
+						     <page string="Open Projects" attrs="{'invisible':[('type','not in',('pmo','hoo'))]}" >
+								<field name="pmo_open_project_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="analytic_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="paid" readonly="1"  sum="Total" />
+										<field name="manpower_cost" string="Actual MP" readonly="1"  sum="Total" />
+										<field name="actual_outsource" readonly="1"  sum="Total" />
+										<field name="general_cost" readonly="1"  sum="Total" />
+										<field name="collected" readonly="1"  sum="Total" />
+										<field name="project_value" readonly="1"  sum="Total" string="Total Contract Value(Ref Only)"/>
+									</tree>
+								</field>
+							</page>
+							
+							<page string="Closed Projects" attrs="{'invisible':[('type','not in',('pmo','hoo'))]}" >
+								<field name="pmo_closed_project_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="analytic_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="paid" readonly="1"  sum="Total"/>
+										<field name="manpower_cost" readonly="1"  sum="Total" />
+										<field name="general_cost" readonly="1"  sum="Total" />
+										<field name="collected" readonly="1"  sum="Total" />
+										
+										<field name="project_value" readonly="1"  sum="Total" string="Total Contract Value(Ref Only)"/>
+									</tree>
+								</field>
+							</page>
+						     
+						      
+						      
+						      <page string="Costsheet-Net-DC" attrs="{'invisible':[('type','!=','bdm_net')]}" >
+								<field name="bdm_net_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="product_group_id" readonly="1"/>
+										<field name="sales" readonly="1" invisible="1" sum="Total"/>
+										<field name="sales_aftr_disc" readonly="1"  sum="Total"/>
+										<field name="cost" readonly="1"  sum="Total"/>
+										<field name="profit" string="Profit without MP" readonly="1"  sum="Total"/>
+										<field name="profit_percent" readonly="1" invisible="1"/>
+										<field name="manpower_cost" string="Returned MP" readonly="1"  sum="Total"/>
+										<field name="gp" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+							
+							
+							
+							
+						      <page string="Extra Achievement" attrs="{'invisible':[('type','!=','bdm_net')]}" >
+								<field name="bdm_net_sample_line_extra">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="product_group_id" readonly="1"/>
+											<field name="part_no" readonly="1"/>
+											<field name="brand_id" readonly="1"/>
+										<field name="sales" readonly="1"  sum="Total"/>
+										<field name="cost" readonly="1"  sum="Total"/>
+										<field name="profit" string="Profit without MP" readonly="1"  sum="Total"/>
+										<field name="manpower_cost" string="Returned MP" readonly="1"  sum="Total"/>
+										<field name="gp" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+							
+							
+							  <page string="BDM KSA" attrs="{'invisible':[('type','!=','bdm_ksa')]}" >
+								<field name="bdm_ksa_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										
+										<field name="branch_id" readonly="1"/>
+									    <field name="gp_target" readonly="1" sum="Total"/>
+									    <field name="gp" readonly="1" sum="Total"/>
+										<field name="branch_gp_point" readonly="1" sum="Total"/>
+										<field name="month_incent" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+							
+							 <page string="PO Sample" attrs="{'invisible':[('type','!=','po_officer')]}" >
+								<field name="po_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										
+										<field name="po_id" readonly="1"/>
+									    <field name="score" readonly="1"/>
+									   
+										
+									</tree>
+								</field>
+							</page>
+							
+<!-- 							  <page string="Pipeline" attrs="{'invisible':[('type','!=','bdm_net')]}" > -->
+<!-- 								<field name="bdm_net_pip_sample_line"> -->
+<!-- 									<tree editable="bottom" create="false" delete="false"> -->
+<!-- 										<field name="cost_sheet_id" readonly="1"/> -->
+<!-- 										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" /> -->
+<!-- 										<field name="product_group_id" readonly="1"/> -->
+<!-- 										<field name="sales" readonly="1"  sum="Total"/> -->
+<!-- 										<field name="sales_aftr_disc" readonly="1"  sum="Total"/> -->
+<!-- 										<field name="cost" readonly="1"  sum="Total"/> -->
+<!-- 										<field name="profit" readonly="1"  sum="Total"/> -->
+<!-- 										<field name="profit_percent" readonly="1"/> -->
+<!-- 										<field name="manpower_cost" readonly="1"  sum="Total"/> -->
+<!-- 										<field name="gp" readonly="1" sum="Total"/> -->
+										
+<!-- 									</tree> -->
+<!-- 								</field> -->
+<!-- 							</page> -->
+							
+							
+							
+							  <page string="Costsheet-DC" attrs="{'invisible':[('type','!=','bdm_dc')]}" >
+								<field name="bdm_dc_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="product_group_id" readonly="1"/>
+										<field name="sales" readonly="1"  sum="Total"/>
+										<field name="sales_aftr_disc" readonly="1"  sum="Total"/>
+										<field name="cost" readonly="1"  sum="Total"/>
+										<field name="profit" readonly="1"  sum="Total"/>
+										<field name="profit_percent" readonly="1"/>
+										<field name="manpower_cost" readonly="1"  sum="Total"/>
+										<field name="gp" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+							
+							  <page string="Pipeline" attrs="{'invisible':[('type','!=','bdm_dc')]}" >
+								<field name="bdm_dc_pip_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="product_group_id" readonly="1"/>
+										<field name="sales" readonly="1"  sum="Total"/>
+										<field name="sales_aftr_disc" readonly="1"  sum="Total"/>
+										<field name="cost" readonly="1"  sum="Total"/>
+										<field name="profit" readonly="1"  sum="Total"/>
+										<field name="profit_percent" readonly="1"/>
+										<field name="manpower_cost" readonly="1"  sum="Total"/>
+										<field name="gp" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+							
+							
+							
+						     
+						        <page string="Costsheet-SEC" attrs="{'invisible':[('type','!=','bdm_sec')]}" >
+								<field name="bdm_sec_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="product_group_id" readonly="1"/>
+										<field name="sales" readonly="1"  sum="Total"/>
+										<field name="sales_aftr_disc" readonly="1"  sum="Total"/>
+										<field name="cost" readonly="1"  sum="Total"/>
+										<field name="profit" readonly="1"  sum="Total"/>
+										<field name="profit_percent" readonly="1"/>
+										<field name="manpower_cost" readonly="1"  sum="Total"/>
+										<field name="gp" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+							
+							 <page string="Pipeline" attrs="{'invisible':[('type','!=','bdm_sec')]}" >
+								<field name="bdm_sec_pip_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="product_group_id" readonly="1"/>
+										<field name="sales" readonly="1"  sum="Total"/>
+										<field name="sales_aftr_disc" readonly="1"  sum="Total"/>
+										<field name="cost" readonly="1"  sum="Total"/>
+										<field name="profit" readonly="1"  sum="Total"/>
+										<field name="profit_percent" readonly="1"/>
+										<field name="manpower_cost" readonly="1"  sum="Total"/>
+										<field name="gp" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+						       
+						       <page string="Costsheet" attrs="{'invisible':[('type','!=','bdm')]}" >
+								<field name="bmd_costsheet_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="gp" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+						
+						      <page string="5 Day Processing Score" attrs="{'invisible':[('type','not in',('pm','pdm'))]}" >
+								<field name="dayscore_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="analytic_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="score" readonly="1" />
+										<field name="form_wt" readonly="1" />
+										<field name="sale_value" readonly="1" sum="Total"/>
+										<field name="sale_value_percent" readonly="1" />
+                                        <field name="weight" readonly="1" />
+									</tree>
+								</field>
+							</page>
+							
+							
+							
+							 <page string="5 Day Processing Score" attrs="{'invisible':[('type','!=','sde')]}" >
+								<field name="sde_day_score_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open_cst" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="score" readonly="1" />
+										<field name="form_wt" readonly="1" />
+										<field name="sale_value" readonly="1" sum="Total"/>
+										<field name="sale_value_percent" readonly="1" />
+                                        <field name="weight" readonly="1" />
+									</tree>
+								</field>
+							</page>
+							
+							
+							
+							<page string="Cost Control" attrs="{'invisible':[('type','not in',('pm','pdm'))]}" >
+								<field name="cost_control_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="analytic_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="actual_gp" readonly="1" sum="Total"/>
+										<field name="original_gp" readonly="1" sum="Total"/>
+										<field name="score" readonly="1" />
+										<field name="form_wt" readonly="1" />
+										<field name="gp_value" readonly="1" sum="Total"/>
+										<field name="gp_value_percent" readonly="1" />
+                                        <field name="weight" readonly="1" />
+									</tree>
+								</field>
+							</page>
+							
+							<page string="Schedule Control" attrs="{'invisible':[('type','not in',('pm','pdm'))]}" >
+								<field name="pm_sch_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="analytic_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="score" readonly="1" />
+										<field name="form_wt" readonly="1" />
+										<field name="gp_value" readonly="1" sum="Total"/>
+										<field name="gp_value_percent" readonly="1" />
+                                        <field name="weight" readonly="1" />
+									</tree>
+								</field>
+							</page>
+							
+							<page string="Invoice Schedule" attrs="{'invisible':[('type','not in',('pm','pdm'))]}" >
+								<field name="invoice_schedule_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="analytic_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="score" readonly="1" />
+										<field name="form_wt" readonly="1" />
+										<field name="sale_value" readonly="1" sum="Total"/>
+										<field name="sale_value_percent" readonly="1" />
+                                        <field name="weight" readonly="1" />
+									</tree>
+								</field>
+							</page>
+							
+							 <page string="Compliance By PMO" attrs="{'invisible':[('type','not in',('pm','pdm','sde','sde_ksa'))]}" >
+								<field name="compliance_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="analytic_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="score" readonly="1" />
+										<field name="form_wt" readonly="1" />
+										<field name="sale_value" readonly="1" sum="Total"/>
+										<field name="sale_value_percent" readonly="1" />
+                                        <field name="weight" readonly="1" />
+									</tree>
+								</field>
+							</page>
+							<page string="Help Desk" attrs="{'invisible':[('type','not in',('sde','sde_ksa'))]}" >
+								<field name="hd_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="hd_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="score" readonly="1" />
+									
+									</tree>
+								</field>
+							</page>
+							
+						
+						 <!--    <page string="Planned Invoices" attrs="{'invisible':[('type','!=','pm')]}" >
+								<field name="planned_invoice_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="analytic_id" readonly="1"/>
+										
+										<field name="amount" readonly="1" sum="Total"/>
+
+									</tree>
+								</field>
+							</page>
+						    
+						     <page string="Customer Invoices" attrs="{'invisible':[('type','!=','pm')]}" >
+								<field name="actual_invoice_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="analytic_id" readonly="1"/>
+										<field name="invoice_id" readonly="1"/>
+										<field name="amount" readonly="1" sum="Total"/>
+
+									</tree>
+								</field>
+							</page> -->
+						    
+						    
+							<page string="Post Sales Sample" attrs="{'invisible':[('type','!=','post_sales')]}" >
+								<field name="post_sale_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="task_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="score" readonly="1"/>
+
+									</tree>
+								</field>
+							</page>
+							
+							<page string="Opportunity Samples" attrs="{'invisible':[('type','not in',('pre_sales','pre_sales_mgr','tc'))]}" >
+								<field name="opp_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="opp_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="required_date" readonly="1"/>
+										<field name="user_id" readonly="1"/>
+										<field name="score" readonly="1"/>
+
+									</tree>
+								</field>
+							</page>
+							<page string="Commit" attrs="{'invisible':[('type','not in',('sales_acc_mgr','service_sale_spl'))]}" >
+								<field name="commit_gp_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="gp" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+							
+							<page string="Achieved" attrs="{'invisible':[('type','not in',('sales_acc_mgr','service_sale_spl'))]}" >
+								<field name="achieved_gp_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										<field name="user_id" readonly="1"/>
+										<field name="gp" readonly="1" sum="Total"/>
+										
+									</tree>
+								</field>
+							</page>
+							
+							
+							<page string="CF" attrs="{'invisible':[('type','!=','sm')]}" >
+								<separator string="Sales Manager CF Score" />
+								<field name="sm_cf_summary">
+									<tree editable="bottom" create="false" delete="false">
+									    <field name="total_target" readonly="1" sum="Total"/>
+										<field name="total_commit" readonly="1" sum="Total"/>
+										<field name="total_achieved" readonly="1" sum="Total"/>
+										<field name="cf" readonly="1" />
+										<field name="kpi_point" readonly="1" />
+										<field name="score" readonly="1" /> 
+									</tree>
+								</field>
+								
+								
+								<separator string="Details" />
+								<field name="sm_cf_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="user_id" readonly="1"/>
+										 <field name="month_target" readonly="1" sum="Total"/>
+										<field name="commit" readonly="1" sum="Total"/>
+										<field name="achieved" readonly="1" sum="Total"/>
+										<field name="cf_fact" readonly="1" />
+										 <field name="kpi_point" readonly="1" /> 
+										 
+										
+									</tree>
+								</field>
+							</page>
+							<page string="Certificates" attrs="{'invisible':[('type','!=','sm')]}" >
+							      
+							      <separator string="Sales Manager Certificate Score" />
+								<field name="sm_cert_summary">
+									<tree editable="bottom" create="false" delete="false">
+									 
+										<field name="name" readonly="1" />
+										<field name="score" readonly="1" /> 
+									</tree>
+								</field>
+							      
+							      
+							      
+							      
+							     <separator string="Details" />
+								<field name="sm_cert_detail">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="user_id" readonly="1"/>
+										<field name="required" readonly="1"/>
+										<field name="achieved" readonly="1"/>
+									
+										 <field name="kpi_point" readonly="1" /> 
+										  <field name="score" readonly="1" /> 
+										 
+										
+									</tree>
+								</field>
+							  
+							</page>
+							
+							
+							
+							<page string="Sales Enablement" attrs="{'invisible':[('type','!=','sm')]}" >
+							      
+							      <separator string="Sales Team Enablement Score" />
+								<field name="sm_enab_summary">
+									<tree editable="bottom" create="false" delete="false">
+									 
+										<field name="name" readonly="1" />
+										<field name="score" readonly="1" /> 
+									</tree>
+								</field>
+							      
+							      
+							      
+							      
+							     <separator string="Details" />
+								<field name="sm_enab_detail">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="user_id" readonly="1"/>
+										<field name="name" readonly="1"/>
+										<field name="achieved" readonly="1"/>
+									
+										 <field name="kpi_point" readonly="1" /> 
+										  <field name="score" readonly="1" /> 
+										 
+										
+									</tree>
+								</field>
+							  
+							</page>
+							
+							
+							<page string="Team Score" attrs="{'invisible':[('type','not in',('pre_sales_mgr','tc','pdm','hoo','sm'))]}" >
+								<field name="team_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="user_id" readonly="1"/>
+										<field name="score" readonly="1"/>
+										<field name="emp_score" readonly="1"  string="Employee Profile KPI Score"/>
+
+									</tree>
+								</field>
+							</page>
+							
+							<!-- <page string="Team Score" attrs="{'invisible':[('type','!=','sm')]}" >
+								<field name="team_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="user_id" readonly="1"/>
+										<field name="emp_score" readonly="1"/>
+										<field name="score" readonly="1" string="Numerical Value"/>
+										
+
+									</tree>
+								</field>
+							</page>
+							 -->
+							
+							
+							
+							<page string="Team 5 Day Processing" attrs="{'invisible':[('type','!=','sdm')]}" >
+								<field name="team_day_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="user_id" readonly="1"/>
+										<field name="score" readonly="1"/>
+
+									</tree>
+								</field>
+							</page>
+							
+							
+							<page string="Team Help Desk Issue Management" attrs="{'invisible':[('type','!=','sdm')]}" >
+								<field name="team_hd_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="user_id" readonly="1"/>
+										<field name="score" readonly="1"/>
+
+									</tree>
+								</field>
+							</page>
+							
+							<page string="Utilization" attrs="{'invisible':[('type','not in',('ttl','tc'))]}" >
+								<field name="utl_sample_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="user_id" readonly="1"/>
+										<field name="available_time" readonly="1"/>
+										<field name="planned_time" readonly="1"/>
+										<field name="actual_time_spent" readonly="1"/>
+										<field name="planned_utl" readonly="1"/>
+										<field name="utl" readonly="1"/>
+									</tree>
+								</field>
+							</page>
+							<page string="Finished On Time" attrs="{'invisible':[('type','not in',('ttl','tc'))]}" >
+								<field name="ttl_fot_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="user_id" readonly="1"/>
+										<field name="fot" readonly="1"/>
+									</tree>
+								</field>
+							</page>
+							
+							
+							<page string="Tech Component Summary" attrs="{'invisible':[('type','!=','tc')]}" >
+								<field name="tc_tech_comp_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="name" readonly="1"/>
+										<field name="weight" readonly="1"/>
+										<field name="score" readonly="1" />
+										<field name="final_score" readonly="1"/>
+									</tree>
+								</field>
+							</page>
+							<page string="Presales Component Summary" attrs="{'invisible':[('type','!=','tc')]}" >
+								<field name="tc_presale_comp_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="name" readonly="1"/>
+										<field name="weight" readonly="1"/>
+										<field name="score" readonly="1"/>
+										<field name="final_score" readonly="1"/>
+									</tree>
+								</field>
+							</page>
+							
+							
+							<page string="My Component" attrs="{'invisible':[('type','!=','pdm')]}" >
+								<field name="my_comp_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="name" readonly="1"/>
+										<field name="weight" readonly="1"/>
+										<field name="score" readonly="1"/>
+										<field name="final_score" readonly="1"/>
+									</tree>
+								</field>
+							</page>
+							
+							<page string="BDM" attrs="{'invisible':[('type','!=','tum')]}" >
+								
+								<separator string="BDM Component Score" />
+								<field name="tum_bdm_comp_line">
+								<tree editable="bottom" create="false" delete="false">
+										<field name="name" readonly="1"/>
+										<field name="score"  readonly="1"/>
+										<field name="weight"  readonly="1"/>
+										
+										<field name="final_score" readonly="1"/>
+									</tree>
+								</field>
+								
+								
+								<separator string="BDM Branch Score" />
+								<field name="tum_bdm_branch_line">
+								<tree editable="bottom" create="false" delete="false">
+										<field name="branch_id" readonly="1"/>
+										<field name="branch_percent" readonly="1"/>
+										<field name="branch_target" readonly="1"/>
+										<field name="achieved_gp" readonly="1"/>
+										<field name="ach_target" readonly="1"/>
+										<field name="score" readonly="1"/>
+									</tree>
+								</field>
+								
+								<separator string="BDM Sample" />
+								<field name="tum_bdm_sample_line">
+								<tree editable="bottom" create="false" delete="false">
+											<field name="branch_id" readonly="1"/>
+											<field name="cost_sheet_id" readonly="1"/>
+										<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+										
+										
+										<field name="product_group_id" readonly="1"/>
+										
+										<field name="sales_aftr_disc" readonly="1"  sum="Total"/>
+										
+										<field name="gp" readonly="1" sum="Total"/>
+									</tree>
+									
+								</field>
+								
+								
+								
+									
+								
+							</page>
+							
+							<page string="Sale Enablement Session" attrs="{'invisible':[('type','!=','tum')]}" >
+							   <group>
+							     <field name="tum_sale_eanb_score" />
+							     
+							   </group>
+							   <field name="tum_sale_enab_line">
+								<tree editable="bottom" create="false" delete="false">
+								   <field name="sale_enab_id" readonly="1"/>
+								   <button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+								   <field name="division_id" readonly="1"/>
+								   <field name="date" readonly="1"/>
+								   <field name="score" readonly="1"/>
+								</tree>
+								</field>
+							</page>
+							
+							
+							<page string="MP Sales" attrs="{'invisible':[('type','!=','tum')]}" >
+							   <field name="tum_mp_sale_line">
+								<tree editable="bottom" create="false" delete="false">
+										<field name="manpower_sale" readonly="1"/>
+										<field name="target" readonly="1"/>
+										<field name="target_percent" readonly="1"/>
+										<field name="weight" readonly="1"/>
+										<field name="score" readonly="1"/>
+									</tree>
+								</field>
+								
+								<separator string="MP Sales Details" />
+								<field name="tum_mp_sale_detail_line">
+								<tree editable="bottom" create="false" delete="false">
+										<field name="cost_sheet_id" readonly="1"/>
+										
+										<field name="manpower_sale" readonly="1"/>
+										<field name="approved_date" readonly="1"/>
+									</tree>
+								</field>
+							</page>
+							
+							<page string="Technology Consultant" attrs="{'invisible':[('type','!=','tum')]}" >
+							   <field name="tum_tc_comp_line">
+								<tree editable="bottom" create="false" delete="false">
+									
+										<field name="name" readonly="1"/>
+										<field name="weight" readonly="1"/>
+										<field name="score" readonly="1"/>
+										<field name="final_score" readonly="1"/>
+
+										
+									</tree>
+								</field>
+							</page>
+							
+							
+							<page string="Staff" attrs="{'invisible':[('type','!=','tum')]}" >
+								<separator string="Staff" />
+								<field name="tum_staff_data_line">
+								<tree editable="bottom" create="false" delete="false">
+									
+										<field name="branch_id" readonly="1"/>
+										<field name="job_id" readonly="1"/>
+										<field name="required" readonly="1"/>
+										<field name="available" readonly="1"/>
+										<field name="req_avail" readonly="1"/>
+										<field name="weight" readonly="1"/>
+										<field name="score" readonly="1"  sum="Total"/>
+									</tree>
+									
+								</field>
+								<separator string="Staff Details" />
+								
+								<field name="tum_staff_data_detail_line">
+								<tree editable="bottom" create="false" delete="false">
+								       <field name="branch_id" readonly="1"/>
+										<field name="user_id" readonly="1"/>
+										<field name="job_id" readonly="1"/>
+										<field name="joining_date" readonly="1"/>
+										<field name="termination_date" readonly="1"/>
+									</tree>
+								
+								
+									
+								</field>
+							</page>
+							
+							
+							
+							
+							<page string="Component"  >
+								<field name="comp_line">
+									<tree editable="bottom" create="false" delete="false">
+										<field name="name" readonly="1"/>
+										<field name="weight" readonly="1"/>
+										<field name="score" readonly="1" invisible="1"/>
+										<field name="final_score" readonly="1"/>
+									</tree>
+								</field>
+							</page>
+
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="aud_sample_tree">
+			<field name="name">audit sample tree view</field>
+			<field name="model">audit.sample</field>
+			<field name="arch" type="xml">
+				<tree string="Course">
+					<field name="name" />
+					<field name="date_start" />
+					<field name="date_end" />
+					<field name="aud_temp_id" />
+				
+					<field name="employee_id" />
+					<field name="avg_score" />
+					<field name="method" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_audit_sample">
+			<field name="name">Audit Sample</field>
+			<field name="res_model">audit.sample</field>
+			<field name="view_mode">tree,form</field>
+			 <field name="context">{'search_default_g_date_year':1,'search_default_g_date_month':1,}</field>
+		</record>
+
+		<menuitem name="Audit" id="menu_audit" parent="hr.menu_hr_root" sequence="20"/>
+		<menuitem name="Audit Sample" id="menu_audit_sample" parent="menu_audit" action="action_audit_sample"/>
+	</data>
+</openerp>

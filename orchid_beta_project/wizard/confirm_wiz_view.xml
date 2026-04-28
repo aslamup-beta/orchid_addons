@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_confirm_form_od_project_task" model="ir.ui.view">
+            <field name="name">Confirm Cancel</field>
+            <field name="model">task.confirm.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Confirm" >
+                <group>
+                    <label colspan="4" width="500"
+                           string="Are you sure you want to Cancel the Task? it Will Delete the Record"/>
+                    <newline/>
+                </group>
+                <footer>
+                  <button name="btn_yes" string="Yes" type="object" class="oe_highlight"/>
+                    or
+                  <button string="No" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="od_task_wiz_confirm_action" model="ir.actions.act_window">
+            <field name="name">Confirm Cancel</field>
+            <field name="res_model">task.confirm.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

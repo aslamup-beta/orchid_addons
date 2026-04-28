@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_asset_add_rpt_wizard" model="ir.ui.view">
+            <field name="name">Asset Addition Report</field>
+            <field name="model">asset.add.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+	                <group>
+		                <group>
+		                  <field name="date_start" required="1" />
+		                  <field name="date_end" required="1"/>
+		                </group>
+		                <group>
+                        		<field name="categ_ids" widget="many2many_tags"/>
+                        </group>
+                            <group></group>
+                        	    <group></group>
+		            </group>
+	                
+                  	<footer>
+	                   <button name="print_directly" string="Print" type="object" class="oe_highlight"/>
+	                   or
+	                   <button string="Cancel" special="cancel" />
+                  </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_asset_add_rpt_act" model="ir.actions.act_window">
+            <field name="name">Asset Addition</field>
+            <field name="res_model">asset.add.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+        <menuitem
+			id="od_menu_asset_add_rpt"
+			parent="account_asset.menu_finance_assets"
+			sequence="500"
+			action="action_asset_add_rpt_act" />
+			
+    </data>
+</openerp>

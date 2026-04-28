@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_generate_purchase_order_wizard" model="ir.ui.view">
+            <field name="name">Generate Purchase Order</field>
+            <field name="model">orchid_so2po.generate_purchase_order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Purchase Order">
+                    <group col="4" colspan="4">
+                        <label colspan="4" width="500"
+                               string="You are on about to generate a Purchase Order from this Sale Order. To do so please complete the following mandatory fields first."/>
+                        <newline/>
+                        
+                        <field name="partner_id" colspan="4" on_change="onchange_partner_id(partner_id)"
+                               context="{'search_default_supplier': True, 'default_supplier': True, 'default_customer': False}"/>
+                        
+                        <field name="pricelist_id" colspan="4"/>
+                        
+                        <field name="warehouse_id" colspan="4"/>
+                        <field name="copy_desc" colspan="4" />
+                        <field name="purchase_requsition_id" invisible="1"/>
+                      </group>
+                        
+                        <field name="od_purchase_generate_line" nolabel="1">
+                            <tree editable="top">
+
+                                                    
+                                    <field name="purchase_generate_id" invisible="1"/>
+                        
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="name" readonly="1" />
+                                    <field name="product_uom_id" readonly="1"/>
+                                    <field name="product_qty" readonly="1"/>
+                                    <field name="price" invisible="1"/>
+<!--                                    <field name="select"/>-->
+                             </tree>
+                        </field>
+
+
+                        
+                        <button string="Cancel" colspan="2" special="cancel" icon="gtk-cancel" />
+                        <button name="generate_purchase_order" string="Generate Purchase Order"
+                                icon="gtk-go-forward" type="object" colspan="2"/>
+                   
+                </form>
+            </field>
+        </record>
+        
+        <act_window name="Generate Purchase Order"
+            id="action_generate_purchase_order"
+            src_model="sale.order"
+            res_model="orchid_so2po.generate_purchase_order"
+            view_mode="form" target="new" view_type="form"
+            view_id="view_generate_purchase_order_wizard"/>
+        
+    </data>
+</openerp>

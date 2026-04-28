@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_pre_oprn_rpt_wizard" model="ir.ui.view">
+            <field name="name">Pre operation Report</field>
+            <field name="model">pre.oprn.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+                     <group>
+                         <group>
+	                          <field name="account_id" required="1" invisible="1"/>
+	                          <field name="fiscal_year" invisible="1" required="0"/>
+                         </group>
+                    </group>
+                    <group><field name="opp_stage_ids" widget="many2many_tags"/></group>
+                           		<group></group>
+                        	    <group></group>
+			                    <group><field name="select_won_opp"/>
+			                    	<field name="detail"/>
+			                    </group>
+                           		<group></group>
+                        	    <group></group>
+                    	<group><field name="journal_ids" widget="many2many_tags"/></group>
+                           		<group></group>
+                        	    <group></group>
+                        	    
+                       	<group><field name="opp_ids" widget="many2many_tags"/></group>
+	                           <group></group>
+                        	    <group></group>  
+                       	
+                       	<group><field name="branch_ids" widget="many2many_tags"/></group>
+	                           
+	                           <group></group>
+                        	    <group></group>
+                       	<group><field name="cost_centre_ids" widget="many2many_tags"/></group>
+	                           
+	                           <group></group>
+                        	    <group></group>
+                       	<group><field name="division_ids" widget="many2many_tags"/></group>
+	                           
+	                           <group></group>
+                        	    <group></group>
+                       	<group><field name="sam_ids" widget="many2many_tags" context="{'sam_ids':1}"/></group>
+	                           
+	                           <group></group>
+                        	    <group></group>
+                           
+                       
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" class="oe_highlight"/>
+                       or
+                        <button name="print_directly" string="Print" type="object" class="oe_highlight"/>
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="tree_view_pre_oprn_analysis_rpt2">
+		<field name="name">pre.oprn.rpt.data.line.tree</field>
+		<field name="model">pre.oprn.rpt.data.line</field>
+		<field name="arch" type="xml">
+			<tree string="Pre-Oprn Opp.Analysis Report">
+			<field name="company_id" invisible="1" />
+				<field name="date"/>
+				<field name="jrnl_id" />
+				<field name="part_ref" />
+				<field name="move_id" />
+				<button name="btn_open_move" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="opp_id" />
+				<button name="btn_open_opp" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="opp_stage_id" />
+				<field name="sam_id" />
+			    <field name="cust_id" />
+			    <field name="age" />
+				<field name="due" string="Debit" sum="Total" />
+				<field name="paid" string="Credit" sum="Total" />
+				<field name="bal" string="Balance" sum="Total" />
+				
+				
+				
+			</tree>
+		</field>
+	</record>
+        
+     <record model="ir.ui.view" id="tree_view_pre_oprn_analysis_rpt1">
+		<field name="name">pre.oprn.rpt.data.line.tree</field>
+		<field name="model">pre.oprn.rpt.data.line</field>
+		<field name="arch" type="xml">
+			<tree string="Pre-Oprn Opp.Analysis Report">
+			<field name="company_id" invisible="1" />
+				<field name="date" string="Approved Date"/>
+				<field name="opp_id" />
+				<button name="btn_open_opp" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="opp_name" />
+				<field name="opp_stage_id" />
+				<field name="sam_id" />
+			    <field name="cust_id" />
+			    <field name="age" />
+				<field name="due" string="Debit" invisible ="1" sum="Total" />
+				<field name="paid" string="Credit" invisible="1" sum="Total" />
+				<field name="bal" string="Balance" sum="Total" />
+			</tree>
+		</field>
+	</record>
+	
+		<record model="ir.ui.view" id="pre_oprn_analysis_search_view">
+		<field name="name">pre.oprn.rpt.data.line.search</field>
+		<field name="model">pre.oprn.rpt.data.line</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="opp_id" />
+				<field name="sam_id" />
+				<field name="cust_id" />
+				<group expand="1" string="Group By">
+                       
+                        <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                        <filter string="Branch" domain="[]" context="{'group_by':'od_branch_id'}"/>
+                        <filter string="Opportunity" domain="[]" context="{'group_by':'opp_id'}"/>
+                        <filter string="Status" domain="[]" context="{'group_by':'opp_stage_id'}"/>
+                        <filter string="Customer" domain="[]" context="{'group_by':'cust_id'}"/>
+                        <filter string="Sale Account Manager" domain="[]" context="{'group_by':'sam_id'}"/>
+<!--                          <filter string="Opp Approved Year" context="{'group_by':'date:year'}" name="Year"/> -->
+<!--                         <filter string="Opp Approved Month" context="{'group_by':'date:month'}"/> -->
+<!--                         <filter string="Opp Approved Quarter" context="{'group_by':'date:quarter'}"/> -->
+<!--                          <filter string="Actual Closing Date" context="{'group_by':'closing_date:month'}"/> -->
+<!--                          <filter string="PMO Expected Closing Year" context="{'group_by':'date_end:year'}" name="Year"/> -->
+<!--                         <filter string="PMO Expected Closing Month" context="{'group_by':'date_end:month'}"/> -->
+<!--                         <filter string="PMO Expected Closing Quarter" context="{'group_by':'date_end:quarter'}"/> -->
+                       
+                        
+                        
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+	
+        
+
+       
+
+        <record id="action_pre_operation_rpt_act" model="ir.actions.act_window">
+            <field name="name">Pre Operation Report</field>
+            <field name="res_model">pre.oprn.rpt.wiz</field>
+            <field name="view_mode">form</field>
+<!--             <field name="context">{'default_partner_id':cont}</field> -->
+            <field name="target">new</field>
+        </record>
+         
+        <menuitem
+			id="od_menu_pre_opration_rpt"
+			parent="account.menu_finance_reports"
+			sequence="205" 
+			action="action_pre_operation_rpt_act" />
+			
+			
+    </data>
+</openerp>

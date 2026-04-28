@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+		<record model="ir.sequence.type" id="od_reco_sequence_type_id">
+    		<field name="name">Bank Reconciliation</field>
+    		<field name="code">od.bank.reconciliation</field>
+		</record>
+		<record model="ir.sequence" id="od_bank_reco_seq_id">
+		    <field name="name">Bank Reconciliation</field>
+		    <field name="code">od.bank.reconciliation</field>
+		    <field name="prefix">BNK/%(month)s/%(day)s/</field>
+		    <field name="padding">3</field>
+		</record>
+
+	</data>
+</openerp>

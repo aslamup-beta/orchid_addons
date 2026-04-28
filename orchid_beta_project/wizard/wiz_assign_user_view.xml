@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_wiz_assign_user" model="ir.ui.view">
+            <field name="name">Task Assign User</field>
+            <field name="model">wiz.assign.user</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Assign User">
+                    <group col="4" colspan="4">
+                        <label colspan="4" width="500"
+                               string="IF this Task is an Activity ,You are About Send Email for Assigned User for this Task."/>
+                        <newline/>
+
+                      </group>
+
+
+                   <footer>
+                      <button name="assign_user" string="Send Mail" type="object" class="oe_highlight"/>
+                        or
+                      <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

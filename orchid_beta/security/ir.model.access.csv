@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_od_grn,access_od_grn,model_od_grn,,1,1,1,1
+access_od_grn_line,access_od_grn_line,model_od_grn_line,,1,1,1,1
+access_od_late_hour,access_od_late_hour,model_od_late_hour,,1,1,1,1
+access_od_late_hour_line,access_od_late_hour_line,model_od_late_hour_line,,1,1,1,1
+access_od_pending_report,access_od_pending_report,model_od_pending_report,,1,1,1,1
+access_od_so_analysis,access_od_so_analysis,model_od_so_analysis,,1,1,1,1

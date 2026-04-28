@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="od_hr_document_lines_tre_views">
+        <field name="name">od.hr.employee.document.line</field>
+        <field name="model">od.hr.employee.document.line</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+               
+                                    <field name="document_type_id"/>
+                                    <field name="document_referance"/>
+                                    <field name="employee_id" invisible="1"/>
+
+                                    <field name="attach_file" filename="attach_fname"/>
+                                    <field name="attach_fname" invisible="1"/>
+                                    <field name="issue_date"/>
+
+                                    <field name="expiry_date"/>
+            </tree>
+       </field>
+    </record>
+
+<record model="ir.actions.act_window" id="action_od_hr_document_lines_tre_views">
+        <field name="name">Document Attach</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.hr.employee.document.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Document Attach. 
+          </p>
+        </field>
+    </record>
+ </data>
+</openerp>

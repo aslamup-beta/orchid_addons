@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+
+   <record id="od_hr_holiday_status_form_inherit_hrms" model="ir.ui.view">
+            <field name="name">hr.holidays.status</field>
+            <field name="model">hr.holidays.status</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                 <field name="double_validation" position="after">
+                        <field name="od_deny_back_dated_entry"/>
+
+                  </field>
+
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

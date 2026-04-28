@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="AccountReconciliation" >
+        <t t-jquery=".oe_account_recon_previous" t-operation="after">
+                <select class="partner_search-select" onchange="javascript:void(0)" title="Click to select a partner">
+                    <option value="inital"></option>
+                </select>
+        </t>
+    </t>
+</templates>

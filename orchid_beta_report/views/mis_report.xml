@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <menuitem
+            id="menu_mis_reporting"
+            name="MIS"
+            parent="base.menu_reporting"
+            sequence="0" />
+
+<!-- od_wip_report -->
+		<record model="ir.ui.view" id="od_wip_report_tree">
+            <field name="name">od.wip.tree</field>
+            <field name="model">od.wip.report</field>
+            <field name="arch" type="xml">
+	            <tree string="Wip">
+	                <field name="project_id" />
+                    <field name="date" />
+                    <field name="invoice_amount" />
+                    <field name="project_cost" />
+                    <field name="profit" />
+                    <field name="od_type_of_project" />
+                    <!-- <field name="gp" /> -->
+	            </tree>
+            </field>
+        </record>
+
+		<record id="view_od_wip_report_graph" model="ir.ui.view">
+         <field name="name">od.wip.graph</field>
+         <field name="model">od.wip.report</field>
+         <field name="arch" type="xml">
+             <graph string="Project" type="pivot" stacked="True">
+                    <field name="od_type_of_project"/>
+                    <field name="invoice_amount" type="measure"/>
+                    <field name="project_cost" type="measure"/>
+                    <field name="profit" type="measure"/> 
+             </graph>
+         </field>
+   		</record>
+
+        <record model="ir.ui.view" id="od_wip_report_search_view">
+            <field name="name">od.wip.report</field>
+            <field name="model">od.wip.report</field>
+            <field name="arch" type="xml">
+                <search string="Project" >      
+                    <field name="project_id"/>
+                    <field name="partner_id"/>
+                    <field name="invoice_amount"/>
+                    <field name="manager_id"/>
+                    
+                    <filter string="This Year" name="thisyear" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=', time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]" help="Project closed with period in current year"/>
+                    
+                    <group expand="1" string="Group By">
+                        
+                        <filter string="Salesperson" name='user' context="{'group_by':'user_id'}"/>
+                        <filter string="Project" context="{'group_by':'project_id'}"/>
+                        <filter string="Customer" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+           </field>
+        </record>
+
+		<record id="action_mis_wip" model="ir.actions.act_window">
+            <field name="name">Project Profitability</field>
+            <field name="res_model">od.wip.report</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_wip_report_search_view"/>
+        </record>
+		<menuitem parent="menu_mis_reporting" action="action_mis_wip" id="menu_beta_mis_wip" sequence="4"/>
+
+<!-- od_po_status_report -->
+
+        <record model="ir.ui.view" id="od_po_status_report_tree">
+            <field name="name">od.po.status.tree</field>
+            <field name="model">od.po.status.report</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase">
+                    <field name="partner_id" />
+                    <field name="analytic_id" />
+                    <field name="product_id" />
+                    <field name="order_qty" />
+                    <field name="delivered" />
+                    <field name="pending" />
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="od_po_status_report_graph" model="ir.ui.view">
+         <field name="name">od.po.status.graph</field>
+         <field name="model">od.po.status.report</field>
+         <field name="arch" type="xml">
+             <graph string="Project" type="pivot" stacked="True">
+                    <field name="company_id"/>
+                    <field name="date_planned" interval="year" type="row"/>
+                    <field name="order_qty" type="measure"/>
+                    <field name="order_value" type="measure"/>
+                    <field name="delivered" type="measure"/>
+                    <field name="delivered_value" type="measure"/>
+                    <field name="pending" type="measure"/>
+                    <field name="pending_value" type="measure"/>
+                    <field name="cancel" type="measure"/>
+                    <field name="cancel_value" type="measure"/>
+             </graph>
+         </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_po_status_report_search">
+            <field name="name">od.po.status.report</field>
+            <field name="model">od.po.status.report</field>
+            <field name="arch" type="xml">
+                <search string="Project" >      
+                    <field name="analytic_id"/>
+                    <field name="partner_id"/>
+
+                    <group expand="1" string="Group By">
+                        
+                        <filter string="Project" context="{'group_by':'analytic_id'}"/>
+                        <filter string="Supplier" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+           </field>
+        </record>
+
+        <record id="action_mis_po" model="ir.actions.act_window">
+            <field name="name">Purchase Report</field>
+            <field name="res_model">od.po.status.report</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_po_status_report_search"/>
+        </record>
+        <menuitem parent="menu_mis_reporting" action="action_mis_po" id="menu_beta_mis_po" sequence="2"/>
+
+
+<!-- od_emp_prj_report -->
+
+        <record model="ir.ui.view" id="od_emp_prj_report_tree">
+            <field name="name">od.emp.prj.report.tree</field>
+            <field name="model">od.emp.prj.report</field>
+            <field name="arch" type="xml">
+                <tree string="Manpower Analysis">
+                    <field name="user_id" />
+                    <field name="project_id" />
+                    <field name="partner_id" />
+                    <field name="duration" />
+                    <field name="amount" />
+                    <field name="actual_amount" />
+
+                </tree>
+            </field>
+        </record>
+
+         <record id="od_emp_prj_report_graph" model="ir.ui.view">
+         <field name="name">od.emp.prj.report.graph</field>
+         <field name="model">od.emp.prj.report</field>
+         <field name="arch" type="xml">
+             <graph string="Manpower" type="pivot" stacked="True">
+                    <field name="company_id"/>
+                    <field name="duration" type="measure"/>
+                    <field name="amount" type="measure"/>
+                    <field name="actual_amount" type="measure"/>  
+             </graph>
+         </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_emp_prj_report_search">
+            <field name="name">od.emp.prj.report.search</field>
+            <field name="model">od.emp.prj.report</field>
+            <field name="arch" type="xml">
+                <search string="Manpower" >      
+                    <field name="project_id"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+
+                    <filter string="This Year" name="thisyear" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=', time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]" help="Project closed with period in current year"/>
+
+                    <filter string="Closed Project" name="closed" domain="[('state', '=', 'close')]" help="Project Closed"/>                    
+
+                    <group expand="1" string="Group By">
+                        
+                        <filter string="Project" context="{'group_by':'project_id'}"/>
+                        <filter string="Customer" context="{'group_by':'partner_id'}"/>
+                        <filter string="Employee" context="{'group_by':'user_id'}"/>
+                        <filter string="Status" context="{'group_by':'state'}"/>  
+
+                    </group>
+                </search>
+           </field>
+        </record>
+
+        <record id="action_mis_emp" model="ir.actions.act_window">
+            <field name="name">Manpower Report</field>
+            <field name="res_model">od.emp.prj.report</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_emp_prj_report_search"/>
+        </record>
+        <menuitem parent="menu_mis_reporting" action="action_mis_emp" id="menu_beta_mis_emp" sequence="3"/>
+
+
+<!-- od_prj_all_report -->
+
+        <record model="ir.ui.view" id="od_prj_all_report_tree">
+            <field name="name">od.prj.all.report.tree</field>
+            <field name="model">od.prj.all.report</field>
+            <field name="arch" type="xml">
+                <tree string="Project Analysis">
+                    <field name="project_id" />
+                    <field name="partner_id" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                    <field name="close_date" />
+                    <field name="original_total_price" />
+                    <field name="amended_total_price" />
+                    <field name="invoice_amount" />
+                    <field name="planned_days" />
+                    <field name="actual_days" />
+                </tree>
+            </field>
+        </record>
+
+         <record id="od_prj_all_report_graph" model="ir.ui.view">
+         <field name="name">od.prj.all.report.graph</field>
+         <field name="model">od.prj.all.report</field>
+         <field name="arch" type="xml">
+             <graph string="Project Analysis" type="pivot" stacked="True">
+                    <field name="end_date" interval="quarter"/>
+                    <field name="original_total_price" type="measure"/>
+                    <field name="amended_total_price" type="measure"/>
+                    <field name="invoice_amount" type="measure"/>
+                    <field name="planned_days" type="measure"/>
+                    <field name="actual_days" type="measure"/>
+                    <field name="profit" type="measure"/>
+             </graph>
+         </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="od_prj_all_search">
+            <field name="name">od.prj.all.report.search</field>
+            <field name="model">od.prj.all.report</field>
+            <field name="arch" type="xml">
+                <search string="Project Analysis" >      
+                    <field name="user_id"/>
+                    <field name="partner_id" />
+                    <field name="project_id" />
+                    <field name="close_date" />
+                    <field name="original_total_price" />
+                    <field name="amended_total_price" />
+                    <field name="invoice_amount" />
+                    <field name="manager_id" />
+
+                    <filter string="This Year" name="thisyear" domain="['|', ('close_date', '=', False), '&amp;',('close_date','&lt;=', time.strftime('%%Y-12-31')),('close_date','&gt;=',time.strftime('%%Y-01-01'))]" help="Project closed with period in current year"/>
+
+                    <filter string="Closed Project" name="closed" domain="[('state', '=', 'close')]" help="Project Closed"/>  
+
+                     <filter string="Active" name="active" domain="[('state','not in',('draft', 'cancel','close'))]" help="Active Projects"/>
+                  
+
+                    <group expand="1" string="Group By">
+                        
+                        <filter string="Project" context="{'group_by':'project_id'}"/>
+                        <filter string="Customer" context="{'group_by':'partner_id'}"/>
+                        <filter string="Salesperson" context="{'group_by':'user_id'}"/>
+                        <filter string="Manager" context="{'group_by':'manager_id'}"/>
+                        <filter string="Status" context="{'group_by':'state'}"/>                        
+                    </group>
+                </search>
+
+           </field>
+        </record>
+        <record id="action_mis_prj_all" model="ir.actions.act_window">
+            <field name="name">Project Analysis</field>
+            <field name="res_model">od.prj.all.report</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_prj_all_search"/>
+            <field name="context">{'search_default_active':1, 'group_by_no_leaf':1,'group_by':[]}</field>
+        </record>
+        <menuitem parent="menu_mis_reporting" action="action_mis_prj_all" id="menu_beta_mis_prj_all" sequence="5"/>
+
+	</data>
+</openerp>

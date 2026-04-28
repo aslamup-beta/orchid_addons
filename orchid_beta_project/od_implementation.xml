@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="od_implementation_form">
+		<field name="name">od implementation form view</field>
+		<field name="model">od.implementation</field>
+		<field name="arch" type="xml">
+		<form string="Od Implementation" version="7.0">
+ 			<sheet>
+ 			 <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Description" />
+                            </h1>
+                        </div>
+			<group>
+				<group>
+					<field name="code" />
+					<field name="project_phase" />
+
+				</group>
+				<group>
+					<field name="categ_id" />
+					<field name="sub_categ_id"  />
+				</group>
+				<group>
+					<field name="method" />
+
+					<field name="job_id" />
+				</group>
+				<group>
+					<field name="optimistic" widget="float_time"/>
+					<field name="most_likely" widget="float_time"/>
+					<field name="pessimistic" widget="float_time"/>
+					<field name="challenge" />
+					<field name="expected_act_duration" widget="float_time" />
+				</group>
+			</group>
+			<field name="check_list" >
+			<tree editable="bottom">
+			<field name="name" />
+			</tree>
+			</field>
+			</sheet>
+		</form>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_implementation_tree">
+		<field name="name">od implementation tree view</field>
+		<field name="model">od.implementation</field>
+		<field name="arch" type="xml">
+			<tree string="Od Implementation">
+					<field name="project_phase" />
+					<field name="code" />
+					<field name="name" />
+					<field name="method" />
+					<field name="job_id" />
+					<field name="categ_id" />
+					<field name="sub_categ_id"  />
+					<field name="expected_act_duration" widget="float_time" />
+
+			</tree>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_implementation_search">
+		<field name="name">od implementation search view</field>
+		<field name="model">od.implementation</field>
+		<field name="arch" type="xml">
+			<search>
+					<field name="name" />
+					<field name="project_phase" />
+					<field name="code" />
+					<field name="method" />
+					<field name="job_id" />
+					<field name="optimistic" />
+					<field name="most_likely" />
+					<field name="pessimistic" />
+					<field name="expected_act_duration" />
+					<field name="challenge" />
+			</search>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_implementation_graph">
+		<field name="name">od implementation graph view</field>
+		<field name="model">od.implementation</field>
+		<field name="arch" type="xml">
+			<graph>
+					<field name="name" />
+					<field name="project_phase" />
+					<field name="code" />
+					<field name="method" />
+					<field name="check_list" />
+					<field name="job_id" />
+					<field name="optimistic" />
+					<field name="most_likely" />
+					<field name="pessimistic" />
+					<field name="expected_act_duration" />
+					<field name="challenge" />
+			</graph>
+		</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_od_implementation">
+		<field name="name">Implementation Codes</field>
+		<field name="res_model">od.implementation</field>
+		<field name="view_mode">tree,form</field>
+		</record>
+
+	 	<menuitem name="Implementation Code"
+	  		id="menu_od_implementation"
+	  		parent="base.menu_definitions"
+            action="action_od_implementation" />
+
+	</data>
+</openerp>

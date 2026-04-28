@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        
+       <!--  <record id="amc_rept_list" model="ir.ui.view">
+            <field name="name">amc.rpt.wiz.tree</field>
+            <field name="model">amc.rpt.wiz</field>
+            <field name="arch" type="xml">
+                <tree string="list">
+                    <field name="name"></field>
+                    <button name="export_rpt" string="Export" type="object" />
+
+                </tree>
+            </field>
+        </record> -->
+        
+        
+        
+        <record id="view_amc_rpt_wizard" model="ir.ui.view">
+            <field name="name">AMC Form</field>
+            <field name="model">amc.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group>
+                 
+                        
+                        <group>
+                        	<field name="date_end_from" />
+                        	<field name="date_end_to" />
+                        </group>
+                        <group>
+                        	<field name="closing_date_from"/>
+                        	<field name="closing_date_to"/>
+                        </group>
+                        
+                       </group>
+                        <group>
+                           <field name="branch_ids" widget="many2many_tags"/>
+                        </group>
+                          <group />
+                          <group />
+                        <group>
+                        <field name="partner_ids" widget="many2many_tags"/>
+                        </group>
+                         <group />
+                          <group />
+                         
+                        <group>
+                         <field name="pm_ids" widget="many2many_tags"/>
+                        </group>
+                        <group />
+                          <group />
+                        
+                        <group>
+                          <field name="sam_ids" widget="many2many_tags"/>
+                        </group>
+                        <group />
+                          <group />
+                       
+                       
+                        <group>
+                        <group>
+                        <field name="wip"/>
+                        <field name="closed"/>
+                        <field name="inactive"/>
+                        </group>
+                        
+                      </group>
+                       
+                      
+
+                      
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_amc_rpt_act2" model="ir.actions.act_window">
+            <field name="name">SLA Report</field>
+            <field name="res_model">amc.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         
+         <menuitem
+         	
+			id="menu_amc_rpt_2"
+			parent="orchid_cost_sheet.od_menu_helpdesk_sub"
+			 sequence="10" 
+			action="action_amc_rpt_act2" />
+
+
+	<record model="ir.ui.view" id="od_amc_data_tree_view">
+		<field name="name">wiz.amc.rpt.data.tree</field>
+		<field name="model">wiz.amc.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Sale In">
+			<field name="company_id" invisible="1" />
+				
+				<field name="partner_id" />
+				<field name="project_id" />
+				<button name="btn_open_project" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="cost_sheet_id" />
+				<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+			    
+			 
+			     
+				
+				<field name="amended_sale" string="Sale" sum="Total" />
+				<field name="amended_profit" string="Planned GP" sum="Total" />
+				<field name="actual_profit" string="Actual GP" sum="Total" />
+				
+				 <field name="date_end" string="PMO Expected Closing Date"/> 
+				 <field name="closing_date" />
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="ood_rev_amc_search_view">
+		<field name="name">wiz.amc.rpt.data.search</field>
+		<field name="model">wiz.amc.rpt.data</field>
+		<field name="arch" type="xml">
+			<search>
+			<field name="pm_id" />
+				<field name="sam_id" />
+				<field name="cost_sheet_id" />
+				<field name="project_id" />
+				<field name="branch_id" />
+			<group expand="1" string="Group By">
+                       
+                        <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                        <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Status" domain="[]" context="{'group_by':'status'}"/>
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Cost Sheet" domain="[]" context="{'group_by':'cost_sheet_id'}"/>
+                        
+                         <filter string="AMC Start Year" context="{'group_by':'date_start:year'}" name="Year"/>
+                        <filter string="AMC Start Month" context="{'group_by':'date_start:month'}"/>
+                        <filter string="AMC Start Quarter" context="{'group_by':'date_start:quarter'}"/>
+                        
+                         <filter string="PMO Expected Closing Year" context="{'group_by':'date_end:year'}" name="Year"/>
+                        <filter string="PMO Expected Closing End Month" context="{'group_by':'date_end:month'}"/>
+                        <filter string="PMO Expected Closing End Quarter" context="{'group_by':'date_end:quarter'}"/>
+                         <filter string="Actual Closing Date" context="{'group_by':'closing_date:month'}"/>
+                        <filter string="Sale Account Manager" domain="[]" context="{'group_by':'sam_id'}"/>
+                        <filter string="Project Manager" domain="[]" context="{'group_by':'pm_id'}"/>
+                        
+                        
+                         <filter string="Contract Status" domain="[]" context="{'group_by':'contract_status'}"/>
+                         <filter string="Contract Start Date" context="{'group_by':'contract_start_date:month'}"/>
+                         <filter string="Contract End Date" context="{'group_by':'contract_end_date:month'}"/>
+                        
+                       
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+    </data>
+</openerp>

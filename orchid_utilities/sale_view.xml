@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>   
+
+ <record id="view_od_sale_order_remove_tax_inherit_utilities" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+
+
+
+                <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='tax_id']" position="replace">
+                    <field name="tax_id" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath> 
+
+
+                <xpath expr="/form/sheet/notebook/page[@string='Order Lines']/group[@class='oe_subtotal_footer oe_right']/field[@name='amount_tax']" position="replace">
+                    <field name="amount_tax" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath>  
+
+               <field name="amount_untaxed" position="replace">
+                   <field name="amount_untaxed" string="Amount"/> 
+                </field>
+
+<!--                <field name="margin" position="replace">-->
+<!--                   <field name="margin" groups="orchid_utilities.group_od_view_cost_group"/> -->
+<!--                </field>-->
+                
+                 
+
+           </field>
+ </record>
+</data>
+</openerp>

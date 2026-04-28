@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <!-- Activity -->
+
+
+        <record id="od_act_approve" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">approve</field>
+            <field name="kind">function</field>
+            <field name="action">od_action_create_proc()</field>
+        </record>
+
+        <record id="od_act_cancel3" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">Cancel3</field>
+            <field name="kind">function</field>
+            <field name="action">action_cancel()</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+
+        <!-- Transistion -->
+
+        <record id="od_trans_draft_to_approve" model="workflow.transition">
+            <field name="act_from" ref="sale.act_draft"/>
+            <field name="act_to" ref="od_act_approve"/>
+            <field name="signal">od_signal_approve</field>
+        </record>
+
+        <record id="od_trans_approve_to_invoice" model="workflow.transition">
+            <field name="act_from" ref="od_act_approve"/>
+            <field name="act_to" ref="sale.act_wait_invoice"/>
+            <field name="condition">od_check_invoice()</field>
+        </record>
+
+        <record id="od_trans_invoice_to_cancel3" model="workflow.transition">
+            <field name="act_from" ref="sale.act_wait_invoice"/>
+            <field name="act_to" ref="od_act_cancel3"/>
+            <field name="signal">od_signal_cancel3</field>
+            <field name="condition">od_check_do()</field>
+        </record>
+
+        <record id="od_trans_approve_to_cancel3" model="workflow.transition">
+            <field name="act_from" ref="od_act_approve"/>
+            <field name="act_to" ref="od_act_cancel3"/>
+            <field name="signal">od_signal_cancel3</field>
+            <field name="condition">od_check_do()</field>
+        </record>
+
+
+
+
+
+    </data>
+</openerp>

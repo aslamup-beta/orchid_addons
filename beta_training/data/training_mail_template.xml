@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="od_training_assigned" model="email.template">
+            <field name="name">KSA - Training Assigned Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Training - ${object.training_card_id.program}</field>
+            <field name="email_to">${object.employee_user_id.email}</field>
+            <field name="email_cc">${object.manager_id.email},fakhri.amaireh@betait.net,hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_employee_training_contract"/>
+            <field name="body_html"><![CDATA[
+				Dear ${object.employee_user_id.name},<br><br>We are excited to inform you that you have been nominated to attend the ${object.training_card_id.program}, in recognition of your exceptional performance and dedication. Please book your calendars.<br><br>If you are available, kindly click on the following link and confirm your availability.<br><br>Link: <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953</a><br><br>Best Regards,<br>HR Dept.
+             ]]>
+            </field>
+
+        </record>
+
+
+        <record id="od_training_accepted" model="email.template">
+            <field name="name">KSA - Training Accepted Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Training Accepted- ${object.training_card_id.program}</field>
+            <field name="email_to">${object.user_id.email}</field>
+            <field name="email_cc">${object.manager_id.email},hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_employee_training_contract"/>
+            <field name="body_html"><![CDATA[
+				Dear ${object.user_id.name},<br><br>The nominated training ${object.training_card_id.program} has been accepted by employee ${object.employee_user_id.name}<br><br>Link : <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953<br></a><br>Best Regards,<br>ERP Automatic Email             ]]>
+            </field>
+
+        </record>
+
+
+        <record id="od_training_rejected" model="email.template">
+            <field name="name">KSA - Training Rejected Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Training Rejected- ${object.training_card_id.program}</field>
+            <field name="email_to">${object.user_id.email}</field>
+            <field name="email_cc">${object.manager_id.email},hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_employee_training_contract"/>
+            <field name="body_html"><![CDATA[
+				Dear ${object.user_id.name},<br><br>The nominated training ${object.training_card_id.program} has been rejected by employee ${object.employee_user_id.name}<br><br>Link : <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953</a><br><br>Best Regards,<br>ERP Automatic Email             ]]>
+            </field>
+
+        </record>
+
+        <record id="training_reminder_email_template" model="email.template">
+            <field name="name">KSA - Training Reminder Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Reminder: Training Session Confirmation Required - ${object.training_card_id.program}
+            </field>
+            <field name="email_to">${object.employee_user_id.email}</field>
+            <field name="email_cc">${object.manager_id.email},hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_employee_training_contract"/>
+            <field name="body_html"><![CDATA[
+				Dear ${object.employee_user_id.name},<br><br>This is a reminder that you have a scheduled training on ${object.training_card_id.program}. Please confirm your availability by clicking the below link to either accept or reject the training schedule.<br><br>Link : <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953</a><br><br>Your prompt response would be appreciated.<br><br>Best Regards,<br>HR Team             ]]>
+            </field>
+
+        </record>
+
+
+        <record id="training_completion_reminder_email_template" model="email.template">
+            <field name="name">KSA - Training Completion Reminder Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Reminder: Training Session Completion Required - ${object.training_card_id.program}
+            </field>
+            <field name="email_to">${object.employee_user_id.email}</field>
+            <field name="email_cc">${object.manager_id.email},hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_employee_training_contract"/>
+            <field name="body_html"><![CDATA[
+				Dear ${object.employee_user_id.name},<br><br>This is a reminder that you have to mark the training on ${object.training_card_id.program} is completed. Please mark as completed by clicking the below link.<br><br>Link : <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953</a><br><br>Your prompt response would be appreciated.<br><br>Best Regards,<br>HR Team             ]]>
+            </field>
+
+        </record>
+
+
+        <record id="od_training_completion_hr_validation" model="email.template">
+            <field name="name">KSA - Training Completion HR Validation Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Training Completed- ${object.training_card_id.program}</field>
+            <field name="email_to">${object.user_id.email}</field>
+            <field name="email_cc">${object.manager_id.email},hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_employee_training_contract"/>
+            <field name="body_html"><![CDATA[
+				Dear ${object.user_id.name},<br><br>The nominated training ${object.training_card_id.program} has been completed by employee ${object.employee_user_id.name}. Kindly do the validation process<br><br>Link : <a href="https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953">https://erp.betait.net/web?#id=${object.id}&amp;view_type=form&amp;model=employee.training.contract&amp;menu_id=1221&amp;action=1953<br></a><br>Best Regards,<br>ERP Automatic Email             ]]>
+            </field>
+
+        </record>
+
+
+    </data>
+</openerp>

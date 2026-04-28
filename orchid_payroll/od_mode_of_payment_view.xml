@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<record model="ir.ui.view" id="od_mode_of_payment_tree_view">
+        <field name="name">Mode Of Payment</field>
+        <field name="model">od.mode.of.payment</field>
+        <field name="arch" type="xml">
+            <tree string="Mode Of Payment">
+                <field name="name"/>
+                <field name="sponser_id"/>
+                <field name="wps"/>
+            </tree>
+      </field>
+</record>
+
+
+
+<record model="ir.ui.view" id="od_mode_of_payment_form_view">
+        <field name="name">Mode Of Payment</field>
+        <field name="model">od.mode.of.payment</field>
+        <field name="arch" type="xml">
+            <form string="Mode Of Payment" version="7.0">
+               <sheet>
+
+
+
+                <group>
+
+
+                      <group>
+
+                         <label for="name" class="oe_edit_only"/>
+                         <h2><field name="name"/></h2>
+                          <field name="routing_codes"/>
+                         <field name="establishment"/>
+                      </group>
+                     <group>
+                        <field name="sponser_id"/>
+                        <field name="wps"/>
+<!--                        <field name="joined_date"/>-->
+
+
+                     </group>
+                </group>
+                  
+                <group>
+                 <field name="notes" class="oe_inline" placeholder="Remarks"/> 
+               </group>
+               </sheet>
+            </form>
+        </field>
+</record>
+
+ <record model="ir.actions.act_window" id="action_od_mode_of_payment">
+        <field name="name">Mode Of Payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.mode.of.payment</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add Mode Of Payment. 
+          </p>
+        </field>
+</record>
+<menuitem id="od_mode_of_payment" name="Mode Of Payment" action="action_od_mode_of_payment" parent="hr_payroll.menu_hr_root_payroll" sequence="38"/>
+ </data>
+</openerp>
+
+
+   
+

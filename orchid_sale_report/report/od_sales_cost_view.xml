@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_sales_cost_view_tree" model="ir.ui.view">
+            <field name="name">od.sales.cost.view</field>
+            <field name="model">od.sales.cost.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Sales Report" create="false">
+                    <field name="invoice_no"/>
+                    <field name="sale_type"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="company_id"/>
+                    <field name="period_id"/>
+
+                    <field name="section_id"/>
+                    <field name="currency_id"/>
+                    <field name="sale_currency"/>
+                    <field name="state"/>
+                    <field name="user_id"/>
+                    <field name="date_due"/>
+                    <field name="date_invoice"/>
+                    <field name="sale"/>
+                    <field name="cost"/>
+                    <field name="profit"/>
+                    <field name="quantity"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="od_sales_cost_view_search" model="ir.ui.view">
+            <field name="name">od.sales.cost.view.search</field>
+            <field name="model">od.sales.cost.view</field>
+            <field name="arch" type="xml">
+                <search string="Sales Report">
+                      <field name="company_id"/>
+                    <field name="user_id"/>
+                    <field name="partner_id"/>
+                            <field name="date_invoice"/>
+
+
+                    <field name="invoice_no"/>
+
+                    <field name="state"/>
+                    <field name="product_id"/>
+                    <field name="section_id"/>
+                    <field name="period_id"/>
+
+                    <field name="sale_type"/>
+                    <field name="currency_id"/>
+                    <field name="sale_currency"/>
+                    
+                    
+                    <field name="date_due"/>
+            
+                    <field name="sale"/>
+                    <field name="cost"/>
+                    <field name="profit"/>
+                   <filter icon="terp-go-year" string="This Year" name="od_year" domain="[('date_invoice','&lt;=', time.strftime('%%Y-%%m-%%d')),('date_invoice','&gt;=',time.strftime('%%Y-01-01'))]"
+                            help="Current Year"/>
+
+
+        <filter icon="terp-go-month" string="Month"
+                            name="month"
+                            domain="[('date_invoice','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),('date_invoice','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"
+                            help="Current Month"/>
+        <filter icon="terp-go-month" string="Quarter"
+                            name="quarter"
+                            domain="[('date_invoice','&lt;=',(datetime.date.today()+relativedelta(day=120)).strftime('%%Y-%%m-%%d')),('date_invoice','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"
+                            help="Quarter"/>
+<filter icon="terp-go-today" string="Today" domain="[('date_invoice','&lt;=',time.strftime('%%Y-%%m-%%d 23:59:59')),('date_invoice','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="Orders processed Today or planned for Today"/>
+
+
+
+<filter icon="terp-go-week"
+                            string="Week"
+                            separator="1"
+                            name="week"
+                            domain="[('date_invoice','&lt;=', (datetime.date.today() + relativedelta(weeks=0,day=7, weekday=-1)).strftime('%%Y-%%m-%%d')),('date_invoice','&gt;=',(datetime.date.today() - relativedelta(weeks=1, weekday=0)).strftime('%%Y-%%m-%%d'))]"
+                            help="Current Week"/>
+
+
+                    <group expand="1" string="Group By...">
+                          <filter string="Company" icon="terp-personal" name="company_id" context="{'group_by':'company_id'}"/>
+                          <filter string="Salesman" icon="terp-personal" name="oduser_id" context="{'group_by':'user_id'}"/>
+                           <filter string="Partner" icon="terp-personal" name="odpartner_id" context="{'group_by':'partner_id'}"/>
+                            <filter string="Date" icon="terp-personal" name="date_invoice" context="{'group_by':'date_invoice'}"/>
+                           <filter string="Invoice" icon="terp-personal" name="invoice_no" context="{'group_by':'invoice_no'}"/> 
+                            <filter string="State" icon="terp-personal" name="state" context="{'group_by':'state'}"/>
+                        <filter string="Product" icon="terp-personal" name="product_id" context="{'group_by':'product_id'}"/>
+                        <filter string="Sales Team" icon="terp-personal" name="section_id" context="{'group_by':'section_id'}"/>
+                        <filter string="Period" icon="terp-personal" name="period_id" context="{'group_by':'period_id'}"/>
+                        <filter string="Type" icon="terp-personal" name="sale_type" context="{'group_by':'sale_type'}"/>
+                         <filter string="Currency" icon="terp-personal" name="currency_id" context="{'group_by':'currency_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_sales_cost_view_graph">
+            <field name="name">od.sales.cost.view.graph</field>
+            <field name="model">od.sales.cost.view</field>
+            <field name="arch" type="xml">
+                <graph string="Sales Report" type="bar">
+                    <field name="company_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_sales_cost_view" model="ir.actions.act_window">
+            <field name="name">Sales Report</field>
+            <field name="res_model">od.sales.cost.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_sales_cost_view_search"/>
+            <field name="view_id" ref="od_sales_cost_view_graph"/>
+            <field name="context">{'search_default_oduser_id':1,'search_default_od_year':1}</field>
+            <field name="help">Sales Report Summary.</field>
+        </record>
+
+    </data>
+</openerp>

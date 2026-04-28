@@ -1,0 +1,252 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        
+     <!--     <record id="opp_rev_list" model="ir.ui.view">
+            <field name="name">opp.rev.rpt.wiz.tree</field>
+            <field name="model">opp.rev.rpt.wiz</field>
+            <field name="arch" type="xml">
+                <tree string="list">
+                    <field name="name"></field>
+                    <button name="export_rpt" string="Export" type="object" />
+
+                </tree>
+            </field>
+        </record>
+         -->
+        
+        <record id="view_opp_rev_rpt_wizard" model="ir.ui.view">
+            <field name="name">Opp Revenue</field>
+            <field name="model">opp.rev.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group >
+                       
+                        <group>
+	                        <field name="date_start" />
+	                        <field name="date_end" />
+	                        <field name="company_id" invisible="1"/>
+                        </group>
+                        
+                        <group >
+                       	 <field name="lead_date_start" />
+	                        <field name="lead_date_end" />
+                        </group>
+                        
+                        <group >
+                       	 <field name="submit_to_cust_date_start" />
+	                        <field name="submit_to_cust_date_end" />
+                        </group>
+                        
+                       
+                      </group>
+                       
+                        
+                            <group>
+                               <field name="branch_ids" widget="many2many_tags"/>
+                            </group>
+                              <group></group>
+                        	    <group></group>
+                            <group>
+                            <field name="product_group_ids" widget="many2many_tags" string="Technology Unit"/>
+                            </group>
+                               <group></group>
+                        	    <group></group>
+                             <group>
+                             <field name="stage_ids" widget="many2many_tags"/>
+                             </group>
+                               <group></group>
+                        	    <group></group>
+                             
+                             <group>
+                                 <field name="sm_ids" widget="many2many_tags" context="{'sam_ids':1}" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188,__export__.res_groups_238"/>
+                             </group>
+                               <group></group>
+                        	    <group></group>
+                        	    
+<!--                         	    <group> -->
+<!--                                <field name="copy_cust_am" string="Lead AM(Same as Customer AM)"/> -->
+<!--                             </group> -->
+<!--                               <group></group> -->
+<!--                         	    <group></group> -->
+                        	    
+                        	    <group>
+                                 <field name="lead_am_ids" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188,__export__.res_groups_244,__export__.res_groups_238,__export__.res_groups_172,__export__.res_groups_239" widget="many2many_tags" context="{'sam_ids':1}"/>
+                             </group>
+                               <group></group>
+                        	    <group></group>
+                        	    
+                        	    <group>
+                         		<field name="cust_ids" widget="many2many_tags"/>
+		                        </group>
+		                         <group></group>
+		                        <group></group>
+		                        
+                        	    <group>
+                           <field name="presale_ids" widget="many2many_tags" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188,__export__.res_groups_172" context="{'solution_arch_ids':1}"/>
+                           </group>
+                             <group></group>
+                        	    <group></group>
+                        	    
+                        	    
+                             <group>
+                               <field name="created_by_ids" widget="many2many_tags" context="{'sam_ids':1}" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188"/> 
+                             </group>
+                             <group></group>
+		                        <group></group>
+                        		 
+                        		 <group>
+                        		 <field name="costsheet_id" domain =" [('status','=','active'),('state','not in',('approved','done','modify','change','analytic_change','change_processed','redistribution_processed','cancel'))]"/>
+                        		 </group>
+                        		 
+                        		 <group></group>
+		                         <group></group>
+		                        
+		                        <group>
+                               <field name="industry_ids" widget="many2many_tags" string="Industry"/>
+                           		</group>
+                        		 	<group></group>
+		                         	<group></group>
+		                         	<group></group>
+		                         	<group></group>
+                        		    <group />
+                        		 
+                             <group />
+                              <group />
+                             
+                        		  
+                        		 
+                        		
+                       
+                      
+
+                      
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_opp_rev_rpt_act" model="ir.actions.act_window">
+            <field name="name">Pipeline/Technology</field>
+            <field name="res_model">opp.rev.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         <menuitem id="technology_rpt_gne" name="Technology Report" parent="base.menu_base_partner" sequence="2" />
+         <menuitem
+         	
+			id="menu_opp_rev_rpt"
+			parent="technology_rpt_gne"
+			sequence="1" 
+			action="action_opp_rev_rpt_act" />
+
+
+	<record model="ir.ui.view" id="od_rev_opp_tree_view">
+		<field name="name">wiz.rev.rpt.data</field>
+		<field name="model">wiz.rev.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Technology Report">
+			<field name="opp_create_date" />
+				<field name="expected_booking" />
+				<field name="partner_id" />
+				<field name="od_class" />
+				<field name="stage_id" />
+				<field name="cost_sheet_id" />				
+				<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="cs_state" />
+				<field name="pdt_grp_id" />
+				<field name="sale_aftr_disc" string="Sales" sum="Total" />
+				<field name="total_gp" string="Profit With MP" sum="Total" />
+				<field name="mp_sales" string="MP Sales" sum="Total" invisible="0" />
+				<field name="bdm_user_id" invisible="1"/>
+				<field name="sam_id" />
+				<field name="lead_am_id"/>
+				<field name="pre_sales_engineer" />
+				<field name="lst_up_dte" />
+				<field name="sm_io" />
+				
+				
+			</tree>
+		</field>
+	</record>
+	
+	
+	<record model="ir.ui.view" id="od_rev_opp_tree_view_1">
+		<field name="name">wiz.rev.rpt.data</field>
+		<field name="model">wiz.rev.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Technology Report">
+			<field name="opp_create_date" />
+				<field name="expected_booking" />
+				<field name="partner_id" />
+				<field name="od_class" />
+				<field name="stage_id" />
+				<field name="cost_sheet_id" />
+				<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="cs_state" />
+				<field name="pdt_grp_id" invisible="1"/>
+				<field name="sale_aftr_disc" string="Sales" sum="Total" />
+				<field name="total_gp" string="Profit" sum="Total" />
+				<field name="returned_mp" string="Returned MP" sum="Total"/>
+				<field name="mp_sales" string="MP Sales" sum="Total" invisible="1" />
+				<field name="rebate_amnt" sum="Total"/>
+				<field name="bdm_user_id" invisible="1"/>
+				<field name="sam_id" />
+				<field name="lead_am_id" />
+				<field name="pre_sales_engineer" />
+				<field name="lst_up_dte" />
+				<field name="sm_io" />
+				
+				
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="ood_rev_opp_search_view">
+		<field name="name">wiz.rev.rpt.data.search</field>
+		<field name="model">wiz.rev.rpt.data</field>
+		<field name="arch" type="xml">
+			<search>
+			<field name="expected_booking" />
+			<field name="opp_id" />
+			<field name="stage_id" />
+			<field name="cost_sheet_id" />
+			<group expand="1" string="Group By">
+			            <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+			             <filter string="Expected Closing Month" domain="[]" context="{'group_by':'expected_booking'}"/>
+                        <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Technology Unit" domain="[]" context="{'group_by':'pdt_grp_id'}"/>
+                        <filter string="Industry" domain="[]" context="{'group_by':'industry_id'}"/>
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                         <filter string="Customer AM" domain="[]" context="{'group_by':'sam_id'}"/>
+                         <filter string="Lead AM" domain="[]" context="{'group_by':'lead_am_id'}"/>
+                         <filter string="Class" domain="[]" context="{'group_by':'od_class'}"/>
+                           <filter string="Pre-Sales Engineer" domain="[]" context="{'group_by':'pre_sales_engineer'}"/>
+                         <filter string="Created By" domain="[]" context="{'group_by':'bdm_user_id'}"/>
+                        <filter string="Opportunity Stage" domain="[]" name="stage" context="{'group_by':'stage_id'}"/>
+                        <filter string="Cost Sheet Stage" domain="[]" name="cs_state" context="{'group_by':'cs_state'}"/>
+                        <filter string="Cost Sheet" domain="[]" context="{'group_by':'cost_sheet_id'}"/>
+                       <filter string="Opp Creation Date" domain="[]" context="{'group_by':'opp_create_date'}"/>
+                       
+                        
+                       
+                       
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+    </data>
+</openerp>

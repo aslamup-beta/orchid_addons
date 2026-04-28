@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_od_pmo_labour_cost" model="ir.ui.view">
+            <field name="name">Pmo Labour cost form</field>
+            <field name="model">od.pmo.labor.wiz</field>
+            <field name="arch" type="xml">
+                <form>
+                  <group>
+                   <group>
+                     <field name="date_from" required="1"/>
+                     <field name="date_to" required="1"/>
+                   </group>
+                  <field name="company_id" invisible="1"/>
+                  </group>
+                
+                  <notebook>
+                    <page string="Analytic Accounts">
+                      <field name="project_ids" />
+                    </page>
+                    <page string="Exclude Analytic Accounts">
+                         <field name="excluded_project_ids" />
+                    </page>
+                    <page string="Users">
+                         <field name="user_ids" />
+                    </page>
+                  </notebook>
+
+                <footer>
+                    <button string="Generate" name="get_timesheet" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Close" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="od_pmo_lab_wiz_action" model="ir.actions.act_window">
+            <field name="name">Labour Cost Report</field>
+            <field name="res_model">od.pmo.labor.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        
+ <menuitem name="Manpower Realization Report" id="menu_pmo_labour_cost" parent="orchid_beta.menu_mis_reporting"
+            action="od_pmo_lab_wiz_action" />
+            
+            
+          
+      <record model="ir.ui.view" id="lab_pmo_opp_search_view">
+		<field name="name">od.pmo.labor.wiz.line</field>
+		<field name="model">od.pmo.labor.wiz.line</field>
+		<field name="arch" type="xml">
+			<search>
+			<field name="user_id" />
+			<field name="project_id" />
+			
+			<group expand="1" string="Group By">
+			            <filter string="User" domain="[]" context="{'group_by':'user_id'}"/>
+			              <filter string="Project" domain="[]" context="{'group_by':'project_id'}"/>
+			            
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+      
+          
+          
+            
+      <record model="ir.ui.view" id="od_pmo_labour_rpt_tree_view">
+		<field name="name">od.pmo.labor.wiz.line</field>
+		<field name="model">od.pmo.labor.wiz.line</field>
+		<field name="arch" type="xml">
+			<tree string="Technology Report">
+			
+				<field name="user_id" />
+				<field name="project_id" />
+				<field name="duration" />
+				<field name="actual_amount" />
+				
+				
+				
+				
+			</tree>
+		</field>
+	</record>
+	
+	
+
+
+    </data>
+</openerp>

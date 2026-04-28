@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_msg_sales" name="Sale"
+            parent="mail.mail_feeds_main"
+          />
+        <menuitem id="menu_account_customer" name="Customers"
+            parent="menu_msg_sales"
+            action="base.action_partner_customer_form" sequence="100"/>
+
+        <menuitem id="menu_account_supplier" name="Suppliers"
+            parent="menu_msg_sales"
+            action="base.action_partner_supplier_form" sequence="100"/>
+        <menuitem id="menu_msg_producs" name="Products"
+            parent="menu_msg_sales"
+            action="product.product_template_action" sequence="100"/>
+            </data>
+</openerp>

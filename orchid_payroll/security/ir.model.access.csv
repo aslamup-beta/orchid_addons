@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_od_hr_over_time,access_od_hr_over_time,model_od_hr_over_time,,1,1,1,1
+access_od_hr_over_time_line,access_od_hr_over_time_line,model_od_hr_over_time_line,,1,1,1,1
+access_od_hr_loans_loans,access_od_hr_loans_loans,model_od_hr_loans_loans,,1,1,1,1
+access_od_hr_loans_line,access_od_hr_loans_line,model_od_hr_loans_line,,1,1,1,1
+access_od_hr_loan_info_line,access_od_hr_loan_info_line,model_od_hr_loan_info_line,,1,1,1,1
+access_allowance_rule_line,access_allowance_rule_line,model_allowance_rule_line,,1,1,1,1
+access_od_salary_register,access_od_salary_register,model_od_salary_register,,1,1,1,1
+access_od_final_settlement_account_line,access_od_final_settlement_account_line,model_od_final_settlement_account_line,,1,1,1,1
+access_od_final_settlement,access_od_final_settlement,model_od_final_settlement,,1,1,1,1
+access_od_hrms_salary_sheet_view,access_od_hrms_salary_sheet_view,model_od_hrms_salary_sheet_view,,1,1,1,1
+access_od_final_settlement_type_master_line,access_od_final_settlement_type_master_line,model_od_final_settlement_type_master_line,,1,1,1,1
+access_od_final_settlement_type_master,access_od_final_settlement_type_master,model_od_final_settlement_type_master,,1,1,1,1
+access_od_mode_of_payment,access_od_mode_of_payment,model_od_mode_of_payment,,1,1,1,1
+access_od_hr_holidays_public,access_od_hr_holidays_public,model_od_hr_holidays_public,,1,1,1,1
+access_od_hr_public_holidays_line,access_od_hr_public_holidays_line,model_od_hr_public_holidays_line,,1,1,1,1
+

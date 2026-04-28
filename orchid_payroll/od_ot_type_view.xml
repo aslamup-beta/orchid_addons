@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<record model="ir.ui.view" id="od_ot_type_tree_view">
+        <field name="name">Od Ot Type</field>
+        <field name="model">od.ot.type</field>
+        <field name="arch" type="xml">
+            <tree string="OT Type">
+                <field name="name"/>
+                <field name="od_code"/>
+                <field name="od_over_time_rate"/>
+                
+           </tree>
+      </field>
+</record>
+
+
+<record model="ir.ui.view" id="od_ot_type_form_view">
+        <field name="name">Od Ot Type</field>
+        <field name="model">od.ot.type</field>
+        <field name="arch" type="xml">
+            <form string="OT Type" version="7.0">
+               <sheet>
+               <group>
+               <field name="name"/>
+                <field name="od_code"/>
+                <field name="od_over_time_rate"/>
+                </group>
+               </sheet>
+           </form>
+      
+      </field>
+</record>
+
+ <record model="ir.actions.act_window" id="od_ot_type_action_view">
+        <field name="name">Od Ot Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.ot.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add OT Type. 
+          </p>
+        </field>
+</record>
+ 
+    
+<menuitem id="od_ot_type_id" name="OT Type" action="od_ot_type_action_view" parent="hr.menu_hr_configuration" sequence="37"/>
+ </data>
+</openerp>
+
+
+   
+

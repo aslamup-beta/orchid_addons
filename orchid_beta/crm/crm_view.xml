@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+<!-- 		<record model="ir.ui.view" id="crm_case_search_view_inherit_beta">
+           <field name="name">Opportunities</field>
+           <field name="model">crm.lead</field>
+           <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+           <field name="arch" type="xml">
+            <xpath expr="//filter[@string='Expected Closing']" position="replace">
+                   <filter name="expected_booking" string="Expected Booking" context="{'group_by':'date_action'}"/>
+               </xpath>
+
+           </field>
+       </record> -->
+
+        <record id="view_odsale_team_view_users_form" model="ir.ui.view">
+            <field name="name">res.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <field name="login" position="after">
+                    <field name="od_sales_team_ids" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="crm_case_form_view_beta_approval">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+
+             <xpath expr="//label[@for='title_action']" position="before">
+                    <field name="od_approval_state" widget="statusbar" statusbar_visible="pending" statusbar_colors="{&quot;rejected&quot;:&quot;red&quot;,&quot;approved&quot;:&quot;blue&quot;}"/>
+                    <!-- <field name="od_forecasted_value" /> -->
+               </xpath>
+               
+                <xpath expr="//field[@name='date_action']" position="attributes">
+                    <attribute name="required">True</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="required">True</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('od_approval_state', '!=', 'pending'),('company_id','=', 1)]}</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='user_id']" position="replace">
+                    <field name="user_id" invisible="1" on_change="on_change_user(user_id, context)" context="{'sam_ids':1,'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'base.group_sale_salesman_all_leads']}" required="1"/>
+                    
+                    <!--  <field name="od_bdm_user_id"/>  -->
+                    <button name="%(beta_customisation.od_assign_presales_action)d" string="Assign Leading PreSales" attrs="{'invisible':[('od_approval_state','=','pending')]}" type="action" class="oe_link"/>
+                    <field name="od_responsible_id" nolabel="1" string="Leading Presales" attrs="{'invisible':[('od_approval_state','=','pending')]}" context="{'solution_arch_ids':1}" readonly="1"/>
+               </xpath>
+            
+
+                <xpath expr="//field[@name='section_id']" position="replace">
+                    <field name="section_id" widget="selection" required="1" domain="[('id','!=',33)]"/>
+               </xpath>
+
+
+                <xpath expr="//field[@name='categ_ids']" position="after">
+                    
+                     <field name="write_uid" string="Last Updated By" readonly="1"/>
+                       <field name="od_branch_id" required="1" domain="[('id','not in',(10,14,5,30))]" />
+                     <field name="od_division_id" required="1" string="Technology Unit" domain="[('id','not in',(3,4,5,6,13,14,29,33))]"/>
+               </xpath>
+               
+               <xpath expr="//field[@name='fax']" position="after">
+	               <field name="create_uid" string="Lead Created By" readonly="1"/>
+	               <field name="create_date" string="Lead Created On" readonly="1"/>
+               </xpath>
+
+
+
+		       <xpath expr="//button[@name='case_mark_won']" position="attributes">
+		       	<attribute name="attrs">{'invisible': 1}</attribute>
+		       </xpath>
+
+
+		       <xpath expr="//button[@name='case_mark_lost']" position="attributes">
+		       	<attribute name="attrs">{'invisible': [('od_approval_state','not in',('approved','request_cancel','pending'))]}</attribute>
+		       	<attribute name="context">{'allow_write':1}</attribute>
+		       	<attribute name="groups">orchid_beta.groups_beta_admin,__export__.res_groups_172,__export__.res_groups_192</attribute>
+		       </xpath>
+		       
+
+               <xpath expr="//button[@name='case_mark_lost']" position="after">
+                    <button name="od_approve" string="Approve" class="oe_highlight" type="object" attrs="{'invisible': [('od_approval_state','!=','pending')]}" groups="orchid_beta.group_od_opportunity"/>
+                    <button name="od_reject" context="{'allow_write': 1}" string="Reject" class="oe_highlight" type="object" attrs="{'invisible': [('od_approval_state','!=','pending')]}" groups="orchid_beta.group_od_opportunity"/>
+               </xpath>
+               
+               
+<!--name="121"-->
+<!--              <xpath expr="//button[@name='121']" position="attributes">-->
+<!--		       	<attribute name="attrs">{'invisible': [('od_approval_state','!=','approved')]}</attribute>-->
+<!--		       </xpath>-->
+             <!--  <xpath expr="//field[@name='referred']" position="after">
+
+              		<field name="od_lead_bdm_user_id"/>
+                    <field name="od_lead_responsible_id"/>
+
+              </xpath> -->
+            </field>
+        </record>
+
+		<!--  <record model="ir.ui.view" id="crm_case_form_view_beta_approval_sale_quote">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+            	 <xpath expr="//button[@string='Convert to Quotation']" position="attributes">
+		       	<attribute name="attrs">{'invisible': [('od_approval_state','!=','approved')]}</attribute>
+		       </xpath>
+            </field>
+
+            </record> -->
+
+         <record model="ir.ui.view" id="crm_case_form_view_lead_form">
+            <field name="name">Lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+
+             <xpath expr="//field[@name='user_id']" position="replace">
+                    <field name="user_id" on_change="on_change_user(user_id, context)" context="{'sam_ids':1,'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'base.group_sale_salesman_all_leads']}" required="1" invisible="1"/>
+                    <field name="od_lead_bdm_user_id" context="{'bdm_ids':1}"/>
+                    <field name="od_lead_responsible_id" invisible="1"/>
+               </xpath>
+
+                <xpath expr="//field[@name='categ_ids']" position="after">
+                      <field name="od_branch_id" required="1" domain="[('id','not in',(10,14,5,30))]"/>
+                    <field name="create_uid"  string='Created By' readonly="1"/>
+                    <field name="create_date" string="Created On" readonly="1"/>
+                     <field name="write_uid"  string='Last Updated By' readonly="1"/>
+                       
+                   
+               </xpath>
+               
+               
+                <xpath expr="//field[@name='section_id']" position="replace">
+                    <field name="section_id" widget="selection" required="1" domain="[('id','!=',33)]"/>
+               </xpath>
+               <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="od_partner_class" readonly="1"/>
+               </xpath>
+
+            </field>
+         </record>
+
+           <record model="ir.actions.act_window" id="crm.crm_case_category_act_oppor11">
+        <field name="name">Opportunities</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">kanban,tree,graph,form,calendar</field>
+        <field name="domain">[('type','=','opportunity')] </field>
+        <field name="context">{'stage_type': 'opportunity','default_type':'opportunity'}  </field>
+        <field name="view_id" eval="False"/>
+        <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="help" type="html">
+            <p>
+                Odoo helps you keep track of your sales pipeline to follow
+                up potential sales and better forecast your future revenues.
+            </p><p>
+                You will be able to plan meetings and phone calls from
+                opportunities, convert them into quotations, attach related
+                documents, track all discussions, and much more.
+            </p>
+        </field>
+    </record>
+
+
+
+          <!-- <record model="ir.ui.view" id="crm_case_tree_view_od_beta_tab">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+
+
+                <field name="user_id" position="after">
+                    <field name="od_bdm_user_id"/>
+                    <field name="od_responsible_id"/>
+                </field>
+
+
+            </field>
+           </record> -->
+
+
+    </data>
+</openerp>

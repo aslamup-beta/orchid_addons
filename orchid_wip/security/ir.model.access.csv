@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_od_wip_manager,od.wip.manager,model_od_wip,account.group_account_manager,1,1,1,1
+access_od_wip_user,od.wip.user,model_od_wip,account.group_account_user,1,1,1,1
+access_od_wip_invoice,od.wip.invoice,model_od_wip,account.group_account_invoice,1,1,1,1
+

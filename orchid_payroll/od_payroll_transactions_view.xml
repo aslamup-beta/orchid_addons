@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="view_payroll_transactions_tree" model="ir.ui.view">
+            <field name="name">od.payroll.transactions.tree</field>
+            <field name="model">od.payroll.transactions</field>
+            <field name="arch" type="xml">
+                <tree string="Payroll Transactions" colors="blue:state=='draft'">
+                    <field name="period_id"/>
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <record id="view_payroll_transactions_form" model="ir.ui.view">
+            <field name="name">od.payroll.transactions.form</field>
+            <field name="model">od.payroll.transactions</field>
+            <field eval="25" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Payroll Transactions">
+                <header>
+                    <button name="loans_confirm" states="draft" string="Submit to Manager" type="object" class="oe_highlight"/>
+                  
+                  <button name="loans_accept" states="confirm" string="Approve" type="object" class="oe_highlight"/>
+                  
+                  <button name="loans_refuse" states="confirm,accepted" string="Refuse" type="object" class="oe_highlight"/>
+                  <button name="loans_set_draft" states="confirm,cancelled" string="Set To Draft" type="object" class="oe_highlight"/>
+                   
+                   
+
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,accepted,done,paid" statusbar_colors='{"confirm":"blue","cancelled":"red"}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                    <field name="period_id"/>
+                    <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="payroll_transactions_line" attrs="{'readonly': ['|',('period_id', '=', False),('state','!=','draft')]}">
+                                <tree string="Expense Lines" editable="bottom">
+                                    <field name="employee_id" on_change="onchange_employee_id(employee_id,parent)"/>
+                                    <field name="product_id" widget="selection"/>
+                                    <field name="transaction_note_id"/>
+                                  <field name="payroll_transactions_id" invisible="1"/>
+                                    <field name="uom_id" invisible="1"/>
+                                    <field name="period_id" invisible="1"/>
+                   
+                                    <field name="allowance" sum="Total" />
+                                    <field name="deduction" sum="Total" />
+                                    <field name="analytic_account" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+   
+
+
+
+
+
+        <record id="action_payroll_transactions_for" model="ir.actions.act_window">
+            <field name="name">Payroll Transactions</field>
+            <field name="res_model">od.payroll.transactions</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+<menuitem id="action_payroll_transactions_for_menu" name="Payroll Transactions" action="action_payroll_transactions_for" parent="hr_expense.next_id_49"/>
+
+    </data>
+</openerp>

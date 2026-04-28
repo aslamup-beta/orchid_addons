@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_commit_compare_wizard" model="ir.ui.view">
+            <field name="name">Commit Comparison</field>
+            <field name="model">opp.comp.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group >
+                        <group>
+	                      
+	                        <field name="company_id" />
+	                         <field name="stage_id" />
+                        </group>
+                       
+                       
+                      </group>
+
+                      
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_commit_comp_act" model="ir.actions.act_window">
+            <field name="name">Commit Comparison</field>
+            <field name="res_model">opp.comp.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         
+         <!-- <menuitem
+         	
+			id="menu_comp_rpt"
+			parent="technology_rpt_gne"
+			 sequence="3" 
+			action="action_commit_comp_act" /> -->
+
+
+	<record model="ir.ui.view" id="od_commit_comp_view">
+		<field name="name">wiz.comp.data.tree</field>
+		<field name="model">wiz.comp.data</field>
+		<field name="arch" type="xml">
+			<tree colors="red:total_gp_opp!=total_gp or total_sale_opp!=sale_aftr_disc" string="Commit Compare">
+			<field name="company_id" invisible="1" />
+				<field name="opp_id" />
+				<field name="partner_id" />
+				<button name="btn_open_opp" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="total_sale_opp" sum="Total" />
+				<field name="total_cost_opp" sum="Total" />
+				<field name="total_gp_opp" sum="Total" />
+				<field name="stage_id" />
+				<field name="cost_sheet_id" />
+				<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="branch_id" />
+				
+				<field name="total_sale" sum="Total" />
+				<field name="disc" sum="Total" />
+				<field name="sale_aftr_disc" sum="Total" />
+				<field name="total_cost" sum="Total" />
+				
+				<field name="total_gp" sum="Total" />
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="ood_commit_comp_view">
+		<field name="name">wiz.comp.data.search</field>
+		<field name="model">wiz.comp.data</field>
+		<field name="arch" type="xml">
+			<search>
+			
+			<field name="opp_id" />
+			<field name="stage_id" />
+			<field name="cost_sheet_id" />
+			<group expand="1" string="Group By">
+                        <filter string="Opportunity" domain="[]" context="{'group_by':'opp_id'}"/>
+                        <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                        <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Cost Sheet" domain="[]" context="{'group_by':'cost_sheet_id'}"/>
+                        <filter string="Stage" domain="[]" context="{'group_by':'stage_id'}"/>
+                     
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+    </data>
+</openerp>

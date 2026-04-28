@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="od_amc_om_index_tree_view">
+			<field name="name">account.analytic.account.inherit</field>
+			<field name="model">account.analytic.account</field>
+			<field name="arch" type="xml">
+				<tree colors="blue:state=='pending';grey:state in ('close','cancelled')" string="Analytic account" toolbar="1">
+                    <field name="name" invisible="1"/>
+                    <field name="code"/>
+                    <field name="partner_id"/>
+                    <field name="complete_name"/>
+                    <field name="state" string="S.O Status"/>
+                    <field name="fin_approved_date" string="Approval Date"/>
+                    <field name="date_start"/>
+                    <field name="date" string="End Date"/>
+                   <field name="od_type_of_project" />
+                    <field name="type" invisible="1"/>
+                    <field name="company_id" groups="base.group_multi_company" invisible="1"/>	                
+	                <field name="manager_id" invisible="1"/>
+	               <!--  <field name="od_owner_id" /> -->
+	                <field name="od_po_status" invisible="1"/>
+	                <field name="od_cost_sheet_id" invisible="1"/>
+	                
+	                <field name="recurring_invoices" invisible="1"/>
+                    <field name="template_id" invisible="1"/>
+                     <field name="debit" invisible="1"/>
+                    <field name="credit" invisible="1"/>
+                    <field name="balance" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="currency_id" groups="base.group_multi_currency" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                </tree>
+			</field>
+		</record>
+    
+    
+    <record model="ir.ui.view" id="od_amc_om_index_search_view">
+			<field name="name">project.project.search.index</field>
+			<field name="model">account.analytic.account</field>
+			<field name="arch" type="xml">
+				<search string="Analytic Account">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]" string="Analytic Account"/>
+                    <field name="date"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="manager_id"/>
+                    <field name="parent_id"/>
+                    <field name="user_id"/>
+                     <filter string="This Year" name="thisyear" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=', time.strftime('%Y-12-31')),('date','&gt;=',time.strftime('%Y-01-01'))]" help="Expected Closing in Current Year"/>
+                    <filter string="Open" domain="[('state','=','open')]" help="Current Accounts"/>
+                    <filter string="Pending" domain="[('state','=','pending')]" help="Pending Accounts"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Company" name="Company" context="{'group_by':'company_id'}"/>
+                        <filter string="Branch" name="Branch" context="{'group_by':'od_branch_id'}"/>
+                        <filter string="Associated Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Finance Status" domain="[]" context="{'group_by':'state'}" groups="base.group_no_one"/>
+                        <filter string="Closing Date" name="Closing Date" context="{'group_by':'date'}"/>
+                        <filter string="SAM" name="SAM" context="{'group_by':'manager_id'}"/>
+                        <filter string="Owner" name="Owner" context="{'group_by':'od_owner_id'}"/>
+                        <filter string="Type" domain="[]" context="{'group_by':'type'}"/>
+                        <filter string="Template" domain="[]" context="{'group_by':'template_id'}"/>
+                        <filter string="Parent Account" domain="[]" context="{'group_by':'parent_id'}"/>
+                        <filter string="Type" name="Type" context="{'group_by':'od_type_of_project'}"/>
+                    </group>
+                </search>
+			</field>
+		</record>
+    
+			<record model="ir.actions.act_window" id="action_amc_om_index">
+                <field name="name">AMC/OM Index</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">account.analytic.account</field>
+                <field name="view_type">form</field>
+                <field name="domain">[('type','in',('view','contract')),('od_type_of_project','in',('amc_view','o_m_view'))]</field>
+                <field name="view_mode">tree,form</field>
+                <field name="view_id" ref="od_amc_om_index_tree_view"/>
+<!--                 <field name="context">{ 'search_default_state': True, 'search_default_sam': True} </field> -->
+                <field name="search_view_id" ref="od_amc_om_index_search_view"/>
+                 <field name="help" type="html">
+                  <p class="oe_view_nocontent_create">
+                    Click to add new Project.
+                  </p>
+                </field>
+            </record>
+            
+            <menuitem
+         	
+			id="menu_amc_om_index"
+			parent="orchid_cost_sheet.od_menu_helpdesk_sub"
+			sequence="105" 
+			action="action_amc_om_index" />
+			
+</data>
+</openerp>

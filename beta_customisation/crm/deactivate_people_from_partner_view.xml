@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_remove_contact_form_part" model="ir.ui.view">
+            <field name="name">Deactivate People</field>
+            <field name="model">wiz.remove.contact.part</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                    
+                    <group>
+                    <field name="partner_id" readonly="1" invisible="0"/>
+                     </group>
+                     
+<!--                      <group> -->
+<!--                           <button name="od_load_contacts" class="oe_highlight" string="Load People" type="object" /> -->
+<!--                        </group> -->
+                     
+                     <group>
+                     <field name="wiz_line" nolabel="1" context="{'default_partner_id': partner_id}">
+                            <tree editable="top" delete="false" create="false">
+                            	<field name="partner_id" invisible="1"/>
+                                <field name="name" />
+                                <field name="od_active"/>
+                                
+                             </tree>
+                        </field>
+                        </group>
+                    
+                <footer>
+                  <button name="deactivate_contact" string="Deactivate" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+        
+
+
+    </data>
+</openerp>

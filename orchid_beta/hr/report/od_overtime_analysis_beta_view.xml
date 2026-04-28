@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_overtime_analysis_beta_tree" model="ir.ui.view">
+            <field name="name">od.overtime.analysis.beta</field>
+            <field name="model">od.overtime.analysis.beta</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Overtime Analysis" create="false">
+                    <field name="employee_id"/>
+                    <field name="hour"/>
+                    <field name="period_id"/>
+                  
+                    <field name="state"/>
+                    <field name="date"/>
+                    <field name="narration"/>
+                    <field name="xo_working_hours"/>
+                    <field name="xo_total_wage"/>
+                    <field name="name"/>
+                
+                    <field name="over_time_type_id"/>
+                    <field name="ot_allowance"/>
+                    
+
+
+
+                </tree>
+            </field>
+        </record>
+        <record id="od_overtime_analysis_beta_search_beta" model="ir.ui.view">
+            <field name="name">od.overtime.analysis.beta.search</field>
+            <field name="model">od.overtime.analysis.beta</field>
+            <field name="arch" type="xml">
+                <search string="Overtime Analysis">
+                    <field name="employee_id"/>
+                    <field name="period_id"/>
+                    <field name="over_time_type_id"/>
+                    <field name="state"/>
+                    <field name="name"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Employee" icon="terp-personal" name="odemployee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Period" icon="terp-personal" name="operiod_id" context="{'group_by':'period_id'}"/>
+                        <filter string="Overtime Type" icon="terp-personal" name="oover_time_type_id" context="{'group_by':'over_time_type_id'}"/>
+                        <filter string="State" icon="terp-personal" name="ostate" context="{'group_by':'state'}"/>
+                        <filter string="Name" icon="terp-personal" name="oname" context="{'group_by':'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_overtime_analysis_beta_graph_beta">
+            <field name="name">od.overtime.analysis.beta.graph</field>
+            <field name="model">od.overtime.analysis.beta</field>
+            <field name="arch" type="xml">
+                <graph string="Overtime Analysis" type="bar">
+                      <field name="employee_id"/>
+                    <field name="period_id"/>
+                    <field name="hour" type="measure"/>
+
+                              <field name="xo_working_hours" type="measure"/>
+        <field name="xo_total_wage" type="measure"/>
+     <field name="ot_allowance" type="measure"/>
+                  
+
+
+
+
+
+
+
+
+
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_overtime_analysis_beta" model="ir.actions.act_window">
+            <field name="name">Overtime Analysis</field>
+            <field name="res_model">od.overtime.analysis.beta</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_overtime_analysis_beta_search_beta"/>
+            <field name="view_id" ref="od_overtime_analysis_beta_graph_beta"/>
+<!--            <field name="context">{'search_default_odemployee_id':1}</field>-->
+            <field name="help">This report Salary Sheet.</field>
+        </record>
+        <menuitem parent="hr.menu_hr_reporting" action="action_od_overtime_analysis_beta" id="menu_action_od_overtime_analysis_beta" sequence="5"/>
+    </data>
+</openerp>

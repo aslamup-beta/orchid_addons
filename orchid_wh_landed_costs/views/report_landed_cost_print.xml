@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_stock_landed_cost_document">
+    <t t-call="report.external_layout">
+     <t t-foreach="docs" t-as="o">
+
+			<div class="page">
+				<div class="oe_structure"/>
+				<b/>
+				<b/>
+				<div  align="center">
+					<h2>
+						<span>Cost Sheet</span>
+					</h2>	
+				</div>
+				<b/>
+				<b/>
+				<div class="row">
+					<div class="col-xs-6">
+						<h3>
+							<span>Document N° </span>
+							<span t-field="o.name"/>
+						</h3>					   
+					</div>
+					<div class="col-xs-5 col-xs-offset-1">
+						<h3>
+							<span>Date </span>
+							<span t-field="o.date"/>
+						</h3>
+					</div>
+				</div>
+				<b/>
+				<b/>
+				<b/>
+				<b/>
+				<h4>
+					<span>Additional Charges</span>
+				</h4>	
+				<table class="table table-condensed" style="border-top:1px solid black; border-bottom:1px solid black;">
+					<thead>
+						<tr>
+							<th>Expenses Type</th>
+							<th>Account Credited</th>
+							<th >Split Method</th>
+							<th class="text-right">Cost</th>
+						</tr>
+				   </thead>
+				   <tbody class="sale_tbody">
+						<tr t-foreach="o.cost_lines" t-as="l">
+							<td>
+								<span t-field="l.name"/>
+							</td>
+							<td >
+								<span t-field="l.account_id"/>
+							</td>
+							<td >
+								<span t-field="l.split_method"/>
+							</td>
+							<td class="text-right">
+								<span t-field="l.price_unit"/>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td><strong>Total</strong></td>
+							<td></td>
+							<td></td>
+							<td class="text-right">
+								<strong><span t-esc= "sum([l.price_unit for l in o.cost_lines])"/></strong>
+							</td>
+						</tr>
+					</tfoot> 
+				</table>
+				<h4>
+					<span>Cost Calculation</span>
+				</h4>				
+				<table class="table table-condensed" style="border-top:1px solid black; border-bottom:1px solid black;">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th class="text-right">Quantity</th>
+							<th class="text-right">Weight</th>
+							<th class="text-right">Volume</th>							
+							<th class="text-right">Allocated Cost</th>
+						</tr>
+				   </thead>
+				   <tbody class="sale_tbody">
+				   
+						<tr t-foreach="o.valuation_adjustment_lines" t-as="al">
+							<td>
+								<span t-field="al.name"/>
+							</td>
+							<td class="text-right">
+								<span t-field="al.quantity"/>
+							</td>
+							<td class="text-right">
+								<span t-field="al.weight"/>
+							</td>
+							<td class="text-right">
+								<span t-field="al.volume"/>
+							</td>
+							<td class="text-right">
+								<span t-esc="al.additional_landed_cost"/>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td><strong>Total</strong></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="text-right">
+								<strong><span t-esc= "sum([al.additional_landed_cost for al in o.valuation_adjustment_lines])"/></strong>
+							</td>
+						</tr>
+					</tfoot> 
+				</table>
+				<h4>
+					<span>Landed Cost</span>
+				</h4>
+				<table class="table table-condensed" style="border-top:1px solid black; border-bottom:1px solid black;">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th class="text-right">Quantity</th>
+							<th class="text-right">Unit Cost</th>
+							<th class="text-right">Total Cost</th>
+						</tr>
+				   </thead>
+				   <tbody class="sale_tbody">
+				   
+						<tr t-foreach="o.od_valuation_adjustment_limited_lines" t-as="oal">
+							<td>
+								<span t-field="oal.product_id"/>
+							</td>
+							<td class="text-right">
+								<span t-field="oal.quantity"/>
+							</td>
+							<td class="text-right">
+								<span t-field="oal.cost_per_unit"/>
+							</td>
+							<td class="text-right">
+								<span t-field="oal.cost"/>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td><strong>Total</strong></td>
+							<td></td>
+							<td></td>
+							<td class="text-right">
+								<strong><span t-esc= "sum([oal.cost for oal in o.od_valuation_adjustment_limited_lines])"/></strong>
+							</td>
+						</tr>
+					</tfoot> 
+				</table>
+				<div class="row mt32 mb32" id="informations">
+					<div class="col-xs-3" align="center" style="margin-top:30px;">
+						<strong>Prepared By</strong>
+					</div>
+					<div class="col-xs-3" align="center" style="margin-top:30px;">
+						<strong>Verified By</strong>
+					</div>
+					<div class="col-xs-3" align="center" style="margin-top:30px;">
+						<strong>Approved By</strong>
+					</div>
+					<div class="col-xs-3" align="center" style="margin-top:30px;">
+						<strong>Audited By</strong>
+					</div>
+				</div>
+			</div>
+     </t>
+    </t>
+</template>
+</data>
+</openerp>

@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_manhour_rpt_wizard" model="ir.ui.view">
+            <field name="name">Manhour Report Form</field>
+            <field name="model">manhour.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+                     <group>                 
+                         
+                       
+                         <group>
+                             <field name="approved_date_from"/>
+                             <field name="approved_date_to"/>
+                         </group>
+                        
+                        <group>
+                        <field name="date_end_from"/>
+                        	<field name="date_end_to"/>
+                         </group>
+                         
+                          <group>
+                        	<field name="closing_date_from"/>
+                        	<field name="closing_date_to"/>
+                        </group>
+                       </group>
+                         <group>
+                          <field name="branch_ids" widget="many2many_tags"/>
+                         </group>
+                           <group/>
+                           <group/>
+                           <group>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                           </group>
+                           <group/>
+                           <group/>
+                           <group>
+                            <field name="pm_ids" widget="many2many_tags"/>
+                           </group>
+                           <group/>
+                           <group/>
+                           <group>
+                            <field name="sam_ids" widget="many2many_tags"/>
+                           </group>
+                           <group/>
+                            <group/>
+                            
+                            <group>
+                            <field name="project_ids" widget="many2many_tags"/>
+                           </group>
+                           <group/>
+                            <group/>
+                            
+                            <group>
+                            <field name="cost_sheet_ids" widget="many2many_tags"/>
+                           </group>
+                           <group/>
+                            <group/>
+                            
+                             <group>
+                        <field name="wip"/>
+                        <field name="closed"/>
+                      
+                        </group>
+                            
+                            
+                       <group>
+                       
+                       
+                      </group>
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+        
+        
+        
+        
+        
+        <record model="ir.ui.view" id="od_manhour_data_tree_view">
+		<field name="name">manhour.rpt.data.tree</field>
+		<field name="model">manhour.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Man-Hour Report">
+			
+				<field name="project_id" />
+				<button name="btn_open_project" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="cost_sheet_id" />
+				<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="cst_manhour" widget="float_time" /> 
+				<field name="work_manhour" widget="float_time" /> 
+				
+				
+			</tree>
+		</field>
+	</record>
+	
+	
+	<record model="ir.ui.view" id="ood_manhour_search_view">
+		<field name="name">manhour.rpt.data.search</field>
+		<field name="model">manhour.rpt.data</field>
+		<field name="arch" type="xml">
+			<search>
+			<field name="pm_id" />
+				<field name="sam_id" />
+				<field name="cost_sheet_id" />
+				<field name="project_id" />
+				<field name="branch_id" />
+			<group expand="1" string="Group By">
+                       
+                       
+                        <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+                       
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                        
+                         <filter string="Costsheet" domain="[]" context="{'group_by':'cost_sheet_id'}"/>
+                       
+                         <filter string="Project Start Year" context="{'group_by':'date_start:year'}" name="Year"/>
+                        <filter string="Project Start Month" context="{'group_by':'date_start:month'}"/>
+                        <filter string="Project Start Quarter" context="{'group_by':'date_start:quarter'}"/>
+                         <filter string="Actual Closing Date" context="{'group_by':'closing_date:month'}"/>
+                         <filter string="Approved Date" context="{'group_by':'closing_date:month'}"/>
+                         <filter string="PMO Expected Closing Year" context="{'group_by':'date_end:year'}" name="Year"/>
+                        <filter string="PMO Expected Closing Month" context="{'group_by':'date_end:month'}"/>
+                        <filter string="PMO Expected Closing Quarter" context="{'group_by':'date_end:quarter'}"/>
+                       
+                        <filter string="Sale Account Manager" domain="[]" context="{'group_by':'sam_id'}"/>
+                        <filter string="Project Manager" domain="[]" context="{'group_by':'pm_id'}"/>
+                        
+                         <filter string="Contract Status" domain="[]" context="{'group_by':'contract_status'}"/>
+                      
+                        
+                       
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+        
+        
+        
+        <record id="action_manhour_rpt_act" model="ir.actions.act_window">
+            <field name="name">Man-hour Comparison Report</field>
+            <field name="res_model">manhour.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         
+         <menuitem
+         	
+			id="menu_manhour_rpt"
+			parent="orchid_beta.menu_mis_reporting"
+			 sequence="0" 
+			action="action_manhour_rpt_act" />
+        
+        
+    </data>
+ </openerp>

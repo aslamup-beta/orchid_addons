@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="od_document_request_tree">
+        <field name="name">Document Request</field>
+        <field name="model">od.document.request</field>
+        <field name="priority">60</field>
+        <field name="arch" type="xml">
+            <tree>
+                    <field name="employee_id"/>
+                    <field name="document_type_id"/>
+                    <field name="purpose"/>
+            </tree>
+       </field>
+    </record>
+
+
+
+
+
+
+<!--    employee_id = fields.Many2one('hr.employee', string='Employee')-->
+<!--     = fields.Many2one('od.employee.document.type',string='Document Type',required=True)-->
+<!--     = fields.Char(string='Purpose')-->
+<!--     = fields.Text(string='Remarks')  -->
+
+
+
+
+
+
+
+
+  <record model="ir.ui.view" id="od_document_request_form">
+        <field name="name">Document Request</field>
+        <field name="model">od.document.request</field>
+        <field name="priority">60</field>
+        <field name="arch" type="xml">
+            <form string="Document Request" version="7.0">
+                <header>
+<!--                                         <button name="action_approved" type="object" -->
+<!--                          string="Approve" attrs="{'invisible':[('state', 'in', ['approved', 'draft','refused'])]}"/>-->
+<!--<button name="action_refused" type="object" -->
+<!--                          string="Refuse" attrs="{'invisible':[('state', 'in', ['draft','refused'])]}"/>-->
+
+<button name="reset_to_draft" type="object" 
+                          string="Reset To Draft" attrs="{'invisible':[('state', 'in', ['approved', 'draft','to_approve'])]}"/>
+<button name="action_confirm" type="object" 
+                          string="Confirm" attrs="{'invisible':[('state', 'in', ['refused','approved', 'to_approve'])]}"/>
+                   <field name="state" widget="statusbar" statusbar_visible="draft,refused,to_approve,approved" statusbar_colors='{"approved":"blue"}'/>
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+               </header>
+               <sheet>
+
+
+
+                <group>
+
+
+                      <group>
+
+                         <label for="employee_id" class="oe_edit_only"/>
+                         <h2><field name="employee_id" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/></h2>
+                          <field name="document_type_id" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                         <field name="purpose" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                         <field name="expected_date" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                      </group>
+                     <group>
+                          <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="address_home_id"/>
+                          <field name="custodian" invisible="1"/>
+                     </group>
+                </group>
+                <group >
+
+                    <group>
+                        <field name="is_issued" attrs="{'invisible':[('state', 'in', ['to_approve', 'refused','draft'])]}"/>
+<!--                        <field name="is_returned" attrs="{'invisible':[('state', 'in', ['to_approve', 'refused','draft'])]}"/>-->
+
+                        </group>
+
+                    <group>
+                        <field name="issued_date" attrs="{'invisible':['|',('is_issued','=',False),('state', 'in', ['confirm', 'refused','to_approve'])],'required':[('is_issued','=',True)]}"/>
+<!--                        <field name="return_date" attrs="{'invisible':['|',('is_returned','=',False),('state', 'in', ['confirm', 'refused','to_approve'])],'required':[('is_returned','=',True)]}"/>-->
+                        </group>
+                 </group>
+
+                <group>
+                 <field name="notes" class="oe_inline" placeholder="Description" /> 
+               </group>
+
+
+                <notebook>
+                    <page string='Attach Here'>
+                        <field name='document_attach_here_line' attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}">
+                            <tree editable='top'>
+                                <field name="name"/>
+                                <field name="scanned_copy" filename="scanned_fname"/>
+                                <field name="scanned_fname" invisible="1"/>
+                                <field name="reference"/>
+
+
+                                    
+
+
+
+
+
+<!--                                <field name="issue_date"/>-->
+<!--                                <field name="expiry_date"/>-->
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+
+
+<!--                  -->
+<!--                <group>-->
+<!--                 <field name="notes" class="oe_inline" placeholder="Description" /> -->
+<!--               </group>-->
+<!--                <field name="account_line">-->
+<!--                    <tree editable="top">-->
+
+<!--                         <field name="account_id"/>-->
+<!--                        <field name="balance" sum="Balance"/>-->
+<!--                        <field name="amount" sum="Amount"/>-->
+<!--                     </tree>-->
+<!--                </field>-->
+               </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+  </field>
+ </record>
+<record model="ir.actions.act_window" id="action_od_document_request">
+        <field name="name">Document Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.document.request</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+ <field name="domain">[('is_returned','=',False)]</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Document Request. 
+          </p>
+        </field>
+    </record>
+
+
+		<record id="action_document_request_tree11" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_document_request_tree"/>
+            <field name="act_window_id" ref="action_od_document_request"/>
+        </record>
+
+
+        <record id="action_new_stock_in" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="od_document_request_form"/>
+            <field name="act_window_id" ref="action_od_document_request"/>
+        </record>
+ </data>
+</openerp>

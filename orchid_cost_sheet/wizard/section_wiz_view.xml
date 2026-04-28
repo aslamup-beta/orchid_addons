@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wiz_section_mat_form" model="ir.ui.view">
+            <field name="name">Section Link Wizard</field>
+            <field name="model">section.mat.add.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id'))]">
+                    <tree>
+                        <field name="section_id" />
+                        <field name="manufacture_id" />
+                        <field name="part_no" />
+                        <field name="name" />
+                        <field name="types" />
+                    </tree>
+                </field>
+                <footer>
+                    <button name="link" string="Link" type="object" class="oe_highlight" />
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_section_remove_form" model="ir.ui.view">
+            <field name="name">Section Remove Wizard</field>
+            <field name="model">section.mat.remove.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id')),('section_id','=',context.get('section_id'))]">
+                    <tree>
+                        <field name="section_id" />
+                        <field name="manufacture_id" />
+                        <field name="part_no" />
+                        <field name="name" />
+                        <field name="types" />
+
+                    </tree>
+                </field>
+                <footer>
+                    <button name="remove_link" string="Clear Section" type="object" class="oe_highlight" />
+                </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_section_opt_form" model="ir.ui.view">
+            <field name="name">Section Link Wizard</field>
+            <field name="model">section.opt.add.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id'))]">
+                    <tree>
+                        <field name="opt_section_id" />
+                        <field name="manufacture_id" />
+                        <field name="part_no" />
+                        <field name="name" />
+                        <field name="types" />
+                    </tree>
+                </field>
+                <footer>
+                    <button name="link" string="Link" type="object" class="oe_highlight" />
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_section_opt_remove_form" model="ir.ui.view">
+            <field name="name">Section Remove Wizard</field>
+            <field name="model">section.opt.remove.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id')),('opt_section_id','=',context.get('opt_section_id'))]">
+                    <tree>
+                        <field name="opt_section_id" />
+                        <field name="manufacture_id" />
+                        <field name="part_no" />
+                        <field name="name" />
+                        <field name="types" />
+
+                    </tree>
+                </field>
+                <footer>
+                    <button name="remove_link" string="Clear Section" type="object" class="oe_highlight" />
+                </footer>
+
+                </form>
+            </field>
+        </record>
+
+
+                <record id="wiz_section_trn_form" model="ir.ui.view">
+                    <field name="name">Section Link Wizard</field>
+                    <field name="model">section.trn.add.wiz</field>
+                    <field name="arch" type="xml">
+                        <form string="costgroup" >
+                        <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id'))]">
+                            <tree>
+                                <field name="trn_section_id" />
+                                <field name="manufacture_id" />
+                                <field name="part_no" />
+                                <field name="name" />
+                                <field name="types" />
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="link" string="Link" type="object" class="oe_highlight" />
+                        </footer>
+                        </form>
+                    </field>
+                </record>
+
+                <record id="wiz_section_trn_remove_form" model="ir.ui.view">
+                    <field name="name">Section Remove Wizard</field>
+                    <field name="model">section.trn.remove.wiz</field>
+                    <field name="arch" type="xml">
+                        <form string="costgroup" >
+
+                        <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id')),('trn_section_id','=',context.get('trn_section_id'))]">
+                            <tree>
+                                <field name="trn_section_id" />
+                                <field name="manufacture_id" />
+                                <field name="part_no" />
+                                <field name="name" />
+                                <field name="types" />
+
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="remove_link" string="Clear Section" type="object" class="oe_highlight" />
+                        </footer>
+
+                        </form>
+                    </field>
+                </record>
+
+    </data>
+</openerp>

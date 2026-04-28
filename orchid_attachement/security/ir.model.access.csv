@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+od_attachement_access_right_user,od_attachement_access_right,model_od_attachement,,1,1,1,1
+od_attachement_access_right_manager,od_attachement_access_right,model_od_attachement,,1,1,1,1

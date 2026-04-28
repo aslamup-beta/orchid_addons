@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_od_quant_form_1" model="ir.ui.view">
+            <field name="name">od.quant.new.wiz</field>
+            <field name="model">od.quant.new.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Quant Filter">
+                    <!-- <div attrs="{'invisible': not context.get('cost')}">Stock Valuation based on purchase cost.
+                    </div> -->
+                  <group>
+                    <group string="General">
+                        <field name="location_id" domain="[('usage','=','internal')]" />
+                        <field name="usage" />
+                        <field name="lot_id"  />
+                         <field name="product_id" />
+                    </group>
+                    <group string="Product Classification">
+                    	    <field name="product_categ_id" />
+                    	    <field name="od_pdt_group_id"  />
+                    	    <field name="od_pdt_sub_group_id"  />
+                    	    <field name="od_pdt_brand_id"  />
+                    	    <field name="od_pdt_classification_id"  />
+
+                    </group>
+                    <group>
+                    <field name="negative_move" />
+                    </group>
+
+                    </group>
+                    <footer>
+                        <button name="open_quant" string="OK" type="object"  class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_od_quant_filter_1" model="ir.actions.act_window">
+            <field name="name">Quant Analysis</field>
+            <field name="res_model">od.quant.new.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'cost':True}</field>
+            <field name="view_id" ref="view_od_quant_form_1"/>
+            <field name="target">new</field>
+        </record>
+        <record id="action_od_quant_filter_2" model="ir.actions.act_window">
+            <field name="name">Location Stock</field>
+            <field name="res_model">od.quant.new.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'cost':False}</field>
+            <field name="view_id" ref="view_od_quant_form_1"/>
+            <field name="target">new</field>
+        </record>
+
+
+
+</data>
+</openerp>

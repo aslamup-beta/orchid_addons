@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+    <!-- Applicants -->
+    <record model="ir.ui.view" id="od_outsource_employee_join_form_tree_view">
+        <field name="name">Outsourced Employee Joining Form</field>
+        <field name="model">outsource.employee.join.form</field>
+        <field name="arch" type="xml">
+            <tree string="Out Sourced Employee" >
+                <field name="name" />
+                <field name="profession_id" />
+                <field name="customer_id"/>
+                <field name="company_id" invisible="1"/>
+                <field name="sponsorship"/>
+                <field name="join_date"/>
+                <field name="end_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="od_outsource_employee_join_form_form_view">
+        <field name="name">Outsourced Employee Joining Form</field>
+        <field name="model">outsource.employee.join.form</field>
+        <field name="arch" type="xml">
+          <form string="Out Sourced Employees">
+          <header>
+				<button name="send_to_finance" type="object" class="oe_highlight" string="Send to HR" attrs="{'invisible':[('state', '!=', 'draft')]}"/>
+				<button name="confirm_out_emp" type="object" class="oe_highlight" string="Confirm Employee" attrs="{'invisible':[('state', '!=', 'finance')]}"/>
+                <button name="cancel_form" type="object" class="oe_highlight" string="Cancel" attrs="{'invisible':[('state', '!=', 'finance')]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,employee,finance,confirm" statusbar_colors='{"confirm":"blue"}'/>
+            </header>
+            <sheet>
+                
+				<field name="image_medium" widget='image' class="oe_left oe_avatar"/>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/></h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="profession_id" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        <field name="personal_email" widget="email" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        <field name="work_email" widget="email" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        <field name="mobile_phone" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        
+                        
+                    </group>
+                    <group>
+                    	<field name="costsheet_id" required="1" domain="[('state','=','done')]" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                    	<field name="proj_manager" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        <field name="customer_id" required="1" domain="[('is_company','=',True)]" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        <field name="tech_unit" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        <field name="so_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                         <field name="analytic_id" domain="[('od_cost_sheet_id','=', costsheet_id)]" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        
+                        
+                        
+                    </group>
+                    <group string="Job">
+                        <field name="sponsorship" required="1" domain="[('is_company','=',True)]" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        <field name="join_date" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        <field name="company_id" invisible="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                    </group>
+                    <group string="Contract">
+                            <field name="end_date" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                            <field name="employee_end_date" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                    
+                        <label for="salary_proposed"/>
+                        <div>
+                            <field name="salary_proposed" class="oe_inline" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        </div>
+                        
+                    </group>
+                </group>
+                <separator string="Notes"/>
+                <field name="description" placeholder="Additional Notes..." attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                
+                <notebook>
+                    <page string='Documents'>
+                        <field name='od_document_line_ids' attrs="{'readonly':[('state', '=', 'confirm')]}">
+                            <tree editable='top'>
+                                <field name="document_type_id"/>
+                                <field name="document_referance"/>
+                                <field name="attach_file" filename="attach_fname"/>
+                                <field name="attach_fname" invisible="1"/>
+                                <field name="issue_date"/>
+                                <field name="expiry_date"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+          </form>
+        </field>
+    </record>
+			
+
+		<record model="ir.actions.act_window" id="action_view_outsource_employee_join_form">
+			<field name="name">Outsourced Employee Joining Form</field>
+			<field name="res_model">outsource.employee.join.form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+	          <p class="oe_view_nocontent_create">
+	            Click to Create an Outsourced Employee Joining Form
+	          </p>
+	        </field>
+		</record>
+		      
+        <menuitem id="menu_od_outsource_employee_join_form" name="Joining Form"
+            parent="menu_od_outsource" action="action_view_outsource_employee_join_form"/>
+    
+
+    </data>
+</openerp>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="od_product_sale_analysis_tree_view">
+            <field name="name">od.so.analysis.tree</field>
+            <field name="model">od.so.analysis</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Order Analysis" >
+                    <field name="product_id"/>
+                    <field name="order_id"/>
+                    <field name="cost_sheet_id"/>
+                    <field name="categ_id"/>
+                    <field name="project_id" />
+                    <field name="product_uom_qty"/>
+                    <field name="price_unit"/>
+                    <field name="amended_total_price"/>
+                    <field name="delivered"/>
+                    <field name="pending"/>
+                    <field name="cancel"/>                    
+                    <field name="state"/>
+                </tree>
+           </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_graph_product_sale_analysis_graph_view">
+            <field name="name">od.so.analysis.graph</field>
+            <field name="model">od.so.analysis</field>
+            <field name="arch" type="xml">
+                <graph string="Sale Order Analysis" type="pivot" stacked="True">
+                    <field name="partner_id"/>
+                    <field name="original_total_price"  type="measure"/>
+                     <field name="original_total_cost"  type="measure"/>
+                    <field name="amended_total_price" type="measure"/>
+                    <field name="amended_total_cost" type="measure"/>
+                    <field name="product_uom_qty"  type="measure"/>
+                    <field name="delivered"  type="measure"/>
+                    <field name="pending"  type="measure"/>
+                </graph>
+           </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_product_sale_analysis_search_view">
+            <field name="name">od.so.analysis.search</field>
+            <field name="model">od.so.analysis</field>
+            <field name="arch" type="xml">
+                <search string="Sale Order Analysis" >
+                    <field name="product_id"/>
+                    <field name="order_id"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="bdm_user_id"/>
+                    <field name="cost_sheet_id"/>
+                    <field name="categ_id"/>
+                    <field name="project_id" />
+                    <field name="original_qty"/>
+                    <field name="original_price"/>
+                    <field name="original_total_price" />
+                    <field name="product_uom_qty"/>
+                    <field name="price_unit"/>
+                    <field name="amended_total_price"/>
+                    <field name="state"/>
+		             <field name="od_pdt_group_id"/>
+		             <field name="od_pdt_sub_group_id"/>
+		             <field name="od_pdt_type_id"/>
+		             <field name="od_pdt_sub_type_id"/>
+
+                     <filter string="This Year" name="thisyear" domain="['|', ('date_order', '=', False), '&amp;',('date_order','&lt;=', time.strftime('%%Y-12-31')),('date_order','&gt;=',time.strftime('%%Y-01-01'))]" help="Sale Orders with date in current year"/>
+                    <filter string="Pending SO" name="pending" domain="[('pending', '!=', 0)]" help="Pnding Delivery"/>
+                    <separator/>
+
+                    <filter string="Done" name="done" domain="[('state', '=', 'done')]" help="SO Done"/>
+                    <filter string="Confimed" name="confirmed" domain="[('state', '=', 'confirmed')]" help="SO Confimed"/>
+                    <filter string="Active" name="active" domain="[('state','not in',('draft', 'cancel','template'))]" help="SO Done and Confimed"/>
+
+
+
+                    <group expand="1" string="Group By">
+                        
+                        <filter string="Salesperson" name='user' context="{'group_by':'user_id'}"/>
+                        <filter string="BDM" name='user' context="{'group_by':'bdm_user_id'}"/>
+                        <filter string="Project" context="{'group_by':'project_id'}"/>
+                        <filter string="Customer" context="{'group_by':'partner_id'}"/>
+                         <filter string="Company" context="{'group_by':'company_id'}"/>
+                          <filter string="Sales Team" context="{'group_by':'section_id'}"/>
+                        <filter string="Product Group" context="{'group_by':'od_pdt_group_id'}"/>
+                        <filter string="Product Sub Group" context="{'group_by':'od_pdt_sub_group_id'}"/>
+                        <filter string="Customer" context="{'group_by':'partner_id'}"/>
+                        <filter string="Product Type" context="{'group_by':'od_pdt_type_id'}"/>
+                        <filter string="Sub Type" context="{'group_by':'od_pdt_sub_type_id'}"/>
+                        <filter string="State" context="{'group_by':'state'}"/>
+
+                    </group>
+
+                </search>
+           </field>
+        </record>
+
+
+        <record id="action_product_sale_analysis_all" model="ir.actions.act_window">
+            <field name="name">SO Report</field>
+            <field name="res_model">od.so.analysis</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_product_sale_analysis_search_view"/>
+            <field name="context">{'search_default_active':0,'search_default_thisyear':1, 'group_by_no_leaf':1,'group_by':[]}</field>
+            <field name="help">This report performs analysis on your sales orders.</field>
+        </record>
+
+        <menuitem action="action_product_sale_analysis_all" id="menu_od_report_product_sale_all" parent="menu_mis_reporting" sequence="1"/> 
+
+    </data>
+</openerp>

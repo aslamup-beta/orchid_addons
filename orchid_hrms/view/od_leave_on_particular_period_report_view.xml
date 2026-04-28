@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="od_employee_particular_day_leave_tree">
+        <field name="name">od.leave.on.particular.period.report</field>
+        <field name="model">od.leave.on.particular.period.report</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" create="false">
+                    <field name="employee_id"/>
+
+                    <field name="holiday_status_id"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="state"/>
+
+
+
+
+            </tree>
+       </field>
+    </record>
+
+
+
+        <record id="od_employee_particular_day_leave_search" model="ir.ui.view">
+            <field name="name">od.leave.on.particular.period.report.search</field>
+            <field name="model">od.leave.on.particular.period.report</field>
+            <field name="arch" type="xml">
+                <search string="Leave Up To Date">
+                          <field name="employee_id"/>
+
+                    <field name="holiday_status_id"/>
+                    <field name="state"/>
+
+                    <group expand="1" string="Group By...">
+                        <filter string="Employee" icon="terp-personal" name="odemployee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Leave Type" icon="terp-personal" name="holiday_status_id" context="{'group_by':'holiday_status_id'}"/>
+                        <filter string="State" icon="terp-personal" name="state" context="{'group_by':'state'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_employee_particular_day_leave_graph">
+            <field name="name">od.leave.on.particular.period.report.graph</field>
+            <field name="model">od.leave.on.particular.period.report</field>
+            <field name="arch" type="xml">
+                <graph string="Leave Up To Date" type="pivot">
+                    <field name="employee_id"/>
+
+
+
+
+
+                </graph>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<record model="ir.actions.act_window" id="action_od_employee_particular_day_leave">
+        <field name="name">Leave On Particular Date</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.leave.on.particular.period.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="search_view_id" ref="od_employee_particular_day_leave_search"/>
+            <field name="view_id" ref="od_employee_particular_day_leave_tree"/>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            
+          </p>
+        </field>
+    </record>
+
+
+
+ </data>
+</openerp>

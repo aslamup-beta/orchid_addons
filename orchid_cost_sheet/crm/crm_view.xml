@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="crm_case_form_view_oppor_od_poc_tab">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+           
+           
+ 			<!-- 	<xpath expr="//div[@name='button_box']" position="inside">
+                        <button name="od_open_attachement" class="oe_stat_button" type="object" icon="fa-book" string="Attachments">
+                        </button>
+                    </xpath> -->
+                
+                <!--  Commeneted by Aslam on May 5 2021 as per Elayyan request  -->
+<!--                 <xpath expr="/form/sheet/div/button[@name='action_schedule_meeting']" position="after"> -->
+<!--                            <button class="oe_inline oe_stat_button" name="od_open_attachement"  type="object" icon="fa-book" > -->
+<!--                            <field name="od_attachement_count" widget="statinfo" string="Documents"/> -->
+<!--                            </button> -->
+
+<!--                 </xpath> -->
+ 				          
+               <xpath expr="//field[@name='referred']" position="after">
+               	<field name="od_creator"  />
+               </xpath>
+               <xpath expr="//field[@name='partner_id']" position="attributes">
+               	<attribute name="domain">[('is_company','=',True)]</attribute>
+               </xpath>
+                
+               <xpath expr="//field[@name='partner_id']" position="after">
+               	<field name="od_contact_person" domain="[('parent_id','=',partner_id)]" required="1" />
+               </xpath>
+               
+               <xpath expr="//field[@name='email_from']" position="attributes">
+               		<attribute name="invisible">True</attribute>
+               </xpath>
+          <xpath expr="/form/sheet/notebook/page[@string='Fund Raising']" position="attributes">
+          <attribute name="invisible">True</attribute>
+          </xpath>
+          	<field name='description' position="attributes">
+          		<attribute name="required">False</attribute>
+          	</field>
+            <xpath expr="/form/sheet/notebook/page[@string='Internal Notes']" position="before">
+                 
+            <page string="Appointments" >
+            <group>
+            
+             <table style="width:100%">
+             <thead>
+             <tr>
+             	<th style="width:43%">Activity</th>
+             	<th style="width:19%">Required On</th>
+<!--              	<th style="width:19%">Status</th> -->
+             	<th style="width:19%">Finished On</th>
+             	<th style="width:19%"></th>
+             </tr>
+             </thead>
+             <tbody>
+             
+             <tr>
+             <td><field name="financial_proposal" /><label string="Financial Proposal" /></td>
+             <td> <field name="od_req_on_7" nolabel="1" attrs="{'required': [('financial_proposal','=',True)]}"/></td>
+<!--              <td><field name="od_status_id_7" nolabel="1"/></td> -->
+             <td><field name="finished_on_7" nolabel="1" readonly="1" /></td>
+             <td></td>
+             
+             </tr>
+             
+             <tr>
+             <td><field name="budget_proposal" /><label string="Budgetary Proposal" /></td>
+             <td> <field name="od_budg_req_on" nolabel="1" attrs="{'required': [('budget_proposal','=',True)]}"/></td>
+<!--              <td><field name="od_budg_status_id" nolabel="1"/></td> -->
+             <td><field name="od_budg_finished_on" nolabel="1"/></td>
+             <td></td>
+             </tr>
+             
+             <tr>
+             <td><field name="management_presentation" /><label string="Management Presentation" /></td>
+             <td> <field name="man_pre_date" nolabel="1" attrs="{'required': [('management_presentation','=',True)]}"/></td>
+<!--              <td><field name="od_status_id_1" nolabel="1"/></td> -->
+             <td><field name="finished_on_1" nolabel="1" readonly="1"/></td>
+             <td><button name="od_mark_mp_finished" string="Finish" type="object" attrs="{'invisible':[('management_presentation','=',False)]}"/></td> 
+             </tr>
+             
+             <tr>
+             <td><field name="technical_presentation" /><label string="Technical Presentation" /></td>
+             <td><field name="tech_pre_date" attrs="{'required': [('technical_presentation','=',True)]}"/></td>
+<!--            	 <td><field name="od_status_id_2" nolabel="1"/></td> -->
+             <td><field name="finished_on_2" nolabel="1" readonly="1" /></td>
+             <td><button name="od_mark_tp_finished" string="Finish" type="object" attrs="{'invisible':[('technical_presentation','=',False)]}"/></td> 
+             </tr>
+             
+            
+             
+             <tr>
+             <td><field name="help_customer_rfp" /><label string="Help Customer Writing Spec" /> </td>
+             <td> <field name="rfp_date" attrs="{'required': [('help_customer_rfp','=',True)]}"/></td>
+<!--              <td><field name="od_status_id_4" nolabel="1"/></td> -->
+             <td><field name="finished_on_4" nolabel="1" readonly="1" /></td>
+             <td><button name="od_mark_hcws_finished" string="Finish" type="object" attrs="{'invisible':[('help_customer_rfp','=',False)]}"/></td> 
+             </tr>
+            
+             <tr>
+             <td><field name="tech_proposal" /><label string="Detailed Technical Proposal" /> </td>
+             <td>  <field name="proposal_date" attrs="{'required': [('tech_proposal','=',True)]}"/></td>
+<!--              <td><field name="od_status_id_5" nolabel="1"/></td> -->
+             <td><field name="finished_on_5" nolabel="1" readonly="1" /></td>
+             <td><button name="od_mark_dtp_finished" string="Finish" type="object" attrs="{'invisible':[('tech_proposal','=',False)]}"/></td> 
+             </tr>
+            
+            <tr>
+			<td><field name="hld_proposal" /><label string="Detailed HLD Proposal" /></td>
+			<td> <field name="hld_date" attrs="{'required': [('hld_proposal','=',True)]}"/></td>  
+<!-- 			<td><field name="od_status_id_6" nolabel="1"/></td> -->
+             <td><field name="finished_on_6" nolabel="1" readonly="1" /></td>   
+             <td><button name="od_mark_hld_finished" string="Finish" type="object" attrs="{'invisible':[('hld_proposal','=',False)]}"/></td>        
+            </tr> 
+            
+            <tr>
+			<td><field name="site_survey" /><label string="Site Survey" /></td>
+			<td> <field name="od_req_on_8" attrs="{'required': [('site_survey','=',True)]}"/></td>  
+<!-- 			<td><field name="od_status_id_8" nolabel="1"/></td> -->
+             <td><field name="finished_on_8" nolabel="1" readonly="1" /></td>
+             <td><button name="od_mark_ss_finished" string="Finish" type="object" attrs="{'invisible':[('site_survey','=',False)]}"/></td>     
+            </tr> 
+            
+            <tr>
+			<td><field name="req_tech_workshop" /><label string="Requirements Technical Workshop" /></td>
+			<td> <field name="od_req_on_9" attrs="{'required': [('req_tech_workshop','=',True)]}"/></td>  
+<!-- 			<td><field name="od_status_id_9" nolabel="1"/></td> -->
+             <td><field name="finished_on_9" nolabel="1" readonly="1" /></td>
+             <td><button name="od_mark_rtw_finished" string="Finish" type="object" attrs="{'invisible':[('req_tech_workshop','=',False)]}"/></td>        
+            </tr> 
+            
+             <tr>
+             <td><field name="proof_of_concept" /><label string="Proof Of Concept" /></td>
+             <td><field name="proof_date" on_change="onchange_poc_req_date(proof_date)" attrs="{'required': [('proof_of_concept','=',True)]}"/></td>
+<!--              <td><field name="od_status_id_3" nolabel="1"/></td> -->
+             <td><field name="finished_on_3" nolabel="1" readonly="1" /></td>
+             <td><button name="od_mark_poc_finished" string="Finish" type="object" attrs="{'invisible':[('proof_of_concept','=',False)]}"/></td> 
+             </tr>
+             
+             </tbody>
+            </table>
+            </group>
+            
+            <group string="POC">
+            	<group>
+            		<field name="poc_initiation_date" invisible="1"/>
+            		<field name="od_customer_name"/>
+            		<field name="poc_name" attrs="{'required':[('proof_of_concept','=',True)]}"/>
+            		<field name="poc_bi_objective" attrs="{'required':[('proof_of_concept','=',True)]}"/>
+            		<field name="pre_requisite_status" />
+            	</group>
+            	<group>
+            	<field name="planned_poc_start_date" />
+            	<field name="planned_poc_finish_date" />
+            	<field name="actual_poc_start_date" />
+            	<field name="actual_poc_finished_date" invisible="1"/>
+            	<field name="poc_status" />
+            	</group>
+            	
+               </group>
+               
+               <group>
+            	<table style="width:100%" class="table table-striped">
+				<thead>
+					<th>
+					 Sales Team Feedback
+					</th>
+					<th>Customer Requirement</th>
+<!-- 					<th>Compliance</th> -->
+					<th>SAM Notes</th>
+				</thead>
+				<tbody>
+				<tr>
+						<td>Customer Payment Terms</td>
+						<td><field name="cust_req1" required="1"/></td>
+<!-- 						<td><field name="comp1"/></td> -->
+						<td><field name="sam_note1" required="1"/></td>
+				</tr>
+				<tr>
+						<td>Penalty Conditions</td>
+						<td><field name="cust_req2" required="1"/></td>
+<!-- 						<td><field name="comp2" /></td> -->
+						<td><field name="sam_note2" required="1"/></td>
+				</tr>
+				
+				</tbody>
+			</table>
+            </group>
+            
+            
+            </page>
+            
+           <!--  <page string="POC">
+            	
+            	</page> -->
+            	
+<!--             	<page string="Compliance"> -->
+            	    	
+            	
+            	   
+<!--              </page> -->
+            	
+            </xpath>
+            </field>
+           </record>
+       
+         <record model="ir.ui.view" id="crm_case_tree_view_poc_tab_1_c_tab">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                
+         
+                <field name="probability" position="after">
+                    <field name="financial_proposal" />
+                    <field name="od_status_id_7" />
+                    <field name="od_req_on_7"/>
+                    <field name="finished_on_7"/> 
+                    <field name="od_buisiness_type_id"/>
+                    <field name="od_territory_id"/>     
+                </field>  
+            </field>
+   </record>
+   
+   <!--   <record model="ir.ui.view" id="crm_case_search_inherit_poc_tab">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <search>
+                     <group expand="0" string="Group By" colspan="16">
+                        <filter string="Industry" context="{'group_by':'od_buisiness_type_id'}"/>
+                        
+                   </group>
+                </search>
+                  
+            
+            </field>
+      </record>            -->
+           
+    </data>
+  </openerp>
+ 

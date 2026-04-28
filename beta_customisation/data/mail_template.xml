@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    
+    	<record id="od_fill_detail_employee" model="email.template">
+             <field name="name">UAE - Employee Personal Data Entry Form</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Update Beta Joining Form</field>
+             <field name="email_to">${object.personal_email},${object.work_email}</field>
+<!--              <field name="email_cc">${object.od_owner_id.email}</field> -->
+             <field name="model_id" ref="model_od_beta_joining_form"/>
+             <field name="body_html"><![CDATA[
+          
+          <div style="background-color: rgb(255, 255, 255);">
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear ${object.name or ''},</p>
+			<p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Please update your basic profile details by clicking following link !&nbsp;</p><p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">You need the following documents as soft copies to upload in the form,</p><p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;"><br></p><ol><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Passport</span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Education Degree</span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Local ID (if any)</span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Personal Photo (Passport size)</span></li></ol><p></p><p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;"><a href="http://betait.net/beta_join/${object.id}">http://betait.net/beta_join/${object.id}</a></p>
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Thank You</p>
+
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_fill_detail_employee_saudi" model="email.template">
+             <field name="name">KSA - Employee Personal Data Entry Form</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Update Beta Joining Form</field>
+             <field name="email_to">${object.personal_email},${object.work_email}</field>
+<!--              <field name="email_cc">${object.od_owner_id.email}</field> -->
+             <field name="model_id" ref="model_od_beta_joining_form"/>
+             <field name="body_html"><![CDATA[
+          
+          <div style="background-color: rgb(255, 255, 255);">
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear ${object.name or ''},</p>
+			<p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Please update your basic profile details by clicking following link !&nbsp;</p><p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">You need the following documents as soft copies to upload in the form,</p><p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;"><br></p><ol><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Passport</span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Education Degree</span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Local ID (if any)</span></li><li><span style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Personal Photo (Passport size)</span></li></ol><p></p><p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;"><a href="http://betait.net/beta_join/${object.id}">http://betait.net/beta_join/${object.id}</a></p>
+             <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Thank You</p>
+
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_fill_detail_finance" model="email.template">
+             <field name="name">UAE - Employee detail fill by Finance</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Fill Employee Finance details</field>
+             <field name="email_to">mohd.sageer@betait.net,finance@betait.net</field>
+             <field name="email_cc">${object.manager_id.work_email}</field>
+             <field name="model_id" ref="model_od_beta_joining_form"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear Team,</p>
+             <p>Please Fill the Finance details of our newly joined employee ${object.name or ''} and confirm employee.</p>
+<p><a href="http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469">http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469</a></p>             <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_fill_detail_finance_saudi" model="email.template">
+             <field name="name">KSA - Employee detail fill by Finance</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Fill Employee Finance details</field>
+             <field name="email_to">finance.ksa@betait.net</field>
+             <field name="email_cc">${object.manager_id.work_email}</field>
+             <field name="model_id" ref="model_od_beta_joining_form"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear Team,</p>
+             <p>Please Fill the Finance details of our newly joined employee ${object.name or ''} and confirm employee.</p>
+<p><a href="http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469">http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469</a></p>             <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_hr_welcome_mail" model="email.template">
+             <field name="name">UAE - Employee welcome mail</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Welcome to Beta IT</field>
+             <field name="email_to">${object.work_email}</field>
+             <field name="email_cc">mohd.sageer@betait.net,hr@betait.net</field>
+             <field name="model_id" ref="model_od_beta_joining_form"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; " --="">
+             <p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">Dear ${object.name}, </p>
+ 
+			 <p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">I would like to welcome you onboard as a member of Beta IT Family.</p><p></p><ul><li>Name :&nbsp;${object.name}</li><li>Department :&nbsp;${object.department_id.name}</li><li>Job Title : ${object.job_id.name}</li><li>Branch : ${object.branch_id.name}</li><li>Joining Date : ${object.joining_date}</li><li>Nationality : ${object.nationality.name}</li></ul><p></p><p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><a href="http://betait.net/web#id=${object.employee_id.id}&amp;view_type=form&amp;model=hr.employee&amp;menu_id=296&amp;action=378">http://betait.net/web#id=${object.employee_id.id}&amp;view_type=form&amp;model=hr.employee&amp;menu_id=296&amp;action=378</a></p><p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><br></p><table style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;" cellspacing="1" cellpadding="4" border="1">
+				<tbody>
+				<tr> 
+				    <th>Address:</th>
+				    <th><span style="font-weight: normal;"><a href="Beta IT Login">http://www.betait.net/web/login</a></span></th>
+				    <th>الموقع</th>
+				 </tr>
+				 <tr>
+				    <td><span style="font-weight: bold;">Username:</span></td>
+				    <td>${object.work_email}</td>
+				    <td><span style="font-weight: bold;">اسم المستخدم</span></td>
+				</tr>
+				<tr>
+				    <td><span style="font-weight: bold;">Password:</span></td>
+				    <td>You should receive an email request to set your password
+			سيصلك بريد إلكتروني من النظام يطلب منك تحديد كلمة المرور</td>
+				    <td><span style="font-weight: bold;">كلمة المرور</span></td>
+				</tr>
+				<tr>
+				    <td><span style="font-weight: bold;">Zoom Video Conferencing:</span></td>
+				    <td><a href="zoom">https://zoom.us</a>
+			I have added you to our video conferencing tool. You should receive an email message for confirmation
+			تمت إضافتك إلى برنامج المحادثة المرئية. سيصلك بريد إلكتروني من النظام بهذا الشأن</td>
+				    <td><span style="font-weight: bold;">برنامج المحادثات المرئية</span></td>
+				</tr>
+				<tr> 
+				    <th>Training Videos:</th>
+				    <th><span style="font-weight: normal;"><a href="Training Videos">http://betait.net/web#page=0&amp;limit=80&amp;view_type=list&amp;model=beta.videos&amp;menu_id=1105&amp;action=1481</a></span></th>
+				    <td><span style="font-weight: bold;">فيديوهات التدريب</span></td></tr></tbody></table><p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><br>Thank You</p>
+        
+             
+             </div>
+            ]]>
+             </field>
+         </record>
+         
+         <record id="od_hr_welcome_mail_saudi" model="email.template">
+             <field name="name">KSA - Employee welcome mail</field>
+             <field name="email_from">${(user.email or '')|safe}</field>
+             <field name="subject">Welcome to Beta IT --- مرحبا بك في بيتا</field>
+             <field name="email_to">${object.work_email},</field>
+             <field name="email_cc">hr.ksa@betait.net</field>
+             <field name="model_id" ref="model_od_beta_joining_form"/>
+             <field name="body_html"><![CDATA[
+             
+             <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; " --="">
+             <p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">Dear ${object.name}, </p>
+ 
+			 <p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">I would like to welcome you onboard as a member of Beta IT Family.</p><p></p><ul><li>Name :&nbsp;${object.name}</li><li>Department :&nbsp;${object.department_id.name}</li><li>Job Title : ${object.job_id.name}</li><li>Branch : ${object.branch_id.name}</li><li>Joining Date : ${object.joining_date}</li><li>Nationality : ${object.nationality.name}</li></ul><p></p><p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><a href="http://betait.net/web#id=${object.employee_id.id}&amp;view_type=form&amp;model=hr.employee&amp;menu_id=296&amp;action=378">http://betait.net/web#id=${object.employee_id.id}&amp;view_type=form&amp;model=hr.employee&amp;menu_id=296&amp;action=378</a></p><p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><br></p><table style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;" cellspacing="1" cellpadding="4" border="1">
+				<tbody>
+				<tr> 
+				    <th>Address:</th>
+				    <th><span style="font-weight: normal;"><a href="Beta IT Login">http://www.betait.net/web/login</a></span></th>
+				    <th>الموقع</th>
+				 </tr>
+				 <tr>
+				    <td><span style="font-weight: bold;">Username:</span></td>
+				    <td>${object.work_email}</td>
+				    <td><span style="font-weight: bold;">اسم المستخدم</span></td>
+				</tr>
+				<tr>
+				    <td><span style="font-weight: bold;">Password:</span></td>
+				    <td>You should receive an email request to set your password
+			سيصلك بريد إلكتروني من النظام يطلب منك تحديد كلمة المرور</td>
+				    <td><span style="font-weight: bold;">كلمة المرور</span></td>
+				</tr>
+				<tr>
+				    <td><span style="font-weight: bold;">Zoom Video Conferencing:</span></td>
+				    <td><a href="zoom">https://zoom.us</a>
+			I have added you to our video conferencing tool. You should receive an email message for confirmation
+			تمت إضافتك إلى برنامج المحادثة المرئية. سيصلك بريد إلكتروني من النظام بهذا الشأن</td>
+				    <td><span style="font-weight: bold;">برنامج المحادثات المرئية</span></td>
+				</tr>
+				<tr> 
+				    <th>Training Videos:</th>
+				    <th><span style="font-weight: normal;"><a href="Training Videos">http://betait.net/web#page=0&amp;limit=80&amp;view_type=list&amp;model=beta.videos&amp;menu_id=1105&amp;action=1481</a></span></th>
+				    <td><span style="font-weight: bold;">فيديوهات التدريب</span></td></tr></tbody></table><p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;"><br>Thank You</p>
+        
+             
+             </div>
+        
+             ]]>
+             </field>
+         </record>
+         
+         
+         
+     </data>
+</openerp>

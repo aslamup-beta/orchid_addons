@@ -1,0 +1,8 @@
+<openerp>
+    <data>
+
+		<menuitem name="Orchid_beta_project" id="orchid_beta_project_menu_root" />
+		<menuitem name="Orchid_beta_project Menu" id="orchid_beta_project_menu_general" parent="orchid_beta_project_menu_root" />
+
+    </data>
+</openerp>

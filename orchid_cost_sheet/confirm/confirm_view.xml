@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_confirm_form_general" model="ir.ui.view">
+            <field name="name">Confirm wiz form</field>
+            <field name="model">gen.wiz.confirm</field>
+            <field name="arch" type="xml">
+                <form string="Confirm" >
+                    <div>
+                    <h2>Are You Sure</h2>
+                    </div>
+                <footer>
+                    <button string="Yes" name="button_confirm" type="object" class="oe_highlight"/>
+                    <button string="No" name="button_cancel" type="object" class="oe_highlight" />
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="confirm_wiz_action" model="ir.actions.act_window">
+            <field name="name">Are You Sure</field>
+            <field name="res_model">gen.wiz.confirm</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+       <!--  <menuitem id="sessions_wiz_menu" parent="menu_general"
+            action="session_wiz_action"/>
+ -->
+ 
+<!--  Cost sheet design ready confirmation -->
+ 
+ <record id="wiz_confirm_form_design_ready" model="ir.ui.view">
+            <field name="name">Confirm Design Ready form</field>
+            <field name="model">gen.wiz.confirm.design.ready</field>
+            <field name="arch" type="xml">
+                <form string="Confirm" >
+                    <div>
+                    <h3>Are you sure, your design is ready and want to proceed?</h3>
+                    </div>
+                <footer>
+                    <button string="Yes" name="button_confirm" type="object" class="oe_highlight"/>
+                    <button string="No" name="button_cancel" type="object" class="oe_highlight" />
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="confirm_wiz_form_design_ready_action" model="ir.actions.act_window">
+            <field name="name">Are You Sure</field>
+            <field name="res_model">gen.wiz.confirm.design.ready</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+ 
+    </data>
+</openerp>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+
+        <record id="ksa_emp_contract_expiry_list" model="email.template">
+            <field name="name">KSA - Contract Expiry List</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Contract Expiry List</field>
+            <field name="email_to">fakhri.amaireh@betait.net, hr.ksa@betait.net</field>
+<!--            <field name="email_cc">${object.employee_id.high_management_id.user_id.login}</field>-->
+            <field name="model_id" ref="model_hr_contract_quarterly"/>
+            <field name="body_html"><![CDATA[
+	          <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Team,</p>
+	             	<p>Kindly please find the below link which will lead you to the record contains the list of all contracts which will expiry.</p>
+	                    <ul>
+	                    	<li>link: https://erp.betait.net/web?#id=${object.id}&view_type=form&model=hr.contract.quarterly&menu_id=1228&action=1970</li>
+	                    </ul>
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
+

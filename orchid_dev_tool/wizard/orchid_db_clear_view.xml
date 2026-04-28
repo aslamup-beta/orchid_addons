@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_dbclear_form" model="ir.ui.view">
+            <field name="name">orchid wiz clear</field>
+            <field name="model">wiz.clear.db</field>
+            <field name="arch" type="xml">
+                <form string="Session" >
+                   <group>
+                   	<group>
+                   		<field name="password" />
+                   	</group>
+                   </group>
+                <footer>
+                    <button string="Execute Script" name="execute_script" type="object" class="oe_highlight"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="db_clear_wiz_action" model="ir.actions.act_window">
+            <field name="name">Clear Extra Move</field>
+            <field name="res_model">wiz.clear.db</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+       
+
+    </data>
+</openerp>

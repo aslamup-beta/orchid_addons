@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!--         add available analytic account m2m  -->
+       <record id="view_account_form_orchid_inherit" model="ir.ui.view">
+            <field name="name">account.account.form.inherit11</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form" /> 
+            <field name="arch" type="xml">
+                <field name="note" position="after">
+                    <notebook>
+                        <page string="Analytic">
+                            <group>
+                                <field name="od_is_analytic"/>
+                            </group>
+                            <field name="analytic_acc_ids" context="{'search_default_type' : 'view', 'type': 'view'}">
+			                    <tree string="Analytic Accounts" editable="bottom">
+									<field name="name"></field>
+								</tree>
+		                    </field>
+                        </page>
+                        <page string="Asset">
+                            <group>
+                                <field name="od_is_asset"/>
+                            </group>
+                            <field name="asset_cate_ids">
+                                <tree string="Asset Category" editable="bottom">
+									<field name="name"></field>
+								</tree>
+						 	</field>
+                        </page>
+
+                        <page string="Product">
+
+
+                            <group>
+                                <field name="od_is_product"/>
+                            </group>
+                            <field name="product_ids">
+                                <tree string="Product" editable="bottom">
+									<field name="name"></field>
+								</tree>
+						 	</field>
+                        </page>
+
+                        <page string="Partners">
+                            <group>
+                                <field name='customer'/>
+	                        <field name='supplier'/>
+	                         <field name='employee'/>
+                            </group>
+                        </page>
+                    </notebook>
+                </field>
+            </field>
+        </record>
+
+<!--         add contect in sale reciept -->
+<!--        <record id="inherit_account_voucher_view_sale_receipt_form_1" model="ir.ui.view">-->
+<!--           <field name="name">account.voucher.sale.form</field>-->
+<!--           <field name="model">account.voucher</field>-->
+<!--           <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>-->
+<!--           <field name="arch" type="xml">-->
+<!--                <xpath expr="//page[@string='Sales Information']/field[@name='line_cr_ids']/tree/field[@name='account_analytic_id']" position="attributes">-->
+<!--					<attribute name="context">{'account_id' : account_id}</attribute>-->
+<!--				</xpath>-->
+<!--				</field>-->
+<!--       </record> -->
+<!--       -->
+<!--       <record id="inherit_account_voucher_view_purchase_receipt_form_1" model="ir.ui.view">-->
+<!--           <field name="name">account.voucher.purchase.form</field>-->
+<!--           <field name="model">account.voucher</field>-->
+<!--           <field name="inherit_id" ref="account_voucher.view_purchase_receipt_form"/>-->
+<!--           <field name="arch" type="xml">-->
+<!--                <xpath expr="//page[@string='Bill Information']/field[@name='line_dr_ids']/tree/field[@name='account_analytic_id']" position="attributes">-->
+<!--					<attribute name="context">{'account_id' : account_id}</attribute>-->
+<!--				</xpath>-->
+<!--				</field>-->
+<!--       </record> -->
+
+<!--       <record id="view_voucher_form_111" model="ir.ui.view">-->
+<!--           <field name="name">account.voucher_inherit.al</field>-->
+<!--           <field name="model">account.voucher</field>-->
+<!--           <field name="inherit_id" ref="account_voucher.view_voucher_form"/>-->
+<!--           <field name="arch" type="xml">-->
+<!--                <xpath expr="//page[@string='Voucher Entry']/field[@name='line_ids']/tree/field[@name='account_analytic_id']" position="attributes">-->
+<!--					<attribute name="context">{'account_id' : account_id}</attribute>-->
+<!--				</xpath>-->
+<!--				</field>-->
+<!--       </record> -->
+
+
+
+    </data>
+</openerp>

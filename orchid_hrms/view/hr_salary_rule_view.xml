@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+
+   <record id="od_salary_rule_inheriting_forms_view" model="ir.ui.view">
+            <field name="name">hr.salary.rule</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+
+
+                 <xpath expr="/form/notebook/page[@string='Child Rules']/field[@name='parent_rule_id']" position="before">
+                        <group>
+                            <group>
+                                <field name='od_is_gratuity'/>
+                                <field name='od_is_leave_salary'/>
+                                <field name='od_is_airfare'/>
+
+                            </group>
+                        </group>
+
+
+
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

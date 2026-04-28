@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="crm_case_form_view_oppor_od_poc_tab">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+           
+           
+ 			<!-- 	<xpath expr="//div[@name='button_box']" position="inside">
+                        <button name="od_open_attachement" class="oe_stat_button" type="object" icon="fa-book" string="Attachments">
+                        </button>
+                    </xpath> -->
+                    
+                <xpath expr="/form/sheet/div/button[@name='action_schedule_meeting']" position="after">
+                           <button class="oe_inline oe_stat_button" name="od_open_attachement"  type="object" icon="fa-book" >
+                           <field name="od_attachement_count" widget="statinfo" string="Documents"/>
+                           </button>
+
+                </xpath>
+ 				          
+               <xpath expr="//field[@name='referred']" position="after">
+               	<field name="od_creator"  />
+               </xpath>
+               <xpath expr="//field[@name='partner_id']" position="attributes">
+               	<attribute name="domain">[('is_company','=',True)]</attribute>
+               </xpath>
+                
+               <xpath expr="//field[@name='partner_id']" position="after">
+               	<field name="od_contact_person" domain="[('parent_id','=',partner_id)]" required="1" />
+               </xpath>
+               
+               <xpath expr="//field[@name='email_from']" position="attributes">
+               		<attribute name="invisible">True</attribute>
+               </xpath>
+          <xpath expr="/form/sheet/notebook/page[@string='Fund Raising']" position="attributes">
+          <attribute name="invisible">True</attribute>
+          </xpath>
+          	<field name='description' position="attributes">
+          		<attribute name="required">False</attribute>
+          	</field>
+            <xpath expr="/form/sheet/notebook/page[@string='Internal Notes']" position="before">
+            <page string="Information">
+            	<group >
+            	<group>
+            		<field name="od_buisiness_type_id" required="1"/>
+            		<field name="od_territory_id"/>
+            	<!-- 	<field name="od_opp_sector_id" /> -->
+            	    <field name="od_inquiry_type_id" options="{'no_create': True}" required="1"/>
+            	    <field name="od_buisiness_type_ids" widget="many2many_tags" required="1"/>
+            	    <field name="od_submission_date" invisible="1"/>
+            	    <field name="od_protected_by_vendor" required="1" />
+            	    <field name="od_existing_customer" required="1"/>
+            	  <!--   <field name="od_customer_need" /> -->
+            	</group>
+            	<group>
+            	    <field name="od_installation_type_id" required="1"/>
+            	    <field name="is_deal_budgeted" required="1"/>
+            	    <field name="is_bid_bond_required" required="1"/>
+            	  </group>
+            	  <group>
+            	    <field name="od_our_products" widget="many2many_tags" required="1"/>
+            	    <field name="od_competing_products" widget="many2many_tags" required="1"/>
+            	    <field name="od_our_competer" widget="many2many_tags" required="1"/>
+            	   </group>
+            	   
+            	    <group>
+            	     <field name="project_implemented_loc" required="1"/>
+            	    <field name="od_period_id" required="1"/>
+            	    <field name="od_operation_period" required="1"/>
+            	 </group>
+            	
+            	
+            	<label string="Product Group" />
+            	<group col="4" colspan="4">
+            	 <field name="od_group_line" nolabel="1">
+            	 <tree editable="bottom">
+            	 	<field name="group_id" required="1"/>
+            	 	<field name="sub_group_id" domain="[('parent_group_id','=', group_id)]" widget="many2many_tags" required="1"/>
+            	 </tree>
+            	 </field>
+            	</group>
+            	</group>
+            	
+            	    
+            	
+            </page>
+            <page string="Appointments" >
+            <group>
+             <table style="width:100%">
+             <thead>
+             <tr>
+             	<th>Activity</th>
+             	<th>Required On</th>
+             	<th>Status</th>
+             	<th>Finished On</th>
+             </tr>
+             </thead>
+             <tbody>
+             <tr>
+             <td><field name="financial_proposal" /><label string="Financial Proposal" /></td>
+             <td> <field name="od_req_on_7" nolabel="1" groups="orchid_beta.group_beta_presales_engineer,orchid_beta.group_beta_presales_manager"/></td>
+             <td><field name="od_status_id_7" nolabel="1"/></td>
+             <td><field name="finished_on_7" nolabel="1" readonly="1" /></td>
+             </tr>
+             <tr>
+             <td><field name="management_presentation" /><label string="Management Presentation" /></td>
+             <td> <field name="man_pre_date" nolabel="1" /></td>
+             <td><field name="od_status_id_1" nolabel="1"/></td>
+             <td><field name="finished_on_1" nolabel="1"  /></td>
+             </tr>
+             
+             <tr>
+             <td><field name="technical_presentation" /><label string="Technical Presentation" /></td>
+             <td><field name="tech_pre_date"/></td>
+           	 <td><field name="od_status_id_2" nolabel="1"/></td>
+             <td><field name="finished_on_2" nolabel="1"  /></td>
+             </tr>
+             
+             <tr>
+             <td><field name="proof_of_concept" /><label string="Proof Of Concept" /></td>
+             <td><field name="proof_date" on_change="onchange_poc_req_date(proof_date)"/></td>
+             <td><field name="od_status_id_3" nolabel="1"/></td>
+             <td><field name="finished_on_3" nolabel="1"  /></td>
+             </tr>
+             
+             <tr>
+             <td><field name="help_customer_rfp" /><label string="Help Customer Writing Spec" /> </td>
+             <td> <field name="rfp_date" /></td>
+             <td><field name="od_status_id_4" nolabel="1"/></td>
+             <td><field name="finished_on_4" nolabel="1"  /></td>
+             </tr>
+            
+             <tr>
+             <td><field name="tech_proposal" /><label string="Detailed Technical Proposal" /> </td>
+             <td>  <field name="proposal_date"/></td>
+             <td><field name="od_status_id_5" nolabel="1"/></td>
+             <td><field name="finished_on_5" nolabel="1"  /></td>
+             </tr>
+            
+            <tr>
+			<td><field name="hld_proposal" /><label string="Detailed HLD Proposal" /></td>
+			<td> <field name="hld_date"/></td>  
+			<td><field name="od_status_id_6" nolabel="1"/></td>
+             <td><field name="finished_on_6" nolabel="1"  /></td>          
+            </tr> 
+            
+            <tr>
+			<td><field name="site_survey" /><label string="Site Survey" /></td>
+			<td> <field name="od_req_on_8"/></td>  
+			<td><field name="od_status_id_8" nolabel="1"/></td>
+             <td><field name="finished_on_8" nolabel="1"  /></td>          
+            </tr> 
+            
+            <tr>
+			<td><field name="req_tech_workshop" /><label string="Requirements Technical Workshop" /></td>
+			<td> <field name="od_req_on_9"/></td>  
+			<td><field name="od_status_id_9" nolabel="1"/></td>
+             <td><field name="finished_on_9" nolabel="1"  /></td>          
+            </tr> 
+            
+             </tbody>
+            </table>
+            </group>
+            </page>
+            
+            <page string="POC">
+            	<group>
+            	<group>
+            		<field name="poc_initiation_date" invisible="1"/>
+            		<field name="od_customer_name"/>
+            		<field name="poc_name" attrs="{'required':[('proof_of_concept','=',True)]}"/>
+            		<field name="poc_bi_objective" attrs="{'required':[('proof_of_concept','=',True)]}"/>
+            		
+            	</group>
+            	<group>
+            	<field name="planned_poc_start_date" />
+            	<field name="planned_poc_finish_date" />
+            	<field name="actual_poc_start_date" />
+            	<field name="actual_poc_finished_date" invisible="1"/>
+            	<field name="pre_requisite_status" />
+            	<field name="poc_status" />
+            	</group>
+            	
+               </group>
+            	</page>
+            	
+            </xpath>
+            </field>
+           </record>
+       
+         <record model="ir.ui.view" id="crm_case_tree_view_poc_tab_1_c_tab">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                
+         
+                <field name="probability" position="after">
+                    <field name="financial_proposal" />
+                    <field name="od_status_id_7" />
+                    <field name="finished_on_7"/> 
+                    <field name="od_buisiness_type_id"/>
+                    <field name="od_territory_id"/>     
+                </field>  
+            </field>
+   </record>
+   
+   <!--   <record model="ir.ui.view" id="crm_case_search_inherit_poc_tab">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <search>
+                     <group expand="0" string="Group By" colspan="16">
+                        <filter string="Industry" context="{'group_by':'od_buisiness_type_id'}"/>
+                        
+                   </group>
+                </search>
+                  
+            
+            </field>
+      </record>            -->
+           
+    </data>
+  </openerp>
+ 

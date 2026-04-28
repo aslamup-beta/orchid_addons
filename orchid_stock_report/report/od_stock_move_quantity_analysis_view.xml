@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_stock_move_quanity_analysis_tree" model="ir.ui.view">
+            <field name="name">od.stock.move.quantity.analysis.tree</field>
+            <field name="model">od.stock.move.quantity.analysis</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Quantity Analysis" create="false">
+                    <field name="company_id"/>
+                    <field name="date"/>
+                    <field name="code"/>
+                    <field name="document_type"/>
+                    <field name="origin"/>
+                    <field name="name"/>
+
+                     
+                     <field name="product_id"/>
+
+                     <field name="incoming_qty"/>
+                     <field name="outgoing_qty"/>
+                     <field name="warehouse_id"/>
+                    <field name="location_id"/>
+                    <field name="source_usage"/>
+                    <field name="location_dest_id"/>
+                    <field name="dest_usage"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+
+        <record id="od_stock_move_quantity_analysis_search" model="ir.ui.view">
+            <field name="name">od.stock.move.quantity.analysis.search</field>
+            <field name="model">od.stock.move.quantity.analysis</field>
+            <field name="arch" type="xml">
+                <search string="Quantity Analysis">
+
+                    <field name="product_id"/>
+                    <field name="origin"/>
+<!--                     <field name="warehouse_id"/>-->
+<!--                    <field name="location_id"/>-->
+<!--                    <field name="location_dest_id"/>-->
+<!--                    <field name="dest_usage"/>-->
+<!--                    <field name="source_usage"/>-->
+<!--                        -->
+<!--                     <field name="company_id"/>-->
+                    <group expand="1" string="Group By...">
+                       <filter string="Product" icon="terp-personal" name="product_id" context="{'group_by':'product_id'}"/>
+                        <filter string="Source" icon="terp-personal" name="location_id" context="{'group_by':'location_id'}"/>
+                        <filter string="Destination" icon="terp-personal" name="location_dest_id" context="{'group_by':'location_dest_id'}"/>
+                        <filter string="Company" icon="terp-personal" name="company_id" context="{'group_by':'company_id'}"/>
+<!--                        <filter string="Partner" icon="terp-personal" name="partner_id" context="{'group_by':'partner_id'}"/>-->
+
+                        <filter string="Type" icon="terp-personal" name="odcode" context="{'group_by':'code'}"/>
+
+                        <filter string="Destination Type" icon="terp-personal" name="dest_usage" context="{'group_by':'dest_usage'}"/>
+                        <filter string="Source Type" icon="terp-personal" name="source_usage" context="{'group_by':'source_usage'}"/>
+                        <filter string="Document Type" icon="terp-personal" name="document_type" context="{'group_by':'document_type'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+
+
+
+
+
+        <record model="ir.ui.view" id="od_stock_move_analysis_qty_graph">
+            <field name="name">od.stock.move.analysis.qty.graph</field>
+            <field name="model">od.stock.move.quantity.analysis</field>
+            <field name="arch" type="xml">
+                <graph string="Quantity Analysis" type="pivot">
+                    <field name="product_id" type="row"/>
+                    <field name="qty" type="measure"/>
+
+                </graph>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+        <record id="action_od_stock_move_quantity_analysis" model="ir.actions.act_window">
+            <field name="name">Quantity Analysis</field>
+            <field name="res_model">od.stock.move.quantity.analysis</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_stock_move_quantity_analysis_search"/>
+            <field name="view_id" ref="od_stock_move_analysis_qty_graph"/>
+            <field name="context">{'search_default_odcode':1}</field>
+        </record>
+
+
+    </data>
+</openerp>

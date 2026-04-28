@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_crm_lead_cost_sheet_inherited" model="ir.ui.view">
+            <field name="name">crm.lead.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[@string='Lead']" position="after">
+                    <page string="Feedback Lost/Cancelled" attrs="{'invisible':[('stage_id','not in',(7,8))]}">
+                        <group>
+                            <group string="Account Manager">
+                                <field name="sm_io1" string="Why Lost?"/>
+                                <field name="sm_io2" string="What we should/shouldn’t do to avoid losing it?"/>
+
+                            </group>
+
+
+                        </group>
+                        <group>
+                            <group string="Technology Unit Manager">
+                                <field name="tum_io1" string="Why Lost?"/>
+                                <field name="tum_io2" string="What we should/shouldn’t do to avoid losing it?"/>
+
+                            </group>
+                        </group>
+                    </page>
+
+                </xpath>
+
+                <xpath expr="/form/sheet/group" position="after">
+                    <group>
+                        <field name="company_id" invisible="1"/>
+                        <label for="customer_ref_type" attrs="{'invisible':[('company_id','!=', 6)]}"/>
+                        <div>
+                            <field name="customer_ref_type" class="oe_inline"
+                                   attrs="{'invisible':[('company_id','!=', 6)]}"/>
+                            <field name="customer_ref_data" placeholder="Bid Reference"
+                                   attrs="{'invisible':[('company_id','!=', 6)]}" class="oe_inline"/>
+                        </div>
+                    </group>
+                    <group>
+
+
+                        <field name="portal_date" attrs="{'invisible':[('company_id','!=', 6)]}"
+                               string="Last Day/Time to Submit on Etimad/Customer Portal آخر تاريخ ووفت لتقديم العروض على منصة اعتماد أو منصة العميل"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="/form/sheet/div/button[@name='action_schedule_meeting']" position="before">
+                    <button class="oe_inline oe_stat_button" name="od_open_lg_request" type="object" icon="fa-book">
+                        <field name="od_lg_request_count" widget="statinfo" string="Bank Bonds"/>
+                    </button>
+                </xpath>
+
+                <xpath expr="/form/sheet/div/button[@name='action_schedule_meeting']" position="before">
+                    <button class="oe_inline oe_stat_button" name="od_open_tender_request" type="object" icon="fa-book">
+                        <field name="od_tender_req_count" widget="statinfo" string="Tender Request"/>
+                    </button>
+                </xpath>
+
+                <xpath expr="//button[@name='case_mark_lost']" position="after">
+                    <button name="request_cancel" string="Request Cancellation"
+                            attrs="{'invisible':[('od_approval_state','!=','approved')]}"
+                            type="object" groups="orchid_beta.group_beta_sale_account_mananger" invisible="1"/>
+                    <button name="request_mark_lost" string="Request to Mark Lost"
+                            attrs="{'invisible':[('od_approval_state','!=','approved')]}"
+                            type="object" groups="orchid_beta.group_beta_sale_account_mananger" invisible="1"/>
+                    <button name="od_mark_cancel" context="{'allow_write': 1}"
+                            attrs="{'invisible':[('od_approval_state','=','cancelled')]}" string="Mark Cancel"
+                            class="oe_highlight" type="object"
+                            groups="orchid_beta.groups_beta_admin,__export__.res_groups_188,__export__.res_groups_192,__export__.res_groups_172"/>
+                    <button name="reject_cancel" attrs="{'invisible':[('od_approval_state','!=','request_cancel')]}"
+                            string="Reject Cancel / Lost Request" class="oe_highlight" type="object"
+                            groups="orchid_beta.groups_beta_admin,__export__.res_groups_188,__export__.res_groups_192,__export__.res_groups_172"/>
+                    <button name="request_return_to_pipeline" string="Request Return to Pipeline"
+                            attrs="{'invisible':[('od_approval_state','in',('pending', 'approved'))]}"
+                            type="object" groups="orchid_beta.group_beta_sale_account_mananger"/>
+                    <button name="od_returned_to_pipeline" context="{'allow_write': 1}"
+                            attrs="{'invisible':[('od_approval_state','!=','pending'), ('stage_id','not in',(7,8))]}"
+                            string="Approve Return" type="object" class="oe_highlight"
+                            groups="orchid_beta.groups_beta_admin,__export__.res_groups_188,__export__.res_groups_192,__export__.res_groups_172"/>
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="crm_case_form_view_lead_inherit">
+            <field name="name">crm.lead.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='135']" position="after">
+                    <button class="oe_inline oe_stat_button" type="object"
+                            context="{'partner_id': partner_id}"
+                            name="action_schedule_meeting_lead" icon="fa-calendar">
+                        <field string="Meetings" name="meeting_count_lead" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_case_search_inherit_bid_ref" model="ir.ui.view">
+            <field name="name">crm.case.search.inherit.bid.ref</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id"
+                   ref="crm.view_crm_case_opportunities_filter"/> <!-- Replace with actual search view ID -->
+            <field name="arch" type="xml">
+                <field name="name" position="after"> <!-- Position after an existing field -->
+                    <field name="customer_ref_data" string="Bid Reference"/>
+                </field>
+                <!-- Alternatively, you can add a filter for the field -->
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="crm_case_form_view_beta_approval_inherit">
+            <field name="name">crm.lead.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="orchid_beta.crm_case_form_view_beta_approval"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='od_division_id']" position="after">
+                    <field name="other_division_ids" invisible="1" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//field[@name='od_responsible_id']" position="after">
+                    <button name="%(beta_customisation.od_assign_supp_presales_action1)d"
+                            string="Assign Supporting PreSales"
+                            attrs="{'invisible':[('od_approval_state','=','pending')]}" type="action" class="oe_link"/>
+
+                    <field name="other_presale_ids" readonly="1" nolabel="1" widget="many2many_tags"
+                           attrs="{'invisible':[('od_approval_state','=','pending')]}" context="{'presale_ids':1}"/>
+                    <field name="support_presales_emails" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='od_approval_state']" position="after">
+                    <field name="od_approved_by" readonly="1"/>
+                    <field name="od_approved_date" readonly="1"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="od_lead_user_id" context="{'sam_ids':1}" required="1"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="user_id_dummy" readonly="1"/>
+                    <field name="od_partner_class" readonly="1"/>
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_crm_case_form_view_lead_form2">
+            <field name="name">Lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="user_id_dummy" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="od_lead_user_id" context="{'sam_ids':1}" required="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_crm_lead_meeting_search" model="ir.ui.view">
+            <field name="name">CRM - Meetings Search</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="lead_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_od_hrms_employee_inherit1" model="ir.ui.view">
+            <field name="name">hr.employee.inherit2</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="orchid_hrms.view_od_hrms_employee_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='od_terminated']" position="after">
+                    <field name="od_resigned" readonly="1"/>
+                    <field name="od_end_contract" readonly="1"/>
+                    <field name="od_last_day" readonly="1"/>
+                    <field name="od_req_clearance"/>
+
+                </xpath>
+            </field>
+        </record>
+        <record id="od_hr_hr_employee_view_form3" model="ir.ui.view">
+            <field name="name">hr.hr.employee.view.form3</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="marital" position="after">
+                        <field name="od_mrg_date"/>
+                        <field name="od_child_birth_date"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+
+        <!-- 	New Opportunity -->
+
+        <record model="ir.actions.act_window" id="crm_case_category_act_new_oppor">
+            <field name="name">Opportunities</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,graph,form,calendar</field>
+            <field name="domain">[('type','=','opportunity'),('stage_id','=',1)]</field>
+            <field name="context">{
+                'stage_type': 'opportunity',
+                'default_type': 'opportunity',
+                'default_user_id': uid,
+                }
+            </field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="help" type="html">
+                <p>
+                    Odoo helps you keep track of your sales pipeline to follow
+                    up potential sales and better forecast your future revenues.
+                </p>
+                <p>
+                    You will be able to plan meetings and phone calls from
+                    opportunities, convert them into quotations, attach related
+                    documents, track all discussions, and much more.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_kanban_view_new_oppor">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="act_window_id" ref="crm_case_category_act_new_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_new_oppor">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_new_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_new_oppor">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_new_oppor"/>
+        </record>
+
+        <!-- 	Design Ready Opportunity -->
+
+        <record model="ir.actions.act_window" id="crm_case_category_act_design_ready_oppor">
+            <field name="name">Opportunities</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,graph,form,calendar</field>
+            <field name="domain">[('type','=','opportunity'),('stage_id','=',4)]</field>
+            <field name="context">{
+                'stage_type': 'opportunity',
+                'default_type': 'opportunity',
+                'default_user_id': uid,
+                }
+            </field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="help" type="html">
+                <p>
+                    Odoo helps you keep track of your sales pipeline to follow
+                    up potential sales and better forecast your future revenues.
+                </p>
+                <p>
+                    You will be able to plan meetings and phone calls from
+                    opportunities, convert them into quotations, attach related
+                    documents, track all discussions, and much more.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_kanban_view_design_ready_oppor">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="act_window_id" ref="crm_case_category_act_design_ready_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_design_ready_oppor">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_design_ready_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_design_ready_oppor">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_design_ready_oppor"/>
+        </record>
+
+        <!-- 	Pipeline Opportunity -->
+
+        <record model="ir.actions.act_window" id="crm_case_category_act_pipeline_oppor">
+            <field name="name">Opportunities</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,graph,form,calendar</field>
+            <field name="domain">[('type','=','opportunity'),('stage_id','in',(12,5,14))]</field>
+            <field name="context">{
+                'stage_type': 'opportunity',
+                'default_type': 'opportunity',
+                'default_user_id': uid
+                }
+            </field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="help" type="html">
+                <p>
+                    Odoo helps you keep track of your sales pipeline to follow
+                    up potential sales and better forecast your future revenues.
+                </p>
+                <p>
+                    You will be able to plan meetings and phone calls from
+                    opportunities, convert them into quotations, attach related
+                    documents, track all discussions, and much more.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_kanban_view_pipeline_oppor">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="act_window_id" ref="crm_case_category_act_pipeline_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_pipeline_oppor">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_pipeline_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_pipeline_oppor">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_pipeline_oppor"/>
+        </record>
+
+        <!-- 	Cancelled / Lost Opportunity -->
+
+        <record model="ir.actions.act_window" id="crm_case_category_act_cancel_oppor">
+            <field name="name">Opportunities</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,graph,form,calendar</field>
+            <field name="domain">[('type','=','opportunity'),('stage_id','in',(7,8))]</field>
+            <field name="context">{
+                'stage_type': 'opportunity',
+                'default_type': 'opportunity',
+                'default_user_id': uid,
+                }
+            </field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="help" type="html">
+                <p>
+                    Odoo helps you keep track of your sales pipeline to follow
+                    up potential sales and better forecast your future revenues.
+                </p>
+                <p>
+                    You will be able to plan meetings and phone calls from
+                    opportunities, convert them into quotations, attach related
+                    documents, track all discussions, and much more.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_kanban_view_cancel_oppor">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="act_window_id" ref="crm_case_category_act_cancel_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_cancel_oppor">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_cancel_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_cancel_oppor">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_cancel_oppor"/>
+        </record>
+
+        <!--     Opportunity return request wizard form view
+                 -->
+        <record id="wiz_lead_request_return_form" model="ir.ui.view">
+            <field name="name">wiz.lead.request.return.form</field>
+            <field name="model">wiz.lead.request.return</field>
+            <field name="arch" type="xml">
+                <form string="Request Return">
+
+
+                    <group string="Please select a destination stage in the below field..">
+                        <field name="destination_stage_id" required="1" domain="[('id','in',(1,12))]"/>
+                    </group>
+
+                    <footer>
+                        <button name="send_return_req" string="Request Return" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--     New Pipeline filter created by Aslam for sales team
+         -->
+        <record model="ir.actions.act_window" id="crm_case_category_act_sales_team_pipeline_oppor">
+            <field name="name">Pipeline Opportunities</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,graph,form,calendar</field>
+            <field name="domain">[('type','=','opportunity'),('stage_id','in',(12,5,14))]</field>
+            <field name="context">{
+                'search_default_section_id': [active_id],
+                'default_section_id': active_id,
+                'stage_type': 'opportunity',
+                'default_type': 'opportunity',
+                'default_user_id': uid
+                }
+            </field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="help" type="html">
+                <p>
+                    Odoo helps you keep track of your sales pipeline to follow
+                    up potential sales and better forecast your future revenues.
+                </p>
+                <p>
+                    You will be able to plan meetings and phone calls from
+                    opportunities, convert them into quotations, attach related
+                    documents, track all discussions, and much more.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_kanban_view_sales_team__pipeline_oppor">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="act_window_id" ref="crm_case_category_act_sales_team_pipeline_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view_sales_team__pipeline_oppor">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_sales_team_pipeline_oppor"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_crm_tag_form_view_sales_team__pipeline_oppor">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="act_window_id" ref="crm_case_category_act_sales_team_pipeline_oppor"/>
+        </record>
+
+        <menuitem name="New Opportunities" id="menu_crm_new_opportunities" parent="base.menu_sales" sequence="4"
+                  action="crm_case_category_act_new_oppor"
+        />
+
+        <menuitem name="Design Ready Opportunities" id="menu_crm_design_ready_opportunities" parent="base.menu_sales"
+                  sequence="5"
+                  action="crm_case_category_act_design_ready_oppor"
+        />
+
+        <menuitem name="Pipeline Opportunities" id="menu_crm_pipeline_opportunities" parent="base.menu_sales"
+                  sequence="6"
+                  action="crm_case_category_act_pipeline_oppor"
+        />
+
+        <menuitem name="Cancel/Lost Opportunities" id="menu_crm_cancel_opportunities" parent="base.menu_sales"
+                  sequence="7"
+                  action="crm_case_category_act_cancel_oppor"
+        />
+
+    </data>
+</openerp>

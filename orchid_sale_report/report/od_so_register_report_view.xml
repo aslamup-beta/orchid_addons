@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+      <record id="view_so_register_report_tree" model="ir.ui.view">
+            <field name="name">od.so.register.report.view</field>
+            <field name="model">od.so.register.report.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+                <tree string="So Register Analysis" create="false">
+                    <field name="name"/>
+                    <field name="date_order"/>
+                    <field name="partner_id"/>
+                    <field name="pricelist_id" />
+                    <field name="partner_invoice_id"/>
+                    <field name="product_id"/>
+                    <field name="product_uom" />
+                    <field name="price_unit"/>
+                    <field name="product_uom_qty"/>
+                    <field name="sovalue"/>
+                    <field name="salesman_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+      <record id="view_so_register_report_search" model="ir.ui.view">
+            <field name="name">od.so.register.report.view</field>
+            <field name="model">od.so.register.report.view</field>
+            <field name="arch" type="xml">
+            <search string="PO Register">
+                <field name="date_order"/>
+                <filter icon="terp-go-month" string="Today " separator="1"
+                           domain="[('date_order','&lt;=', (datetime.date.today()).strftime('%%Y-%%m-%%d')),('date_order','&gt;=',(datetime.date.today()).strftime('%%Y-%%m-%%d'))]"
+                           help="Created today"/>
+                <filter icon="terp-go-month" string="Week" separator="1"
+                           domain="[('date_order','&lt;=', (datetime.date.today()+relativedelta(days=7)).strftime('%%Y-%%m-%%d'))]"
+                           help="Created One Week"/>
+
+                <filter icon="terp-go-month" string="Month" separator="1"
+                           domain="[('date_order','like',time.strftime('%Y-%m%'))]"
+                           help="Created One Month"/>
+
+  
+                <field name="product_id" string="Product"/>
+                <field name="pricelist_id" string="PriceList"/>
+                <field name="salesman_id" string="Salesman"/>
+                <field name="partner_id" string="Partner"/>
+                <field name="name"/>
+                <group expand="1" string="Group By...">
+                     <filter string="Name" icon="terp-personal" name="name" context="{'group_by':'name'}"/>
+                     <filter string="Partner" icon="terp-personal" name="partner_id" context="{'group_by':'partner_id'}"/>
+                     <filter string="Salesman" icon="terp-personal" name="salesman_id" context="{'group_by':'salesman_id'}"/>
+                     <filter string="Product" icon="terp-personal" name="product_id" context="{'group_by':'product_id'}"/>
+                     <filter string="Price List" icon="terp-personal" name="pricelist_id" context="{'group_by':'pricelist_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+
+        <record model="ir.ui.view" id="view_so_register_report_graph">
+            <field name="name">od.so.register.report.view</field>
+            <field name="model">od.so.register.report.view</field>
+            <field name="arch" type="xml">
+                <graph string="So Register Analysis" type="bar">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                    <field name="pricelist_id" />
+                    <field name="partner_invoice_id"/>
+                    <field name="product_id"/>
+                    <field name="product_uom" />
+                    <field name="price_unit"/>
+                    <field name="product_uom_qty"/>
+                    <field name="sovalue"/>
+                    <field name="salesman_id"/>
+                </graph>
+            </field>
+        </record>
+
+    <record id="action_od_so_register_report_view" model="ir.actions.act_window">
+        <field name="name">SO Register</field>
+        <field name="res_model">od.so.register.report.view</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,graph</field>
+        <field name="search_view_id" ref="view_so_register_report_search"/>
+        <field name="view_id" ref="view_so_register_report_tree"/>
+        <field name="context">{}</field>
+        <field name="help">This report SO Stock Summary.</field>
+    </record>
+
+        
+
+
+    </data>
+</openerp>

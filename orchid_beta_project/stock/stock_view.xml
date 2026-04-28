@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+      <record id="beta_project_view_picking_form" model="ir.ui.view">
+            <field name="name">Beta Project Stock Picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+
+               <xpath expr="//group[@name='add_info']" position="after">
+               <group string="Delivery Instruction Details" attrs="{'invisible':[('picking_type_code','=','incoming')]}">
+                    <field name="od_notes" nolabel="1"  widget="html" attrs="{'invisible':[('picking_type_code','=','incoming')]}"/>
+             </group>
+             </xpath>
+             
+            <xpath expr="//field[@name='name']" position="after">
+           			<div class="oe_right oe_button_box">
+						<button attrs="{'invisible':['|',('state','!=','done'),('picking_type_code','!=','incoming')]}" class="oe_inline oe_stat_button" name="od_view_landed_cost" context="{'landed_cost':True}" type="object" icon="fa-pencil-square-o">
+							<div>
+								<strong>
+									<field name="count_lc"/>
+								</strong>
+								<br/>
+								Landed Cost
+							</div>
+						</button>
+					</div>
+                </xpath>
+                
+                <xpath expr="//notebook/page[@string='Additional Info']" position="after">
+               <page string="Delivery Notes Details" groups="stock.group_stock_manager" attrs="{'invisible':[('picking_type_code','=','incoming')]}">
+                        <group>
+                        <group>
+                            <field name="od_delivery_date"/>
+                           <field name="od_delivery_note_no"/>
+                            <field name="od_beta_pm"/>
+                        </group>
+                        <group>
+                           <field name="od_cust_po_ref"/>
+							<field name="od_contact_person"/>    
+							<field name="od_cell_phone"/>
+							<field name="od_location"/>                     
+						</group>
+						</group>
+                   </page>
+             </xpath>
+
+            </field>
+        </record>
+    </data>
+</openerp>

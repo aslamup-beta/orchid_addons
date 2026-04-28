@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_pdc_view_form">
+            <field name="name">account.voucher.receipt.form</field>
+            <field name="model">account.voucher</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="orchid_cheque_management.view_pdc_view_form" /> 
+            <field name="arch" type="xml">
+                 <xpath expr="////page[@string='Account Information']/field[@name='income_expense_ids']/tree/field[@name='analytic_account_id']" position="before">
+                    <field name="od_cost_centre_id" context="{'account_id' : account_id}" groups="orchid_cost_centre.group_orchid_cost_centre_centre"/>
+                    <field name="od_warehouse_id" groups="orchid_cost_centre.group_orchid_cost_centre_warehouse"/>
+				</xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

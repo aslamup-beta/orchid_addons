@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="orchid_stock_report.report_stock_move_analysis">
+			<div class="page">
+	<div class="row">
+
+
+			<table class="table table-condensed" style="border: 1px solid black; width:100%">  
+				<thead style="background-color:#E6E6FA">
+					<tr>
+					    <th class="text-center" style="border-left:1px solid black; width:40%"><center>Product</center></th>
+					    <th class="text-center" style="border-left:1px solid black; width:20%"><center>Location</center></th>
+						<th class="text-center" style="border-left:1px solid black; width:10%"><center>Opening</center></th>
+						<th class="text-center" style="border-left:1px solid black; width:10%"><center>Incoming</center></th>
+						<th class="text-center" style="border-left:1px solid black; width:10%"><center>Outgoing</center></th>
+						<th class="text-center" style="border-left:1px solid black; width:10%"><center>Closing</center></th>
+					</tr>
+				</thead>
+                	
+                <tbody>
+<tr t-foreach="get_data(data)" t-as="lines">
+<!-- <t t-esc="lines"/> -->
+  <td class="text-center" style="border-right:1px solid black;"><span t-esc="lines['product']"/></td>
+<td class="text-center" style="border-right:1px solid black;"><span t-esc="lines['location']"/></td>
+<td class="text-center" style="border-right:1px solid black;"><span t-esc="lines['opening']"/></td>
+<td class="text-center" style="border-right:1px solid black;"><span t-esc="lines['incoming']"/></td>
+<td class="text-center" style="border-right:1px solid black;"><span t-esc="lines['outgoing']"/></td>
+<td class="text-center" style="border-right:1px solid black;"><span t-esc="lines['closing']"/></td>
+
+</tr>
+</tbody>
+               
+				
+	        </table>
+</div>		       
+
+        </div>
+              				
+           
+        </template>
+    </data>
+</openerp>

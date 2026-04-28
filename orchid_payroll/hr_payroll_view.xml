@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_contract_view_orchid_form" model="ir.ui.view">
+            <field name="name">hr.contract.view.orchid.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <field name="wage" position="before">
+                    <field name="xo_total_wage" on_change="onchange_xo_total_wage(wage,xo_total_wage,struct_id, context)"/>
+
+                </field>
+
+               <field name="employee_id" position="after">
+                    <field name="od_active"/>
+                    <field name="od_limited"/>
+
+                </field>
+                <field name="working_hours" position="after">
+                    <field name="xo_working_hours"/>
+                    <field name="xo_tm_required"/>
+                    <field name="xo_hourly_rate" attrs="{'invisible':[('xo_tm_required','!=',True)]}"/>
+                </field>
+                <xpath expr="/form/sheet/group/group/field[@name='type_id']" position="after">
+                    <field name="xo_routing_code"/>
+                    <field name="xo_mode_of_payment_id"/>
+
+                </xpath>
+
+
+
+        <field name="advantages" position="before">
+       
+            <field name="xo_allowance_rule_line_ids" nolabel="1" colspan="2">
+
+                    <tree editable="bottom">
+                        <field name="rule_type" on_change="onchange_rule_type(rule_type)" required="1" domain="[('category_id.code','in',('ALW','DED'))]" />
+                        <field name="code"/>
+                        <field name="amt"/>
+                    </tree>
+                
+            </field>
+
+        </field>
+
+
+
+            </field>
+        </record>
+
+
+<record id="hr_contract_view_orchid_search_payroll" model="ir.ui.view">
+            <field name="name">hr.contract.view.orchid.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="before">
+                    <field name="xo_total_wage"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </field>
+        <filter string="Employee" position="after">   
+            <filter string="Salary" icon="terp-personal" domain="[]" context="{'group_by':'xo_total_wage'}"/>       
+            <filter string="DOJ" icon="terp-personal" domain="[]" context="{'group_by':'date_start'}"/>    
+            <filter string="DOL" icon="terp-personal" domain="[]" context="{'group_by':'date_end'}"/>   
+        </filter>
+
+
+
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <record model="ir.ui.view" id="view_hr_payslip_inherit_orchid_form">
+            <field name="name">hr.payslip.inherit.orchid.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+
+                <field name="payslip_run_id" position="after">
+                    <field name="xo_mode_of_payment_id" invisible="1"/>
+                    <field name="od_cut_days" invisible="1"/>
+                </field>
+
+
+<!--<Inhetited to add periods>-->
+            <div class="oe_title" position="replace">
+                <div class="oe_title" >
+                        <label for="employee_id" class="oe_edit_only"/>
+                        <h1><field name="employee_id" on_change="onchange_employee_id(date_from, date_to, employee_id, contract_id)"/></h1>
+
+                        <label for="xo_period_id" class="oe_edit_only"/>
+                        <h2>
+                     <field name="xo_period_id" on_change="onchange_payslip_period(employee_id,xo_period_id,od_cut_days)" domain="[('company_id','=',company_id)]" required="1"/>
+                      <field name="xo_msg" class="contract_period_payslip" readonly="1" />
+                    <field name="xo_total_no_of_days"  invisible="1"/>
+                        </h2>
+                 </div>
+             </div>
+
+<!--inherited to make invisible default period selecion-->
+        <xpath expr="/form/sheet/group" position="replace">
+                <group col="4">
+<!--                        <label for="date_from" string="Period"/>-->
+                       
+                            <field name="date_from" on_change="onchange_employee_id(date_from, date_to, employee_id, contract_id)" class="oe_inline" invisible="1"/> <field name="date_to" class="oe_inline" invisible="1"/>
+                       
+                        <field name="contract_id" domain="[('employee_id','=',employee_id),('date_start','&lt;=',date_to),'|',('date_end','&gt;=',date_from),('date_end','=',False)]" on_change="onchange_contract_id(date_from, date_to, employee_id, contract_id)" context="{'default_employee_id': employee_id}"/>
+                        <field name="number"/>
+                        <field name="struct_id" attrs="{'required':[('contract_id','&lt;&gt;',False)]}"/>
+                        <field name="name"/>
+                        <field name="credit_note"/>
+                </group>
+        </xpath>
+
+        <page string="Accounting Information" position="after">
+
+            <page string="Over Time">
+                 <field name="od_hr_over_time_line_id">
+                     <tree editable="bottom">
+                        <field name="hour"/>
+                        <field name="over_time_type"/> 
+                        <field name="code"/>      
+                     </tree>
+                 </field>
+            </page>
+
+            <page string="Loan Details">
+                <field name="od_hr_expense_loan_id">
+                 <tree editable="bottom">
+                    <field name="employee_id" invisible="1"/>
+                     <field name="date_value"/>
+                     <field name="amount"/>
+                     <field name="rule_id"/>      
+                 </tree>
+                </field>
+            </page>
+
+        </page>
+            </field>
+        </record>
+
+
+
+        <record id="hr_payslip_run_orchid_form" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+               <xpath expr="/form/sheet/group" position="replace">
+                <group col="4">
+                   Period <field name="xo_period_id" on_change="onchange_xo_period(xo_period_id)"/>
+                          <field name="xo_total_no_of_days" invisible="1"/>
+                          <field name="date_start"  invisible="1"/>  <field name="date_end" invisible="1" />
+                          <field name="credit_note"/>
+                            <field name="od_cut_days" invisible="1"/>
+                 </group>
+               </xpath>
+            </field>
+        </record>
+
+
+
+   <record id="od_hr_payroll_search_view" model="ir.ui.view">
+            <field name="name">od.hr.payroll.search</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="/search/field[@name='employee_id']" position="after">
+                    <field name="xo_mode_of_payment_id"/>
+                    <field name="date_to"/>
+
+                                    <filter icon="terp-go-month" string="Month" separator="1"
+                           domain="[('date_to','like',time.strftime('%Y-%m%'))]"
+                           help="Created One Month"/>
+                 </xpath>
+
+
+                 <xpath expr="/search/group/filter[@string='Employees']" position="after">
+
+                    <filter string="Mode Of Payment" name="xo_mode_of_payment_id" context="{'group_by':'xo_mode_of_payment_id'}"/>
+                    <filter string="Mode Of Payment" name="xo_mode_of_payment_id" context="{'group_by':'xo_mode_of_payment_id'}" domain="[('date_to','like',time.strftime('%Y-%m%'))]"/>
+<!--domain="[('date_to','like',time.strftime('%Y-%m%'))]"-->
+                 </xpath>
+
+
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
+
+

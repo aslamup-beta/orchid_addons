@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="crm_help_desk_form_view_beta_project">
+            <field name="name">Beta help Desk Form View</field>
+            <field name="model">crm.helpdesk</field>
+            <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
+            <field name="arch" type="xml">
+                <xpath expr='//form/sheet/group' position='before'>
+                    <div class="oe_right oe_button_box">
+                        <button name="od_btn_open_tasks" type="object" class="oe_stat_button"  icon="fa-pencil-square-o" groups="analytic.group_analytic_accounting">
+                         <field string="Tasks" name="od_task_count" widget="statinfo"/>
+                        </button>
+                        <button name="od_btn_open_timsheet_for_helpdesk" type="object" class="oe_stat_button"  icon="fa-pencil-square-o" groups="analytic.group_analytic_accounting" >
+                         <field string="Timesheets" name="od_timesheet_amount" widget="statinfo"/>
+                        </button>
+                    </div>
+                 </xpath>
+                 <xpath expr="//button[@name='case_escalate']" position="after">
+                    <button name="od_change_priority" string="Change Priority" type="object" groups="analytic.group_analytic_accounting" />
+                 </xpath>
+                 <field name="section_id" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+				<field name="date" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </field>
+                <field name="date_deadline" position="after">
+                      <field name="close_date" readonly="1"/>
+                      <field name="od_number" readonly="1"/>
+                </field>
+				<field name="date_deadline" position="after">
+                      <field name="od_project_id2" required="1"/>
+                </field>
+                <field name="date_deadline" position="attributes">
+                    <attribute name="required">True</attribute>
+                </field>
+                <field name="description" position="attributes">
+                    <attribute name="required">False</attribute>
+                </field>
+                <field name="date" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </field>
+                <field name="partner_id" position="before">
+                    <field name="od_organization_id" domain="[('is_company','=',True)]" />
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="string">Contact Person</attribute>
+                    <attribute name="domain">[('parent_id','=',od_organization_id)]</attribute>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="od_mobile_number" />
+                    <field name="od_landline" />
+                </field>
+                <field name="priority" position="after">                
+                    <field name="od_brand_ids" widget="many2many_tags" />
+                    <field name="od_subgroup_id" invisible="1"/>
+                </field>
+                <field name="ref2" position="after">
+                    <field name="od_ref3" />
+                    <field name="od_ref4" />
+                    <field name="reason" invisible="1"/>
+                    <field name="portal_user_create_date" invisible="1"/>
+                </field>
+                <field name="description" position="after">
+                <table style="width:100%" class="table table-striped" groups="analytic.group_analytic_accounting">
+								<thead>
+									<th> </th>
+									<th>Response Time</th>
+									<th>Resolution Time</th>
+									
+								</thead>
+								<tbody>
+									<tr>
+										<td>Critical (Hours)</td>
+										<td>
+											<field name="od_respons_time_ctc"/>
+										</td>
+										<td>
+											<field name="od_resol_time_ctc"/>
+										</td>
+										
+									</tr>
+
+									<tr>
+										<td>Major (Hours)</td>
+										<td>
+											<field name="od_respons_time_maj"/>
+										</td>
+										<td>
+											<field name="od_resol_time_maj"/>
+										</td>
+										
+									</tr>
+
+									<tr>
+										<td>Minor (Hours)</td>
+										<td>
+											<field name="od_respons_time_min"/>
+										</td>
+										<td>
+											<field name="od_resol_time_min"/>
+										</td>
+										
+									</tr>
+									
+								</tbody>
+							</table>
+							</field>
+                <!-- <field name="section_id" position="after">
+                 <field name="company_id" />
+                </field> -->
+                <page string="Extra Info" position="after">
+                    <page string="Work Log" groups="analytic.group_analytic_accounting">
+                        <field name="od_activity_lines">
+                            <tree editable="bottom">
+                                <field name="date" readonly="1"/>
+                                <field name="name" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Equipment Log" invisible="1">
+                        <field name="od_eqp_lines">
+                            <tree editable="bottom">
+                                <field name="date" />
+                                <field name="product_id" />
+                                <field name="name" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Summary">
+                        <field name="od_summary_lines">
+                            <tree editable="bottom">
+                                <field name="date" />
+                                <field name="name" />
+                            </tree>
+                        </field>
+                    </page>
+                 	<page string="Real Time Logs">
+                        <field name="od_realtime_date_logs" readonly="1">
+                            <tree>
+                                <field name="date" />
+                                <field name="user_id" />
+                                <field name="name" />
+                            </tree>
+                        </field>
+                    </page>
+                     <page string="KPI Audit" attrs="{'invisible':['|',('categ_id','not in',(16,17)),('state','!=','done')]}">
+			            <table style="width:100%" class="table table-striped">
+			                   <thead>
+			                       <th>Components</th>
+			                       <th>Score</th>
+			                    </thead>
+			                    <tbody>
+			                    <tr>
+			                       <td>Help Desk Issue Management</td>
+			                       <td><field name="od_hd_kpi"/></td>
+		                     </tr>
+		                     </tbody>
+                     </table>
+                    
+                    
+                    </page>
+                    
+                    <page string="SLA Performance" attrs="{'invisible':[('state','!=','done')]}" groups="analytic.group_analytic_accounting">
+			            
+							
+							<table style="width:100%" class="table table-striped">
+			                   <thead>
+			                       <th>Creation Date</th>
+			                       <th>Closing Date</th>
+			                        <th>Actual Time</th>
+			                        <th>SLA Resolution Time</th>
+			                        <th>Status</th>
+			                    </thead>
+			                    <tbody>
+			                    <tr>
+			                       <td><field name="create_date"/></td>
+			                       <td><field name="date_closed"/></td>
+			                       <td><field name="actual_time"/></td>
+			                       <td><field name="sla_resol_time"/></td>
+			                       <td><field name="od_closing_status"/></td>
+		                     </tr>
+		                     </tbody>
+                     </table>
+                    
+                    
+                    </page>
+
+                </page>
+
+
+            </field>
+        </record>
+        <record model="ir.ui.view" id="crm_help_desk_search_view_beta_project">
+            <field name="name">Beta help Desk Search View</field>
+            <field name="model">crm.helpdesk</field>
+            <field name="inherit_id" ref="crm_helpdesk.view_crm_case_helpdesk_filter"/>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="od_number" />
+                     <filter string="Organization" icon="terp-partner" domain="[]" help="Partner" context="{'group_by':'od_organization_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="crm_help_desk_tree_view_beta_project">
+            <field name="name">Beta help Desk Tree View</field>
+            <field name="model">crm.helpdesk</field>
+            <field name="inherit_id" ref="crm_helpdesk.crm_case_tree_view_helpdesk"/>
+            <field name="arch" type="xml">
+
+                <field name="name" position="before">
+                    <field name="od_organization_id" />
+                </field>
+
+                <field name="name" position="after">
+                    <field name="od_brand_ids" widget="many2many_tags" />
+                    <field name="categ_id" />
+                    <field name="od_number" />
+
+                </field>
+                <field name="state" position="after">
+                    <field name="channel_id" />
+                    <field name="od_subgroup_id" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="crm_help_desk_graph_view_beta_project">
+            <field name="name">Beta help Desk Search View</field>
+            <field name="model">crm.helpdesk</field>
+            <field name="arch" type="xml">
+                <graph string="Help Desk" type="pivot">
+                    <field name="name" type="row"/>
+                    <field name="od_number" type="row"/>
+
+                </graph>
+            </field>
+        </record>
+        
+        <record id="wiz_helpdesk_priority_change_form" model="ir.ui.view">
+            <field name="name">Change Priority</field>
+            <field name="model">wiz.helpdesk.priority.change</field>
+            <field name="arch" type="xml">
+                <form string="Change" >
+                 
+                     
+                     <group string="Please fill the below fields before changing">
+						<field name="reason" required="1"/>
+						<field name="change_to" required="1"/>
+                      </group>
+                    
+                <footer>
+                  <button name="do_change_priority" string="Change" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

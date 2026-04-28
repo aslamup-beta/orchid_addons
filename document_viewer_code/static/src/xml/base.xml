@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="Sidebar">
+        <t t-jquery=".oe_sidebar_delete_item" t-operation="before">
+            <span t-if="section.name == 'files' and !item.callback and ['.sh','.h','.c','.cc','.cpp','.cs','.css','.coffee','.htm','.html','.xml','.ini','.json','.java','.js','.md','.m','.mm','.php','.perl','.pl','.py','.rb','.sql'].indexOf(item.name.substring(item.name.lastIndexOf('.'), item.name.length).toLowerCase()) != -1" class="fa fa-file-code-o o_sidebar_viewer_code_item" t-att-data-id="item.id" title="View this attachment"/>
+        </t>
+    </t>
+    <t t-name="ViewerCode">
+        <div class="o_document_viewer_code">
+            <pre><code></code></pre>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+         <record id="account_report_general_ledger_view" model="ir.ui.view">
+            <field name="name">General Ledger</field>
+            <field name="model">account.report.general.ledger</field>
+            <field name="inherit_id" ref="account.account_common_report_view" />
+            <field name="arch" type="xml">
+            <data>
+            <xpath expr="//page[@name='journal_ids']" position="after">
+                <page string="Accounts" name="x_account_ids">
+                    <field name="x_account_ids"/>
+                </page>
+            </xpath>
+         
+            </data>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

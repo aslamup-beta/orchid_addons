@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_beta_procedures,beta.procudures.user,model_beta_procedures,,1,1,0,0
+access_beta_structures,beta.structures.user,model_beta_structures,,1,1,0,0
+access_role_description,role.description.user,model_role_description,,1,1,0,0
+access_beta_kpis,beta.kpis.user,model_beta_kpi,,1,1,0,0
+access_beta_docs,beta.docs.user,model_beta_docs,,1,1,0,0
+access_beta_videos,beta.videos.user,model_beta_videos,,1,1,0,0
+access_od_infosec_temp_user,access.od.infosec.temp.user,model_od_infosec_temp,,1,1,1,0
+access_od_vendor_temp_user,access.od.vendor.temp.user,model_od_vendor_temp,,1,1,1,0

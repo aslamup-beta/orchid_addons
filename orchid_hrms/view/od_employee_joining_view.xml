@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="od_employee_joining_tree">
+        <field name="name">Joining Form</field>
+        <field name="model">od.employee.joining</field>
+        <field name="priority">60</field>
+        <field name="arch" type="xml">
+            <tree>
+                    <field name="employee_id"/>
+                    <field name="joining_date"/>
+            </tree>
+       </field>
+    </record>
+
+  <record model="ir.ui.view" id="od_employee_joining_form">
+        <field name="name">Joining Form</field>
+        <field name="model">od.employee.joining</field>
+        <field name="priority">60</field>
+        <field name="arch" type="xml">
+            <form string="Joining Form" version="7.0">
+               <sheet>
+
+
+
+                <group>
+
+
+                      <group>
+
+                         <label for="employee_id" class="oe_edit_only"/>
+                         <h2><field name="employee_id"/></h2>
+                          <field name="joining_date"/>
+                      </group>
+                     <group>
+                          <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="address_home_id"/> 
+                            <field name="parent_id"/>
+                     </group>
+                </group>
+
+                <group>
+                 <field name="notes" class="oe_inline" placeholder="Description" /> 
+               </group>
+
+
+                <notebook>
+                    <page string='Documents'>
+                        <field name='joining_document_line'>
+                            <tree editable='top'>
+                                <field name="document_type_id"/>
+                                <field name="recieved"/>
+                                <field name="recieved_date"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+
+
+               </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+  </field>
+ </record>
+<record model="ir.actions.act_window" id="action_od_employee_joining">
+        <field name="name">Joining Form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.employee.joining</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Joining Details. 
+          </p>
+        </field>
+    </record>
+
+ </data>
+</openerp>

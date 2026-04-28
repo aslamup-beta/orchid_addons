@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="od_attachement_form">
+		<field name="name">od attachement form view</field>
+		<field name="model">od.attachement</field>
+		<field name="arch" type="xml">
+		<form string="Od Attachement" version="7.0">
+ 			<sheet>
+			<group>
+					<field name="name" />
+					<field name="model_name" />
+					<field name="attach_file" />
+					<field name="issue_date" />
+					<field name="expiry_date" />
+					<field name="attach_fname" />
+
+			</group>
+			</sheet>
+		</form>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_attachement_tree">
+		<field name="name">od attachement tree view</field>
+		<field name="model">od.attachement</field>
+		<field name="arch" type="xml">
+			<tree string="Attachement" editable="top">
+					<field name="name" />
+					<field name="model_name" />
+					<field name="object_id" invisible="1"/>
+					<field name="attach_file" filename="attach_fname"/>
+					<field name="issue_date" />
+					<field name="expiry_date" />
+					<field name="attach_fname" invisible="1"/>
+					<!-- <field name="notify_user" /> -->
+			</tree>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_attachement_search">
+		<field name="name">od attachement search view</field>
+		<field name="model">od.attachement</field>
+		<field name="arch" type="xml">
+			<search>
+					<field name="name" />
+					<field name="model_name" />
+					<field name="attach_file" />
+					<field name="issue_date" />
+					<field name="expiry_date" />
+					<field name="attach_fname" />
+					<!-- <field name="notify_user" /> -->
+			</search>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_attachement_graph">
+		<field name="name">od attachement graph view</field>
+		<field name="model">od.attachement</field>
+		<field name="arch" type="xml">
+			<graph>
+					<field name="name" />
+					<field name="model_name" />
+					<field name="attach_file" />
+					<field name="issue_date" />
+					<field name="expiry_date" />
+					<field name="attach_fname" />
+			</graph>
+		</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_od_attachement">
+		<field name="name">Od Attachement</field>
+		<field name="res_model">od.attachement</field>
+		<field name="view_mode">tree</field>
+		 <field name="view_id" ref="od_attachement_tree" />
+		</record>
+
+	<!-- 	<menuitem name="Od Attachement"
+	  		id="menu_od_attachement"
+	  		parent="orchid_attachement_menu_general"
+            action="action_od_attachement" />
+ -->
+	</data>
+</openerp>

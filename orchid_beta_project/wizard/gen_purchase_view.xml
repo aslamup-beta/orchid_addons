@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_generate_task_purchase_wizard" model="ir.ui.view">
+            <field name="name">Generate Purchase Order</field>
+            <field name="model">od.tsk.gen.purchase</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Purchase Order">
+                    <group col="4" colspan="4">
+                        <label colspan="4" width="500"
+                               string="You are on about to generate a Purchase Order from this Task. To do so please complete the following mandatory fields first."/>
+                        <newline/>
+                        <field name="company_id" colspan="4" readonly="1"/>
+                        <field name="partner_id" colspan="4"/>
+                        <field name="pricelist_id" colspan="4"/>
+                        <field name="warehouse_id" colspan="4" domain="[('company_id','=',company_id)]"/>
+                      </group>
+                        <field name="od_tsk_purchase_line" nolabel="1" readonly="1">
+                            <tree editable="top">
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="qty" readonly="1"/>
+                             </tree>
+                        </field>
+                        <separator string="Notes" />
+                        <field name="notes" placeholder="Notes To Puchase......." />
+
+                   <footer>
+                      <button name="button_purchase_order" string="Generate Purchase" type="object" class="oe_highlight"/>
+                        or
+                      <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_location_stock_view_tree" model="ir.ui.view">
+            <field name="name">od.location.stock.view.tree</field>
+            <field name="model">od.location.stock.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Stock Report" create="false">
+                    <field name="location_id" invisible="1"/>
+                    <field name="quant_location_id"/>
+                      <field name="company_id"/>
+                    <field name="product_id"/>
+                    <field name="categ_id"/>
+                    <field name="lot_id"/>
+                    <field name="stock"/>
+                    <field name="value" />
+
+                </tree>
+            </field>
+        </record>
+        <record id="od_location_stock_view_search" model="ir.ui.view">
+            <field name="name">od.location.stock.view.search</field>
+            <field name="model">od.location.stock.view</field>
+            <field name="arch" type="xml">
+                <search string="Stock Report">
+                    <field name="product_id"/>
+                    <field name="location_id" />
+                    <field name="company_id"/>
+                     <field name="categ_id"/>
+                    <field name="quant_location_id" />
+                    <group expand="1" string="Group By...">
+                        <filter string="Product" icon="terp-personal" name="product_id" context="{'group_by':'product_id'}"/>
+                        <filter string="Warehouse" icon="terp-personal" name="odlocation" context="{'group_by':'location_id'}"/>
+                    <filter string="Location" icon="terp-personal" name="odqntlocation" context="{'group_by':'quant_location_id'}"/>
+                    <filter string="Company" icon="terp-personal" name="company_id" context="{'group_by':'company_id'}"/>
+                     <filter string="Product Category" icon="terp-personal" name="categ_id" context="{'group_by':'categ_id'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_location_stock_view_graph">
+            <field name="name">od.location.stock.view.graph</field>
+            <field name="model">od.location.stock.view</field>
+            <field name="arch" type="xml">
+                <graph string="Stock Report" type="bar">
+                    <field name="product_id"/>
+                    <field name="location_id" />
+                    <field name="stock"/>
+                    <field name="value" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_location_stock_view" model="ir.actions.act_window">
+            <field name="name">Quant Summary</field>
+            <field name="res_model">od.location.stock.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="search_view_id" ref="od_location_stock_view_search"/>
+            <field name="view_id" ref="od_location_stock_view_tree"/>
+            <field name="context">{'search_default_odlocation':1,'search_default_odqntlocation':1}</field>
+            <field name="help">This report Stock Summary.</field>
+        </record>
+<!--         <menuitem parent="stock.next_id_61" action="action_od_location_stock_view" id="menu_od_stock_report" sequence="0"/> -->
+    </data>
+</openerp>

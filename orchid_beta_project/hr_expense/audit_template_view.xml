@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="audit_template_form">
+			<field name="name">Audit Template form view</field>
+			<field name="model">audit.template</field>
+			<field name="arch" type="xml">
+				<form string="Course" version="7.0">
+					<sheet>
+
+						<div class="oe_title oe_left">
+							<h1>
+								<field name="name" />
+							</h1>
+
+						</div>
+						<group>
+							<group>
+								
+								<field name="type" />
+								<field name="data_model" />
+							</group>
+							
+							<group>
+								<field name="desc" />
+								<field name="calc" />
+								
+							</group>
+						</group>
+						<notebook attrs="{'invisible':[('type','!=','bdm_ksa')]}">
+						<page string="KSA BDM Details" attrs="{'invisible':[('type','!=','bdm_ksa')]}">
+							<field name="bdm_ksa_line">
+							 <tree editable="bottom">
+							 	<field name="branch_id" />
+							 	<field name="gp_target" />
+							 	<field name="month_incent" />
+							 	
+							 </tree>
+							</field>
+						
+						</page>
+						</notebook>
+						
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="aud_template_tree">
+			<field name="name">audit template tree view</field>
+			<field name="model">audit.template</field>
+			<field name="arch" type="xml">
+				<tree string="Course">
+					<field name="name" />
+					<field name="type" />
+					<field name="data_model" />
+					<field name="desc" />
+					<field name="calc" />
+					
+					
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_audit_template">
+			<field name="name">Audit Template</field>
+			<field name="res_model">audit.template</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		
+		<menuitem name="Audit Template" id="menu_audit_template" parent="menu_audit" action="action_audit_template"/>
+	</data>
+</openerp>

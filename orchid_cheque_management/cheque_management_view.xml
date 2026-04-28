@@ -1,0 +1,558 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<!-- Journal view update for PDC Checks -->
+		
+		<record id="view_account_journal_form_inherit" model="ir.ui.view">
+            <field name="name">account.journal.form.inherit</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form" /> 
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="pdc_payable" attrs="{'invisible':[('type','!=','bank')]}" on_change="onchange_pdc_pay_type(pdc_payable)"/>
+                    <field name="pdc_receivable" attrs="{'invisible':[('type','!=','bank')]}" on_change="onchange_pdc_receive_type(pdc_receivable)"/>
+                    <field name="income_expense" attrs="{'invisible':[('type','!=','bank')]}"/>
+                </field>
+			</field>
+		</record>
+
+
+		<!-- Customer Payment view update PDC Cheques with Cheque clearance and bounce  -->
+		<record model="ir.ui.view" id="view_voucher_form_inherit">
+            <field name="name">account.voucher.form.inherit.view</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <button name="cancel_voucher" string="Unreconcile" type="object" states="posted" position="before">
+                    <button name="action_release_cheque" type="object" string="Release" groups="account.group_account_invoice" attrs="{'invisible':['|','|',('state','!=','posted'),('pdc_check','=',False),('check_clear','=',True)]}" />
+                    <button name="action_bounce_check" type="object" string="Bounce" attrs="{'invisible':['|',('state','!=','posted'),('check_clear','!=',True)]}" groups="account.group_account_invoice"/>
+                </button>
+
+<!--            <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="before">-->
+<!--                <field name="od_group_pay" on_change="onchange_od_group_pay(od_group_pay)" groups="orchid_group_partner.group_partner_pay_voucher"/>-->
+<!--            </xpath>-->
+
+                <field name="journal_id" position="after">
+
+                    <field name="od_group_pay" invisible="1"/>
+
+                 	<field name="check_no" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}"/>
+                 	<field name="check_date" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)],'required':['|',('pdc_check','=',True),('check_bank','=',True)]}"/>
+                 	<field name="bank_ids" domain="[('partner_id','=',partner_id)]" context="{'default_partner_id': partner_id}" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}"/>
+                 	<field name="pdc_check" invisible="1"/>
+                 	<field name="payment_type" invisible="1"/>
+                </field>
+                <field name="pre_line" position="before">
+
+            <field name="cheque_release_date" attrs="{'invisible':[('pdc_check','=',False)], 'required':[('pdc_check','=',True)], 'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}"/>
+
+                	<field name="check_bank" invisible="1"/>
+                    <field name="check_clear" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}" readonly="1"/>
+                    <field name="check_bounce" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}" readonly="1"/>
+
+                </field>
+                <field name="journal_id"
+                                domain="[('type','in',['bank', 'cash'])]"
+                                widget="selection"
+                                on_change="onchange_journal(journal_id, line_cr_ids, False, partner_id, date, amount, type, company_id, context)"
+                                string="Payment Method" position="replace">
+                   	<field name="journal_id"
+                                domain="[('type','in',['bank', 'cash']),('pdc_payable','=',False),('income_expense','=',False)]"
+                                widget="selection"
+                                on_change="onchange_journal(journal_id, line_cr_ids, False, partner_id, date, amount, type, company_id, context)"
+                                string="Payment Method"/>
+                    <field name="multiple_cheque_id"/>
+                </field>
+
+				<page string="Payment Information" position="attributes">
+						<attribute name="attrs">{'invisible' : [('od_with_out_allocaion','=',True)]}</attribute>
+				</page>
+                
+                <field name="company_id" position="after">
+
+					<field name="od_fwith_out_allocaion" invisible="1"/>
+					<field name="od_related_voucher_id" attrs="{'invisible':[('od_related_voucher_id','=','')]}" readonly="1"/>
+                    <field name="od_with_out_allocaion" attrs="{'invisible':[('pdc_check','=',False)],'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}"/>
+
+                    <field name="od_check_clearing_acc_id" domain="[('type','=','other')]" attrs="{'invisible':['|',('pdc_check','=',False),('od_with_out_allocaion','=',False)],'required':[('od_with_out_allocaion','=',True)],}"/>
+
+
+                    <field name="check_clearance_acc_ids" domain="[('type','=','liquidity')]" attrs="{'invisible':[('pdc_check','=',False)], 'required':[('pdc_check','=',True)], 'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}" string="Deposit Bank"/>
+
+					<field name="journal_ids" attrs="{'invisible':[('pdc_check','=',False)], 'required':[('pdc_check','=',True)], 'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}" domain="[('type','in',['bank', 'cash'])]"/>
+                </field>
+
+                <field name="line_cr_ids" position="before">
+                    <group attrs="{'invisible':[('state','!=','draft')]}">
+                        <field name="od_manual_allocate" context="{'od_manual_allocate':od_manual_allocate}"/>
+                        <button string="Unallocate-All" name="od_deallocate" class="oe_link oe_inline" type="object" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" /> or
+                        <button string="Delete-Unallocated" name="od_refresh_allocation" class="oe_link oe_inline" type="object" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" />
+                    </group> 
+                </field>
+            </field>
+        </record>
+
+		<!-- Customer Payment Filter view update -->
+		<record id="view_voucher_filter_customer_pay_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.customer.pay.select.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter_customer_pay"/>
+            <field name="arch" type="xml">
+                <filter icon="terp-camera_test" string="Posted" domain="[('state','=','posted')]" help="Posted Vouchers" position="after">
+                    <filter string="Release Cheque" domain="['|',('check_clear','=',True),('check_bank','=','True')]" help="Release Cheques"/>
+                    <filter string="Bounce Cheque" domain="['|',('check_bounce','=',True),('check_bank','=','True')]" help="Bounce Cheques"/>
+                    
+                    <filter string="PDC Receivbale" domain="[('journal_id.pdc_receivable','=',True)]" help="PDC Receivbale"/>
+                    <filter string="PDC Payable" domain="[('journal_id.pdc_payable','=',True)]" help="PDC Payable"/>
+                    <filter string="Current Date" domain="[('journal_id.pdc_payable','=',False),('journal_id.pdc_receivable','=',False)]" help="Current Date"/>
+                    <filter string="General Transactions" domain="[('journal_id.income_expense','=',True)]" help="General Transactions"/>
+
+                </filter>
+            </field>
+        </record>   
+        
+
+		<!-- Supplier Payment view update PDC Cheques with Cheque clearance and bounce  -->
+		<record model="ir.ui.view" id="view_vendor_payment_form_inherit">
+            <field name="name">account.voucher.payment.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
+            <field name="arch" type="xml">
+
+                <button name="cancel_voucher" string="Unreconcile" type="object" states="posted" position="before">
+                    <button name="action_release_cheque" type="object" string="Release" groups="account.group_account_invoice" attrs="{'invisible':['|','|',('state','!=','posted'),('pdc_check','=',False),('check_clear','=',True)]}" />
+                    <button name="action_bounce_check" type="object" string="Bounce" attrs="{'invisible':['|',('state','!=','posted'),('check_clear','!=',True)]}" groups="account.group_account_invoice"/>
+                </button>
+                <field name="journal_id" position="after">
+                 	<field name="check_no" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}"/>
+                 	<field name="check_date" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)],'required':['|',('pdc_check','=',True),('check_bank','=',True)]}"/>
+                 	<field name="bank_ids" domain="[('partner_id','=',partner_id)]" context="{'default_partner_id': partner_id}" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}"/>
+                 	<field name="pdc_check" invisible="1"/>
+                 	<field name="payment_type" invisible="1"/>
+ <field name="od_group_pay" invisible="1"/>
+                </field>
+                <field name="company_id" position="after">
+
+                    <field name="od_with_out_allocaion" attrs="{'invisible':[('pdc_check','=',False)],'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}"/>
+
+                    <field name="od_check_clearing_acc_id" domain="[('type','=','other')]" attrs="{'invisible':['|',('pdc_check','=',False),('od_with_out_allocaion','=',False)],'required':[('od_with_out_allocaion','=',True)],}"/>
+
+                    <field name="check_clearance_acc_ids" domain="[('type','=','liquidity')]" attrs="{'invisible':[('pdc_check','=',False)], 'required':[('pdc_check','=',True)], 'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}" string="Issue Bank"/>
+
+					<field name="journal_ids" attrs="{'invisible':[('pdc_check','=',False)], 'required':[('pdc_check','=',True)], 'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}" domain="[('type','in',['bank', 'cash'])]"/>
+
+<field name="cheque_release_date" attrs="{'invisible':[('pdc_check','=',False)], 'required':[('pdc_check','=',True)], 'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}"/>
+
+
+                	<field name="check_bank" invisible="1"/>
+                    <field name="check_clear" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}" readonly="1"/>
+                    <field name="check_bounce" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}" readonly="1"/>
+                </field>
+                <field name="journal_id"
+                                domain="[('type','in',['bank', 'cash'])]"
+                                invisible="context.get('line_type', False)"
+                                widget="selection"
+                                on_change="onchange_journal(journal_id, line_dr_ids, False, partner_id, date, amount, type, company_id, context)"
+                                string="Payment Method" position="replace">
+                    <field name="journal_id"
+                                domain="[('type','in',['bank', 'cash']),('pdc_receivable','=',False),('income_expense','=',False)]"
+                                invisible="context.get('line_type', False)"
+                                widget="selection"
+                                on_change="onchange_journal(journal_id, line_dr_ids, False, partner_id, date, amount, type, company_id, context)"
+                                string="Payment Method"/>
+                 </field>
+
+			<page string="Payment Information" position="attributes">
+						<attribute name="attrs">{'invisible' : [('od_with_out_allocaion','=',True)]}</attribute>
+			</page>
+
+                <field name="line_dr_ids" position="before">
+                    <group attrs="{'invisible':[('state','!=','draft')]}">
+                        <field name="od_manual_allocate" context="{'od_manual_allocate':od_manual_allocate}"/>
+                        <button string="Unallocate-All" name="od_deallocate" class="oe_link oe_inline" type="object" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" /> or
+                        <button string="Delete-Unallocated" name="od_refresh_allocation" class="oe_link oe_inline" type="object" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" />
+                    </group>
+                </field>
+                 
+            </field>
+       </record>
+       
+		<!-- Supplier Payment search view update  -->
+		
+		<record id="view_voucher_filter_vendor_pay_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.purchase.pay.select.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter_vendor_pay"/>
+            <field name="arch" type="xml">
+                <filter icon="terp-camera_test" string="Posted" domain="[('state','=','posted')]" help="Posted Vouchers" position="after">
+                    <filter string="Release Cheque" domain="['|',('check_clear','=',True),('check_bank','=','True')]" help="Release Cheques"/>
+                    <filter string="Bounce Cheque" domain="['|',('check_bounce','=',True),('check_bank','=','True')]" help="Bounce Cheques"/>
+
+                    <filter string="PDC Receivbale" domain="[('journal_id.pdc_receivable','=',True)]" help="PDC Receivbale"/>
+                    <filter string="PDC Payable" domain="[('journal_id.pdc_payable','=',True)]" help="PDC Payable"/>
+                    <filter string="Current Date" domain="[('journal_id.pdc_payable','=',False),('journal_id.pdc_receivable','=',False)]" help="Current Date"/>
+                    <filter string="General Transactions" domain="[('journal_id.income_expense','=',True)]" help="General Transactions"/>
+
+
+                </filter>
+             </field>
+		</record>
+		
+		<!-- Account vourcher tree view update -->
+		<record model="ir.ui.view" id="view_voucher_tree_inherit">
+            <field name="name">account.voucher.tree.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_tree"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="check_clear"/>
+                    <field name="check_bounce"/>
+                    <field name="check_date" invisible="1"/>
+                    <field name="check_clearance_acc_ids" invisible="1"/>
+                    <field name="all_entries" invisible="1"/>                   
+                </field>
+            </field>
+        </record>
+
+		
+		<!-- Update customer payment wizard on register payment button in customer invoice form -->				
+		<record model="ir.ui.view" id="view_vendor_receipt_dialog_form_inherit">
+            <field name="name">account.voucher.receipt.dialog.form.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_dialog_form"/>
+            	<field name="arch" type="xml">
+            	    <field name="journal_id" position="after">
+            		    <field name="check_no" attrs="{'invisible':[('pdc_check','=',False), ('check_bank','=',False)]}"/>
+                 	    <field name="check_date" attrs="{'invisible':[('pdc_check','=',False), ('check_bank','=',False)], 'required':['|',('pdc_check','=',True),('check_bank','=',True)]}"/>
+                 	    <field name="bank_ids" domain="[('partner_id','=',partner_id)]" context="{'default_partner_id': partner_id}" attrs="{'invisible':[('pdc_check','=',False), ('check_bank','=',False)]}"/>
+                 	    <field name="pdc_check" invisible="1"/>
+                 	    <field name="check_bank" invisible="1"/>
+                 	    <field name="payment_type" invisible="1"/>
+                    </field>
+               </field>
+        </record>
+        
+       
+		<!-- PDC Payment Form view -->
+		<record model="ir.ui.view" id="view_pdc_view_form">
+            <field name="name">account.voucher.receipt.form</field>
+            <field name="model">account.voucher</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <form string="Receipt" version="7.0">
+                <header invisible="context.get('line_type', False)">
+                    <button name="proforma_voucher" string="Validate" states="draft" class="oe_highlight"/>
+                    <button name="cancel_voucher" string="Cancel Receipt" states="draft,proforma"/>
+                    <button name="action_release_cheque" type="object" string="Release" groups="account.group_account_invoice" attrs="{'invisible':['|','|',('state','!=','posted'),('pdc_check','=',False),('check_clear','=',True)]}" />
+                    <button name="action_bounce_check" type="object" string="Bounce" attrs="{'invisible':['|',('state','!=','posted'),('check_clear','!=',True)]}" groups="account.group_account_invoice"/>
+                    <button name="action_cancel_draft" type="object" states="cancel" string="Set to Draft"/>
+                    <button name="cancel_voucher" string="Unreconcile" type="object" states="posted" confirm="Are you sure to unreconcile and cancel this record ?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted" statusbar_colors='{"proforma":"blue"}'/>
+                </header>
+                <sheet>
+                    <h1 attrs="{'invisible': [('number','=',False)]}"><field name="number"/></h1>
+                    <group invisible="context.get('line_type', False)">
+                        <group>
+<!--                            <field name="payment_type" required="1" on_change="onchange_payment_type(payment_type)"/>-->
+                            <field name="payment_type" invisible="1" on_change="onchange_payment_type(payment_type)"/>
+
+                            <field name="od_payment_type" required="1" on_change="onchange_payment_type(od_payment_type)"/>
+
+
+                            <field name="partner_id" attrs="{'required':[('payment_type','not in',('expense','income'))], 'invisible':[('payment_type','in',('expense','income'))]}"  on_change="onchange_partner_id(partner_id, journal_id, amount, currency_id, type, date, context)" string="Partner" context="{'payment_type': payment_type}"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount" class="oe_inline"
+                                string="Paid Amount"
+                                widget="monetary" options="{'currency_field': 'currency_id'}"
+                                on_change="onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, payment_rate_currency_id, company_id, context)"/>
+                            <field name="journal_id"
+                                on_change="onchange_journal(journal_id, line_cr_ids, False, partner_id, date, amount, type, company_id, context)"
+                                string="Payment Method"/>
+		                 	<field name="check_no" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}"/>
+		                 	<field name="check_date" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)],'required':['|',('pdc_check','=',True),('check_bank','=',True)]}" on_change="onchange_check_date(check_date)" />
+		                 	<field name="bank_ids" domain="[('partner_id','=',partner_id)]" context="{'default_partner_id': partner_id}" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}"/>
+		                 	<field name="pdc_check" invisible="1"/>
+		                 	<field name="check_bank" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date" on_change="onchange_date(date, currency_id, payment_rate_currency_id, amount, company_id, context)"/>
+                            <field name="reference" string="Payment Ref" placeholder="e.g. 003/10"/>
+                            <field name="name" colspan="2" placeholder="e.g. Invoice SAJ/0042"/>
+                            <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+							<field name="check_clearance_acc_ids" domain="[('type','=','liquidity')]" attrs="{'invisible':[('pdc_check','=',False)], 'required':[('pdc_check','=',True)], 'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}" />
+							<field name="journal_ids" attrs="{'invisible':[('pdc_check','=',False)], 'required':[('pdc_check','=',True)], 'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}"/>
+							
+
+                            <field name="cheque_release_date" attrs="{'invisible':[('pdc_check','=',False)], 'required':[('pdc_check','=',True)], 'readonly':['|',('check_clear','=',True),('check_bounce','=',True)]}"/>
+                    		
+                    		<field name="all_entries" invisible="1"/>
+                            <field name="account_id"
+                                widget="selection"
+                                invisible="True"/>
+                            <field name="pre_line" invisible="1"/>
+                            <field name="type" invisible="True"/>
+
+                        <field name="check_clear" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}" readonly="1"/>
+                        <field name="check_bounce" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}" readonly="1"/>
+<field name="od_payee" />
+<field name="od_acc_payee" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Account Information" attrs="{'invisible': [('payment_type','not in',('expense','income'))]}">
+                            <field name="income_expense_ids">
+                                <tree string="Account Information" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="account_id" domain="[('type','!=','view'),('company_id','=',parent.company_id)]"/>
+                                    <field name="partner_id"/>
+                                    <field name="analytic_account_id" domain="[('type','&lt;&gt;','view'), ('company_id', '=', parent.company_id)]" groups="analytic.group_analytic_accounting"/>
+                                    <field name="amount_currency"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Payment Information" groups="base.group_user" attrs="{'invisible': ['|',('payment_type','in',('expense','income'))]}">
+                            <label for="line_cr_ids" invisible="context.get('line_type', False)"/>
+
+                            <group attrs="{'invisible':[('state','!=','draft')]}">
+                                <field name="od_manual_allocate" context="{'od_manual_allocate':od_manual_allocate}"/>
+                                <button string="Unallocate-All" name="od_deallocate" class="oe_link oe_inline" type="object" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" /> or
+                                <button string="Delete-Unallocated" name="od_refresh_allocation" class="oe_link oe_inline" type="object" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" />
+                            </group>  
+
+                            <field name="line_cr_ids" context="{'journal_id':journal_id, 'type':type, 'partner_id':partner_id}" on_change="onchange_line_ids(line_dr_ids, line_cr_ids, amount, currency_id, type, context)">
+                                <tree string="Invoices and outstanding transactions" editable="bottom" colors="gray:amount==0">
+                                    <field name="move_line_id" context="{'journal_id':parent.journal_id, 'partner_id':parent.partner_id}"
+                                        on_change="onchange_move_line_id(move_line_id)"
+                                        domain="[('account_id.type','in',('receivable','payable')), ('reconcile_id','=', False), ('partner_id','=',parent.partner_id)]"
+                                        required="1"
+                                        groups="account.group_account_user"/>
+                                    <field name="account_id"  groups="base.group_no_one" domain="[('type','=','receivable')]"/>
+                                    <field name="date_original" readonly="1"/>
+                                    <field name="date_due" readonly="1"/>
+                                    <field name="amount_original" readonly="1"/>
+                                    <field name="amount_unreconciled" readonly="1" groups="account.group_account_user"/>
+                                    <field name="reconcile" on_change="onchange_reconcile(reconcile, amount, amount_unreconciled, context)" groups="account.group_account_user"/>
+                                    <field name="amount" sum="Total Allocation" on_change="onchange_amount(amount, amount_unreconciled, context)" string="Allocation"/>
+                                </tree>
+                            </field>
+                            <label for="line_dr_ids"/>
+                            <field name="line_dr_ids" context="{'journal_id':journal_id, 'partner_id':partner_id}" on_change="onchange_line_ids(line_dr_ids, line_cr_ids, amount, currency_id, type, context)">
+<!--                             <label for="line_dr_ids" attrs="{'invisible': [('pre_line','=',False)]}"/> -->
+<!--                             <field name="line_dr_ids" attrs="{'invisible': [('pre_line','=',False)]}" context="{'journal_id':journal_id, 'partner_id':partner_id}" on_change="onchange_line_ids(line_dr_ids, line_cr_ids, amount, currency_id, type, context)"> -->
+                                <tree string="Credits" editable="bottom" colors="gray:amount==0">
+                                    <field name="move_line_id" context="{'journal_id':parent.journal_id, 'partner_id':parent.partner_id}"
+                                        on_change="onchange_move_line_id(move_line_id)"
+                                        domain="[('account_id.type','in',('receivable','payable')), ('reconcile_id','=', False), ('partner_id','=',parent.partner_id)]"
+                                        required="1"/>
+                                    <field name="account_id"  groups="base.group_no_one" domain="[('type','=','receivable')]"/>
+                                    <field name="date_original" readonly="1"/>
+                                    <field name="date_due" readonly="1"/>
+                                    <field name="amount_original" readonly="1"/>
+                                    <field name="amount_unreconciled" readonly="1"/>
+                                    <field name="reconcile" on_change="onchange_reconcile(reconcile, amount, amount_unreconciled, context)"/>
+                                    <field name="amount" sum="Total Allocation" on_change="onchange_amount(amount, amount_unreconciled, context)" string="Allocation"/>
+                                </tree>
+                            </field>
+                            <group col="3">
+                                <group>
+                                    <field name="narration" colspan="2" nolabel="1"/>
+                                </group>
+                                <group col="4" attrs="{'invisible':[('is_multi_currency','=',False)]}">
+                                    <field name="is_multi_currency" invisible="1"/>
+				    <label for="payment_rate" colspan="1"/>
+				    <div>
+                                        <field name="payment_rate" required="1" class="oe_inline" on_change="onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, payment_rate_currency_id, company_id, context)"/>
+                                        <field name="payment_rate_currency_id" class="oe_inline" on_change="onchange_payment_rate_currency(currency_id, payment_rate, payment_rate_currency_id, date, amount, company_id, context)" groups="base.group_multi_currency"/>
+                                    </div>
+                                    <field name="currency_help_label" colspan="2" nolabel="1" class="oe_grey"/>
+                                    <field name="paid_amount_in_company_currency" colspan="4" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="writeoff_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="payment_option" required="1" attrs="{'invisible':[('writeoff_amount','=',0)]}"/>
+                                    <field name="writeoff_acc_id"
+                                           attrs="{'invisible':['|', ('payment_option','!=','with_writeoff'), ('writeoff_amount','=',0)], 'required':[('payment_option','=','with_writeoff')]}"
+                                           domain="[('type','=','other')]"/>
+                                    <field name="comment"
+                                           attrs="{'invisible':['|', ('payment_option','!=','with_writeoff'), ('writeoff_amount','=',0)]}"/>
+                                    <field name="analytic_id"
+                                           groups="analytic.group_analytic_accounting"
+                                           attrs="{'invisible':['|', ('payment_option','!=','with_writeoff'), ('writeoff_amount','=',0)]}"/>
+<!--                        <field name="check_clear" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}" readonly="1"/>-->
+<!--                        <field name="check_bounce" attrs="{'invisible':[('pdc_check','=',False),('check_bank','=',False)]}" readonly="1"/>-->
+                                </group>
+                            </group>
+
+                        </page>
+                        <page string="Journal Items" attrs="{'invisible': [('state','!=','posted')]}">
+                            <group col="4">
+                                <field name="period_id"/>
+                                <field name="audit"/>
+                            </group>
+                            <field name="move_ids" readonly="1">
+                                <tree string="Journal Items">
+                                    <field name="move_id"/>
+                                    <field name="ref"/>
+                                    <field name="date"/>
+                                    <field name="statement_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="account_id"/>
+                                    <field name="name"/>
+                                    <field name="debit"/>
+                                    <field name="credit"/>
+                                    <field name="state"/>
+                                    <field name="reconcile_id"/>
+                                    <field name="amount_currency"/>
+                                    <field name="currency_id" groups="base.group_multi_currency"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    </sheet>
+                    <div class="oe_chatter" invisible="context.get('line_type', False)">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="add_attribute_view_pdc_view_form">
+            <field name="name">account.voucher.receipt.form.attribute</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="view_pdc_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="////page[@string='Account Information']/field[@name='income_expense_ids']/tree/field[@name='analytic_account_id']" position="attributes">
+					<attribute name="context">{'account_id' : account_id}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+
+        <record id="view_voucher_pdc_pay_calendar" model="ir.ui.view">
+            <field name="name">account.voucher.calendar</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <calendar string="Bank Vouchers" color="partner_id" date_start="check_date" quick_add="False" >
+                    <field name="partner_id"/>
+
+                </calendar>
+            </field>
+        </record>
+		
+		
+		<!-- PDC Payment Filter view -->
+		<record id="view_voucher_pdc_pay1" model="ir.ui.view">
+            <field name="name">account.voucher.pdc.select</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <search string="Search Vouchers">
+                    <field name="number" string="Voucher"/>
+                    <field name="date"/>
+                    <field name="partner_id" string="Customer" filter_domain="[('partner_id','child_of',self)]"/>
+                    <field name="journal_id" widget="selection" context="{'journal_id': self, 'set_visible':False}" domain="[('type','in',('bank','cash'))]"/> <!-- Keep widget=selection on this field to pass numeric `self` value, which is not the case for regular m2o widgets! -->
+                    <field name="period_id"/>
+                    <filter string="Clear Cheque" domain="[('check_clear','=',True)]" help="Cleare Cheques"/>
+                    <filter string="Bounce Cheque" domain="[('check_bounce','=',True)]" help="Bounce Cheques"/>
+
+                    <filter string="PDC Receivbale" domain="[('journal_id.pdc_receivable','=',True)]" help="PDC Receivbale"/>
+                    <filter string="PDC Payable" domain="[('journal_id.pdc_payable','=',True)]" help="PDC Payable"/>
+                    <filter string="Current Date" domain="[('journal_id.pdc_payable','=',False),('journal_id.pdc_receivable','=',False)]" help="Current Date"/>
+                    <filter string="General Transactions" domain="[('journal_id.income_expense','=',True)]" help="General Transactions"/>
+
+
+                    <group expand="0" string="Group By...">
+                        <filter string="Customer" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id','visible':True}"/>
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Payment Type"  domain="[]" context="{'group_by':'payment_type'}"/>
+                        <filter string="Cheque Date" domain="[]" context="{'group_by':'check_date'}"/>
+                        <filter string="PDC Issued Bank" domain="[('check_clearance_acc_ids','!=',False)]" context="{'group_by':'check_clearance_acc_ids'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    <record id="view_od_account_voucher_graph" model="ir.ui.view">
+         <field name="name">od.account.voucher.graph</field>
+         <field name="model">account.voucher</field>
+         <field name="arch" type="xml">
+             <graph string="Bank Vouchers" type="pivot" stacked="True">
+                <field name="period_id" type="col"/>
+                 <field name="partner_id" type="row"/>
+                 <field name="amount"  type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+        
+		<!-- Show all vourcher which are related to PDC -->
+		<record model="ir.actions.act_window" id="action_pdc_voucher_list">
+            <field name="name">Bank Vouchers</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">['|',('check_bank','=',True),('payment_type','in',('expense','income'))]</field>
+<!--            <field name="context">{'all_entries':True}</field>-->
+
+            <field name="context">{'all_entries':True,'default_payment_type':'expense','default_od_payment_type':'expense'}</field>
+            <!-- <field name="context">{'state':'posted'}</field> -->
+            <field name="search_view_id" ref="view_voucher_pdc_pay1"/>
+        </record>
+        
+		<record id="action_pdc_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_pdc_voucher_list"/>
+        </record>
+        <record id="action_pdc_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_pdc_view_form"/>
+            <field name="act_window_id" ref="action_pdc_voucher_list"/>
+        </record>
+
+		<menuitem id="menu_pdc_receivable_payable_sub_menu" action="action_pdc_voucher_list" name="Bank Vouchers" parent="account.menu_finance_bank_and_cash" sequence="40"/>
+
+
+		<!-- Create buttons in more section for PDC management -->
+		
+		<!-- Release Button -->
+		
+		<record id="action_call_cheque_release" model="ir.actions.server">
+            <field name="name">Release</field>
+            <field name="model_id" ref="model_account_voucher"/>
+            <field name="state">code</field>
+            <field name="code">action = obj.release_action_on_multiple_selection()</field>
+        </record>
+        
+	    <record id="action_call_cheque_release_manage" model="ir.values">
+	            <field name="name">Cheque Release</field>
+	            <field name="key2">client_action_multi</field>
+	            <field name="model">account.voucher</field>
+	            <field name="value" eval="'ir.actions.server,%d'%action_call_cheque_release" />
+	            <field name="object" eval="True" />
+	        </record>
+	        
+	   <!-- Bounce Button -->
+	    <record id="action_call_cheque_bounce" model="ir.actions.server">
+            <field name="name">Bounce</field>
+            <field name="model_id" ref="model_account_voucher"/>
+            <field name="state">code</field>
+            <field name="code">action = obj.bounce_action_on_multiple_selection()</field>
+        </record>
+        
+	    <record id="action_call_cheque_bounce_manage" model="ir.values">
+	            <field name="name">Cheque Bounce</field>
+	            <field name="key2">client_action_multi</field>
+	            <field name="model">account.voucher</field>
+	            <field name="value" eval="'ir.actions.server,%d'%action_call_cheque_bounce" />
+	            <field name="object" eval="True" />
+	        </record>
+	    
+
+    </data>
+</openerp>

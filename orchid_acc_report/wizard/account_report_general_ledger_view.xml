@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+
+ 
+         <record id="od_acc_report_general_ledger_view" model="ir.ui.view">
+            <field name="name">General Ledger</field>
+            <field name="model">account.report.general.ledger</field>
+            <field name="inherit_id" ref="account.account_report_general_ledger_view" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='landscape']" position="after">
+                        <field name="od_print_template" widget="selection"/>
+                    </xpath>
+                    <xpath expr="//page[@string='Journals']" position="after">
+
+                        <page string="Partners" >
+                            <field name="od_partner_ids"/>
+                        </page>
+                        <page string="Employees" >
+                            <field name="od_employe_ids"/>
+                        </page>
+
+                        <page string="Analytic Accounts" >
+                            <field name="od_analytic_account_ids"/>
+                        </page>
+                        <page string="Branch" >
+                            <field name="od_branch_ids"/>
+                        </page>
+                         <page string="Division" >
+                            <field name="od_division_ids"/>
+                        </page>
+
+                        <page string="Accounts" >
+                            <field name="od_account_ids" required="1"/>
+                        </page>
+
+
+
+                    </xpath>
+                    
+                     <button string="Print" position="after">
+   <button icon="gtk-execute" name="check_report" string="Export XLS" type="object" context="{'xls_export':1}" attrs="{'invisible':[('filter','!=','filter_no')]}" colspan="2"/>
+</button>
+
+                </data>
+            </field>
+        </record>
+
+     </data>
+ </openerp>

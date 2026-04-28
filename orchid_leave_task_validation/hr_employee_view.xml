@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>   
+	 <record id="view_od_leave_tsk_validation_employee_inherit" model="ir.ui.view">
+	            <field name="name">hr.employee</field>
+	            <field name="model">hr.employee</field>
+	            <field name="inherit_id" ref="hr.view_employee_form"/>
+	            <field name="arch" type="xml">
+	            <xpath expr="/form/sheet/notebook/page[@string='HR Settings']" position="inside">
+	            	<group >
+	            	<group string='Cost Centre' >
+	            	 <field name='od_branch_id'  required="1" />
+	            	<field name='od_division_id' string="Technology Unit" domain="[('id','!=',29)]"/>
+	            		<field name='od_cost_centre_id' required="1" />
+	            	</group>
+	            	<group string="Leave Approval Managers">
+	            		<field name='od_first_manager_id' required="1" />
+	            			<field name='od_second_manager_id' required="1"/>
+	            	</group>
+	            	
+	            	</group>
+	            	
+	            </xpath>
+	            </field>
+	  </record>
+	</data>
+</openerp>

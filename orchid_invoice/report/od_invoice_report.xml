@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="od_invoice_report_view_graph" model="ir.ui.view">
+         <field name="name">od.invoice.report.view.graph</field>
+         <field name="model">od.invoice.report.view</field>
+         <field name="arch" type="xml">
+             <graph string="Sales Report" type="pivot">
+                 <field name="categ_id" type="row"/>
+<!--                 <field name="period_id" type="col"/>-->
+                 <field name="price_total" type="measure"/>
+                    <field name="cost" type="measure"/>
+                 <field name="profit" type="measure"/>
+<!--<field name="profile_percentage" type="measure"/>-->
+
+
+             </graph>
+         </field>
+    </record>
+
+
+    <record id="od_invoice_report_view_search" model="ir.ui.view">
+        <field name="name">od.invoice.report.view.search</field>
+        <field name="model">od.invoice.report.view</field>
+        <field name="arch" type="xml">
+            <search string="Sale Report">
+                <field name="date"/>
+
+                <field name="od_pdt_group_id"/>
+                <field name="od_pdt_sub_group_id"/>
+                <field name="od_pdt_type_id"/>
+                <field name="od_pdt_sub_type_id"/>
+                <field name="od_pdt_classification_id"/>
+                <field name="od_pdt_brand_id"/>
+                <field name="od_pdt_hscode_id"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <filter string="This Year" name="thisyear" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=', time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]" help="Journal invoices with period in current year"/>
+                <separator/>
+                <filter string="Invoiced" name="current" domain="[('state','not in', ('draft','cancel','proforma','proforma2'))]"/>
+                <separator/>
+
+
+
+
+
+
+                <separator/>
+                <filter string="Invoice" domain="['|', ('type','=','out_invoice'),('type','=','in_invoice')]"/>
+                <filter string="Refund" domain="['|', ('type','=','out_refund'),('type','=','in_refund')]"/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="user_id" />
+                <filter icon="terp-go-month" string="Period" separator="1" domain="[('date','like',time.strftime('%Y-%m%'))]" help="Created One Month"/>
+                <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Partner" name="partner_id" context="{'group_by':'partner_id','residual_visible':True}"/>
+                    <filter string="Salesperson" name='user' context="{'group_by':'user_id'}"/>
+                    <filter string="Category of Product" name="category_product" context="{'group_by':'categ_id','residual_invisible':True}"/>
+                    <filter string="Status" context="{'group_by':'state'}"/>
+                    <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    <separator orientation="vertical" />
+                    <filter string="Period" context="{'group_by':'period_id'}"/>
+                    <filter string="Due Month" context="{'group_by':'date_due:month'}"/>
+
+
+
+                    <filter string="Group" context="{'group_by':'od_pdt_group_id'}"/>
+                    <filter string="Sub Group" context="{'group_by':'od_pdt_sub_group_id'}"/>
+                    <filter string="Type" context="{'group_by':'od_pdt_type_id'}"/>
+                    <filter string="Sub Type" context="{'group_by':'od_pdt_sub_type_id'}"/>
+                    <filter string="Classification" context="{'group_by':'od_pdt_classification_id'}"/>
+                    <filter string="Brand" context="{'group_by':'od_pdt_brand_id'}"/>
+                    <filter string="HS Code" context="{'group_by':'od_pdt_hscode_id'}"/>
+
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_od_invoice_report_view" model="ir.actions.act_window">
+        <field name="name">Sale Report</field>
+        <field name="res_model">od.invoice.report.view</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="context">{'search_default_current':1, 'search_default_customer':1, 'group_by':[], 'group_by_no_leaf':1, 'search_default_year': 1}</field>
+        <field name="search_view_id" ref="od_invoice_report_view_search"/>
+        <field name="help"></field>
+
+    </record>
+
+    <menuitem action="action_od_invoice_report_view" id="menu_action_od_invoice_report_view" parent="base.next_id_64" sequence="0"/>
+
+  
+
+</data>
+</openerp>

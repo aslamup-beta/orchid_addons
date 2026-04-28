@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="orchid_purchase_jinherit_view_inherit" model="ir.ui.view">
+           <field name="name">purchase.order.inherit1</field>
+           <field name="model">purchase.order</field>
+           <field name="inherit_id" ref="purchase.purchase_order_form"/>
+           <field name="arch" type="xml">
+               <xpath expr="//notebook[last()]" position="inside">
+                    <page string="Purchase Order Lines Log" groups="orchid_beta.groups_beta_admin">
+                    
+                    <field name="od_po_lines_submit_log" readonly="1">
+           			<tree>
+           				 <field name="product_id"/>
+           				 <field name="qty"/>
+           				 <field name="price_unit"/>
+           				 <field name="disc"/>
+           				 
+           			</tree>           		
+           			</field>
+                    
+                    </page>
+               </xpath>
+               	<xpath expr="//field[@name='shipped']" position="after">
+					<field name="od_cost_saving" readonly="1" />
+					<field name="od_manual_jv_ref"/>
+					
+				</xpath>
+               
+               <xpath expr="//field[@name='pricelist_id']" position="after">
+               <field name="od_part_delvry" required="1"/>
+               </xpath>
+           </field>
+        </record>
+    </data>
+</openerp>

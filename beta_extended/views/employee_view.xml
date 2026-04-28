@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_employee_form_inherit_high_management" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.high.management</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="before">
+                    <field name="high_management_id" string="High Management"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_duty_resumption" class="oe_inline oe_stat_button" type="object"
+                            icon="fa-calendar">
+                        <div>
+                            Duty Resumption
+                        </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

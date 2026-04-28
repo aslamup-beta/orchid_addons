@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_service_team_ot_rpt_wizard" model="ir.ui.view">
+            <field name="name">UAE Service Team OT Report</field>
+            <field name="model">uae.ot.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                       <group>
+	                       <group>
+	                       		<field name="date_start" required="1"/>
+	                       		<field name="date_end" required="1"/>
+	                       </group>
+	                       <group>
+	                       		<field name="user_ids" widget="many2many_tags" required="1"/>
+	                       </group>
+                       </group>
+                        <group></group>
+                   	    <group></group>
+                        <group/>
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       </footer>
+                </form>
+            </field>
+        		</record>
+
+        <record id="action_use_service_team_ot_rpt_act" model="ir.actions.act_window">
+            <field name="name">Service Team OT Report</field>
+            <field name="res_model">uae.ot.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+     <menuitem  id="menu_uae_service_ot_rpt" parent="account.menu_finance_reports" action="action_use_service_team_ot_rpt_act" groups="__export__.res_groups_200,orchid_beta.groups_beta_admin" sequence="207"/>
+	 
+	 <record model="ir.ui.view" id="od_service_team_ot_tree_view">
+		<field name="name">uae.ot.rpt.data</field>
+		<field name="model">uae.ot.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="UAE Service Team OT Report">
+				<field name="staff_no" />
+				<field name="name" />
+				<field name="normal_ot" />
+				<field name="friday_ot" string="Sunday OT"/>
+				<field name="overnight_ot" />
+				<field name="holiday_ot" />
+				<field name="total_hrs" />
+				<field name="total_amt" sum="Total"/>
+			</tree>
+		</field>
+	</record>
+		
+</data>
+</openerp>
+			

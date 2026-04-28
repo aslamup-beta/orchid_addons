@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+      <record id="od_so_po_document_analysis_viewt_tree" model="ir.ui.view">
+            <field name="name">od.so.po.document.analysis.view</field>
+            <field name="model">od.so.po.document.analysis.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+                <tree string="Document Analysis" create="false">
+                    <field name="sale_order_id"/>
+                    <field name="purchase_order_id"/>
+<!--                    <field name="so_name"/>-->
+<!--                    <field name="po_name" />-->
+
+                    <field name="so_date"/>
+                    <field name="so_date_confirm"/>
+                    <field name="so_product_id"/>
+                    <field name="so_product_uom" />
+
+                    <field name="so_product_uom_qty"/>
+                    <field name="so_partner_id"/>
+                    <field name="so_company_id"/>
+                    <field name="so_user_id" />
+
+
+                    <field name="so_price_total"/>
+                    <field name="so_delay"/>
+                    <field name="so_categ_id"/>
+                    <field name="so_nbr" />
+
+                    <field name="so_state"/>
+                    <field name="so_pricelist_id"/>
+                    <field name="so_analytic_account_id"/>
+                    <field name="so_section_id" />
+
+                    <field name="po_date"/>
+                    <field name="po_state"/>
+                    <field name="po_product_id"/>
+                    <field name="po_picking_type_id" />
+
+
+                    <field name="po_location_id"/>
+                    <field name="po_partner_id"/>
+                    <field name="po_pricelist_id"/>
+                    <field name="po_date_approve" />
+
+
+                    <field name="po_expected_date"/>
+                    <field name="po_validator"/>
+                    <field name="po_product_uom"/>
+                    <field name="po_company_id" />
+
+                    <field name="po_user_id"/>
+                    <field name="po_delay"/>
+                    <field name="po_delay_pass"/>
+                    <field name="po_quantity" />
+
+
+                    <field name="po_price_total"/>
+                    <field name="po_price_average"/>
+                    <field name="po_negociation"/>
+                    <field name="po_price_standard" />
+
+                    <field name="po_nbr"/>
+                    <field name="po_category_id"/>
+
+
+                </tree>
+            </field>
+        </record>
+
+      <record id="od_so_po_document_analysis_viewt_search" model="ir.ui.view">
+            <field name="name">od.so.po.document.analysis.view</field>
+            <field name="model">od.so.po.document.analysis.view</field>
+            <field name="arch" type="xml">
+            <search string="Document Analysis">
+                     <field name="sale_order_id"/>
+                    <field name="purchase_order_id"/>
+
+                    <field name="so_date_confirm"/>
+                    <field name="po_date_approve"/>
+
+
+
+                           <filter icon="terp-go-year" string="Direct So" name="direct_so"
+                            domain="[('purchase_order_id','=',False),('sale_order_id','!=',False)]"
+                            /> 
+
+
+                           <filter icon="terp-go-year" string="Direct Po" name="direct_po"
+                            domain="[('sale_order_id','=',False),('purchase_order_id','!=',False)]"
+                            /> 
+
+<filter icon="terp-go-year" string="So For Current Year"
+                            domain="[('so_date_confirm','&lt;=', time.strftime('%%Y-%%m-%%d')),('so_date_confirm','&gt;=',time.strftime('%%Y-01-01'))]"
+                            help="So For Current Year"/>
+
+
+
+
+<filter icon="terp-go-year" string="Po For Current Year"
+                            domain="[('po_date_approve','&lt;=', time.strftime('%%Y-%%m-%%d')),('po_date_approve','&gt;=',time.strftime('%%Y-01-01'))]"
+                            help="Po For Current Year"/>
+                    <filter icon="terp-go-month" string="So for Current Month"
+                            name="somonth"
+                            domain="[('so_date_confirm','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),('so_date_confirm','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"
+                            help="Current Month"/>
+
+
+                    <filter icon="terp-go-month" string="Po for Current Month"
+                            name="pomonth"
+                            domain="[('po_date_approve','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),('po_date_approve','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"
+                            help="Current Month"/>
+                    <filter icon="terp-go-week"
+                            string="So For Current Week"
+                            separator="1"
+                            name="soweek"
+                            domain="[('so_date_confirm','&lt;=', (datetime.date.today() + relativedelta(weeks=0,day=7, weekday=-1)).strftime('%%Y-%%m-%%d')),('so_date_confirm','&gt;=',(datetime.date.today() - relativedelta(weeks=1, weekday=0)).strftime('%%Y-%%m-%%d'))]"
+                            help="Current Week"/>
+
+
+                    <filter icon="terp-go-week"
+                            string="Po For Current Week"
+                            separator="1"
+                            name="poweek"
+                            domain="[('po_date_approve','&lt;=', (datetime.date.today() + relativedelta(weeks=0,day=7, weekday=-1)).strftime('%%Y-%%m-%%d')),('po_date_approve','&gt;=',(datetime.date.today() - relativedelta(weeks=1, weekday=0)).strftime('%%Y-%%m-%%d'))]"
+                            help="Current Week"/>
+
+
+                     <field name="so_company_id"/>
+                      <field name="po_company_id" />
+                       <field name="so_user_id" />
+                    <field name="po_partner_id"/>
+                    <field name="so_partner_id"/>
+                    <field name="so_pricelist_id"/>
+                     <field name="po_pricelist_id"/>
+                     <field name="po_validator"/>
+
+
+
+
+
+
+<!--                    <field name="sale_order_id"/>-->
+<!--                    <field name="purchase_order_id"/>-->
+                <group expand="1" string="Group By...">
+                     <filter string="Sale Order" icon="terp-personal" name="odsale_order_id" context="{'group_by':'sale_order_id'}"/>
+                     <filter string="Purchase Order" icon="terp-personal" name="odpurchase_order_id" context="{'group_by':'purchase_order_id'}"/>
+
+                     <filter string="So Company" icon="terp-personal" name="so_company_id" context="{'group_by':'so_company_id'}"/>
+                     <filter string="Po Company" icon="terp-personal" name="po_company_id" context="{'group_by':'po_company_id'}"/>
+
+                     <filter string="Salesperson" icon="terp-personal" name="so_user_id" context="{'group_by':'so_user_id'}"/>
+                     <filter string="Supplier" icon="terp-personal" name="po_partner_id" context="{'group_by':'po_partner_id'}"/>
+
+                     <filter string="Customer" icon="terp-personal" name="so_partner_id" context="{'group_by':'so_partner_id'}"/>
+                     <filter string="So Pricelist" icon="terp-personal" name="so_pricelist_id" context="{'group_by':'so_pricelist_id'}"/>
+                     <filter string="Po Pricelist" icon="terp-personal" name="po_pricelist_id" context="{'group_by':'po_pricelist_id'}"/>
+                     <filter string="Po Validated By" icon="terp-personal" name="po_validator" context="{'group_by':'po_validator'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+
+        <record model="ir.ui.view" id="od_so_po_document_analysis_viewt_graph">
+            <field name="name">od.so.po.document.analysis.view</field>
+            <field name="model">od.so.po.document.analysis.view</field>
+            <field name="arch" type="xml">
+                <graph string="Document Analysis" type="bar">
+                    <field name="sale_order_id"/>
+                    <field name="purchase_order_id"/>
+<!--                    <field name="so_name"/>-->
+<!--                    <field name="po_name" />-->
+                    <field name="so_product_uom_qty"/>
+                </graph>
+            </field>
+        </record>
+
+    <record id="action_od_so_po_document_analysis" model="ir.actions.act_window">
+        <field name="name">Document Analysis</field>
+        <field name="res_model">od.so.po.document.analysis.view</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,graph</field>
+        <field name="search_view_id" ref="od_so_po_document_analysis_viewt_search"/>
+        <field name="view_id" ref="od_so_po_document_analysis_viewt_tree"/>
+        <field name="context">{}</field>
+        <field name="help">This report Document Analysis.</field>
+    </record>
+
+    </data>
+</openerp>

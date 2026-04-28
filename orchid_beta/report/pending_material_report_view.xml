@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="od_pending_tree_view">
+            <field name="name">od.pending.report</field>
+            <field name="model">od.pending.report</field>
+            <field name="arch" type="xml">
+                <tree string="Pending" >
+                          <field name="product_id"/>
+                          <field name="name"/>
+                          <field name="order_id"/>
+                          <field name="date_order"/>
+                          <field name="order_qty"/>
+                          <field name="deliverd_qty"/>
+                          <field name="balance_qty"/>
+                          <field name="sale_terr_id"/>
+                          <field name="partner_id"/>
+                          <field name="project_id"/>
+                          <field name="section_id"/>
+                          <field name="owner_id"/>
+                          <field name="company_id"/>
+                  </tree>
+           </field>
+        </record>
+        <record model="ir.ui.view" id="od_pending_search_view">
+            <field name="name">od.pending.report</field>
+            <field name="model">od.pending.report</field>
+            <field name="arch" type="xml">
+                <search string="Pending" >
+                          <field name="product_id"/>
+                              <field name="name"/>
+                              <field name="order_id"/>
+                              <field name="date_order"/>
+                              <field name="order_qty"/>
+                              <field name="deliverd_qty"/>
+                              <field name="balance_qty"/>
+                              <field name="sale_terr_id"/>
+                              <field name="partner_id"/>
+                              <field name="project_id"/>
+                              <field name="section_id"/>
+                              <field name="owner_id"/>
+                              <field name="company_id"/>
+                    
+                    <group expand="0" string="Group By">
+                      <filter name="group_by_territory" string="Sale Territory" context="{'group_by':'sale_terr_id'}"/>
+                       <filter name="group_by_partner" string="Customer" context="{'group_by':'partner_id'}"/>
+                       <filter name="group_by_anlaytic" string="Analytic Account" context="{'group_by':'project_id'}"/>
+                        <filter name="group_by_section" string="Sale Team" context="{'group_by':'section_id'}"/>
+                         <filter name="group_by_owner" string="Owner" context="{'group_by':'owner_id'}"/>
+                        <filter string="Date Order" context="{'group_by':'date_order'}"/>
+                    </group>
+
+                </search>
+           </field>
+        </record>
+
+        <record id="action_pending_beta" model="ir.actions.act_window">
+            <field name="name">Pending Material Report</field>
+            <field name="res_model">od.pending.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="od_pending_search_view"/>
+
+        </record>
+        <menuitem parent="base.next_id_64" action="action_pending_beta" id="menu_beta_pending_mat" sequence="5"/>
+    </data>
+</openerp>

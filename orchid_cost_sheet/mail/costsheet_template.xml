@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+    <data noupdate="0">
+    
+       <record id="cst_sheet_change_processed_mail" model="email.template">
+            <field name="name">UAE - Cost Sheet Change Processed Notification Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Cost Sheet Changed - Ready for Finance Approval</field>
+           <!--  <field name="email_to">${object.finance_reviewer.email}</field> -->
+            <field name="email_to">FD@betait.net</field>
+            <field name="email_cc">khalid.eqtifan@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear Finance Manager السيد المدير المالي,</p>
+
+                    <p>We require your review / approval for the changes done to the below cost sheet:</p>
+
+                     <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+        
+        <record id="cst_sheet_change_processed_mail_saudi" model="email.template">
+            <field name="name">KSA - Cost Sheet Change Processed Notification Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Cost Sheet Changed - Ready for Finance Approval</field>
+           <!--  <field name="email_to">${object.finance_reviewer.email}</field> -->
+            <field name="email_to">finance.ksa@betait.net</field>
+            <field name="email_cc">${object.od_branch_id.email}, ${object.od_branch_id.pmo_manager_id.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear Finance Manager السيد المدير المالي,</p>
+
+                    <p>We require your review / approval for the changes done to the below cost sheet:</p>
+
+                     <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+        <record id="cst_sheet_po_attached" model="email.template">
+            <field name="name">UAE - Cost Sheet PO Available Notification Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Cost Sheet ${object.name} - PO Available</field>
+           <!--  <field name="email_to">${object.finance_reviewer.email}</field> -->
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">khalid.eqtifan@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.reviewed_id.name},</p>
+
+                    <p>Customer PO Status changed from Waiting PO to Available for the below cost sheet:</p>
+					<p>Kindly check Documents Tab for attached PO.</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+        
+        <record id="cst_sheet_po_attached_saudi" model="email.template">
+            <field name="name">UAE - Cost Sheet PO Available Notification Email</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Cost Sheet ${object.name} - PO Available</field>
+           <!--  <field name="email_to">${object.finance_reviewer.email}</field> -->
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mahmoud.alkhatib@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.reviewed_id.name},</p>
+
+                    <p>Customer PO Status changed from Waiting PO to Available for the below cost sheet:</p>
+					<p>Kindly check Documents Tab for attached PO.</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+
+         <record id="cst_sheet_handover_mail_after_proj_return" model="email.template">
+            <field name="name">Cost Sheet Hand-over Mail UAE After Project Return</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Cost Sheet Handed Over أعمال جديدة</field>
+            <field name="email_to">${object.reviewed_id.email or ''}</field>
+            <field name="email_cc">khalid.eqtifan@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.reviewed_id.name or ''},</p>
+
+                    <p>The Returned Cost Sheet is Handed over again by Sales Team, Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        <record id="cst_sheet_handover_mail_after_proj_return_saudi" model="email.template">
+            <field name="name">Cost Sheet Hand-over Mail Saudi After Project Return </field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Cost Sheet Handed Over أعمال جديدة </field>
+            <field name="email_to">${object.reviewed_id.email or ''}</field>
+            <field name="email_cc">mahmoud.alkhatib@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.reviewed_id.name or ''},</p>
+
+                    <p>The Returned Cost Sheet is Handed over again by Sales Team, Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+    
+     
+   
+    </data>
+  </openerp>
+ 

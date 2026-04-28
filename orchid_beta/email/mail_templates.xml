@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+        <data noupdate="1">
+        
+            <record id="od_landed_cost_creation_email_mail" model="email.template">
+                     <field name="name">Landed Cost Mail UAE</field>
+                     <field name="email_from">${(user.email or '')|safe}</field>
+                     <field name="subject">Landed Cost Created</field>
+                     <field name="email_to">mohammed.siddiqui@betait.net</field>
+
+                     <field name="model_id" ref="model_res_users"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Storekeeper,</p>
+
+         				    <p>Landed Cost Created</p>
+         				    <p>Info</p>
+         				    <ul>
+         				    <li>Landed Cost Name:${ctx["data"]['name']}  </li>
+                            <li>Pickings:${ctx["data"]['pickings']}  </li>
+         				    </ul>
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                <record id="od_landed_cost_creation_email_mail_saudi" model="email.template">
+                         <field name="name">Landed Cost Creation Mail KSA</field>
+                         <field name="email_from">${(user.email or '')|safe}</field>
+                         <field name="subject">Landed Cost Created</field>
+                         <field name="email_to">ahmed.siddiqui@betait.net</field>
+
+                        <field name="model_id" ref="model_res_users"/>
+
+                         <field name="body_html"><![CDATA[
+             				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             				    <p>Dear Storekeeper,</p>
+
+             				        <p>Landed Cost Created</p>
+                 				    <p>Info</p>
+                 				    <ul>
+                 				<li>Landed Cost Name:${ctx["data"]['name']}  </li>
+                                <li>Pickings:${ctx["data"]['pickings']}  </li>
+                 				    </ul>
+                 				    <p>Thank You</p>
+
+
+             				</div>
+                         ]]></field>
+                     </record>
+
+            <record id="od_purchase_order_confirmed_email_mail" model="email.template">
+                     <field name="name">Purchase Order Confirmed Mail UAE</field>
+                     <field name="email_from">erp@betait.net</field>
+                     <field name="subject">Purchase Order Confirmed</field>
+                     <field name="email_to">mohammed.siddiqui@betait.net</field>
+                     <field name="model_id" ref="model_res_users"/>
+
+                     <field name="body_html"><![CDATA[
+         				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+         				    <p>Dear Storekeeper,</p>
+
+         				    <p>Purchase Order Confirmed,Be Ready</p>
+         				    <p>Info</p>
+         				    <ul>
+         				      <li>Purchase Order:${ctx["data"]['name']}</li>
+         				    </ul>
+         				    <p>Thank You</p>
+
+         				</div>
+                     ]]></field>
+                 </record>
+                <record id="od_purchase_order_confirmed_email_mail_saudi" model="email.template">
+                         <field name="name">Purchase Order Confirmed Mail KSA</field>
+                         <field name="email_from">${(user.email or '')|safe}</field>
+                         <field name="subject">Purchase Order Confirmed</field>
+                         <field name="email_to">ahmed.siddiqui@betait.net</field>
+                         <field name="model_id" ref="model_res_users"/>
+
+                         <field name="body_html"><![CDATA[
+             				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             				    <p>Dear Storekeeper,</p>
+
+             				    <p>Purchase Order Confirmed,Be Ready</p>
+             				    <p>Info</p>
+             				    <ul>
+             				    <li>Purchase Order:${ctx["data"]['name']}</li>
+             				    </ul>
+             				    <p>Thank You</p>
+
+             				</div>
+                         ]]></field>
+                     </record>
+                     <record id="od_sale_new_confirmed_email_mail_saudi" model="email.template">
+                              <field name="name">Sale Order Confirmed Mail KSA</field>
+                              <field name="email_from">${(user.email or '')|safe}</field>
+                              <field name="subject">Sale Order Approved</field>
+                              <field name="email_to">ahmed.siddiqui@betait.net</field>
+                              <field name="model_id" ref="model_res_users"/>
+
+                              <field name="body_html"><![CDATA[
+                  				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                  				    <p>Dear Storekeeper,</p>
+
+                  				    <p>Sale Order Approved,Be Ready</p>
+                  				    <p>Info</p>
+                  				    <ul>
+                  				    <li>Sale Order:${ctx["data"]['name']}  </li>
+                  				    </ul>
+                  				    <p>Thank You</p>
+
+                  				</div>
+                              ]]></field>
+                          </record>
+                           <record id="od_sale_new_confirmed_email_mail" model="email.template">
+                                    <field name="name">Sale Order Confirmed Mail UAE</field>
+                                    <field name="email_from">${(user.email or '')|safe}</field>
+                                    <field name="subject">Sale Order Approved</field>
+                                    <field name="email_to">mohammed.siddiqui@betait.net</field>
+                                    <field name="model_id" ref="model_res_users"/>
+
+                                    <field name="body_html"><![CDATA[
+                        				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                        				    <p>Dear Storekeeper,</p>
+
+                        				    <p>Sale Order Approved,Be Ready</p>
+                        				    <p>Info</p>
+                        				    <ul>
+                        				    <li>Sale Order:${ctx["data"]['name']}</li>
+                        				    </ul>
+                        				    <p>Thank You</p>
+
+                        				</div>
+                                    ]]></field>
+                                </record>
+
+
+        </data>
+</openerp>

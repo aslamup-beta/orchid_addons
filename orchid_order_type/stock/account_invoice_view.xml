@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- Update user form !-->
+        <record id="view_orchid_account_invoice_inherited" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherited.orchid</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            <data>
+                <field name="move_id" position="after">
+                    <field name="od_order_type_id"/>
+                </field>
+            </data>
+            </field>
+        </record>
+
+
+         <record id="orchid_account_invoice_supplier_inherited_view" model="ir.ui.view">
+                <field name="name">account.invoice.supplier</field>
+                <field name="model">account.invoice</field>
+                <field name="inherit_id" ref="account.invoice_supplier_form"/>
+                <field name="arch" type="xml">
+
+                    <data>
+                        <field name="move_id" position="after">
+                            <field name="od_order_type_id"/>
+                        </field>
+                    </data>
+                </field>
+               
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- Applicants -->
+        <record model="ir.ui.view" id="beta_partner_tree_view">
+            <field name="name">Beta Partner</field>
+            <field name="model">beta.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Beta Partner">
+                    <field name="registration_type"/>
+                    <field name="create_uid" string="Created By" readonly="1"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="company_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="beta_partner_form_view">
+            <field name="name">Beta Partner</field>
+            <field name="model">beta.partner</field>
+            <field name="arch" type="xml">
+                <form string="Beta Partner">
+                    <header>
+                        <button string="Submit" class="oe_highlight" name="action_submit" type="object" states="draft"/>
+                        <button string="Approve" name="action_approve" type="object" class="oe_highlight"
+                                states="confirm"/>
+                        <button string="Refuse" name="action_refuse" type="object" states="confirm"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_clear"/>
+                <group >
+                    <group>
+                        <field name="registration_type" string="Request Type" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                        <field name="related_partner_id" string="Customer to Modify" placeholder="Search existing customer..."
+                               domain="[('is_company','=',True), ('customer','=',True)]"
+                               attrs="{'invisible': [('registration_type', '!=', 'modify')], 'required': [('registration_type', '=', 'modify')], 'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+
+                        <field name="image" widget='image' class="oe_left oe_avatar" required="1"/>
+                        <div class="oe_title">
+                            <div class="oe_edit_only">
+                                <label for="name" string="Customer Name"/>
+                            </div>
+                            <h1>
+                                <field name="name" placeholder="e.g. Global Solutions Inc." required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="od_industry_id" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                <field name="od_territory_id" required="0" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="user_id" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                <field name="team_id" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                <field name="new_partner_id" readonly="1" attrs="{'invisible': [('registration_type', '!=', 'new')], 'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                            </group>
+                            <group>
+                                <field name="od_class" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                <field name="vat_id" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                <field name="create_uid" string="Created By" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="National Address">
+                                <group>
+                                    <group>
+                                        <field name="od_street" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="od_street2" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="od_building_no" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="od_additional_no" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="district" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="od_zip" required="1" style="width: 20%%" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="od_state_id" string="City" class="oe_no_button" style="width: 100%%" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="od_country_id" class="oe_no_button" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="website" required="1" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="buyer_identification" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="od_other_buyer_id" attrs="{'required': [('buyer_identification', 'not in', [None, False, ''])], 'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="od_cr_no" attrs="{'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Contact" attrs="{'invisible': [('registration_type', '!=', 'new')]}">
+                                <group>
+                                    <group>
+                                        <field name="contact_person" attrs="{'required': [('registration_type', '!=', 'modify')], 'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="function" attrs="{'required': [('registration_type', '!=', 'modify')], 'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="email" attrs="{'required': [('registration_type', '!=', 'modify')], 'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="mobile" attrs="{'required': [('registration_type', '!=', 'modify')], 'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                        <field name="phone" attrs="{'required': [('registration_type', '!=', 'modify')], 'readonly': [('state', 'in', [ 'validate', 'refuse'])]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Modification Summary" attrs="{'invisible': [('registration_type', '!=', 'modify')]}">
+                               <group string="Detected Changes" attrs="{'invisible': ['|', ('registration_type', '!=', 'modify'), ('state', 'in', ['validate', 'refuse'])]}">
+                                   <h3>
+                                       <field name="change_summary" nolabel="1"/>
+                                   </h3>
+                                </group>
+                                <group string="Changes Approved" attrs="{'invisible': ['|', ('registration_type', '!=', 'modify'), ('state', 'not in', ['validate', 'refuse'])]}">
+                                     <h3>
+                                        <field name="change_summary_frozen" nolabel="1" readonly="1"/>
+                                     </h3>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_view_beta_partner">
+            <field name="name">Customer Creation or Modification</field>
+            <field name="res_model">beta.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to Create a Customer
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_beta_partner_main" name="Customer Create / Modify" action="action_view_beta_partner"
+                  parent="mail.mail_my_stuff" sequence="200" groups="beta_customer_registration.group_customer_creation"
+        />
+    </data>
+</openerp>

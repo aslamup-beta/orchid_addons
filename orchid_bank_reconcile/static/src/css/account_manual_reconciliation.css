@@ -1,0 +1,38 @@
+.openerp .oe_account_reconciliation select {
+    font-family: 'Viga', sans-serif;
+    font-size:16px;
+    color:#168ACB;
+/*    padding: 5px 10px 5px 10px;*/
+/*    margin: 0px 5px 5px 5px;*/
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #eaeaea inset;
+    -moz-box-shadow: 0 3px 0 #ccc, 0 -1px #eaeaea inset;
+    box-shadow: 0 3px 0 #ccc, 0 -1px #eaeaea inset;
+    background: #f8f8f8;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+/*    -moz-appearance:initial;*/
+    appearance:none;
+    cursor:pointer;
+    width:20px;
+}
+
+.oe_orchid_bank_reconcile_select_account{
+    background:#f8f8f8;
+    width:200px;
+
+}
+.oe_orchid_bank_reconcile_select_journal{
+    background:#f8f8f8;
+    width:200px;
+
+}
+/*.oe_form_dropdown_section{*/
+/*    background:#f8f8f8;*/
+/*    width:200px;*/
+
+/*}*/

@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_pmo_anal_rpt_wizard" model="ir.ui.view">
+            <field name="name">PMO Analytic Form</field>
+            <field name="model">pmo.anal.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+                      <group>
+                      	<field name="prj_status" required="1"/>
+                      </group>
+                
+                     <group>                 
+                         
+                        <group>
+                        	<field name="date_start_from"/>
+                        	<field name="date_start_to"/>
+                         </group>
+                         
+                          <group>
+                        		<field name="closing_date_from" attrs="{'invisible':[('prj_status','=','open')]}"/>
+                        		<field name="closing_date_to" attrs="{'invisible':[('prj_status','=','open')]}"/>
+                        	</group>
+                       </group>
+                         
+                       
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_pmo_anal_rpt_act" model="ir.actions.act_window">
+            <field name="name">PMO Analytic Report</field>
+            <field name="res_model">pmo.anal.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         
+         <menuitem
+         	
+			id="menu_action_pmo_anal_rpt_act"
+			parent="account.menu_finance_reports"
+			 sequence="206" 
+			action="action_pmo_anal_rpt_act" />
+
+
+	<record model="ir.ui.view" id="od_pmo_anal_data_tree_view">
+		<field name="name">pmo.anal.rpt.data.tree</field>
+		<field name="model">pmo.anal.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Analytic Analysis">
+				<field name="analytic_id" />
+				<button name="btn_open" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="paid"  sum="Total"/>
+				<field name="manpower_cost" sum="Total" />
+				<field name="general_cost" sum="Total" />
+				
+				<field name="collected" sum="Total" />
+				<field name="project_value" sum="Total" />
+				<field name="inv_amount" sum="Total" />
+			</tree>
+		</field>
+	</record>
+
+<!-- 	<record model="ir.ui.view" id="ood_pmo_anal_search_view"> -->
+<!-- 		<field name="name">pmo.anal.rpt.data.search</field> -->
+<!-- 		<field name="model">pmo.anal.rpt.data</field> -->
+<!-- 		<field name="arch" type="xml"> -->
+<!-- 			<search> -->
+<!-- 			<field name="pm_id" /> -->
+<!-- 				<field name="analytic_account_id" /> -->
+<!-- 			<group expand="1" string="Group By"> -->
+                       
+<!--                         <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/> -->
+<!--                          <filter string="Project Start Year" context="{'group_by':'date_start:year'}" name="Year"/> -->
+<!--                         <filter string="Project Start Month" context="{'group_by':'date_start:month'}"/> -->
+<!--                         <filter string="Project Start Quarter" context="{'group_by':'date_start:quarter'}"/> -->
+<!--                          <filter string="Actual Closing Date" context="{'group_by':'closing_date:month'}"/> -->
+<!--                          <filter string="PMO Expected Closing Year" context="{'group_by':'date_end:year'}" name="Year"/> -->
+<!--                         <filter string="PMO Expected Closing Month" context="{'group_by':'date_end:month'}"/> -->
+<!--                         <filter string="PMO Expected Closing Quarter" context="{'group_by':'date_end:quarter'}"/> -->
+                       
+<!--                         <filter string="Sale Account Manager" domain="[]" context="{'group_by':'sam_id'}"/> -->
+<!--                         <filter string="Project Manager" domain="[]" context="{'group_by':'pm_id'}"/> -->
+                        
+<!--                          <filter string="Contract Status" domain="[]" context="{'group_by':'contract_status'}"/> -->
+<!--                          <filter string="Contract Start Date" context="{'group_by':'contract_start_date:month'}"/> -->
+<!--                          <filter string="Contract End Date" context="{'group_by':'contract_end_date:month'}"/> -->
+                        
+                        
+                       
+<!--                     </group> -->
+			
+<!-- 			</search> -->
+			
+			
+<!-- 		</field> -->
+<!-- 	</record> -->
+    </data>
+</openerp>

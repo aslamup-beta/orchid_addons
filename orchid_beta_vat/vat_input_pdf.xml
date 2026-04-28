@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+      	<template id="report_vatregister_pdf">
+      		<t t-call="report.external_layout">
+				<t t-call="report.html_container">
+					<t t-foreach="docs" t-as="o">
+						<div class="page">
+							<div class="row">
+								<p>
+				                     Document:VAT Input<br/>
+				                   
+				       
+				                     <p>Report Date:<span t-esc="report_date"/><br/></p>
+				                     <p>VAT Period:<span t-esc="vat_period"/><br/></p>
+				   				</p>		
+
+								<table class="table table-condensed" style="width:100%;border:1px solid #000;border-collapse: collapse;">
+                        			<colgroup>
+			                           <col width='10%' />
+			                           <col width='10%' />
+			                           <col width='15%' />
+			                           <col width='15%' />
+			                           <col width='15%' />
+			                           <col width='15%' />
+			                           <col width='10%' />
+			                           <col width='10%' />
+			                        </colgroup>
+			                        <thead>
+			                           <tr style="border:1px solid #000;border-collapse: collapse;">
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Document Number</th>
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Description</th>
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Document Type</th>
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Document Date</th>
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Posting Date</th> 
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Debit</th>
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Credit</th>
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Local Currency</th>
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Transaction Type</th>
+			                              <th class="text-center" style="border:1px solid #000;border-collapse: collapse;">Tax Code</th> 
+			                          </tr>
+				                    </thead>
+				                     <tbody>
+					                    	<t t-foreach="lines" t-as="data">
+					                      	<tr  style="border:1px solid #000;border-collapse: collapse;">
+					                      		<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['doc_num']"/>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['description']"/>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['doc_type']"/>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['doc_date']"/>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['doc_date']"/>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['debit']"/>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['credit']"/>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['currency']"/>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['trans_type']"/>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="data['tax_code']"/>
+		                              			</td>
+		                              		</tr>
+		                              	</t>
+		                              	<tr>
+		                              		<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span>Total</span>
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			<span t-esc="total_debit"/> 
+		                              			</td>
+
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                              				<span t-esc="total_credit"/> 
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			
+		                              			</td>
+		                              			<td style="border:1px solid #000;border-collapse: collapse;">
+		                                 			
+		                              			</td>
+		                              	</tr>
+		                             </tbody>
+				                </table>
+				                <p>Local Purchase:<span t-esc="local_purchase"/><br/></p>
+				                     <p>Foreign Purchase:<span t-esc="foreign_purchase"/><br/></p>
+				            </div>
+				        </div>
+				    </t>
+				</t>
+			</t>
+		</template>
+	</data>
+</openerp>

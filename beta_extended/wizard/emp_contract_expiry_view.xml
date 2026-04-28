@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_emp_contract_expiry_wiz" model="ir.ui.view">
+            <field name="name">Professional Service PO Report</field>
+            <field name="model">emp.contract.expiry.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Contract Expiry">
+                    <group>
+                        <group>
+                            <field name="employee_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="export_rpt" string="Export" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_emp_contract_expiry_wiz" model="ir.actions.act_window">
+            <field name="name">Contract Expiry</field>
+            <field name="res_model">emp.contract.expiry.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Reporting" id="menu_hr_reporting" parent="hr.menu_hr_root" sequence="33" groups="__export__.res_groups_245,__export__.res_groups_246,__export__.res_groups_186"/>
+        <menuitem
+                id="od_menu_ps_po_rpt"
+                parent="beta_extended.menu_hr_reporting"
+                sequence="22"
+                action="action_emp_contract_expiry_wiz" groups="__export__.res_groups_245,__export__.res_groups_246,__export__.res_groups_186"/>
+
+        <record model="ir.ui.view" id="tree_view_emp_contract_expiry_data_line">
+            <field name="name">emp.contract.expiry.data.line.tree</field>
+            <field name="model">emp.contract.expiry.data.line</field>
+            <field name="arch" type="xml">
+                <tree string="Contract Expiry" colors="red:remaining_days &lt;= 180">
+                    <field name="company_id" invisible="1"/>
+                    <!--                    <button name="btn_open_po" type="object" icon="STOCK_FIND" string="Open"/>-->
+                    <field name="employee_id"/>
+                    <field name="id_number"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="remaining_days"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="emp_contract_expiry_data_line_search_view">
+            <field name="name">emp.contract.expiry.data.line.search</field>
+            <field name="model">emp.contract.expiry.data.line</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="id_number"/>
+                    <field name="remaining_days"/>
+                    <separator/>
+                    <filter string="Remaining Days &lt;= 180" name="type_person" domain="[('remaining_days','&lt;=', 180)]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Contract End Date By Month" context="{'group_by': 'end_date:month'}"/>
+                        <filter string="Contract End Date By Year" context="{'group_by': 'end_date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_od_cost_division,access_od_cost_division,model_od_cost_division,,1,1,1,1
+access_od_cost_branch,access_od_cost_branch,model_od_cost_branch,,1,1,1,1
+access_od_cost_centre,access_od_cost_centre,model_od_cost_centre,,1,1,1,1

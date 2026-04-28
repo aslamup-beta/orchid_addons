@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="wiz_import_export_form" model="ir.ui.view">
+            <field name="name">Import/Export</field>
+            <field name="model">wiz.import.export</field>
+            <field name="arch" type="xml">
+                <form string="Assign Owner" >
+                   <group>
+                       <field name="file_name" invisible="1" />
+                       <field name="export_name" invisible="1" />
+                      <field name="file_data" filename="file_name" />
+                   
+                   </group>
+                
+                
+                <footer>
+                  <button name="btn_import" string="Import" type="object" class="oe_highlight"/>
+                    or
+                  <button name="btn_export" string="Export" type="object" class="oe_highlight"/>
+                  
+                  <field name="export_file" filename="export_name" readonly="1" />
+                
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_import_export_action" model="ir.actions.act_window">
+            <field name="name">Import/Export</field>
+            <field name="res_model">wiz.import.export</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <record id="wiz_import_export_ren_form" model="ir.ui.view">
+            <field name="name">Import/Export</field>
+            <field name="model">wiz.import.export.ren</field>
+            <field name="arch" type="xml">
+                <form string="Assign Owner" >
+                   <group>
+                       <field name="file_name" invisible="1" />
+                       <field name="export_name" invisible="1" />
+                      <field name="file_data" filename="file_name" />
+                   
+                   </group>
+                
+                
+                <footer>
+                  <button name="btn_import" string="Import" type="object" class="oe_highlight"/>
+                    or
+                  <button name="btn_export" string="Export" type="object" class="oe_highlight"/>
+                  
+                  <field name="export_file" filename="export_name" readonly="1" />
+                
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_import_export_ren_action" model="ir.actions.act_window">
+            <field name="name">Import/Export</field>
+            <field name="res_model">wiz.import.export.ren</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

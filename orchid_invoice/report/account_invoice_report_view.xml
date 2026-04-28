@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+   <record id="view_order_form_tv_inherit-kkkk" model="ir.ui.view">
+            <field name="name">sale.order.form.tv.inherit</field>
+            <field name="model">account.invoice.report</field>
+            <field name="inherit_id" ref="account.view_account_invoice_report_graph"/>
+            <field name="arch" type="xml">
+               <field name="price_total" position="after">
+<!--                <field name="price_total" type="measure"/>-->
+<!--                <field name="od_line_cost" type="measure"/>-->
+                <field name="od_profit" type="measure"/>
+              
+           
+               </field>
+<!--            <field name="categ_id" position="after">-->
+<!--                   <field name="od_account_invoice" type="row"/>-->
+<!--            </field>-->
+
+
+    
+
+  
+
+
+            </field>
+        </record>
+
+
+<menuitem action="account.action_account_invoice_report_all" id="account.action_account_invoice_report_alls" parent="base.next_id_64"  name="Sale Report" sequence="5"/>
+
+    </data>
+</openerp>

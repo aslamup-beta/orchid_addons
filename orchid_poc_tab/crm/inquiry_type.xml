@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="od_inquiry_type_form">
+		<field name="name">od Inquiry form view</field>
+		<field name="model">od.inquiry.type</field>
+		<field name="arch" type="xml">
+		<form string="Inquiry Type" >
+ 			<sheet>
+			<group>
+					<field name="name" />
+
+			</group>
+			</sheet>
+		</form>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_inquiry_type_tree">
+		<field name="name">od inquiry type tree view</field>
+		<field name="model">od.inquiry.type</field>
+		<field name="arch" type="xml">
+			<tree string="Inquiry type">
+					<field name="name" />
+			</tree>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_inquirytype_search">
+		<field name="name">od inquirytype search view</field>
+		<field name="model">od.inquiry.type</field>
+		<field name="arch" type="xml">
+			<search>
+					<field name="name" />
+			</search>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_inquirytype_graph">
+		<field name="name">od inquirytype graph view</field>
+		<field name="model">od.inquiry.type</field>
+		<field name="arch" type="xml">
+			<graph>
+					<field name="name" />
+			</graph>
+		</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_od_inquirytype">
+		<field name="name">Inquiry Type</field>
+		<field name="res_model">od.inquiry.type</field>
+		<field name="view_mode">tree,form,graph</field>
+		</record>
+
+		<menuitem name="Inquiry Type" 
+	  		id="menu_od_inquirytype" 
+	  		parent="base.menu_base_config"
+            action="action_od_inquirytype" 
+            groups="base.group_sale_manager"
+            />
+
+	</data>
+</openerp>

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_sla_perf_rpt_wizard" model="ir.ui.view">
+            <field name="name">SLA Performance Report</field>
+            <field name="model">sla.perf.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                       <group>
+                          <field name="project_ids" widget="many2many_tags"/>
+                       </group>
+                        <group></group>
+                   	    <group></group>
+                        <group/>
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       </footer>
+                </form>
+            </field>
+        		</record>
+
+        <record id="action_sla_perf_rpt_act" model="ir.actions.act_window">
+            <field name="name">SLA Performance Report</field>
+            <field name="res_model">sla.perf.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+     <menuitem  id="menu_sla_perf_rpt" parent="orchid_cost_sheet.od_menu_helpdesk_sub" action="action_sla_perf_rpt_act" sequence="100"/>
+        
+      <record model="ir.ui.view" id="od_sla_perf_search_view">
+		<field name="name">wiz.sla.perf.data.search</field>
+		<field name="model">wiz.sla.perf.data</field>
+		<field name="arch" type="xml">
+			<search string="SLA Performance Report">
+			<field name="close_date" />
+			<group expand="0" string="Group By">
+			             <filter string="Created Month" domain="[]" context="{'group_by':'created_on'}"/>
+                         <filter string="Resonsible" domain="[]" context="{'group_by':'responsible'}"/>
+                         <filter string="Closing Year" name="close" context="{'group_by':'close_date:year'}"/>
+                    </group>
+			</search>
+		</field>
+	</record>
+	 
+	 <record model="ir.ui.view" id="od_sla_perf_tree_view">
+		<field name="name">wiz.sla.perf.data</field>
+		<field name="model">wiz.sla.perf.data</field>
+		<field name="arch" type="xml">
+			<tree string="SLA Performance Report">
+				<field name="name" />
+				<field name="created_on" />
+				<field name="responsible" />
+				<field name="customer" />
+				<field name="close_date" />
+				<field name="actual_time" />
+				<field name="resol_time" />
+				<field name="od_closing_status" />
+			</tree>
+		</field>
+	</record>
+		
+</data>
+</openerp>
+			

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+
+		<record model="ir.ui.view" id="view_advpdc_view_form">
+            <field name="name">account.voucher.receipt.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="orchid_cheque_management.view_pdc_view_form"/>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='type']" position="after">
+					<field name="od_advance_payment" attrs="{'readonly': [('state','=','posted')]}"/>
+                    <field name="od_purchase_order_id" attrs="{'invisible':['|',('payment_type','=','cust_payment'),('od_advance_payment','=', False)],'readonly':['|',('state','=','posted')]}"/>
+<field name="od_sale_order_id" attrs="{'invisible':['|',('payment_type','=','sup_payment'),('od_advance_payment','=', False)],'readonly':['|',('state','=','posted')]}"/>
+		        </xpath>
+
+
+
+
+            	<xpath expr="//form/sheet/notebook/page[@string='Journal Items']/field[@name='move_ids']/tree/field[@name='ref']" position="after">
+					<field name="od_advance_payment" invisible="1"/>
+		        </xpath>
+            </field>
+        </record>
+
+
+		<record model="ir.ui.view" id="view_advance_voucher_form_inherit">
+            <field name="name">asn.account.voucher.form.inherit.view</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="orchid_cheque_management.view_voucher_form_inherit"/>
+            <field name="arch" type="xml">
+
+            	<xpath expr="//field[@name='type']" position="after">
+					<field name="od_advance_payment" attrs="{'readonly': [('state','=','posted')]}"/>
+<field name="od_sale_order_id" attrs="{'invisible':['|',('payment_type','=','sup_payment'),('od_advance_payment','=', False)],'readonly':['|',('state','=','posted')]}"/>
+		        </xpath>
+
+
+            </field>
+        </record>
+
+
+		<record model="ir.ui.view" id="view_advance_vendor_payment_form_inherit">
+            <field name="name">account.voucher.payment.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="orchid_cheque_management.view_vendor_payment_form_inherit"/>
+            <field name="arch" type="xml">
+
+
+            	<xpath expr="//field[@name='company_id']" position="after">
+					<field name="od_advance_payment" attrs="{'readonly': [('state','=','posted')]}"/>
+                    <field name="od_purchase_order_id" attrs="{'invisible':['|',('payment_type','=','cust_payment'),('od_advance_payment','=', False)],'readonly':['|',('state','=','posted')]}"/>
+		        </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

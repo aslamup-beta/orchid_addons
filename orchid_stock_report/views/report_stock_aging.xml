@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="orchid_stock_report.report_stock_aging">
+			<div class="page"><!-- Data<t t-esc="get_lines(data)"/> -->
+				<div class="row">
+					<div class="col-xs-2">
+						<right>
+							<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo"
+								style="height: 100px; width:200" />
+						</right>
+					</div>
+				</div>
+				<div class="row" style="background-color:#1E90FF">
+					<font color="white">
+						<strong>
+							<h2>Stock Ageing Summary</h2>
+						</strong>
+					</font>
+				</div>
+				<br />
+				<h3>
+					As On
+					<span t-esc="time.strftime('%d-%m-%Y ')" />
+				</h3>
+				<br />
+				<t t-set="vtotal" t-value="0" />
+				<table class="table table-condensed" style="border: 1px solid black; width:100%">
+					<thead style="background-color:#E6E6FA">
+						<tr>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<center>Code</center>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Description</right>
+							</th>
+					
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<center> Unit</center>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>0-30</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<center>30-60</center>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<center>60-90</center>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>90-120</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>120-ABV</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+                                <right>Total Qty</right>
+                            </th>
+                            <th class="text-center" style="border-left:1px solid black; width:10%">
+                                <right>Total Value</right>
+                            </th>
+						</tr>
+					</thead>
+					<t t-foreach="get_lines(data)" t-as="pr">
+                         <t t-if="pr.get('res',False)">
+						<tbody>
+
+                                
+							
+								<tr>
+								
+                                
+									<td class="text-center" style="border-right:1px solid black;">
+										<span t-field="pr['product_id'].default_code" />
+									</td>
+									<td class="text-center" style="border-right:1px solid black;">
+										<span t-field="pr['product_id'].description" />
+									</td>
+									
+									<td class="text-center" style="border-right:1px solid black;">
+										<span t-field="pr['product_id'].uom_id" />
+									</td>
+									
+									<td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['0-30']" />
+                                    </td>
+                                    <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['0-30val']" />
+                                    </td>
+                                    
+                                    <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['30-60']" />
+                                    </td>
+                                    <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['30-60val']" />
+                                    </td>
+                                    <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['60-90']" />
+                                    </td>
+                                    <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['60-90val']" />
+                                    </td>
+                                    <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['90-120']" />
+                                    </td>
+                                    <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['90-120val']" />
+                                    </td>
+                                    <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['120-abv']" />
+                                    </td>
+                                    <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['120-abvval']" />
+                                    </td>
+                                     <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['total_qty']" />
+                                    </td>
+                                      <td class="text-center" style="border-right:1px solid black;">
+                                        <span t-esc="pr['res']['total_val']" />
+                                    </td>
+									 <t t-set="vtotal" t-value="vtotal+pr['res']['total_val']" />
+									
+								</tr>
+							
+
+						</tbody>
+						</t>
+					</t>
+				</table>
+				
+				
+				<table class="table table-condensed" style="border: 1px solid black; width:100%">
+					<tbody>
+					<thead style="background-color:#E6E6FA">
+						<tr>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<center>Code</center>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Description</right>
+							</th>
+					
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<center> Unit</center>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>0-30</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<center>30-60</center>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<center>60-90</center>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>90-120</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>120-ABV</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+								<right>Value</right>
+							</th>
+							<th class="text-center" style="border-left:1px solid black; width:10%">
+                                <right>Total Qty</right>
+                            </th>
+                            <th class="text-center" style="border-left:1px solid black; width:10%">
+                                <right>Total Value</right>
+                            </th>
+						</tr>
+					</thead>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><t t-esc="vtotal" /></td>
+					</tr>
+					</tbody>
+				</table>
+					 
+					
+				
+				
+
+				<div>
+					<br />
+				</div>
+				
+			</div>
+		</template>
+	</data>
+</openerp>

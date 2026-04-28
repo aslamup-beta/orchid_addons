@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+
+ 
+        <record id="od_acc_report_balance_view" model="ir.ui.view">
+          <field name="name">Trial Balance</field>
+          <field name="model">account.balance.report</field>
+          <field name="inherit_id" ref="account.account_report_balance_view" />
+          <field name="arch" type="xml">
+            <data>
+            <xpath expr="//field[@name='filter']" position="after">
+                <field name="od_detail" attrs="{'invisible':[('filter', '=', 'filter_no')]}"/>
+<!--                 <field name="proj_fin_status" attrs="{'invisible':[('filter', '=', 'filter_no')]}"/>
+ -->            </xpath>
+             <xpath expr="//field[@name='target_move']" position="after">
+<field name="od_currency_id"/>
+                <field name="od_child"/>
+
+            </xpath>
+           <!--   <xpath expr="//field[@name='target_move']" position="after">
+                <field name="od_print_template"/>
+            </xpath> -->
+            </data>
+          </field>
+        </record>
+
+
+     </data>
+ </openerp>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <template t-name="beta_extended.ksa_external_layout_footer">
+            <t t-foreach="docs" t-as="o">
+                <div t-if="o.company_id.id==6" class="footer">
+                    <table width="100%">
+                        <tr class="text-center">
+                            <td class="padding-top-8" style="font-size:15px;"><p>(س.ت:101075832)</p></td>
+                            <td class="padding-top-8" style="font-size:15px;"><p>+966-11-2006400 : فاكس</p></td>
+                            <td class="padding-top-8" style="font-size:15px;"><p>+966-11-2006066 : هاتف</p></td>
+                            <td class="padding-top-8" style="font-size:15px;"><p>المركز الرئيسي: ص.ب.19389 الرياض11435</p></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

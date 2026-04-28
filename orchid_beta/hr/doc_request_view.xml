@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_beta_doc_request_tree_view_inheritted" model="ir.ui.view">
+                <field name="name">Document Request Tree view Inheritted</field>
+                <field name="model">od.document.request</field>
+                <field name="inherit_id" ref="orchid_hrms.od_document_request_approval_tree"/>
+                <field name="arch" type="xml">
+                    <field name="purpose" position="after">
+                        <field name="status" />
+                        <field name="is_issued" />
+                        <field name="issued_date" />
+                        <field name="state" />
+                    </field>
+                </field>
+        </record>
+         <record id="od_beta_doc_request_form_view_inheritted" model="ir.ui.view">
+                  <field name="name">Document Request Form view Inheritted</field>
+                  <field name="model">od.document.request</field>
+                  <field name="inherit_id" ref="orchid_hrms.od_document_request_approval_form"/>
+                  <field name="arch" type="xml">
+                      <field name="issued_date" position="after">
+                          <field name="status" />
+                      </field>
+                  </field>
+          </record>
+
+        <record model="ir.ui.view" id="od_document_request_approval_beta_tree">
+            <field name="name">Document Request Beta Tree</field>
+            <field name="model">od.document.request</field>
+
+            <field name="arch" type="xml">
+                <tree>
+                        <field name="employee_id"/>
+                        <field name="document_type_id"/>
+                        <field name="purpose"/>
+                        <field name="status" />
+                        <field name="is_issued" />
+                        <field name="issued_date" />
+                        <field name="state" />
+                </tree>
+           </field>
+        </record>
+
+
+      <record model="ir.ui.view" id="od_document_request_approval_beta_form">
+            <field name="name">Document Request Beta Form</field>
+            <field name="model">od.document.request</field>
+
+            <field name="arch" type="xml">
+                <form string="Document Request" version="7.0">
+                    <header>
+                        <button name="first_approval"  string="Approve" attrs="{'invisible':[('state', 'in', ['approved', 'draft','refused','first_approval'])]}" groups="base.group_hr_user,base.group_hr_manager"/>
+                        <button name="action_approved"  string="Approve" attrs="{'invisible':[('state', 'in', ['approved', 'draft','refused','to_approve'])]}" groups="base.group_hr_user,base.group_hr_manager"/>
+                        <button name="action_refused" type="object" string="Refuse" attrs="{'invisible':[('state', 'in', ['draft','refused'])]}" groups="base.group_hr_user,base.group_hr_manager"/>
+                        <button name="reset_to_draft" type="object" string="Reset To Draft" attrs="{'invisible':[('state', 'in', ['approved', 'draft','to_approve','first_approval'])]}" groups="base.group_hr_user,base.group_hr_manager"/>
+                        <button name="action_confirm" type="object" string="Confirm" attrs="{'invisible':[('state', 'in', ['refused','approved', 'to_approve','first_approval'])]}" groups="base.group_hr_user,base.group_hr_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,refused,to_approve,first_approval,approved" statusbar_colors='{"approved":"blue"}'/>
+                   </header>
+                   <sheet>
+                    <group>
+                          <group>
+                             <label for="employee_id" class="oe_edit_only"/>
+                             <h2><field name="employee_id" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/></h2>
+                              <field name="document_type_id" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                             <field name="purpose" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                             <field name="expected_date" attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                          </group>
+                         <group>
+                              <field name="department_id"/>
+                                <field name="job_id"/>
+                                <field name="address_home_id"/>
+                              <field name="custodian" invisible="1"/>
+                         </group>
+                    </group>
+                    <group >
+                        <group>
+                            <field name="is_issued" attrs="{'invisible':[('state', 'in', ['to_approve', 'refused','draft'])]}"/>
+                        </group>
+                        <group>
+                            <field name="issued_date" attrs="{'invisible':['|',('is_issued','=',False),('state', 'in', ['confirm', 'refused','to_approve'])],'required':[('is_issued','=',True)]}"/>
+                            <field name="od_year" invisible="1" />
+                            <field name="status" />
+                        </group>
+                   </group>
+                    <group>
+                     <field name="notes" class="oe_inline" placeholder="Description" />
+                   </group>
+                    <notebook>
+                    <page string='Attach Here'>
+                        <field name='document_attach_here_line' attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}">
+                            <tree editable='top'>
+                                <field name="name"/>
+                                 <field name="scanned_copy" filename="scanned_fname"/>
+                                <field name="scanned_fname" invisible="1"/>
+                                <field name="reference"/>
+                            </tree>
+                        </field>
+                    </page>
+                  </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                 </div>
+                </form>
+              </field>
+        </record>
+    </data>
+</openerp>

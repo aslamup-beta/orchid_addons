@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	    <record model="ir.ui.view" id="view_bank_loan_closing_tree_view">
+	        <field name="name">od.beta.bank.loan.closing.tree</field>
+	        <field name="model">od.beta.bank.loan.closing</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	            	<field name="number"/>
+	            	<field name="name"/>
+	            	<field name="bank_name"/>
+	            	<field name="close_date" />
+	            	<field name="state"/>
+	            	
+	            </tree>
+	       </field>
+	    </record>
+	    
+        <record id="view_bank_loan_closing_form_view" model="ir.ui.view">
+            <field name="name">od.beta.bank.loan.closing.form</field>
+            <field name="model">od.beta.bank.loan.closing</field>
+            <field name="arch" type="xml">
+            <form string="Bank Loan Closing Procedure">
+            <header>
+				<button name="send_to_finance" groups="__export__.res_groups_245" type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=', 'hr')]}" string="HR Approval" />
+				<button name="od_confirm" type="object" class="oe_highlight" attrs="{'invisible':[('state', '!=', 'finance')]}" string="Finance Approval" groups="__export__.res_groups_186, orchid_beta.groups_beta_admin"/>
+				<button name="reject_request" type="object" string="Reject" attrs="{'invisible':[('state', 'not in', ('manager','hr','finance'))]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,hr,finance,confirm" statusbar_colors='{"confirm":"blue"}'/>
+            </header>
+            <sheet>
+            	<div class="oe_title">
+            	<label for="number" class="oe_edit_only"/>
+	                 <h1>
+	                     <field name="number" readonly="1"/>
+	                 </h1>
+	                 <label for="name" class="oe_edit_only"/>
+	                 <h2>
+	                     <field name="name" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>
+	                 </h2>
+	                 
+                 </div>
+            	<group>       
+	            <field name="link" string="Closing Loan Link:" attrs="{'required': [('state','=','draft')],'readonly':[('state','!=','draft')]}"/>
+            	
+            	 </group>
+            	 
+                	<group> 
+	               		<group>
+	                  	 	<field name="bank_name" attrs="{'required': [('state','=','draft')],'readonly':[('state','!=','draft')]}"/>
+	                   		<field name="l_iban" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>	                    
+	               			<field name="reference" required="1" />
+	               			<field name="attach_file" filename="attach_fname" required="1"/>
+							<field name="attach_fname" invisible="1"/>
+							
+	               		</group>	 
+	               
+	              
+	               		<group>       
+		                	<field name="close_date" attrs="{'required': [('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>
+	               			<field name="bank_contact_person" required="1"/>
+	               			 <field name="phone" required="1"/>
+	               			
+	               		</group>
+	               </group>
+	               
+	               <group>
+	               		<field name="remarks" required="1" placeholder="Remarks..."/>
+                    </group>
+                    
+                    <group>
+                     	<group>
+	                      	<field name="h_approved_by" readonly="1"/>
+	                      	<field name="h_appr_date" readonly="1"/>
+	                    </group>
+	                    <group>
+	                      	<field name="f_approved_by" readonly="1"/>
+	                      	<field name="f_appr_date" readonly="1"/>
+	                    </group>
+					</group>	
+					
+                       
+                
+                
+                
+                
+
+               </sheet>
+            	<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+         </record>
+         
+         
+         <record model="ir.ui.view" id="bank_loan_closing_search_view">
+            <field name="name">od.beta.bank.loan.closing.search.view</field>
+            <field name="model">od.beta.bank.loan.closing</field>
+            <field name="arch" type="xml">
+                <search>
+                    
+                    <field name="number"/>
+                    <field name="name"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+         
+        <record model="ir.actions.act_window" id="action_od_bank_loan_close_form">
+        <field name="name">Close Bank Loan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.beta.bank.loan.closing</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Close your Existing Bank Loan in ERP.
+          </p>
+        </field>
+    </record>
+    
+     <menuitem id="od_menu_bank_loan_close_form" name="Close Bank Loan" action="action_od_bank_loan_close_form" parent="orchid_hrms.menu_od_hr_documents" sequence="100"/>
+    
+    
+    </data>
+</openerp>

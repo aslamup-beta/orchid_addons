@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="po_external_layout">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="beta_extended.external_layout_header"/>
+            <t t-raw="0"/>
+            <t t-call="beta_extended.external_layout_footer"/>
+        </template>
+
+        <template id="external_layout_header">
+            <div class="header">
+                <div class="col-xs-6">
+                    <img t-if="o.company_id.beta_logo" t-att-src="'data:image/png;base64,%s' % o.company_id.beta_logo"
+                         style="max-height: 230px;max-width: 210px;"/>
+                </div>
+
+                <div style="padding-left:120px;" class="col-xs-6">
+                    <table style="text-align:left;padding-left:170px;">
+                        <tr style="font-weight:bold;color: #00008B;">
+                            <strong>
+                                <span style="color: #00008B !important;">Beta Information Technology Co. (L.L.C)</span>
+                            </strong>
+                        </tr>
+                        <br/>
+                        <tr style="color: #00008B !important;">
+                            <span style="color: #00008B !important;">Head Office: P.O Box 19085, Dubai, UAE</span>
+                        </tr>
+                        <br/>
+                        <tr style="color: #00008B;">
+                            <span style="color: #00008B !important;">Tel: +971-4-7061111</span>
+                        </tr>
+                        <br/>
+                        <br/>
+                        <tr style="color: #00008B;">
+                            <span style="color: #00008B !important;">Abu Dhabi Office: P.O Box 31829, UAE</span>
+                        </tr>
+                        <br/>
+                        <tr style="color: #00008B;">
+                            <span style="color: #00008B !important;">Tel: +971-2-6662836</span>
+                        </tr>
+                    </table>
+                    <p style="color:white;">..............................</p>
+                </div>
+            </div>
+        </template>
+
+        <template id="external_layout_footer">
+            <div class="footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <br></br>
+                    <ul class="list-inline">
+                        <li>Page:</li>
+                        <li>
+                            <span class="page"/>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+        <template id="report_po_custom">
+            <t t-call="beta_extended.po_external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <div class="col-xs-12">
+                            <h4>
+                                <center>
+                                    <strong>PURCHASE ORDER</strong>
+                                </center>
+                            </h4>
+                        </div>
+                        <br/>
+                        <table class="" width="100%" style="border: 1px solid black;">
+                            <tr>
+                                <td style="font-size:14px;padding-top:10px;padding-left:10px;border: 1px solid black;"
+                                    align="left"
+                                    width="50%">
+                                    <strong>Supplier</strong>
+                                </td>
+                                <td style="font-size:14px;padding-top:10px;padding-left:10px;border: 1px solid black;"
+                                    align="left"
+                                    width="50%">
+                                    <strong>PO NO:</strong>
+                                    <t>
+                                        <span t-field="o.name"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:14px;padding-top:10px;padding-left:10px;border: 1px solid black;"
+                                    align="left" width="50%">
+                                    <span t-field="o.partner_id"/>
+                                    <br/>
+                                    <span t-field="o.partner_id.street"/>
+                                    <br/>
+                                    <span t-field="o.partner_id.street2"/>,
+                                    <span t-field="o.partner_id.city"/>,
+                                    <span t-field="o.partner_id.state_id"/>,
+                                    <span t-field="o.partner_id.country_id"/>
+                                    <br/>
+                                    Tel:
+                                    <span t-field="o.partner_id.phone"/>
+                                    <br/>
+                                    TRN:
+                                    <span t-field="o.partner_id.vat"/>
+                                    <br/>
+                                </td>
+                                <td style="font-size:14px;padding-top:10px;padding-left:10px;border: 1px solid black;"
+                                    align="left" width="50%">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            Date :
+                                            <span t-field="o.date_order" t-field-options='{"format": "dd/ MM/ yyyy"}'/>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            Source Document :
+                                            <span t-field="o.origin"/>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            Beta Ref :
+                                            <span t-field="o.partner_ref"/>
+                                            <br/>
+                                        </div>
+                                        <br/>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            Validated By :
+                                            <span t-field="o.validator"/>
+                                        </div>
+                                        <br/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="row">
+
+                        </div>
+
+                        <br/>
+                        <table class="" width="100%" style="border: 1px solid black;">
+                            <tr>
+                                <td style="font-size:14px;height: 21px;padding-top:10px;border: 1px solid black;"
+                                    align="center"
+                                    width="35%">
+                                    <strong>Bill To</strong>
+                                    <!--                            <p class="Amiri" style="font-size:17px">ريال سعودي</p>-->
+                                </td>
+                                <td style="font-size:14px;height: 21px;padding-top:10px;border: 1px solid black;"
+                                    align="center"
+                                    width="29">
+                                    <strong>Ship To</strong>
+                                    <!--                            <p class="Amiri" style="font-size:17px">ريال سعودي</p>-->
+                                </td>
+                                <td style="font-size:14px;height: 21px;padding-top:10px;border: 1px solid black;"
+                                    align="center"
+                                    width="36">
+                                    <strong>End User</strong>
+                                    <!--                            <p class="Amiri" style="font-size:17px">ريال سعودي</p>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:14px;padding-top:10px;padding-left:7px;border: 1px solid black;"
+                                    align="left"
+                                    width="35%">
+                                    <span t-field="o.company_id"/>
+                                    <br/>
+                                    <span t-field="o.company_id.street"/>
+                                    <br/>
+                                    <!--                                    <span t-field="o.company_id.street2"/>-->
+                                    <!--                                    <br/>-->
+                                    <span t-field="o.company_id.state_id"/>,
+                                    <span t-field="o.company_id.country_id"/>
+                                    <br/>
+                                    <strong>TRN:</strong>
+                                    <span t-field="o.company_id.vat"/>
+                                    <br/>
+                                    <strong>Tel:</strong>
+                                    <span t-field="o.company_id.phone"/>
+                                    <br/>
+                                </td>
+                                <td style="font-size:14px;padding-top:10px;padding-left:7px;border: 1px solid black;"
+                                    align="left"
+                                    width="29%">
+                                    <t t-if="o.company_id.id ==1">
+                                        Beta Information Technology Co. (L.L.C)
+                                        <br/>
+                                        DM-60, Shed No 5
+                                        <br/>
+                                        Al Quoz
+                                        <br/>
+                                        Dubai , UAE
+                                        <br/>
+                                        <strong>Tel :</strong>
+                                        +97147061111
+                                        <br/>
+                                        <strong>Ctc Person :</strong>Vidya Menon / Nikita
+                                        <br/>
+                                    </t>
+                                </td>
+                                <td style="font-size:14px;padding-top:10px;padding-left:7px;border: 1px solid black;"
+                                    align="left"
+                                    width="36%">
+                                    <span t-field="o.od_customer_id.parent_id"/>
+                                    <br/>
+
+                                    <span t-field="o.od_customer_id.parent_id.street"/>
+                                    <br/>
+                                    <span t-field="o.od_customer_id.parent_id.street2"/>,
+                                    <span t-field="o.od_customer_id.parent_id.state_id"/>,
+                                    <span t-field="o.od_customer_id.parent_id.country_id"/>
+                                    <br/>
+                                    <strong>Tel:</strong>
+                                    <span t-field="o.od_customer_id.parent_id.phone"/>
+                                    <br/>
+                                    <strong>Ctc Person :</strong>
+                                    <span t-field="o.od_customer_id.name"/>
+                                    <br/>
+                                    <strong>Email:</strong>
+                                    <span t-field="o.od_customer_id.email"/>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <br/>
+
+                        <div style="width:100%">
+                            <table class="table"> <!-- style="border: 1px solid black; width:100%" -->
+                                <thead>
+                                    <tr style="">
+                                        <th class="text-center" style="border: 1px solid black;">S.No</th>
+                                        <th class="text-center" style="border:1px solid black; width:15%">Brand
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black;width:15%">Part
+                                            Number
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:35%">
+                                            <center>Description</center>
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:10%">
+                                            <center>Qty</center>
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:10%">
+                                            <center>Unit Price</center>
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:10%">
+                                            <center>Tax Rate</center>
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:10%">
+                                            <center>Tax Amount</center>
+                                        </th>
+
+                                        <!--<th class="text-center" style="border-left:1px solid black; width:5%">
+                                            <center>Discount(%)</center>
+                                        </th>-->
+                                        <th class="text-center" style="border:1px solid black; width:30%">
+                                            <right>Sub Total</right>
+                                        </th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="count" t-value="1"/>
+                                    <tr t-foreach="o.order_line" t-as="l">
+                                        <td class="text-center" style="border: 1px solid black;">
+                                            <span t-esc="count"/>
+                                            <t t-set="count" t-value="count + 1"/>
+                                        </td>
+                                        <td style="border:1px solid black;">
+                                            <center>
+                                                <span t-field="l.product_id.od_pdt_brand_id"/>
+                                            </center>
+                                        </td>
+                                        <td style="border:1px solid black;">
+                                            <left>
+                                                <span t-field="l.product_id.name"/>
+                                            </left>
+                                        </td>
+
+                                        <td style="border:1px solid black;">
+                                            <span t-field="l.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-field="l.product_qty"/>
+                                        </td>
+
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <right>
+                                                <span t-field="l.od_gross"/>
+                                            </right>
+                                        </td>
+
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <span t-esc="str(sum([tx.amount for tx in l.taxes_id]) *100.0) + '%' "/>
+                                        </td>
+
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <span t-esc="l.final_cost * sum([tx.amount for tx in l.taxes_id])"/>
+                                        </td>
+
+
+                                        <!--<td class="text-right" style="border-left:1px solid black;">
+                                            <right>
+                                                <span t-field="l.discount"/>
+                                            </right>
+                                        </td>-->
+                                        <!-- <td class="text-right" style="border-left:1px solid black;"><right><span t-field="l.final_cost"/></right></td> -->
+
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <span t-esc="'{0:,.2f}'.format(l.final_cost+(l.final_cost * sum([tx.amount for tx in l.taxes_id])))"/>
+                                        </td>
+
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            <table class="" width="100%"
+                                   style="margin-top: 0px;"><!-- style="border: 1px solid black; width:100%" -->
+                                <thead>
+                                    <tr style="border: 1px solid black;height:30px;">
+                                        <td style="width=80%; padding-left:5px;padding-top:5px;">
+                                            <strong>
+                                                <right>Total</right>
+                                            </strong>
+                                        </td>
+                                        <td class="text-right" style="width=20%;padding-right:5px;padding-top:5px;">
+                                            <strong>
+                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                                <!--                                                <span t-field="o.od_amount_sub"/>-->
+                                                <span t-esc="'{0:,.2f}'.format(float(o.od_amount_sub))"/>
+                                            </strong>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr t-foreach="o.landed_cost_line_ids" t-as="l"
+                                        style="border: 1px solid black;height:30px;">
+
+                                        <td style="padding-left:5px;padding-top:5px;">
+                                            <strong>
+                                                <span t-field="l.name"/>
+                                            </strong>
+                                        </td>
+                                        <td class="text-right" style="width=80%;padding-right:5px;padding-top:5px;">
+                                            <strong>
+                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+
+                                                <!--                                                <span t-field="l.amount"/>-->
+                                                <span t-esc="'{0:,.2f}'.format(float(l.amount))"/>
+                                            </strong>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr style="border: 1px solid black;height:30px;">
+                                        <td style="width=80%;padding-left:5px;padding-top:5px;">
+                                            <strong>
+                                                <right>NET VAT</right>
+                                            </strong>
+                                        </td>
+                                        <td class="text-right" style="width=20%;padding-right:5px;padding-top:5px;">
+                                            <strong>
+                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                                <!--                                                <span t-field="o.amount_tax"/>-->
+                                                <span t-esc="'{0:,.2f}'.format(float(o.amount_tax))"/>
+                                            </strong>
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr t-if="o.od_discount > 0" style="border: 1px solid black;height:30px;">
+                                        <td style="width=80%;padding-left:5px;padding-top:5px;">
+                                            <strong>
+                                                <right>Special Discount</right>
+                                            </strong>
+                                        </td>
+                                        <td class="text-right" style="width=20%;padding-right:5px;padding-top:5px;">
+                                            <strong>
+                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                                <!--                                                <span t-field="o.od_discount"/>-->
+                                                <span t-esc="'{0:,.2f}'.format(float(o.od_discount))"/>
+                                            </strong>
+                                        </td>
+
+
+                                    </tr>
+
+
+                                    <tr style="border: 1px solid black;height:30px;">
+
+                                        <td style="width=10%;padding-left:5px;padding-top:5px;">
+                                            <strong>
+                                                <right>Net Amount</right>
+                                            </strong>
+                                        </td>
+                                        <td class="text-right" style="width=80%;padding-right:5px;padding-top:5px;">
+                                            <strong>
+                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                            </strong>
+                                            <strong>
+                                                <!--                                                <span t-esc="o.bt_amount_total"/>-->
+                                                <span t-esc="'{0:,.2f}'.format(float(o.bt_amount_total))"/>
+                                            </strong>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr style="border:1px solid black;height:30px;">
+                                        <td style="padding-left:5px;padding-top:5px;">
+                                            <strong>Amount In Words:</strong>
+                                        </td>
+                                        <td class="text-right" style="padding-right:5px;padding-top:5px;">
+                                            <strong>
+                                                <t t-set="currency"
+                                                   t-value="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"></t>
+                                                <t t-if="currency == 'USD'">
+                                                    <span t-esc="o.amount_to_text_en(o.bt_amount_total, currency, 'USD')"/>
+                                                </t>
+                                                <t t-if="currency == 'AED'">
+                                                    <span t-esc="o.amount_to_text_en(o.bt_amount_total, currency, 'AED')"/>
+                                                </t>
+                                                <t t-if="currency not in ['AED','USD']">
+                                                    <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                                    <t t-esc="o.bt_amount_total"
+                                                       t-esc-options='{"widget": "num2words","case":"capital"}'/>
+                                                    Only
+                                                </t>
+                                            </strong>
+                                        </td>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br/>
+                        <div style="page-break-inside: avoid;">
+                            <div style="border: 1px solid black; width:100%;padding-left: 10px;padding-top: 10px;">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left">
+                                                <strong></strong>
+                                                <t t-if="o.payment_term_id.name!='Custom'">Payment Terms :
+                                                    <span t-field="o.payment_term_id.name"/>
+                                                </t>
+                                                <br/>
+                                                <span t-field="o.notes"/>
+                                                <div>
+                                                    <br/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br/>
+                            <br/>
+                            <center>
+                                <p t-if="not o.print_with_stamp">
+                                    <strong>This is a system generated document , company's stamp and signature is not
+                                        required.
+                                    </strong>
+                                </p>
+                            </center>
+                            <br/>
+                            <div t-if="o.print_with_stamp" class="row">
+                                <div class="col-xs-4" style="align:right;">
+
+                                    <img t-if="o.company_id.beta_digital_stamp"
+                                         t-att-src="'data:image/png;base64,%s' % o.company_id.beta_digital_stamp"
+                                         style="width:110px; height:110px"/>
+
+
+                                </div>
+                                <div class="col-xs-4" style="text-align:center;">
+                                    <img t-if="o.confirmation_id.beta_digital_sign"
+                                         t-att-src="'data:image/png;base64,%s' % o.confirmation_id.beta_digital_sign"
+                                         style="max-height: 75px;max-width: 75px;"/>
+                                    <br/>
+                                    <strong>
+                                        <span t-field="o.confirmation_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <strong>
+                                        <span t-field="o.confirmation_id.beta_title"/>
+                                    </strong>
+                                    <br/>
+                                    <strong>_____________________________</strong>
+                                    <br/>
+                                    <strong>Verified By</strong>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="custom_po_report">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'beta_extended.report_po_custom')"/>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="report_po_custom_auh">
+            <t t-call="beta_extended.po_external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <div class="col-xs-12">
+                            <h4>
+                                <center>
+                                    <strong>PURCHASE ORDER</strong>
+                                </center>
+                            </h4>
+                        </div>
+                        <br/>
+                        <table class="" width="100%" style="border: 1px solid black;">
+                            <tr>
+                                <td style="font-size:14px;padding-top:10px;padding-left:10px;border: 1px solid black;"
+                                    align="left"
+                                    width="50%">
+                                    <strong>Supplier</strong>
+                                </td>
+                                <td style="font-size:14px;padding-top:10px;padding-left:10px;border: 1px solid black;"
+                                    align="left"
+                                    width="50%">
+                                    <strong>PO NO:</strong>
+                                    <t>
+                                        <span t-field="o.name"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:14px;padding-top:10px;padding-left:10px;border: 1px solid black;"
+                                    align="left" width="50%">
+                                    <span t-field="o.partner_id"/>
+                                    <br/>
+                                    <span t-field="o.partner_id.street"/>
+                                    <br/>
+                                    <span t-field="o.partner_id.street2"/>,
+                                    <span t-field="o.partner_id.city"/>,
+                                    <span t-field="o.partner_id.state_id"/>,
+                                    <span t-field="o.partner_id.country_id"/>
+                                    <br/>
+                                    Tel:
+                                    <span t-field="o.partner_id.phone"/>
+                                    <br/>
+                                    TRN:
+                                    <span t-field="o.partner_id.vat"/>
+                                    <br/>
+                                </td>
+                                <td style="font-size:14px;padding-top:10px;padding-left:10px;border: 1px solid black;"
+                                    align="left" width="50%">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            Date :
+                                            <span t-field="o.date_order" t-field-options='{"format": "dd/ MM/ yyyy"}'/>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            Source Document :
+                                            <span t-field="o.origin"/>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            Beta Ref :
+                                            <span t-field="o.partner_ref"/>
+                                            <br/>
+                                        </div>
+                                        <br/>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            Validated By :
+                                            <span t-field="o.validator"/>
+                                        </div>
+                                        <br/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="row">
+
+                        </div>
+
+                        <br/>
+                        <table class="" width="100%" style="border: 1px solid black;">
+                            <tr>
+                                <td style="font-size:14px;height: 21px;padding-top:10px;border: 1px solid black;"
+                                    align="center"
+                                    width="35%">
+                                    <strong>Bill To</strong>
+                                    <!--                            <p class="Amiri" style="font-size:17px">ريال سعودي</p>-->
+                                </td>
+                                <td style="font-size:14px;height: 21px;padding-top:10px;border: 1px solid black;"
+                                    align="center"
+                                    width="29">
+                                    <strong>Ship To</strong>
+                                    <!--                            <p class="Amiri" style="font-size:17px">ريال سعودي</p>-->
+                                </td>
+                                <td style="font-size:14px;height: 21px;padding-top:10px;border: 1px solid black;"
+                                    align="center"
+                                    width="36">
+                                    <strong>End User</strong>
+                                    <!--                            <p class="Amiri" style="font-size:17px">ريال سعودي</p>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:14px;padding-top:10px;padding-left:7px;border: 1px solid black;"
+                                    align="left"
+                                    width="35%">
+                                    Beta Information Technology Co. (L.L.C)
+                                    <br/>
+                                    Office No. 104, Thani Bin Abdullah Al,
+                                    <br/>
+                                    15 Rumaithi St (Street 43) Al Bateen,
+                                    <br/>
+                                    Abu Dhabi, UAE
+                                    <br/>
+                                    <strong>TRN :</strong>104152143400003
+                                    <br/>
+                                    <strong>Tel :</strong>+971 2 666 2836
+                                    <br/>
+                                    <br/>
+                                </td>
+                                <td style="font-size:14px;padding-top:10px;padding-left:7px;border: 1px solid black;"
+                                    align="left"
+                                    width="29%">
+                                    <t t-if="o.company_id.id ==1">
+                                        Beta Information Technology Co. (L.L.C)
+                                        <br/>
+                                        DM-60, Shed No 5
+                                        <br/>
+                                        Al Quoz
+                                        <br/>
+                                        Dubai , UAE
+                                        <br/>
+                                        <strong>Tel :</strong>
+                                        +97147061111
+                                        <br/>
+                                        <strong>Ctc Person :</strong>Vidya Menon / Nikita
+                                        <br/>
+                                    </t>
+                                </td>
+                                <td style="font-size:14px;padding-top:10px;padding-left:7px;border: 1px solid black;"
+                                    align="left"
+                                    width="36%">
+                                    <span t-field="o.od_customer_id.parent_id"/>
+                                    <br/>
+
+                                    <span t-field="o.od_customer_id.parent_id.street"/>
+                                    <br/>
+                                    <span t-field="o.od_customer_id.parent_id.street2"/>,
+                                    <span t-field="o.od_customer_id.parent_id.state_id"/>,
+                                    <span t-field="o.od_customer_id.parent_id.country_id"/>
+                                    <br/>
+                                    <strong>Tel:</strong>
+                                    <span t-field="o.od_customer_id.parent_id.phone"/>
+                                    <br/>
+                                    <strong>Ctc Person :</strong>
+                                    <span t-field="o.od_customer_id.name"/>
+                                    <br/>
+                                    <strong>Email:</strong>
+                                    <span t-field="o.od_customer_id.email"/>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <br/>
+
+                        <div style="width:100%">
+                            <table class="table"> <!-- style="border: 1px solid black; width:100%" -->
+                                <thead>
+                                    <tr style="">
+                                        <th class="text-center" style="border: 1px solid black;">S.No</th>
+                                        <th class="text-center" style="border:1px solid black; width:15%">Brand
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black;width:15%">Part
+                                            Number
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:35%">
+                                            <center>Description</center>
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:10%">
+                                            <center>Qty</center>
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:10%">
+                                            <center>Unit Price</center>
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:10%">
+                                            <center>Tax Rate</center>
+                                        </th>
+                                        <th class="text-center" style="border:1px solid black; width:10%">
+                                            <center>Tax Amount</center>
+                                        </th>
+
+                                        <!--<th class="text-center" style="border-left:1px solid black; width:5%">
+                                            <center>Discount(%)</center>
+                                        </th>-->
+                                        <th class="text-center" style="border:1px solid black; width:30%">
+                                            <right>Sub Total</right>
+                                        </th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="count" t-value="1"/>
+                                    <tr t-foreach="o.order_line" t-as="l">
+                                        <td class="text-center" style="border: 1px solid black;">
+                                            <span t-esc="count"/>
+                                            <t t-set="count" t-value="count + 1"/>
+                                        </td>
+                                        <td style="border:1px solid black;">
+                                            <center>
+                                                <span t-field="l.product_id.od_pdt_brand_id"/>
+                                            </center>
+                                        </td>
+                                        <td style="border:1px solid black;">
+                                            <left>
+                                                <span t-field="l.product_id.name"/>
+                                            </left>
+                                        </td>
+
+                                        <td style="border:1px solid black;">
+                                            <span t-field="l.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-field="l.product_qty"/>
+                                        </td>
+
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <right>
+                                                <span t-field="l.od_gross"/>
+                                            </right>
+                                        </td>
+
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <span t-esc="str(sum([tx.amount for tx in l.taxes_id]) *100.0) + '%' "/>
+                                        </td>
+
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <!--                                            <span t-esc="l.final_cost * sum([tx.amount for tx in l.taxes_id])"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(l.final_cost * sum([tx.amount for tx in l.taxes_id]))"/>
+                                        </td>
+
+
+                                        <!--<td class="text-right" style="border-left:1px solid black;">
+                                            <right>
+                                                <span t-field="l.discount"/>
+                                            </right>
+                                        </td>-->
+                                        <!-- <td class="text-right" style="border-left:1px solid black;"><right><span t-field="l.final_cost"/></right></td> -->
+
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <span t-esc="'{0:,.2f}'.format(l.final_cost+(l.final_cost * sum([tx.amount for tx in l.taxes_id])))"/>
+                                        </td>
+
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            <table class="" width="100%"
+                                   style="margin-top: 0px;"><!-- style="border: 1px solid black; width:100%" -->
+                                <tr style="border: 1px solid black;height:30px;">
+                                    <td style="width=80%; padding-left:5px;padding-top:5px;">
+                                        <strong>
+                                            <right>Total</right>
+                                        </strong>
+                                    </td>
+                                    <td class="text-right" style="width=20%;padding-right:5px;padding-top:5px;">
+                                        <strong>
+                                            <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                            <!--                                            <span t-field="o.od_amount_sub"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(float(o.od_amount_sub))"/>
+                                        </strong>
+                                    </td>
+
+
+                                </tr>
+                                <tr t-foreach="o.landed_cost_line_ids" t-as="l"
+                                    style="border: 1px solid black;height:30px;">
+
+                                    <td style="padding-left:5px;padding-top:5px;">
+                                        <strong>
+                                            <span t-field="l.name"/>
+                                        </strong>
+                                    </td>
+                                    <td class="text-right" style="width=80%;padding-right:5px;padding-top:5px;">
+                                        <strong>
+                                            <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+
+                                            <!--                                            <span t-field="l.amount"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(float(l.amount))"/>
+                                        </strong>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr style="border: 1px solid black;height:30px;">
+                                    <td style="width=80%;padding-left:5px;padding-top:5px;">
+                                        <strong>
+                                            <right>NET VAT</right>
+                                        </strong>
+                                    </td>
+                                    <td class="text-right" style="width=20%;padding-right:5px;padding-top:5px;">
+                                        <strong>
+                                            <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                            <!--                                            <span t-field="o.amount_tax"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(float(o.amount_tax))"/>
+                                        </strong>
+                                    </td>
+
+
+                                </tr>
+
+                                <tr t-if="o.od_discount > 0" style="border: 1px solid black;height:30px;">
+                                    <td style="width=80%;padding-left:5px;padding-top:5px;">
+                                        <strong>
+                                            <right>Special Discount</right>
+                                        </strong>
+                                    </td>
+                                    <td class="text-right" style="width=20%;padding-right:5px;padding-top:5px;">
+                                        <strong>
+                                            <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                            <!--                                            <span t-field="o.od_discount"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(float(o.od_discount))"/>
+                                        </strong>
+                                    </td>
+
+
+                                </tr>
+
+
+                                <tr style="border: 1px solid black;height:30px;">
+
+                                    <td style="width=10%;padding-left:5px;padding-top:5px;">
+                                        <strong>
+                                            <right>Net Amount</right>
+                                        </strong>
+                                    </td>
+                                    <td class="text-right" style="width=80%;padding-right:5px;padding-top:5px;">
+                                        <strong>
+                                            <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                        </strong>
+                                        <strong>
+                                            <!--                                            <span t-esc="o.bt_amount_total"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(float(o.bt_amount_total))"/>
+                                        </strong>
+                                    </td>
+
+                                </tr>
+
+                                <tr style="border:1px solid black;height:30px;">
+                                    <td style="padding-left:5px;padding-top:5px;">
+                                        <strong>Amount In Words:</strong>
+                                    </td>
+                                    <td class="text-right" style="padding-right:5px;padding-top:5px;">
+                                        <strong>
+                                            <t t-set="currency"
+                                               t-value="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"></t>
+                                            <t t-if="currency == 'USD'">
+                                                <span t-esc="o.amount_to_text_en(o.bt_amount_total, currency, 'USD')"/>
+                                            </t>
+                                            <t t-if="currency == 'AED'">
+                                                <span t-esc="o.amount_to_text_en(o.bt_amount_total, currency, 'AED')"/>
+                                            </t>
+                                            <t t-if="currency not in ['AED','USD']">
+                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                                <t t-esc="o.bt_amount_total"
+                                                   t-esc-options='{"widget": "num2words","case":"capital"}'/>
+                                                Only
+                                            </t>
+                                        </strong>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div style="page-break-inside: avoid;">
+                            <div style="border: 1px solid black; width:100%;padding-left: 10px;padding-top: 10px;">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left">
+                                                <strong></strong>
+                                                <t t-if="o.payment_term_id.name!='Custom'">Payment Terms :
+                                                    <span t-field="o.payment_term_id.name"/>
+                                                </t>
+                                                <br/>
+                                                <span t-field="o.notes"/>
+                                                <div>
+                                                    <br/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br/>
+                            <br/>
+                            <center>
+                                <p t-if="not o.print_with_stamp">
+                                    <strong>This is a system generated document , company's stamp and signature is not
+                                        required.
+                                    </strong>
+                                </p>
+                            </center>
+                            <br/>
+                            <div t-if="o.print_with_stamp" class="row">
+                                <div class="col-xs-4" style="align:right;">
+
+                                    <img t-if="o.company_id.beta_digital_stamp"
+                                         t-att-src="'data:image/png;base64,%s' % o.company_id.beta_digital_stamp"
+                                         style="width:110px; height:110px"/>
+
+
+                                </div>
+                                <div class="col-xs-4" style="text-align:center;">
+                                    <img t-if="o.confirmation_id.beta_digital_sign"
+                                         t-att-src="'data:image/png;base64,%s' % o.confirmation_id.beta_digital_sign"
+                                         style="max-height: 75px;max-width: 75px;"/>
+                                    <br/>
+                                    <strong>
+                                        <span t-field="o.confirmation_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <strong>
+                                        <span t-field="o.confirmation_id.beta_title"/>
+                                    </strong>
+                                    <br/>
+                                    <strong>_____________________________</strong>
+                                    <br/>
+                                    <strong>Verified By</strong>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="custom_po_report_auh">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'beta_extended.report_po_custom_auh')"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

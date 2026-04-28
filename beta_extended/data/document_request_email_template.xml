@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+
+    	<record id="od_doc_request_approval_manager" model="email.template">
+             <field name="name">UAE - Approve Document Request Manager</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Approve Document Request - ${object.employee_id.name}</field>
+             <field name="email_to">${object.manager_id.email}</field>
+             <field name="email_cc">${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_od_document_request"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.manager_id.name},</p>
+	             	<p>Kindly need your Approval for the below document request.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Document Type: ${object.document_type_id.name}</li>
+                       		<li>Note: ${object.notes}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.document.request&menu_id=697&action=915</li>
+	                    </ul>         		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+    
+         <record id="od_doc_request_approval_manager_saudi" model="email.template">
+             <field name="name">KSA - Approve Document Request Manager</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Approve Document Request - ${object.employee_id.name}</field>
+             <field name="email_to">hr.ksa@betait.net</field>
+             <field name="email_cc">${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_od_document_request"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear HR Team,</p>
+	             	<p>Kindly need your Approval for the below document request.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Document Type: ${object.document_type_id.name}</li>
+                       		<li>Note: ${object.notes}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.document.request&menu_id=697&action=915</li>
+	                    </ul>         		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_doc_request_notify_hr" model="email.template">
+             <field name="name">UAE - Document Request Approval</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Document Request Approved- ${object.employee_id.name}</field>
+             <field name="email_to">sami.nazzal@betait.net,ramesh.poruppath@betait.net</field>
+             <field name="email_cc">mohd.sageer@betait.net, ${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_od_document_request"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Team,</p>
+	             	<p>Document request for below employee has been approved by his/her manager. Could you please assist in providing the requested document at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Document Type: ${object.document_type_id.name}</li>
+                       		<li>Note: ${object.notes}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.document.request&menu_id=697&action=915</li>
+	                    </ul>       		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_doc_request_notify_hr_saudi" model="email.template">
+             <field name="name">KSA - Document Request Approval</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Document Request Approved - ${object.employee_id.name}</field>
+             <field name="email_to">hr.ksa@betait.net</field>
+             <field name="email_cc">${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_od_document_request"/>
+             <field name="body_html"><![CDATA[
+	        <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear HR Manager,</p>
+	             	<p>Document request for below employee has been approved by his/her manager. Could you please assist in providing the requested document at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Document Type: ${object.document_type_id.name}</li>
+                       		<li>Note: ${object.notes}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.document.request&menu_id=697&action=915</li>
+	                    </ul>       		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_doc_request_approved_employee" model="email.template">
+             <field name="name">UAE - Notify Employee Document Request Approval</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Document Issued - ${object.document_type_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.email}</field> -->
+             <field name="model_id" ref="model_od_document_request"/>
+             <field name="body_html"><![CDATA[
+	        <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your document is issued. Kindly check with HR for more info.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Issued Date: ${object.issued_date}</li>
+	                    	<li>Status: ${object.status}</li>              
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.document.request&menu_id=697&action=915</li>
+	                    </ul>         		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_doc_request_approved_employee_saudi" model="email.template">
+             <field name="name">KSA - Notify Employee Document Request Approval</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Document Issued - ${object.document_type_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.email}</field> -->
+             <field name="model_id" ref="model_od_document_request"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your document is issued. Kindly check with HR for more info.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Issued Date: ${object.issued_date}</li>
+	                    	<li>Status: ${object.status}</li>              
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.document.request&menu_id=697&action=915</li>
+	                    </ul>         		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_doc_request_refused_employee" model="email.template">
+             <field name="name">UAE - Document request Refused</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Document Request Refused - ${object.document_type_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.email}</field> -->
+             <field name="model_id" ref="model_od_document_request"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Document request is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Document Type: ${object.document_type_id.name}</li>
+                       		<li>Note: ${object.notes}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.document.request&menu_id=697&action=915</li>
+	                    </ul>         		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+         
+         <record id="od_doc_request_refused_employee_saudi" model="email.template">
+             <field name="name">KSA - Document request Refused</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Document Request Refused - ${object.document_type_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.email}</field> -->
+             <field name="model_id" ref="model_od_document_request"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Document request is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Document Type: ${object.document_type_id.name}</li>
+                       		<li>Note: ${object.notes}</li>
+                       		<li>Return Reason: ${object.refuse_reason}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.document.request&menu_id=697&action=915</li>
+	                    </ul>         		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+         
+         
+         
+     </data>
+</openerp>
+

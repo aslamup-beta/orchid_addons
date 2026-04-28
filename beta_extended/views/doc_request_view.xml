@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="od_document_request_tree_new">
+            <field name="name">od.document.request.tree.new</field>
+            <field name="model">od.document.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="requested_date"/>
+                    <field name="document_type_id"/>
+                    <field name="purpose"/>
+                    <field name="status"/>
+                    <field name="is_issued"/>
+                    <field name="issued_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_document_request_form_new">
+            <field name="name">od.document.request.form.new</field>
+            <field name="model">od.document.request</field>
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <form string="Document Request Form">
+                    <header>
+                        <button name="action_submit" string="Submit To HR" type="object" class="oe_highlight"
+                                attrs="{'invisible':[('state', '!=', 'draft')]}"
+                        />
+                        <button name="approval_action" string="Done" type="object" class="oe_highlight"
+                                attrs="{'invisible':[('state', 'in', ['approved', 'draft','refused'])]}"
+                                groups="__export__.res_groups_255,__export__.res_groups_246,__export__.res_groups_245,__export__.res_groups_200"/>
+                        <button name="refuse_action" type="object" string="Return with Comments"
+                                attrs="{'invisible':[('state', 'in', ['draft','refused','approved'])]}"
+                                groups="__export__.res_groups_255,__export__.res_groups_246,__export__.res_groups_245,__export__.res_groups_200"/>
+                        <button name="action_reset_to_draft" type="object" string="Reset To Draft"
+                                attrs="{'invisible':[('state', 'in', ['approved', 'draft','to_approve'])]}"
+                                groups="__export__.res_groups_255,__export__.res_groups_246,__export__.res_groups_245,__export__.res_groups_200"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,to_approve,approved"
+                               statusbar_colors='{"approved":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"
+                                       attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                                <field name="document_type_id" domain="[('id','in',[1,25,6,3,12,10,11,13,37,38])]"
+                                       attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                                <field name="purpose" invisible="1" required="0"/>
+                                <field name="expected_date" invisible="1"
+                                       attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
+                                <field name="ref_to"
+                                       attrs="{'invisible':[('document_type_id', '!=', 6)],'required':[('document_type_id', '=', 6)]}"/>
+                                <field name="ref_to_ar"
+                                       attrs="{'invisible':[('document_type_id', '!=', 6)],'required':[('document_type_id', '=', 6)]}"/>
+                            </group>
+                            <group>
+                                <field name="requested_date" readonly="1"/>
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                                <field name="manager_id"/>
+                                <field name="address_home_id" invisible="1"/>
+                                <field name="custodian" invisible="1"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field string="Reason" name="notes" class="oe_inline" placeholder="Reason" required="1"/>
+                        </group>
+                        <group>
+                            <field string="Return Reason" name="refuse_reason" attrs="{'invisible':[('state', '!=', 'refused')]}"/>/>
+                        </group>
+                        <group string="HR Status"
+                               attrs="{'invisible':[('state', 'in', ['to_approve', 'refused','draft'])]}">
+                            <group>
+                                <field name="is_issued"
+                                       attrs="{'invisible':[('state', 'in', ['to_approve', 'refused','draft'])]}"/>
+                            </group>
+                            <group>
+                                <field name="issued_date"
+                                       attrs="{'invisible':['|',('is_issued','=',False),('state', 'in', ['draft', 'refused','to_approve'])],'required':[('is_issued','=',True)]}"/>
+                                <field name="od_year" invisible="1"/>
+                                <field name="emp_notified" invisible="1"/>
+                                <field name="status"
+                                       attrs="{'invisible':[('is_issued', '=', False)],'required':[('is_issued','=',True)]}"/>
+                                <button name="action_notify_employee" type="object" string="Notify Employee"
+                                        attrs="{'invisible':['|','|',('is_issued','=',False),('emp_notified','=',True),('state', 'in', ['draft', 'refused','to_approve'])],}"
+                                        groups="base.group_hr_user,base.group_hr_manager"/>
+                            </group>
+                        </group>
+
+                        <notebook
+                                attrs="{'invisible':['|',('is_issued','=',False),('state', 'in', ['draft', 'refused','to_approve'])]}">
+                            <page string='Attach Here'>
+                                <field name='document_attach_here_line'
+                                       attrs="{'readonly':[('state', 'in', ['refused'])],'required':[('is_issued','=',True)]}">
+                                    <tree editable='top'>
+                                        <field name="name"/>
+                                        <field name="scanned_copy" filename="scanned_fname"/>
+                                        <field name="scanned_fname" invisible="1"/>
+                                        <field name="reference"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="od_document_request_new_search_view">
+            <field name="name">od.document.request.new.search.view</field>
+            <field name="model">od.document.request</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="document_type_id"/>
+                    <field name="purpose"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" domain="[]" context="{'group_by':'employee_id'}"/>
+                        <filter string="Document Type" domain="[]" context="{'group_by':'document_type_id'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                        <!--                        <filter string="Date From By Day" context="{'group_by':'date_from:day'}"/>-->
+                        <filter string="Month" context="{'group_by': 'requested_date:month'}"/>
+                        <filter string="Year" context="{'group_by': 'requested_date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_od_document_request_new">
+            <field name="name">Document Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">od.document.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="od_document_request_new_search_view"/>
+            <field name="context">{'search_default_purpose':7}</field>
+            <field name="domain">[('is_returned','=',False)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new Document Request.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_od_document_request_new_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="od_document_request_tree_new"/>
+            <field name="act_window_id" ref="action_od_document_request_new"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_od_document_request_new_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="od_document_request_form_new"/>
+            <field name="act_window_id" ref="action_od_document_request_new"/>
+        </record>
+
+        <menuitem id="orchid_hrms.menu_action_od_document_request" name="Document Request"
+                  action="action_od_document_request_new" parent="orchid_hrms.menu_od_hr_documents"
+                  sequence="2"/>
+
+        <record model="ir.ui.view" id="od_employee_document_type_form_inherited">
+            <field name="name">od.employee.document.type.form.inherited</field>
+            <field name="model">od.employee.document.type</field>
+            <field name="inherit_id" ref="orchid_hrms.od_employee_document_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='custodian']" position="after">
+                    <field name="company_id"/>
+                    <field name="active"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="view_od_stock_aging_report_form" model="ir.ui.view">
+            <field name="name">Stock Aging Report</field>
+            <field name="model">od.stock.aging.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Stock Aging Report">
+                    <group>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="location_id"/>
+                    </group>
+
+
+                    <group>
+                        <field name="categ_id"/>
+                        <field name="age"/>
+                        <field name="stock_list"/>
+                       <!--  <field name="detail"/> -->
+                    </group>
+                   </group>
+                    <footer>
+                        <button name="print_report" string="Print" type="object" default_focus="1" class="oe_highlight"/> 
+<!--                           <button icon="gtk-execute" name="xls_export" string="Export" type="object"  context="{'xls_export':1}"/>
+ -->                   
+ 				 </footer>
+            
+               </form>
+            </field>
+        </record>
+
+        <record id="action_pview_od_stock_aging_report" model="ir.actions.act_window">
+            <field name="name">Stock Aging Report</field>
+            <field name="res_model">od.stock.aging.report.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_od_stock_aging_report_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+
+    </data>
+</openerp>

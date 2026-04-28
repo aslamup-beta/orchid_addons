@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>   
+
+ <record id="view_od_supplier_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="/form/sheet/notebook/page/field/tree/field[@name='invoice_line_tax_id']" position="replace">
+                    <field name="invoice_line_tax_id" widget="many2many_tags" context="{'type':parent.type}" domain="[('parent_id','=',False),('company_id', '=', parent.company_id)]" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath> 
+
+
+                <xpath expr="/form/sheet/notebook/page/group[@class='oe_subtotal_footer oe_right']/div/label[@for='amount_tax']" position="replace">
+                    <label for="amount_tax" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath>  
+                <xpath expr="/form/sheet/notebook/page/group[@class='oe_subtotal_footer oe_right']/div/button[@name='button_reset_taxes']" position="replace">
+                    <button name="button_reset_taxes" states="draft,proforma2" string="(update)" class="oe_link oe_edit_only" type="object" help="Recompute taxes and total" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath> 
+
+
+           <xpath expr="/form/sheet/notebook/page/group[@class='oe_subtotal_footer oe_right']/field[@name='amount_tax']" position="replace">
+                     <field name="amount_tax" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath> 
+
+           <xpath expr="/form/sheet/notebook/page/div/field[@name='tax_line']" position="replace">
+                    <field name="tax_line" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath> 
+
+           </field>
+ </record>
+
+<record id="view_od_account_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="/form/sheet/notebook/page/field/tree/field[@name='invoice_line_tax_id']" position="replace">
+                    <field name="invoice_line_tax_id" widget="many2many_tags" context="{'type':parent.type}" domain="[('parent_id','=',False),('company_id', '=', parent.company_id)]" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath> 
+
+                <xpath expr="/form/sheet/notebook/page/group[@class='oe_subtotal_footer oe_right']/div/label[@for='amount_tax']" position="replace">
+                    <label for="amount_tax" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath>  
+                <xpath expr="/form/sheet/notebook/page/group[@class='oe_subtotal_footer oe_right']/div/button[@name='button_reset_taxes']" position="replace">
+                    <button name="button_reset_taxes" states="draft,proforma2" string="(update)" class="oe_link oe_edit_only" type="object" help="Recompute taxes and total" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath> 
+
+           <xpath expr="/form/sheet/notebook/page/group[@class='oe_subtotal_footer oe_right']/field[@name='amount_tax']" position="replace">
+                     <field name="amount_tax" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}" groups="orchid_utilities.group_od_remove_tax_group"/>
+               </xpath> 
+
+           </field>
+ </record>
+
+</data>
+</openerp>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_ksa_salary_rpt" model="ir.ui.view">
+            <field name="name">ksa Salary Sheet Report</field>
+            <field name="model">ksa.salary.sheet.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+                          <group>
+                             <field name="company_id" invisible="1"/>
+                          <field name="period_id"/>
+                         </group>
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                         or
+                        <button string="Cancel" special="cancel" />
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+        <record id="action_salary_sheet_ksa_rpt" model="ir.actions.act_window">
+            <field name="name">Salary Sheet - KSA</field>
+            <field name="res_model">ksa.salary.sheet.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+         	
+			id="od_menu_ksa_salary_sheet_x1"
+			parent="hr.menu_hr_reporting"
+			sequence="10" 
+			action="action_salary_sheet_ksa_rpt" />
+			
+</data>
+</openerp>
+			

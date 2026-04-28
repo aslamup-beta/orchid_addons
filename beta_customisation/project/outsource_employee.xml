@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+    <!-- Applicants -->
+    <record model="ir.ui.view" id="od_outsource_employee_tree_view">
+        <field name="name">Outsourced Employees</field>
+        <field name="model">outsource.employee</field>
+        <field name="arch" type="xml">
+            <tree string="Out Sourced Employee" create="false">
+                <field name="name" />
+                <field name="profession_id" />
+                <field name="customer_id"/>
+                <field name="company_id" invisible="1"/>
+                <field name="so_id"/>
+                <field name="tech_unit"/>
+                <field name="proj_manager"/>
+                <field name="sponsorship"/>
+                <field name="join_date"/>
+                <field name="end_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="od_outsource_employee_form_view">
+        <field name="name">Outsourced Employee</field>
+        <field name="model">outsource.employee</field>
+        <field name="arch" type="xml">
+          <form string="Out Sourced Employees" create="false">
+            <sheet>
+                <div class="oe_right oe_button_box">
+                    <button name="od_open_attachement" 
+                        class="oe_stat_button"
+                        icon="fa-book"
+                        type="object">
+                        <field name="od_attachement_count" widget="statinfo" string="Documents"/>
+                    </button>
+                </div>
+                
+				<field name="image_medium" widget='image' class="oe_left oe_avatar"/>
+                <div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name" required="1"/></h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="profession_id" required="1"/>
+                        <field name="personal_email" widget="email"/>
+                        <field name="work_email" widget="email"/>
+                        <field name="mobile_phone"/>
+                        <field name="tech_unit" required="1"/>
+                        
+                    </group>
+                    <group>
+                    	<field name="proj_manager" required="1"/>
+                        <field name="customer_id" required="1" domain="[('is_company','=',True)]"/>
+                        <field name="so_id"/>
+                        <field name="costsheet_id" required="1" domain="[('state','=','done')]"/>
+                        
+                        
+                    </group>
+                    <group string="Job">
+                    	<field name="active" />
+                        <field name="sponsorship" required="1" domain="[('is_company','=',True)]"/>
+                        <field name="join_date" required="1" />
+                        
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                    <group string="Contract">
+                    <field name="end_date" required="1"/>
+                    <field name="employee_end_date" required="1"/>
+                    
+                        <label for="salary_proposed"/>
+                        <div>
+                            <field name="salary_proposed" class="oe_inline"/>
+                        </div>
+                        
+                    </group>
+                </group>
+                <separator string="Notes"/>
+                <field name="description" placeholder="Additional Notes..."/>
+                <notebook>
+                    <page string='Analytic Accounts'>
+                        <field name='om_analytic_line'>
+                            <tree editable='bottom'>
+                                <field name="start_date"/>
+                                <field name="end_date" string="Original Date End"/>
+                                <field name="analytic_id"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+          </form>
+        </field>
+    </record>
+    
+        <record model="ir.ui.view" id="outsource_kanban_view_employees">
+        <field name="name">Outsourced Employees Kanban</field>
+        <field name="model">outsource.employee</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+    		<kanban create="false">
+                <field name="message_is_follower"/>
+                <field name="message_follower_ids"/>
+                <field name="message_ids"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_employee_vignette">
+                            <div class="oe_employee_image">
+                                <a type="open"><img t-att-src="kanban_image('outsource.employee', 'image_medium', record.id.value)" class="oe_employee_picture"/></a>
+                            </div>
+                            <div class="oe_employee_details">
+                                <h4>
+                                    <a type="open"><field name="name"/></a>
+                                </h4>
+                                <ul>
+                                    <li t-if="record.profession_id.raw_value"><field name="profession_id"/></li>
+                                    <li t-if="record.customer_id.raw_value">@ <field name="customer_id"/></li>
+                                    <li t-if="record.work_email.raw_value"><a t-attf-href="mailto:#{record.work_email.value}"><field name="work_email"/></a></li>
+                                    <h4>Cell Phone: <field name="mobile_phone"/></h4>
+                                    <h4><b>Sponsorship: </b><field name="sponsorship"/></h4>
+                                    <h4 style="color:grey">Customer Joining Date: <field name="join_date"/></h4>
+                                    <div style="color:red">
+										Customer Contract End Date :
+										<field name="end_date"/>
+									</div>
+									<div style="color:red">
+										Employee Contract End Date :
+										<field name="employee_end_date"/>
+									</div>
+                                    <div><h4 style="color:green">Project Manager: <field name="proj_manager"/></h4></div>
+                                    
+                                </ul>
+                                <div class="oe_kanban_footer_left">
+                                    <span title="Messages"><span class="oe_e">9</span><t t-esc="record.message_ids.raw_value.length"/></span>
+                                    <span title="Followers"><span class="oe_e">+</span><t t-esc="record.message_follower_ids.raw_value.length"/></span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <script>
+                            $('.oe_employee_picture').load(function() { if($(this).width() &gt; $(this).height()) { $(this).addClass('oe_employee_picture_wide') } });
+                        </script>
+                    </t>
+                </templates>	
+            </kanban>
+    </field>
+    </record>
+    
+    
+			
+		<record model="ir.ui.view" id="od_outsource_employee_search">
+			<field name="name">Outsourced Employee search view</field>
+			<field name="model">outsource.employee</field>
+			<field name="arch" type="xml">
+				<search>
+			        <field name="name" />
+			        <group expand="0" string="Group By" colspan="16">
+	                        <filter string="Customer" context="{'group_by':'customer_id'}"/>
+	                         <filter string="Project Manager" context="{'group_by':'proj_manager'}"/>
+	                         <filter string="Contract End Month" context="{'group_by':'end_date:month'}"/>
+                        	<filter string="Contract End Quarter" context="{'group_by':'end_date:quarter'}"/>
+                        	<filter string="Contract End Year" context="{'group_by':'end_date:year'}"/>
+						</group>
+				</search>
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_view_outsource_employee">
+			<field name="name">Outsourced Employees</field>
+			<field name="res_model">outsource.employee</field>
+			<field name="view_mode">kanban,tree,form</field>
+			<field name="help" type="html">
+	          <p class="oe_view_nocontent_create">
+	            Click to Create an Outsourced Employee
+	          </p>
+	        </field>
+		</record>
+		
+			
+		<menuitem id="menu_od_outsource" name="Outsource Employees"
+                  parent="base.menu_main_pm" sequence="4"
+                  />
+                  
+        <menuitem id="menu_od_outsource_employee" name="Employees"
+            parent="menu_od_outsource" action="action_view_outsource_employee"/>
+    
+
+    </data>
+</openerp>

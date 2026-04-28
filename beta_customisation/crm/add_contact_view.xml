@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_add_contact_form" model="ir.ui.view">
+            <field name="name">Add People</field>
+            <field name="model">wiz.add.contact</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                    
+                    <group>
+                    <field name="partner_id" readonly="1" invisible="0"/>
+                     </group>
+                     
+                     <group string="Add New People">
+                     <field name="wiz_line" nolabel="1" context="{'default_partner_id': partner_id}">
+                            <tree editable="top">
+                            	<field name="partner_id" invisible="1"/>
+                                <field name="name" required="1"/>
+                                <field name="function" required="1"/>
+                                <field name="email" required="1"/>
+                                <field name="mobile" required="1"/>
+                                <field name="phone" required="1"/>
+                                
+                             </tree>
+                        </field>
+                        </group>
+<!--                         <group string="Modify Existing People"> -->
+<!--                      <field name="already_added_contacts" nolabel="1"> -->
+<!--                             <tree editable="top"> -->
+<!--                                 <field name="name" required="1"/> -->
+<!--                                 <field name="function" required="1"/> -->
+<!--                                 <field name="email" required="1"/> -->
+<!--                                 <field name="mobile" required="1"/> -->
+<!--                                 <field name="phone" required="1"/> -->
+<!--                                 <field name="active" /> -->
+<!--                              </tree> -->
+<!--                         </field> -->
+<!--                         </group> -->
+                    
+                <footer>
+                  <button name="update_contact" string="Add" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="wiz_request_cancel_wiz_form" model="ir.ui.view">
+            <field name="name">Mark Cancel</field>
+            <field name="model">wiz.mark.lead.cancel</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                 
+                     
+                     <group string="Please fill the below fields before requesting..">
+						<field name="sm_io1" required="1"/>
+						<field name="sm_io2" required="1"/>
+                      </group>
+                    
+                <footer>
+                  <button name="send_cancel_req" string="Send Cancel Request" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="wiz_request_lost_wiz_form" model="ir.ui.view">
+            <field name="name">Mark Lost</field>
+            <field name="model">wiz.mark.lead.lost</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                 
+                     
+                     <group string="Please fill the below fields before requesting..">
+						<field name="sm_io1" required="1"/>
+						<field name="sm_io2" required="1"/>
+                      </group>
+                    
+                <footer>
+                  <button name="send_lost_req" string="Send Lost Request" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="crm_case_form_view_beta_approval_inherit2">
+            <field name="name">crm.lead.inherit2</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="beta_customisation.view_crm_lead_cost_sheet_inherited"/>
+            <field name="arch" type="xml">	            
+	            <xpath expr="//button[@name='request_cancel']" position="after">
+               		<button name="add_people_from_lead" string="Add People" type="object" />
+               		<button name="request_lead_cancellation" string="Request Cancellation" type="object" groups="orchid_beta.group_beta_sale_account_mananger" />
+               		<button name="request_mark_lead_lost" string="Request to Mark Lost" type="object" groups="orchid_beta.group_beta_sale_account_mananger" />
+               	</xpath>
+            </field>
+         </record>
+         
+         <record model="ir.ui.view" id="od_crm_case_form_view_leads_people_add">
+            <field name="name">crm.lead.inherit2</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">	            
+	            <xpath expr="//button[@name='121']" position="after">
+               		<button name="add_people_from_lead" string="Add People" class="oe_highlight" type="object" />
+               	</xpath>
+            </field>
+         </record>
+        
+        
+        
+        
+
+    </data>
+</openerp>

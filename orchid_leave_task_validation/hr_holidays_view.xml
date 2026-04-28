@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+   <record id="od_hr_employee_od_form_inherit_hrms" model="ir.ui.view">
+            <field name="name">hr.holidays</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="arch" type="xml">
+              <xpath expr="/form/sheet/group" position="before">
+                  <h1>     
+              			<div class="oe_right oe_button_box" name="buttons" >
+                        <button name="check_event" class="oe_stat_button" string="Check Events" icon="fa-money" type="object" />
+             			<field name="od_event" invisible="1" />
+              </div>
+              </h1> 
+              </xpath>
+              <xpath expr="/form/sheet" position="inside">
+               <div style="color:#7D376A;font-size:21px;">
+               	  <field name="od_warn2" colspan="4" attrs="{'invisible': [('od_warn2','=','')]}" nolabel="1"/>
+                 <field name="od_warning" colspan="4" attrs="{'invisible': [('od_warning','=','')]}" nolabel="1"/>
+               
+                </div>
+              <notebook>
+              
+              <page string="Employee Events" attrs="{'invisible':[('od_event','=',False)]}" >
+              	
+             	 <field name="od_hr_employee_event_line">
+             	 <tree editable="bottom">
+             	 	<field name="name" />
+             	 	<field name="start_date" />
+             	 	<field name="stop_date" />
+             	 </tree>
+             	 </field>
+              </page>
+              </notebook>
+              </xpath>
+            </field>
+   </record>
+</data>
+</openerp>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="cash_box_in_form12ddddd">
+            <field name="name">od.account.moves</field>
+            <field name="model">od.account.moves</field>
+            <field name="arch" type="xml">
+                <form >
+                        <button name="run" string="Process" type="object" class="oe_highlight"/>
+                </form>
+            </field>
+        </record>
+
+        <act_window 
+            name="Batch validating"
+            res_model="od.account.moves"
+            src_model="account.invoice"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_cash_box_in2" />
+
+    </data>
+</openerp>

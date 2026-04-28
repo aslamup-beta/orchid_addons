@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_view_account_entries_report_tree" model="ir.ui.view">
+            <field name="name">od.account.entries.report.tree</field>
+            <field name="model">account.entries.report</field>
+            <field name="inherit_id" ref="account.view_account_entries_report_tree"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="od_cost_centre_id" groups="orchid_cost_centre.group_orchid_cost_centre_centre"/>
+                    <field name="analytic_account_id" groups="orchid_cost_centre.group_orchid_cost_centre_analytic"/>
+                     <field name="od_asset_id" groups="orchid_cost_centre.group_orchid_cost_centre_asset"/>
+                </field>
+            </field>
+        </record>
+
+
+    <record id="od_view_account_entries_report_search" model="ir.ui.view">
+        <field name="name">od.account.entries.report.search</field>
+        <field name="model">account.entries.report</field>
+        <field name="inherit_id" ref="account.view_account_entries_report_search"/>
+        <field name="arch" type="xml">
+
+            <field name="product_id" position="after">
+                <field name="od_cost_centre_id" groups="orchid_cost_centre.group_orchid_cost_centre_centre"/>
+                <field name="analytic_account_id" groups="orchid_cost_centre.group_orchid_cost_centre_analytic"/>
+                <field name="od_asset_id" groups="orchid_cost_centre.group_orchid_cost_centre_asset"/>
+            </field>
+
+
+            <filter name="group_journal" position="after">
+                <filter string="Analytic" name="analytic_account_id" icon="terp-folder-green" context="{'group_by':'analytic_account_id'}" groups="orchid_cost_centre.group_orchid_cost_centre_analytic"/>
+                <filter string="Cost Centre" name="od_cost_centre_id" icon="terp-folder-green" context="{'group_by':'od_cost_centre_id'}" groups="orchid_cost_centre.group_orchid_cost_centre_centre"/>
+
+				<filter string="Active Accounts" name="active_accounts" icon="terp-folder-green" domain="[('account_id.active','=',True)]"/>
+				
+                <filter string="Asset" name="od_asset_id" icon="terp-folder-green" context="{'group_by':'od_asset_id'}" groups="orchid_cost_centre.group_orchid_cost_centre_asset"/>
+            </filter>
+        </field>
+    </record>
+
+    </data>
+</openerp>

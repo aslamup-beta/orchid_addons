@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        
+        <!--  <record id="amc_inv_sch_rept_list" model="ir.ui.view">
+            <field name="name">amc.inv.sch.wiz.tree</field>
+            <field name="model">amc.inv.sch.wiz</field>
+            <field name="arch" type="xml">
+                <tree string="list">
+                    <field name="name"></field>
+                    <button name="export_rpt" string="Export" type="object" />
+
+                </tree>
+            </field>
+        </record> -->
+        
+        
+        <record id="view_amc_inv_sche_rpt_wizard" model="ir.ui.view">
+            <field name="name">AMC Invoice Schedule Form</field>
+            <field name="model">amc.inv.sch.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                   
+                   
+                   <group>
+                  
+                        <group>
+                        	<field name="planning_date_from" />
+                        	<field name="planning_date_to" />
+                        
+                        
+                        </group>
+                        
+                        <group>
+                        	 <field name="accept_date_from" />
+                        	<field name="accept_date_to" />
+                        </group>
+                        
+                         <group>
+                        	<field name="pmo_planning_date_from" />
+                        	<field name="pmo_planning_date_to" />
+                        </group>
+                       
+                        </group>
+                        <group>
+                        <field name="branch_ids" widget="many2many_tags"/>
+                        </group>
+                        <group />
+                         <group />
+                        <group>
+                          <field name="partner_ids" widget="many2many_tags"/>
+                        </group>
+                         <group />
+                         <group />
+                       <group>
+                       	<field name="pm_ids" widget="many2many_tags"/>
+                       </group>
+                        <group />
+                         <group />
+                       <group>
+                       	<field name="analytic_account_ids" widget="many2many_tags"/>
+                       </group>
+                         <group />
+                         <group />
+                     
+
+                      
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_amc_invoice_sch_rpt_act" model="ir.actions.act_window">
+            <field name="name">AMC Invoice Schedule Report</field>
+            <field name="res_model">amc.inv.sch.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         
+         <menuitem
+         	
+			id="menu_amc_invoice_sch_rpt_1"
+			parent="orchid_cost_sheet.od_menu_helpdesk_sub"
+			 sequence="10" 
+			action="action_amc_invoice_sch_rpt_act" />
+
+
+	<record model="ir.ui.view" id="od_amc_invoice_sch_data_tree_view">
+		<field name="name">wiz.amc.inv.sch.data.tree</field>
+		<field name="model">wiz.amc.inv.sch.data</field>
+		<field name="arch" type="xml">
+			<tree string="Project Invoice Schedule">
+			<field name="company_id" invisible="1" />
+				
+				<field name="partner_id" />
+				<field name="analytic_id" />
+				<button name="btn_open_analytic" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="name" />
+				<field name="planned_date" />
+			    <field name="planned_amount" sum="Total"/> 
+				<field name="invoice_id"/>
+				<field name="invoice_amount" sum="Total"/>
+				<field name="date_invoice" />
+				<field name="invoice_status" />
+				<field name="cust_date" />
+				
+				
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="ood_rev_amc_invoice_sch_search_view">
+		<field name="name">wiz.amc.inv.sch.data.search</field>
+		<field name="model">wiz.amc.inv.sch.data</field>
+		<field name="arch" type="xml">
+			<search>
+			<field name="partner_id" />
+				<field name="analytic_id" />
+			
+				<field name="name" />
+				<field name="planned_date" />
+			    <field name="branch_id" /> 
+				<field name="invoice_id"/>
+				<field name="date_invoice" />
+				<field name="invoice_status" />
+				<field name="cust_date" />
+			<group expand="1" string="Group By">
+                       
+                        <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                        <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+                         <filter string="Analytic Account" domain="[]" context="{'group_by':'analytic_id'}"/>
+                        <filter string="Invoice Status" domain="[]" context="{'group_by':'invoice_status'}"/>
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Cost Sheet" domain="[]" context="{'group_by':'cost_sheet_id'}"/>
+                       
+                         <filter string="Planned Date Year" context="{'group_by':'planned_date:year'}" name="Year"/>
+                        <filter string="Planned Date Month" context="{'group_by':'planned_date:month'}"/>
+                        <filter string="Planned Date Quarter" context="{'group_by':'planned_date:quarter'}"/>
+                        
+                         <filter string="Customer Accept Date Year" context="{'group_by':'cust_date:year'}" name="Year"/>
+                        <filter string="Customer Accept Date Month" context="{'group_by':'cust_date:month'}"/>
+                        <filter string="Customer Accept Date Quarter" context="{'group_by':'cust_date:quarter'}"/>
+                       
+                     
+                        <filter string="Project Manager" domain="[]" context="{'group_by':'pm_id'}"/>
+                       
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+    </data>
+</openerp>

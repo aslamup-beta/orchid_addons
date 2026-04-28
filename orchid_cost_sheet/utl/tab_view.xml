@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	    <record model="ir.ui.view" id="view_beta_cs_tabs_tree_view">
+	        <field name="name">od.cost.tabs.tree</field>
+	        <field name="model">od.cost.tabs</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	            	<field name="name"/>
+	            	<field name="code"/>
+	            </tree>
+	       </field>
+	    </record>
+	    
+        <record id="beta_cs_tabs_form_view" model="ir.ui.view">
+            <field name="name">od.cost.tabs.form</field>
+            <field name="model">od.cost.tabs</field>
+            <field name="arch" type="xml">
+            <form string="Employee Role Change Form" version="7.0">
+            	<sheet>
+	               <group string="Cost Sheet TABS">
+		               <field name="name" />
+		               <field name="code"/>
+	               </group>	
+               </sheet>
+                </form>
+            </field>
+         </record>
+         
+	     <record model="ir.actions.act_window" id="action_od_beta_show_cs_tabs">
+	        <field name="name">Cost Sheet TABS</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">od.cost.tabs</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	         <field name="help" type="html">
+	          <p class="oe_view_nocontent_create">
+	            XX
+	          </p>
+	        </field>
+	    </record>
+    
+     <menuitem id="od_menu_beta_cs_tabs" name="Cost sheet TABS" action="action_od_beta_show_cs_tabs" parent="orchid_cost_sheet.menu_cost_sheet_parent" sequence="200" groups="__export__.res_groups_184"/>
+    
+    
+    </data>
+</openerp>

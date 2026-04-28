@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+	<record id="od_hr_leave_form_inherit" model="ir.ui.view">
+		<field name="name">hr.holidays</field>
+		<field name="model">hr.holidays</field>
+		<field name="inherit_id" ref="hr_holidays.edit_holiday_new" />
+		<field name="arch" type="xml">
+			<field name="holiday_status_id" context="{'employee_id':employee_id}"
+				position="replace">
+				<field name="holiday_status_id" context="{'employee_id':employee_id}"
+					on_change="od_onchange_holiday_status_id(holiday_status_id, employee_id,date_from)" />
+			</field>
+			<!-- <field name="date_from" position="replace"> -->
+
+			<!-- <field name="date_from" on_change="onchange_date_from(date_to, date_from,holiday_status_id)" 
+				attrs="{'readonly':[('type','=','add')], 'required':[('type','=','remove')]}"/> -->
+
+			<!-- <field name="date_from" nolabel="1" on_change="onchange_date_from(date_to, 
+				date_from,holiday_status_id)" attrs="{'required':[('type', '=', 'remove')]}" 
+				class="oe_inline"/><label string="-" class="oe_inline"/> -->
+			<!-- <field name="date_to" nolabel="1" on_change="onchange_date_to(date_to, 
+				date_from)" attrs="{'required':[('type', '=', 'remove')]}" class="oe_inline"/> -->
+
+			<!-- </field> -->
+
+			<xpath expr="/form/sheet/group/group/div/group/field[@name='date_from']"
+				position="attributes">
+				<attribute name="context">{'holiday_status_id':holiday_status_id,'employee_id':employee_id}
+				</attribute>
+			</xpath>
+
+			<xpath expr="/form/sheet/group/group/div/group/field[@name='date_to']"
+				position="attributes">
+				<attribute name="context">{'holiday_status_id':holiday_status_id,'employee_id':employee_id}
+				</attribute>
+			</xpath>
+
+
+			<!-- <field name="date_to" nolabel="1" on_change="onchange_date_to(date_to, 
+				date_from)" attrs="{'required':[('type', '=', 'remove')]}" class="oe_inline" 
+				position="replace"> -->
+
+
+			<!-- <field name="date_to" nolabel="1" on_change="onchange_date_to(date_to, 
+				date_from)" attrs="{'required':[('od_leave_encashment', '=', False)]}" class="oe_inline" 
+				/> -->
+
+
+			<!--</field> -->
+
+			<!-- <label for="number_of_days_temp" string="Duration" position="replace"> -->
+
+			<!-- <label for="number_of_days_temp" string="Duration" attrs="{'invisible':[('od_leave_encashment','=',True)]}"/> -->
+
+			<!-- </label> -->
+
+
+			<!-- <label for="number_of_days_temp" string="Duration" position="replace"> -->
+
+			<!-- <label for="number_of_days_temp" string="Date" attrs="{'invisible':[('od_leave_encashment','=',False)]}"/> -->
+
+			<!-- </label> -->
+
+			<field name="department_id" position="after">
+				<field name="od_total_leave_taken" readonly="1"
+					attrs="{'invisible':[('holiday_status_id','=',1)]}" />
+
+				<field name="od_leave_eligible" readonly="1" invisible="1"/>
+
+				<field name="od_leave_sal" readonly="1" invisible="1"/>
+
+				<field name="od_leave_sal_invisible" invisible="1" />
+
+
+
+				<field name="od_total_leave_taken_invisible" invisible="1" />
+
+				<field name="od_leave_eligible_invisible" invisible="1" />
+
+
+
+				<field name="od_year" invisible="1" />
+				<field name="od_month" />
+				<field name="od_day" />
+
+				<label for="od_leave_encahment_amount" attrs="{'invisible':[('od_leave_encashment','=',False)]}" />
+				<div>
+					<field name="od_leave_encahment_amount"
+						attrs="{'invisible':[('od_leave_encashment','=',False)]}" class="oe_inline" />
+					<button name="od_compute_leave_encashment" type="object"
+						string="Compute" attrs="{'invisible':[('od_leave_encashment','=',False)]}"
+						class="oe_link" />
+				</div>
+
+
+
+
+
+				<!-- <field name="od_leave_encahment_amount"/> -->
+				<!-- <field name="od_leave_encashment" attrs="{'invisible':[('holiday_status_id','!=',1)]}"/> -->
+			</field>
+
+		</field>
+	</record>
+
+    </data>
+</openerp>
+
+
+
+
+
+
+
+
+

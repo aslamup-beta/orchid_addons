@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	    <record model="ir.ui.view" id="view_beta_lg_request_tree_view">
+	        <field name="name">od.lg.request.form.tree</field>
+	        <field name="model">od.lg.request.form</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	            	<field name="date"/>
+	            	<field name="job_name"/>
+	            	<field name="cust_lpo"/>
+	            	<field name="partner_id" />
+	            	<field name="lead_id"/>
+	            	<field name="guarantee_name"/>
+	            	<field name="valdity_from"/>
+	            	<field name="valdity_to"/>
+	            	<field name="job_amt"/>
+	            	<field name="lg_amt" invisible="1"/>
+	            	<field name="lg_perc" invisible="1"/>
+	            	<field name="requested_by"/>
+	            	
+	            	<field name="state"/>
+	            	
+	            </tree>
+	       </field>
+	    </record>
+	    
+        <record id="view_beta_lg_request_form_view" model="ir.ui.view">
+            <field name="name">od.lg.request.form.form</field>
+            <field name="model">od.lg.request.form</field>
+            <field name="arch" type="xml">
+            <form string="L/G Request Form" >
+            <header>
+				
+				<button name="btn_verify" type="object" class="oe_highlight" string="Validate" attrs="{'invisible':[('state', '!=', 'draft')]}" groups="account.group_account_user"/>
+				<button name="btn_approve" type="object" class="oe_highlight" string="Approve" attrs="{'invisible':[('state', '!=', 'verify')]}" groups="__export__.res_groups_188, orchid_beta.groups_beta_admin,__export__.res_groups_186"/>
+                <button name="btn_refuse" type="object" string="Refuse" attrs="{'invisible':[('state', '=', 'approve')]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,verify,approve" statusbar_colors='{"approve":"blue"}'/>
+            </header>
+            <sheet>
+                <group>
+	               <group>
+	                   <field name="partner_id" readonly="1" context="{'show_address': 1}" options="{&quot;always_reload&quot;: True}"/>
+	                   <field name="guarantee_name" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+	                   <field name="job_amt" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+	                   <field name="enter_lg_per" attrs="{'readonly':[('state', '!=', 'draft')], 'invisible':[('enter_lg_amt', '=', True)]}"/>
+	                   <field name="lg_perc1" attrs="{'readonly':[('state', '!=', 'draft')], 'invisible':[('enter_lg_per', '!=', True)]}"/>
+	                   <field name="lg_amt1" attrs="{'readonly':[('state', '!=', 'draft')], 'invisible':[('enter_lg_per', '!=', True)]}"/>
+	                   
+	                   <field name="enter_lg_amt" attrs="{'readonly':[('state', '!=', 'draft')], 'invisible':[('enter_lg_per', '=', True)]}"/>
+	                   <field name="lg_amt" attrs="{'readonly':[('state', '!=', 'draft')], 'invisible':[('enter_lg_amt', '!=', True)]}"/>
+	                   <field name="lg_perc" attrs="{'readonly':[('state', '!=', 'draft')], 'invisible':[('enter_lg_amt', '!=', True)]}"/>
+	                   
+	               </group>	               
+	               
+	               <group>
+	                	<field name="date" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+	               		<field name="lead_id" invisible="0" readonly="1"/>
+	               		<field name="cost_sheet_id" invisible="1"/>
+	               		<field name="cust_lpo" required="1"/>
+	                   <field name="job_name" required="1"/>
+	                   <field name="lang" required="1"/>
+	                   
+	                   
+	                   <field name="format" required="1"/>
+	                   <field name="company_id" invisible="1"/>
+	                   
+	                   <field name="is_fixed"/>
+	                   <field name="auto_ren"/>
+	                   
+	               </group>
+	               
+                </group>
+                <label for="valdity_from" string="Validity"/>
+                        <div>
+                            From <field name="valdity_from" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}" class="oe_inline"/>
+                            To <field name="valdity_to" required="1" attrs="{'readonly':[('state', '!=', 'draft')]}" class="oe_inline"/>
+                        </div>
+                <div>
+                <field name="comments" placeholder="Comments.."/>
+                </div>
+                <group col="3">                 
+                         
+                      <group >
+                      	<field name="requested_by" readonly="1"/>
+                      	<field name="req_date" readonly="1"/>
+                       </group>
+                       <group>
+                      	<field name="verified_by" readonly="1"/>
+                      	<field name="verify_date" readonly="1"/>
+                      </group>
+                      <group>
+                      	<field name="approved_by" readonly="1"/>
+                      	<field name="appr_date" readonly="1"/>
+                      </group>
+                       </group>
+
+               </sheet>
+            	<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+         </record>
+         
+          <record id="od_view_beta_bid_bonds_filter" model="ir.ui.view">
+            <field name="name">od.lg.request.form.search</field>
+            <field name="model">od.lg.request.form</field>
+            <field name="arch" type="xml">
+                <search>
+					<field name="lead_id"/>
+					<field name="cust_lpo"/>
+					<field name="job_name"/>
+					<group expand="1" string="Group By">
+						<filter string="Opportunity" domain="[]" context="{'group_by':'lead_id'}"/>
+						<filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+						<filter string="Create Date" context="{'group_by':'date:month'}"/>
+						<filter string="Expiry Date" context="{'group_by':'valdity_to:month'}"/>
+						<filter string="Guarantee Name" domain="[]" context="{'group_by':'guarantee_name'}"/>
+						<filter string="Lead Account Manager" domain="[]" context="{'group_by':'requested_by'}"/>
+						<filter string="State" domain="[]" context="{'group_by':'state'}"/>
+					</group>
+
+				</search>
+            </field>
+        </record>
+         
+        <record model="ir.actions.act_window" id="action_od_beta_lg_request_form">
+        <field name="name">L/G Request Form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.lg.request.form</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new L/G Request. 
+          </p>
+        </field>
+    </record>   
+    
+         <menuitem id="od_menu_beta_bid_bonds" name="Bid Bonds" action="action_od_beta_lg_request_form" parent="account.menu_finance_bank_and_cash" sequence="205"/>
+     
+    
+    </data>
+</openerp>

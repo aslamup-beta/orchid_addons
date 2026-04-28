@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_beta_po_report_inherit" model="ir.ui.view">
+            <field name="name">view_beta_po_report_inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="orchid_beta.orchid_purchase_jinherit_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='od_part_delvry']" position="after">
+                    <field name="print_with_stamp" string="Print With Stamp" groups="__export__.res_groups_249"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

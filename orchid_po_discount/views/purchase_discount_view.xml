@@ -1,0 +1,65 @@
+<openerp>
+<data>
+    <record model="ir.ui.view" id="purchase_discount_order_line_form">
+        <field name="name">purchase_discount.order.line.form</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+        <field name="arch" type="xml">
+        	 <xpath expr="//field[@name='price_unit']" position="attributes">
+            	<attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="after">
+           
+            	 <field name="discount" on_change="onchange_discount(od_gross,product_qty,discount)"/>
+                <field name="od_gross" on_change="onchange_od_gross(od_gross,product_qty,discount)"/>
+           
+               </xpath>
+            </field>
+       
+    </record>
+    <record model="ir.ui.view" id="purchase_discount_order_line_tree">
+        <field name="name">purchase_discount.order.line.tree</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="price_unit" position="after">
+                <field name="discount" on_change="onchange_discount(od_gross,product_qty,discount)"/>
+                
+                
+            </field>
+        </field>
+    </record>
+    
+     <record model="ir.ui.view" id="purchase_discount_order_form">
+         <field name="name">purchase.discount.order.form</field>
+         <field name="model">purchase.order</field>
+         <field name="inherit_id" ref="purchase.purchase_order_form"/>
+         <field name="arch" type="xml">
+     <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="replace">
+                  <field name="product_qty" on_change="onchange_product_qty(od_gross,product_qty,discount)"/>
+                 </xpath>
+                 
+        
+
+
+     <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="after">
+                  <field name="od_gross" on_change="onchange_od_gross(od_gross,product_qty,discount)"/>
+                 </xpath>
+                 
+    
+              <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                  <field name="discount" on_change="onchange_discount(od_gross,product_qty,discount)"/>
+                 </xpath>
+
+              <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="replace">
+                  <field name="price_unit" invisible="1"/>
+                 </xpath>
+
+
+<!--     <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="after">-->
+<!--                  <field name="od_gross" on_change="onchange_od_gross(od_gross,product_qty,discount)"/>-->
+<!--                 </xpath>-->
+         </field>
+     </record>
+</data>
+</openerp>

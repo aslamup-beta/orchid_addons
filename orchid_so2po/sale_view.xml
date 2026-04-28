@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+   <record id="view_order_form_purchase_requsition_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.tv.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+               <field name="user_id" position="after">
+                <field name="od_purchase_requsition_id"/>
+               </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_prj_bulk_activities_wizard" model="ir.ui.view">
+            <field name="name">Bulk Activities</field>
+            <field name="model">project.bulk.activity.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Bulk Activities">
+                    <group col="4" colspan="4">
+                          <group>
+                            <field name="project_id" invisible="1" />
+                          </group>
+                        <label colspan="4" width="500"
+                               string="You can generate bulk Tickets from here. Kindly fill all the mandatory fields"/>
+                        <newline/>
+                      </group>
+						
+                        <field name="wiz_line" nolabel="1" context="{'default_project_id':project_id}">
+                            <tree editable="top">
+                                <field name="name" required="1"/>
+                                <field name="project_id" required="1"/>
+                                <field name="parent_id" domain="[('project_id','=',project_id),('od_type','=','milestone')]" string="Milestone" required="1"/>
+                                <field name="assigned_to" context="{'assign_ids':1}" required="1"/>
+                                <field name="start_date" required="1"/>
+                                <field name="end_date" required="1"/>
+                                <field name="reviewer_id" context="{'reviewer_ids':1}" required="1"/>
+                                <field name="implementation_line_id"  required="0" invisible="1"/>
+                                <field name="access_method" required="1" />
+                                <field name="activity_obj" required="1" />
+                                <field name="equipment" required="1"/>
+                                <field name="prior_arragmnt" required="1"/>
+                                <field name="opp_id" domain="[('stage_id','not in',(6,7,8,2))]" />
+                                 <field name="help_desk_id" />
+                             </tree>
+                        </field>
+                        <button name="generate_bulk_activities" string="Generate Tickets"
+                                icon="gtk-go-forward" type="object" colspan="2"/>
+                       <button string="Cancel" colspan="2" special="cancel" icon="gtk-cancel" />
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_od_view_project_bulk_activities_issue_act" model="ir.actions.act_window">
+            <field name="name">Bulk Activities Issue</field>
+            <field name="res_model">project.bulk.activity.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

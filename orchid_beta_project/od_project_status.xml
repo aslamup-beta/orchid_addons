@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	<record model="ir.ui.view" id="od_project_status_form">
+		<field name="name">od project status form view</field>
+		<field name="model">od.project.phase</field>
+		<field name="arch" type="xml">
+		<form string="Project Status" version="7.0">
+		<sheet>
+ 			<div class="oe_title oe_left">
+             <h1>
+              	<field name="name" placeholder="Status" />
+             </h1>
+           </div>
+           <notebook>
+           	<page string="Groups">
+          	 	<field name="groups_ids" />
+           	</page>
+           </notebook>
+        </sheet>
+       </form>
+       </field>
+       </record>
+       
+       <record model="ir.ui.view" id="od_project_status_tree">
+		<field name="name">od implementation tree view</field>
+		<field name="model">od.project.phase</field>
+		<field name="arch" type="xml">
+			<tree string="Od Implementation">
+					<field name="name" />
+			</tree>
+		</field>
+		</record>
+       
+       <record model="ir.actions.act_window" id="action_od_project_status">
+		<field name="name">Project Status</field>
+		<field name="res_model">od.project.phase</field>
+		<field name="view_mode">tree,form</field>
+		</record>
+
+	 	<menuitem name="Project Phase" 
+	  		id="menu_od_project_status" 
+	  		parent="base.menu_definitions"
+            action="action_od_project_status" />
+       
+	</data>
+</openerp>

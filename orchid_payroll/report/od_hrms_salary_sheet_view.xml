@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_hrms_salary_sheet_view_tree" model="ir.ui.view">
+            <field name="name">od.hrms.salary.sheet.view.tree</field>
+            <field name="model">od.hrms.salary.sheet.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Salary Sheet" create="false">
+                    <field name="employee_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="xo_total_wage"/>
+                    <field name="daily_salary"/>
+                    <field name="number_of_days"/>
+                    <field name="cost_center"/>
+                    <field name="period"/>
+                    <field name="gross"/>
+                    <field name="allowance"/>
+                    <field name="identification"/>
+                    <field name="department_id"/>
+                    <field name="net_salary"/>
+                    <field name="loan"/>
+                    <field name="arrears"/>
+                     <field name="advance_salary"/>
+                    <field name="advance_salary_deduction"/>
+                    <field name="personal_expence_deduction"/>
+                    <field name="blackberry"/>
+                    <field name="net_salary"/>
+
+
+                     <field name="wps_obs"/>
+                    <field name="wps_auto"/>
+                    <field name="wps_kartell"/>
+                    <field name="cash"/>
+                    <field name="telegraphic_transfer"/>
+                    <field name="period_id"/>
+                    <field name="xo_mode_of_payment_id"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="od_hrms_salary_sheet_view_search" model="ir.ui.view">
+            <field name="name">od.hrms.salary.sheet.view.search</field>
+            <field name="model">od.hrms.salary.sheet.view</field>
+            <field name="arch" type="xml">
+                <search string="Salary Sheet">
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Employee" icon="terp-personal" name="odemployee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Department" icon="terp-personal" name="odde_id" context="{'group_by':'department_id'}"/>
+
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_hrms_salary_sheet_view_graph">
+            <field name="name">od.hrms.salary.sheet.view.graph</field>
+            <field name="model">od.hrms.salary.sheet.view</field>
+            <field name="arch" type="xml">
+                <graph string="Salary Sheet" type="bar">
+                    <field name="department_id"/>
+                    <field name="employee_id"/>
+                    <field name="period_id"/>
+                    <field name="xo_mode_of_payment_id"/>
+                    <field name="identification" type="measure"/>
+                    <field name="xo_total_wage" type="measure"/>
+<field name="number_of_days" type="measure"/>
+<field name="daily_salary" type="measure"/>
+<field name="gross" type="measure"/>
+<field name="arrears" type="measure"/>
+<field name="blackberry" type="measure"/>
+<field name="allowance" type="measure"/>
+<field name="advance_salary" type="measure"/>
+<field name="loan" type="measure"/>
+
+
+
+
+<field name="advance_salary_deduction" type="measure"/>
+<field name="personal_expence_deduction" type="measure"/>
+<field name="net_salary" type="measure"/>
+<field name="cash" type="measure"/>
+<field name="telegraphic_transfer" type="measure"/>
+<field name="wps_obs" type="measure"/>
+<field name="wps_auto" type="measure"/>
+<field name="wps_kartell" type="measure"/>
+
+
+
+
+
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_hrms_salary_sheet_view" model="ir.actions.act_window">
+            <field name="name">Salary Sheet</field>
+            <field name="res_model">od.hrms.salary.sheet.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_hrms_salary_sheet_view_search"/>
+            <field name="view_id" ref="od_hrms_salary_sheet_view_graph"/>
+            <field name="context">{'search_default_odemployee_id':1}</field>
+            <field name="help">This report Salary Sheet.</field>
+        </record>
+<!--        <menuitem parent="hr.menu_hr_reporting" action="action_od_hrms_salary_sheet_view" id="menu_od_hrms_salary_sheet_view" sequence="0"/>-->
+    </data>
+</openerp>

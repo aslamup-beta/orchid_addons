@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+
+        <record id="orchid_stock_picking_beta_view" model="ir.ui.view">
+          <field name="name">stock.picking.form.view</field>
+          <field name="model">stock.picking</field>
+          <field name="inherit_id" ref="stock.view_picking_form" />
+          <field name="arch" type="xml">
+            <data>
+            <xpath expr="/form/header/button[@name='force_assign']" position="attributes">
+               	<attribute name="invisible">True</attribute>
+               </xpath>
+            </data>
+          </field>
+        </record>
+ 	</data>
+ </openerp>

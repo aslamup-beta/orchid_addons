@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="business_trip_form_view">
+            <field name="name">Business Trip</field>
+            <field name="model">hr.business.trip</field>
+            <field name="arch" type="xml">
+                <form string="Business Trip">
+                     <!--<span t-esc="'{0:,.2f}'.format(float(amount_total))"/>-->
+
+                    <header>
+                        <button string="Submit To Manager" type="object" name="action_confirm" states="draft"
+                                class="oe_highlight"/>
+                        <button string="Approve" type="object" name="action_approve" states="confirm"
+                                groups="orchid_beta.groups_beta_admin,__export__.res_groups_186,orchid_beta.group_beta_hr_officers,__export__.res_groups_227"
+                                class="oe_highlight"/>
+                        <button string="Refuse" type="object" name="action_refuse" states="confirm"
+                                groups="orchid_beta.groups_beta_admin,__export__.res_groups_186,orchid_beta.group_beta_hr_officers,__export__.res_groups_227"/>
+                        <button string="Cancel" type="object" name="action_cancel" states="validate"
+                                groups="__export__.res_groups_245,__export__.res_groups_200"/>
+                        <!--                        <button string="Reset to Draft" name="action_reset" type="object"-->
+                        <!--                                attrs="{'invisible': ['|', ('can_reset', '=', False), ('state', 'not in', ['confirm', 'refuse'])]}"/>-->
+                        <button string="Reset to Draft" name="action_reset" type="object"
+                                groups="__export__.res_groups_245,__export__.res_groups_200"
+                                attrs="{'invisible': [('state', 'not in', ['cancel'])]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="can_reset" invisible="1"/>
+                                <field name="employee_id" required="1"/>
+                                <field name="trip_location" required="1"/>
+                                <label for="number_of_days_temp" string="Duration"/>
+                                <div>
+                                    <group col="3">
+                                        <field name="date_from" nolabel="1" required="1"
+                                               on_change="onchange_date_from(date_to, date_from)"
+                                               class="oe_inline"/>
+                                        <label string="To" class="oe_inline"/>
+                                        <field name="date_to" nolabel="1" required="1"
+                                               on_change="onchange_date_to(date_to, date_from)"
+                                               class="oe_inline"/>
+                                    </group>
+
+                                </div>
+                                <label for="number_of_days_temp" string="Number Of Days" invisible="1"/>
+                                <div invisible="1">
+                                    <field name="number_of_days_temp" class="oe_inline" force_save="1"/>
+                                    days
+                                </div>
+                                <label for="number_of_days" string="Number Of Days"/>
+                                <div>
+                                    <field name="number_of_days" class="oe_inline" force_save="1"/>
+                                    days
+                                </div>
+                            </group>
+                            <group>
+                                <field name="wfh_type" readonly="1"/>
+                                <field name="department_id"/>
+                                <field name="manager_id"/>
+                            </group>
+                        </group>
+                        <field name="name" nolabel="1" colspan="4" placeholder="Purpose and Goals of the Business Trip ..." required="1"
+                        />
+                        <notebook>
+                            <page string="Log Date History">
+                                <group string="Log Date History">
+                                    <field name="date_log_history_line" nolabel="1">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="user_id"/>
+                                            <field name="date"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_holidays_business_trip_tree">
+            <field name="name">hr.business.trip.tree</field>
+            <field name="model">hr.business.trip</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree colors="red:state == 'refuse';blue:state == ' draft';black:state in ('confirm','validate')"
+                      string="Business Trip">
+                    <field name="employee_id"/>
+                    <field name="department_id" invisible="1"/>
+                    <field name="trip_location"/>
+                    <field name="name"/>
+                    <field name="number_of_days" string="Number of Days"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="manager_id" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_holidays_business_trip_search_view">
+            <field name="name">hr.business.trip.search.view</field>
+            <field name="model">hr.business.trip</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="state"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" domain="[]" context="{'group_by':'employee_id'}"/>
+                        <filter string="Department" domain="[]" context="{'group_by':'department_id'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+<!--                        <filter string="Date From By Day" context="{'group_by':'date_from:day'}"/>-->
+                        <filter string="Month" context="{'group_by': 'date_from:month'}"/>
+                        <filter string="Year" context="{'group_by': 'date_from:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_open_business_trip">
+            <field name="name">Business Trip</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.business.trip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new request.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Business Trip" action="action_open_business_trip" parent="hr_holidays.menu_open_ask_holidays" groups="__export__.res_groups_184"
+                  id="menu_open_business_trip" sequence="90"/>
+
+    </data>
+</openerp>

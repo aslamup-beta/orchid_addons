@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_sales_invoice_analysis_view_tree" model="ir.ui.view">
+            <field name="name">od.sales.invoice.analysis.view.tree</field>
+            <field name="model">od.sales.invoice.analysis.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Invoice Analysis" create="false">
+                    
+                    
+<!--                    <field name="company_id"/>-->
+<!--                    <field name="partner_id"/>-->
+<!--                    <field name="invoice_no"/>-->
+                    <field name="invoice_no"/>
+                    <field name="margin"/>
+<!--                    <field name="origin"/>-->
+<!--                    <field name="state"/>-->
+                    <field name="type"/>
+<!--                     <field name="date_invoice"/>-->
+<!--                     <field name="period_id"/>-->
+<!--                     <field name="currency_id"/>-->
+
+<!--                     <field name="section_id"/>-->
+<!--                     <field name="user_id"/>-->
+
+
+
+                     <field name="sale"/>
+                     <field name="cost"/>
+
+                     <field name="profit"/>
+<field name="markup" avg="markup"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="od_sales_invoice_analysis_view_search" model="ir.ui.view">
+            <field name="name">od.sales.invoice.analysis.view.search</field>
+            <field name="model">od.sales.invoice.analysis.view</field>
+            <field name="arch" type="xml">
+                <search string="Invoice Analysis">
+                    <field name="invoice_no"/>
+<!--                    <field name="company_id"/>-->
+<!--                    <field name="partner_id"/>-->
+
+<!--                     <field name="period_id"/>-->
+<!--                     <field name="currency_id"/>-->
+
+<!--                     <field name="section_id"/>-->
+<!--                     <field name="user_id"/>-->
+                    <group expand="1" string="Group By...">
+                        <filter string="Invoice" icon="terp-personal" name="invoice" context="{'group_by':'invoice_no'}"/>
+<!--                        <filter string="Company" icon="terp-personal" name="company_id" context="{'group_by':'company_id'}"/>-->
+<!--                        <filter string="Customer" icon="terp-personal" name="partner_id" context="{'group_by':'partner_id'}"/>-->
+<!--                        <filter string="Period" icon="terp-personal" name="period_id" context="{'group_by':'period_id'}"/>-->
+<!--                        <filter string="Currency" icon="terp-personal" name="currency_id" context="{'group_by':'currency_id'}"/>-->
+
+<!--                        <filter string="Sales Team" icon="terp-personal" name="section_id" context="{'group_by':'section_id'}"/>-->
+<!--                        <filter string="Salesperson" icon="terp-personal" name="user_id" context="{'group_by':'user_id'}"/>-->
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_sales_invoice_analysis_view_grpah">
+            <field name="name">od.sales.invoice.analysis.view.graph</field>
+            <field name="model">od.sales.invoice.analysis.view</field>
+            <field name="arch" type="xml">
+                <graph string="Invoice Analysis" type="bar">
+                    <field name="invoice_no"/>
+<!--                    <field name="partner_id"/>-->
+<!--                    <field name="invoice_no"/>-->
+<!--                    <field name="product_id"/>-->
+<!--                    <field name="margin"/>-->
+<!--                    <field name="origin"/>-->
+<!--                    <field name="state"/>-->
+<!--                    <field name="type"/>-->
+<!--                     <field name="date_invoice"/>-->
+<!--                     <field name="period_id"/>-->
+<!--                     <field name="currency_id"/>-->
+
+<!--                     <field name="section_id"/>-->
+<!--                     <field name="user_id"/>-->
+
+
+
+<!--                     <field name="sale"/>-->
+<!--                     <field name="cost"/>-->
+
+<!--                     <field name="profit"/>-->
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_sales_invoice_analysis_view" model="ir.actions.act_window">
+            <field name="name">Invoice Analysis</field>
+            <field name="res_model">od.sales.invoice.analysis.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_sales_invoice_analysis_view_search"/>
+            <field name="view_id" ref="od_sales_invoice_analysis_view_grpah"/>
+            <field name="help">This Product Report Summary.</field>
+        </record>
+
+<!--<menuitem action="action_od_sales_invoice_analysis_view" id="menu_od_ssalesinvoice__anlysis" parent="menu_mis_o" sequence="10" />-->
+
+    </data>
+</openerp>

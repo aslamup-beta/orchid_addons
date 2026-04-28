@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_supply_chain_rpt_wizard" model="ir.ui.view">
+            <field name="name">Supply Chain Form</field>
+            <field name="model">supply.chain.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+                     <group col="3">                 
+                         
+                        <group >
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                         </group>
+                         <group>
+                        	<field name="pmo_exp_date_start"/>
+                        	<field name="pmo_exp_date_end"/>
+                        </group>
+                        <group>
+                        	<field name="actual_closing_from"/>
+                        	<field name="actual_closing_to"/>
+                        </group>
+                       </group>
+                         <group>
+                          <field name="branch_ids" widget="many2many_tags"/>
+                         </group>
+                           <group/>
+                           <group/>
+                           <group>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                           </group>
+                           <group/>
+                           <group/>
+                           <group>
+                            <field name="pm_ids" widget="many2many_tags"/>
+                           </group>
+                           <group/>
+                           <group/>
+                           <group>
+                            <field name="sam_ids" widget="many2many_tags"/>
+                           </group>
+<!--                            <group/> -->
+<!--                            <group/> -->
+<!--                            <group> -->
+<!--                             <field name="analytic_ids" widget="many2many_tags"/> -->
+<!--                            </group> -->
+                           <group/>
+                            <group/>
+                       
+                       
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_supply_chain_rpt_act" model="ir.actions.act_window">
+            <field name="name">Supply Chain Timeline</field>
+            <field name="res_model">supply.chain.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         
+         <menuitem
+			id="menu_supply_chain_rpt"
+			parent="orchid_beta.menu_mis_reporting"
+			 sequence="1" 
+			action="action_supply_chain_rpt_act" 
+			name="Supply Chain Timeline"
+			/>
+			
+			<record model="ir.ui.view" id="od_supply_chain_data_tree_view">
+				<field name="name">supply.chain.rpt.data.tree</field>
+				<field name="model">supply.chain.rpt.data</field>
+				<field name="arch" type="xml">
+					<tree string="Supply Chain">
+						<field name="company_id" invisible="1" />
+						
+						<!-- <field name="opp_id" />
+						<field name="cost_sheet_id" />
+						<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" /> -->
+						<field name="partner_id" />
+						<field name="analytic_id" />
+						<button name="btn_open_analytic" type="object" icon="STOCK_FIND" string="Open" />
+						<!-- <field name="lead_created_date" />
+						<field name="opp_date" />
+						<field name="sub_date_first" /> -->
+						<field name="cust_po_status" />
+						<field name="cust_po_date" />
+						<!-- <field name="sub_date_second" /> -->
+						<field name="ho_date" />
+						<field name="processing_date" />
+						<field name="pmo_date" />
+						<field name="approve_date" />
+						<field name="original_date_end" />
+						<field name="pmo_closing" />
+						<field name="actual_closing" />
+						<field name="po_first_date" />
+						<field name="po_last_date" />
+						<button name="btn_open_po" type="object" icon="STOCK_FIND" string="Open" />
+						<field name="pick_in_first_date" />
+						<field name="pick_in_last_date" />
+						<field name="pick_out_first_date" />
+						<field name="pick_out_last_date" />
+						
+					</tree>
+				</field>
+			</record>
+			
+		<record model="ir.ui.view" id="od_supply_chain_search_view">
+		<field name="name">supply.chain.rpt.data.search</field>
+		<field name="model">supply.chain.rpt.data</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="opp_id" />
+				<field name="cost_sheet_id" />
+				<field name="analytic_id" />
+					<group expand="1" string="Group By">
+<!--                        <filter string="Opportunity" domain="[]" context="{'group_by':'opp_id'}"/> -->
+<!--                        <filter string="Cost Sheet" domain="[]" context="{'group_by':'cost_sheet_id'}"/> -->
+<!--                         <filter string="Analytic Account" domain="[]" context="{'group_by':'analytic_id'}"/> -->
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+                       	<filter string="Account Manager" domain="[]" context="{'group_by':'sam_id'}"/>
+                        <filter string="Project Manager" domain="[]" context="{'group_by':'pm_id'}"/>
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+
+	
+    </data>
+</openerp>

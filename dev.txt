@@ -1,0 +1,3 @@
+costsheet sale order generation to make 1 so
+
+child analytic in so line and invoice line purchase line and to make report

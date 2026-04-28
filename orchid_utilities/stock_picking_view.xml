@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+
+   <record id="od_stock_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="/form/header/button[@name='force_assign']" position="replace">
+                    <button name="force_assign" states="confirmed,waiting,partially_available" string="Force Availability" type="object" groups="orchid_utilities.group_od_force_avilability_group"/>
+                 </xpath>
+            </field>
+        </record>
+        
+        <record id="view_od_utl_move_form" model="ir.ui.view">
+            <field name="name">od.utl.stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+            	  <button string="Scrap" position="replace">
+   						<button string="Scrap"  invisible="1"/>
+				</button>
+            </field>
+       </record>
+        
+        <record id="view_od_utl_move_tree" model="ir.ui.view">
+            <field name="name">od.utl.stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+            	  <button string="Scrap Products" position="replace">
+   						<button string="Scrap Products"  invisible="1"/>
+				</button>
+            </field>
+       </record>
+       
+       
+		<record id="od_view_update_hide_product_template_property_form" model="ir.ui.view">
+            <field name="name">od.product.view.template.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+            	<button string="⇒ Update" position="replace">
+            		<button string="⇒ Update" invisible="1" />
+            	</button>
+            	<button string="⇒ Request Procurement" position="replace">
+               		<button string="⇒ Request Procurement" invisible="1" />
+               </button>
+            </field>
+             
+       </record>
+        
+        
+
+    </data>
+</openerp>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_od_so_register_report_view,od.so.register.report.view,model_od_so_register_report_view,base.group_sale_manager,1,1,1,1
+access_od_so_po_document_analysis_view,od.so.po.document.analysis.view,model_od_so_po_document_analysis_view,base.group_sale_manager,1,1,1,1
+access_od_sales_cost_view,od.sales.cost.view,model_od_sales_cost_view,base.group_sale_manager,1,1,1,1
+access_od_sales_analysis_view,od.sales.analysis.view,model_od_sales_analysis_view,base.group_sale_manager,1,1,1,1
+access_od_sales_partners_analysis_view,od.sales.partners.analysis.view,model_od_sales_partners_analysis_view,base.group_sale_manager,1,1,1,1
+access_od_sales_invoice_analysis_view,od.sales.invoice.analysis.view,model_od_sales_invoice_analysis_view,base.group_sale_manager,1,1,1,1
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data noupdate="0">
+        <record model="ir.cron" id="od_beta_helpdesk_escalation_cron">
+            <field name="name">Escalation Email for HelpDesk</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'crm.helpdesk'"/>
+            <field name="function" eval="'od_escalation_schedule'"/>
+            <field name="args" eval="'()'" />
+        </record>
+        
+         <record model="ir.cron" id="od_beta_project_escalation_cron">
+            <field name="name">Escalation Email Milestone Task</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'project.task'"/>
+            <field name="function" eval="'od_milestone_escalation_schedule'"/>
+            <field name="args" eval="'()'" />
+        </record>
+</data>
+</openerp>

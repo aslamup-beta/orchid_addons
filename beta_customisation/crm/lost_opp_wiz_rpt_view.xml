@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+          <record id="view_opp_lost_rpt_wizard" model="ir.ui.view">
+            <field name="name">Opp Lost/Cancelled</field>
+            <field name="model">opp.lost.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group >
+                       
+                        
+	                        <field name="company_id" invisible="1"/>
+                        
+                        
+                        <group >
+                       	 <field name="lead_date_start" />
+	                        <field name="lead_date_end" />
+                        </group>
+                        
+                        <group>
+                         <field name="date_start" />
+                         <field name="date_end" />
+                        </group>
+                        
+                        <group >
+                       	 <field name="lost_date_start" />
+	                        <field name="lost_date_end" />
+                        </group>
+                        
+                      </group>
+                        
+                            <group>
+                               <field name="branch_ids" widget="many2many_tags"/>
+                            </group>
+                              <group></group>
+                        	    <group></group>
+                        	    
+                        	    
+                        	    <group>
+                               <field name="stage_ids" widget="many2many_tags" required="1"/>
+                            </group>
+                              <group></group>
+                        	    <group></group>
+                            
+                             <group>
+                                 <field name="sm_ids" widget="many2many_tags" context="{'sam_ids':1}" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188,__export__.res_groups_238"/>
+                             </group>
+                               <group></group>
+                        	    <group></group>
+                        	    
+                        	    <group>
+                                 <field name="lead_am_ids" widget="many2many_tags" context="{'sam_ids':1}" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188,__export__.res_groups_244,__export__.res_groups_238,__export__.res_groups_172,__export__.res_groups_239"/>
+                             </group>
+                               <group></group>
+                        	    <group></group>
+                        	    
+                        	    <group>
+                         		<field name="cust_ids" widget="many2many_tags"/>
+                        		</group>
+		                         <group></group>
+		                        <group></group>
+                        	    
+                        	    <group>
+                           <field name="presale_ids" widget="many2many_tags" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188" />
+                           </group>
+                             <group></group>
+                        	    <group></group>
+                        	    
+                        	    
+                             <group>
+                               <field name="created_by_ids" widget="many2many_tags" context="{'sam_ids':1}" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188"/> 
+                             </group>
+                             <group />
+                              <group />
+                             
+                        		  
+                        		 
+                        		
+                       
+                      
+
+                      
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_opp_lost_rpt_act" model="ir.actions.act_window">
+            <field name="name">Lost/Cancel Opportunity</field>
+            <field name="res_model">opp.lost.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         <menuitem
+         	
+			id="menu_opp_lost_rpt"
+			parent="orchid_cost_sheet.technology_rpt_gne"
+			sequence="10" 
+			action="action_opp_lost_rpt_act" />
+
+
+	<record model="ir.ui.view" id="od_lost_opp_tree_view">
+		<field name="name">wiz.opp.lost.data</field>
+		<field name="model">wiz.opp.lost.data</field>
+		<field name="arch" type="xml">
+			<tree string="Lost/Cancelled Opportunity Report">
+				<field name="opp_id" />
+				<field name="opp_create_date" />
+				<field name="expected_booking" />
+				<field name="lost_date" />
+				<field name="branch_id" />
+<!--				<field name="pdt_grp_id" />-->
+				<field name="partner_id" />
+				<field name="od_class" />
+				<field name="cost_sheet_id" />
+				<button name="btn_open_cost" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="sale_aftr_disc" string="Sales" sum="Total" />
+				<field name="profit" string="Profit" sum="Total" />
+				<field name="mp_sales" string="MP Sales" sum="Total" invisible="1"/>
+				<field name="returned_mp" string="Returned MP" sum="Total" />
+				<field name="pre_oprn_amt" sum="Total"/>
+				<field name="rebate_amnt" string="Rebate" sum="Total" />
+				<field name="create_user_id" />
+				<field name="sam_id" />
+				<field name="lead_am_id"/>
+				<field name="pre_sales_engineer" />
+				<field name="sm_io1" />
+				<field name="sm_io2" />
+<!--				<field name="tum_io1" />-->
+<!--				<field name="tum_io2" />-->
+			</tree>
+		</field>
+	</record>
+	
+
+	<record model="ir.ui.view" id="od_lost_opp_search_view">
+		<field name="name">wiz.opp.lost.data.search</field>
+		<field name="model">wiz.opp.lost.data</field>
+		<field name="arch" type="xml">
+			<search>
+			<field name="expected_booking" />
+			<field name="cost_sheet_id" />
+			<group expand="1" string="Group By">
+			            <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+			             <filter string="Expected Closing Month" domain="[]" context="{'group_by':'expected_booking'}"/>
+			              <filter string="Lost Date" domain="[]" context="{'group_by':'lost_date'}"/>
+                        <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/>
+                       <!--  <filter string="Technology Unit" domain="[]" context="{'group_by':'pdt_grp_id'}"/> -->
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Class" domain="[]" context="{'group_by':'od_class'}"/>
+                         <filter string="Customer AM" domain="[]" context="{'group_by':'sam_id'}"/>
+                         <filter string="Lead AM" domain="[]" context="{'group_by':'lead_am_id'}"/>
+                           
+                           <filter string="Pre-Sales Engineer" domain="[]" context="{'group_by':'pre_sales_engineer'}"/>
+                           
+                         <filter string="Created By" domain="[]" context="{'group_by':'create_user_id'}"/>
+                        <filter string="Cost Sheet" domain="[]" context="{'group_by':'cost_sheet_id'}"/>
+                       <filter string="Opp Creation Date" domain="[]" context="{'group_by':'opp_create_date'}"/>
+                       
+                        
+                       
+                       
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+    </data>
+</openerp>

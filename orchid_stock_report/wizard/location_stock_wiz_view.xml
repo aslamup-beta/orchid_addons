@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+     <record id="view_od_location_stock_wiz_form" model="ir.ui.view">
+            <field name="name">od.location.stock.wiz</field>
+            <field name="model">od.location.stock.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Stock Valuation">
+
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="categ_id"/>
+                            <field name="location_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+
+
+                    <footer>
+                        <button name="open_quant" string="View" type="object"  class="oe_highlight"  />
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+       
+
+         <record id="action_od_location_analysis_wiz_filter" model="ir.actions.act_window">
+            <field name="name">Stock Valuation</field>
+            <field name="res_model">od.location.stock.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_od_location_stock_wiz_form"/>
+            <field name="target">new</field>
+        </record>
+        
+<!--<menuitem parent="stock.next_id_61" action="action_od_location_analysis_wiz_filter" id="menu_od_stock_report" sequence="0"/> -->
+<!--<menuitem parent="stock.next_id_61" action="action_od_location_analysis_wiz_filter" id="stock_account.menu_action_wizard_valuation_history" sequence="0"/> -->
+
+
+
+<!--	<menuitem parent="stock.next_id_61" action="action_od_move_analysis_wiz_filter" id="new_action_od_stock_move_analysis" sequence="1"/>-->
+
+
+
+    </data>
+</openerp>

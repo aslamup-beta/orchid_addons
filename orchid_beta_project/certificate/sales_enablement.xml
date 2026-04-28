@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="sale_enablement_form">
+		<field name="name">sale enablement form view</field>
+		<field name="model">sale.enablement</field>
+		<field name="arch" type="xml">
+		<form string="Sale Enablement Session" >
+ 			<header>
+ 			
+<!--  			        <button name="btn_confirm" states="draft" string="Confirm" type="object" /> -->
+<!--  			        <button name="btn_reset_draft" states="in_progress" string="Reset to Draft" type="object" /> -->
+<!--  			         <button name="btn_done" states="in_progress" string="Done" type="object" /> -->
+ 			         <button name="btn_reset_progress" states="done" string="Reset to Progress" type="object" />
+                    <field name="state" widget="statusbar" nolabel="1" />
+                    
+                </header>
+ 			
+ 			<sheet>
+ 			
+ 			
+			
+			<group>
+			     <group>
+			       <field name="name" required="1"/>
+			     <!--   <field name="brand_id" required="1" />
+			        <field name="certificate_id" required="1" /> -->
+			        <field name="company_id" invisible="1"/>
+			     </group>
+			     <group>
+			         <field name="month" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+			          <field name="date" required="1"/>
+			     </group>
+			      <group>
+			          <field name="user_id" required="1"/>
+			          <field name="od_division_id" required="1"/>
+			      </group>
+			      <group>
+			         <field name="score"/>
+			      </group>
+					
+			</group>
+			<notebook>
+			  <page string="Attendees">
+			    <field name="attendees_ids" attrs="{'readonly':[('state','!=','draft')]}">
+			       <tree editable="bottom">
+			         <field name="user_id" context="{'sam_ids':1}" required="1"/>
+			          <field name="status" readonly="1"/>
+			          <button name="btn_confirm"  string="Confirm" type="object" attrs="{'invisible':[('status','!=','waiting')]}" />
+			       </tree>
+			    </field>
+			  </page>
+			    <page string="Clear Session Attendees" attrs="{'invisible':[('state','=','draft')]}">
+			      <div>
+			      <p>
+			      This action used for assigning another Session, so this will remove Currently Assigned Session
+			      </p>
+			      </div>
+			    <field name="clear_attendees_ids">
+			       <tree editable="bottom">
+			         <field name="user_id" context="{'sam_ids':1}" required="1"/>
+			             <field name="clear_session"  />
+			          <field name="status" readonly="1" />
+			          <button name="btn_clear"  string="Clear" type="object" attrs="{'invisible':[('status','!=','draft')]}" />
+			       </tree>
+			    </field>
+			  </page>
+			</notebook>
+			</sheet>
+		</form>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="sale_enablement_tree">
+		<field name="name">sale enablement tree view</field>
+		<field name="model">sale.enablement</field>
+		<field name="arch" type="xml">
+			<tree string=" ">
+				
+					  <field name="name" />
+			        <field name="certificate_id" />
+			         <field name="od_division_id" />
+			         <field name="month" />
+			          <field name="date" />
+			          	<field name="user_id" />
+			          	<field name="score" />
+			</tree>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="sale_enablement_search">
+		<field name="name">sale enablement search view</field>
+		<field name="model">sale.enablement</field>
+		<field name="arch" type="xml">
+			<search>
+					  <field name="name" />
+			        <field name="certificate_id" />
+			         <field name="month" />
+			          <field name="date" />
+			          	<field name="user_id" />
+					
+			</search>
+		</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_sale_enablement">
+		<field name="name">Sale Enablement Session </field>
+		<field name="res_model">sale.enablement</field>
+		<field name="view_mode">tree,form</field>
+		</record>
+<menuitem name="Certificate" id="menu_cert" parent="hr.menu_hr_root" sequence="21"/>
+		<menuitem 
+	  		id="menu_sale_enablement" 
+	  		parent="menu_cert"
+            action="action_sale_enablement" />
+
+	</data>
+</openerp>

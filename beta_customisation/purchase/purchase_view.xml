@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="orchid_purchase_form_jinherit_view" model="ir.ui.view">
+          <field name="name">orchid.purchase.form.view1</field>
+          <field name="model">purchase.order</field>
+          <field name="inherit_id" ref="purchase.purchase_order_form" />
+          <field name="arch" type="xml">
+	          <!-- <xpath expr="//field[@name='od_customer_id']" position="after">
+		          <field name="od_tax_id" attrs="{'invisible':[('state','not in',('draft','sent', 'bid'))]}"/>
+		          <button string="Apply" type="object" name="apply_tax_all" attrs="{'invisible':['|',('state','not in',('draft','sent', 'bid')), ('od_tax_id','=', False)]}"/>
+	          </xpath> -->
+	           <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+          	 		<field name="od_pdt_brand_id"/>
+          		</xpath>
+          		<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+          	 		<attribute name="domain">[('od_pdt_brand_id','=',od_pdt_brand_id)]</attribute>
+          		</xpath>
+          		<xpath expr="//button[@name='view_invoice']" position="after">
+               		<button name="po_manually_done" string="Manually Corrected" attrs="{'invisible':[('state','!=','except_picking'), ('od_manual_jv_ref','=',False)]}" class="oe_highlight" type="object"/>
+               		<button name="import_po_lines_wiz" string="Import Purchase Order Lines" context="{'active_model_line':'purchase.order.line'}" type="object" attrs="{'invisible':[('state','not in',('draft', 'sent', 'bid'))]}"/>
+               	</xpath>
+          		
+          </field>
+        </record>
+        
+        <record id="od_beta_product_template_form_view_inherit" model="ir.ui.view">
+            <field name="name">beta.product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//field[@name='description']" position="after">
+	            		<field name="arabic_description" placeholder="Arabic description of Product.."/>
+	            </xpath>
+            </field>
+         </record>
+        
+                    
+         <record id="view_partner_payment_tree11" model="ir.ui.view">
+            <field name="name">res.partner.tree.payment.term</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Suppliers with Payment Term">
+                    <field name="name"/>
+                    <field name="property_supplier_payment_term"/>
+                    <field name="x_custom_payment_term"/>
+                    <field name="is_company" invisible="1"/>
+                    	<field name="supplier" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+          <record model="ir.ui.view" id="view_partner_payment_tree_search">
+                <field name="name">res.partner.payment.term.search</field>
+                <field name="model">res.partner</field>
+                <field name="priority" eval="150"/>
+                <field name="arch" type="xml">
+                    <search>
+                    	<field name="name"/>
+                    	<filter name="suppliers" string="Suppliers" domain="[('supplier', '=', True),('is_company', '=', True)]"/>
+                    <filter name="sup_pay_term" string="Supplier with Payment Terms" domain="[('supplier', '=', True),('is_company', '=', True),('property_supplier_payment_term', '!=', False)]"/>
+                        
+                    </search>
+                </field>
+            </record>
+        
+        
+        <record id="action_partner_supplier_payment_term_form1" model="ir.actions.act_window">
+            <field name="name">Suppliers &amp; Payment Term</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_partner_payment_tree11"/>
+             <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_sup_pay_term': True}</field>
+            <field name="search_view_id" ref="view_partner_payment_tree_search"/>
+            
+        </record>
+        
+                <menuitem action="action_partner_supplier_payment_term_form1"
+            id="menu_partner_supplier_with_payment_term" parent="purchase.menu_procurement_management_invoice"/>
+            
+ 	</data>
+ 	
+        
+ 	
+ 	
+ </openerp>

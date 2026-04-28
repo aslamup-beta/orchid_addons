@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+	  
+     <record id="od_contract_cron_email_template" model="email.template">
+        <field name="name">Beta Contract Expiry Reminder UAE</field>
+        <field name="email_from">erp@betait.net</field>
+        <field name="subject">Beta Contract Expiry Reminder</field>
+        <field name="email_to">${ctx["data"]['to_mail']}</field>
+        <field name="model_id" ref="model_account_analytic_account"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html"><![CDATA[
+                Hello ,
+
+             
+
+                <p>The following Contract With Ref:${ctx["data"]['code'] ,
+                	expire on : ${ctx["data"]['end_date']}
+
+           </p>
+               <p>
+                Thanks,
+                </p>
+                <pre>
+                --
+                Beta Automatic Email
+                </pre>
+
+        ]]></field>
+    </record>
+
+    <record id="od_contract_cron_email_template_saudi" model="email.template">
+         <field name="name">Beta Contract Expiry Reminder KSA</field>
+      <field name="name">Beta Contract Expiry Reminder</field>
+        <field name="email_from">erp@betait.net</field>
+        <field name="subject">Beta Contract Expiry Reminder</field>
+        <field name="email_to">${ctx["data"]['to_mail']}</field>
+        <field name="model_id" ref="model_account_analytic_account"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html"><![CDATA[
+                Hello ,
+
+             
+
+                <p>The following Contract With Ref:${ctx["data"]['code'] ,
+                	expire on : ${ctx["data"]['end_date']}
+
+           </p>
+               <p>
+                Thanks,
+                </p>
+                <pre>
+                --
+                Beta Automatic Email
+                </pre>
+
+        ]]></field>
+    </record>
+
+	  <record model="ir.cron" id="od_contract_expiry_sch">
+	            <field name="name">Beta Contract Expiry Reminder</field>
+	            <field name="interval_number">1</field>
+	            <field name="interval_type">months</field>
+	            <field name="numbercall">-1</field>
+	            <field name="doall" eval="False"/>
+	            <field name="model" eval="'account.analytic.account'"/>
+	            <field name="function" eval="'cron_od_contract_expiry'"/>
+	            <field name="args" eval="'()'" />
+	        </record>
+	</data>
+</openerp>
+

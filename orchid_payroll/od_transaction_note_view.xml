@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<record model="ir.ui.view" id="od_transaction_note_tree_view">
+        <field name="name">Transaction Note</field>
+        <field name="model">od.transaction.note</field>
+        <field name="arch" type="xml">
+            <tree string="Transaction Note">
+                <field name="name"/>
+            </tree>
+      </field>
+</record>
+
+
+
+
+
+
+
+
+<record model="ir.ui.view" id="od_transaction_note_form_view">
+        <field name="name">Transaction Note</field>
+        <field name="model">od.transaction.note</field>
+        <field name="arch" type="xml">
+            <form string="Transaction Note" version="7.0">
+               <sheet>
+
+
+
+                <group>
+
+
+                      <group>
+
+                         <label for="name" class="oe_edit_only"/>
+                         <h2><field name="name"/></h2>
+                      </group>
+                      <group></group>
+                </group>
+                  
+                <group>
+                 <field name="notes" class="oe_inline" placeholder="Remarks"/> 
+               </group>
+               </sheet>
+            </form>
+        </field>
+</record>
+
+ <record model="ir.actions.act_window" id="action_od_transaction_note_form_view">
+        <field name="name">Transaction Note</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.transaction.note</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add Transaction Note. 
+          </p>
+        </field>
+</record>
+<menuitem id="id_od_transaction_note_form_view" name="Transaction Note" action="action_od_transaction_note_form_view" parent="hr.menu_hr_configuration" sequence="37"/>
+ </data>
+</openerp>
+
+
+   
+

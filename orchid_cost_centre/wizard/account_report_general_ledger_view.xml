@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+
+ 
+         <record id="od_acc_report_general_ledger_cc_view" model="ir.ui.view">
+            <field name="name">General Ledger</field>
+            <field name="model">account.report.general.ledger</field>
+            <field name="inherit_id" ref="orchid_acc_report.od_acc_report_general_ledger_view" />
+            <field name="arch" type="xml">
+                        <page string="Analytic Accounts"  position="after">
+
+                            <page string="Cost Centre" >
+                                <field name="od_cost_centre_ids"/>
+                            </page>
+
+                        </page>
+
+            </field>
+        </record>
+
+     </data>
+ </openerp>

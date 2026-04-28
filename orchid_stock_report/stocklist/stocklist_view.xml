@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_stocklist_form" model="ir.ui.view">
+            <field name="name">stock list form</field>
+            <field name="model">wiz.od.stock.list</field>
+            <field name="arch" type="xml">
+                <form string="Stock List">
+                    <group>
+                    	<group>
+                    		<field name="location_id" />
+                    	</group>
+                    	<group>
+                    		<field name="file_name"  invisible="1"/>
+                    		<field name="excel_file" filename="file_name" />
+                      
+                    	</group>
+                    </group>
+                <footer>
+                    <button string="Export" name="print_excel_report" type="object" class="oe_highlight"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="stocklist_wiz_action" model="ir.actions.act_window">
+            <field name="name">Stock List</field>
+            <field name="res_model">wiz.od.stock.list</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="stocklist_wiz_menu" parent="stock.next_id_61"
+            action="stocklist_wiz_action"/>
+
+    </data>
+</openerp>

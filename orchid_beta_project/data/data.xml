@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    <!-- 	  <record id="project_changes_new" model="od.project.change.stages">
+            <field name="name">New</field>
+        </record>
+          <record id="project_changes_awaiting" model="od.project.change.stages">
+            <field name="name">Awaiting Approval</field>
+        </record>
+        <record id="project_changes_in_progress" model="od.project.change.stages">
+            <field name="name">In Progress</field>
+        </record>
+        <record id="project_changes_closed" model="od.project.change.stages">
+            <field name="name">Closed</field>
+        </record> -->
+
+    <record model="ir.sequence.type" id="seq_type_od_project_change_req">
+        <field name="name">Project Change Request</field>
+        <field name="code">od.project.change.request</field>
+    </record>
+
+    <record model="ir.sequence" id="seq_od_project_change_req">
+        <field name="name">Project Change Request</field>
+        <field name="code">od.project.change.request</field>
+        <field name="prefix">PRJCHNG/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+
+
+
+    </data>
+</openerp>

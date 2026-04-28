@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_prj_proc_wizard" model="ir.ui.view">
+            <field name="name">Generate Proc Order</field>
+            <field name="model">project.proc.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Proc Order">
+                    <notebook>
+                      <page string="Procurment Plan">
+                         <field name="od_proc_sch_line" readonly="1">
+                         <tree>
+		                      <field name="plan_date" />
+		                      <field name="amount" />
+		                      <field name="partner_id" />
+		                      <field name="credit_days" />
+		                       <button name="create_po" type="object" string="Create PO" icon="STOCK_FLOPPY" />
+							<field name="purchase_id" />
+		                      <field name="state" />
+		                      <field name="supplier_id" />
+                      <field name="confirm_date" />
+                    </tree>
+                         
+                         
+                         </field>
+                      </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_od_vproj_proc_act" model="ir.actions.act_window">
+            <field name="name">Project Procurment Issue Request</field>
+            <field name="res_model">project.proc.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

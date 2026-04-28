@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="extend_od_cost_sheet_form_view">
+			<field name="name">od.cost.sheet</field>
+			<field name="model">od.cost.sheet</field>
+			<field name="inherit_id" ref="od_cost_sheet_form_view" />
+			<field name="arch" type="xml">
+			   <xpath expr="//page[@string='Revenue Structure']" position="after">
+					<page string="Invoice Plan" attrs="{'invisible':[('state','not in',('processed','pmo','change','modify','analytic_change','done','waiting_po_processed','change_processed','redistribution_processed', 'handover', 'waiting_po','returned_by_fin','returned_by_pmo'))]}">
+					<separator string="Invoice Plan" />
+					  <table style="width:100%" class="table table-striped">
+					   <thead>
+					      <th></th>
+					      <th>INV1</th>
+					      <th>INV2</th>
+					      <th>INV3</th>
+					      <th>INV4</th>
+					      <th>INV5</th>
+					      <th>INV6</th>
+					      <th>INV7</th>
+					      <th>INV8</th>
+					      <th>INV9</th>
+					      <th>INV10</th>
+					      <th>INV11</th>
+					      <th>INV12</th>
+					   </thead>
+					   <tbody>
+					      <tr>
+					        <td>Invoice</td>
+					         <td><field name="inv_select_1"/></td>
+					        <td><field name="inv_select_2" attrs="{'readonly':[('inv_select_1','=',False)]}"/></td>
+					        <td><field name="inv_select_3" attrs="{'readonly':[('inv_select_2','=',False)]}"/></td>
+					        <td><field name="inv_select_4" attrs="{'readonly':[('inv_select_3','=',False)]}"/></td>
+					        <td><field name="inv_select_5" attrs="{'readonly':[('inv_select_4','=',False)]}"/></td>
+					        <td><field name="inv_select_6" attrs="{'readonly':[('inv_select_5','=',False)]}"/></td>
+					        <td><field name="inv_select_7" attrs="{'readonly':[('inv_select_6','=',False)]}"/></td>
+					        <td><field name="inv_select_8" attrs="{'readonly':[('inv_select_7','=',False)]}"/></td>
+					        <td><field name="inv_select_9" attrs="{'readonly':[('inv_select_8','=',False)]}"/></td>
+					        <td><field name="inv_select_10" attrs="{'readonly':[('inv_select_9','=',False)]}"/></td>
+					        <td><field name="inv_select_11" attrs="{'readonly':[('inv_select_10','=',False)]}"/></td>
+					        <td><field name="inv_select_12" attrs="{'readonly':[('inv_select_11','=',False)]}"/></td>
+					      </tr>
+					      <tr>
+					        <td>Invoice Planning Date</td>
+					         <td><field name="planned_date_1" attrs="{'readonly':[('inv_select_1','=',False)]}"></field> </td>
+					         <td><field name="planned_date_2" attrs="{'readonly':[('inv_select_2','=',False)]}"></field> </td>
+					         <td><field name="planned_date_3" attrs="{'readonly':[('inv_select_3','=',False)]}"></field> </td>
+					         <td><field name="planned_date_4" attrs="{'readonly':[('inv_select_4','=',False)]}"></field> </td>
+					         <td><field name="planned_date_5" attrs="{'readonly':[('inv_select_5','=',False)]}"></field> </td>
+					         <td><field name="planned_date_6" attrs="{'readonly':[('inv_select_6','=',False)]}"></field> </td>
+					         <td><field name="planned_date_7" attrs="{'readonly':[('inv_select_7','=',False)]}"></field> </td>
+					         <td><field name="planned_date_8" attrs="{'readonly':[('inv_select_8','=',False)]}"></field> </td>
+					         <td><field name="planned_date_9" attrs="{'readonly':[('inv_select_9','=',False)]}"></field> </td>
+					         <td><field name="planned_date_10" attrs="{'readonly':[('inv_select_10','=',False)]}"></field> </td>
+					         <td><field name="planned_date_11" attrs="{'readonly':[('inv_select_11','=',False)]}"></field> </td>
+					         <td><field name="planned_date_12" attrs="{'readonly':[('inv_select_12','=',False)]}"></field> </td>
+					      </tr>
+					      <tr>
+					       <td>Invoice Planned Amount</td>
+					       <td><field name="inv_amount_1" attrs="{'readonly':[('inv_select_1','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_2" attrs="{'readonly':[('inv_select_2','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_3" attrs="{'readonly':[('inv_select_3','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_4" attrs="{'readonly':[('inv_select_4','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_5" attrs="{'readonly':[('inv_select_5','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_6" attrs="{'readonly':[('inv_select_6','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_7" attrs="{'readonly':[('inv_select_7','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_8" attrs="{'readonly':[('inv_select_8','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_9" attrs="{'readonly':[('inv_select_9','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_10" attrs="{'readonly':[('inv_select_10','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_11" attrs="{'readonly':[('inv_select_11','=',False)]}"></field> </td>
+					       <td><field name="inv_amount_12" attrs="{'readonly':[('inv_select_12','=',False)]}"></field> </td>
+					      </tr>
+					      
+					      <tr>
+					       <td>VAT</td>
+					       <td><field name="inv_tax_id_1" attrs="{'readonly':[('inv_select_1','=',False)]}"></field> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					      </tr>
+
+					      <tr>
+					       <td>Invoice VAT Amount</td>
+					       <td><field name="inv_vat_1" attrs="{'readonly':[('inv_select_1','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_2" attrs="{'readonly':[('inv_select_2','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_3" attrs="{'readonly':[('inv_select_3','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_4" attrs="{'readonly':[('inv_select_4','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_5" attrs="{'readonly':[('inv_select_5','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_6" attrs="{'readonly':[('inv_select_6','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_7" attrs="{'readonly':[('inv_select_7','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_8" attrs="{'readonly':[('inv_select_8','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_9" attrs="{'readonly':[('inv_select_9','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_10" attrs="{'readonly':[('inv_select_10','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_11" attrs="{'readonly':[('inv_select_11','=',False)]}"></field> </td>
+					       <td><field name="inv_vat_12" attrs="{'readonly':[('inv_select_12','=',False)]}"></field> </td>
+					      </tr>
+
+					       <tr>
+					       <td>Credit Days</td>
+					       <td><field name="inv_cred_1" attrs="{'readonly':[('inv_select_1','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_2" attrs="{'readonly':[('inv_select_2','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_3" attrs="{'readonly':[('inv_select_3','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_4" attrs="{'readonly':[('inv_select_4','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_5" attrs="{'readonly':[('inv_select_5','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_6" attrs="{'readonly':[('inv_select_6','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_7" attrs="{'readonly':[('inv_select_7','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_8" attrs="{'readonly':[('inv_select_8','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_9" attrs="{'readonly':[('inv_select_9','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_10" attrs="{'readonly':[('inv_select_10','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_11" attrs="{'readonly':[('inv_select_11','=',False)]}"></field> </td>
+					       <td><field name="inv_cred_12" attrs="{'readonly':[('inv_select_12','=',False)]}"></field> </td>
+					      </tr>
+					   </tbody>
+					  </table>
+					  <separator string="Invoice Distribution" />
+					   <field name="od_plan_dist_line">
+					     <tree editable="bottom">
+							<field name="analytic_tag" />
+		               		<field name="sale_amount" sum="Total" readonly="1" />
+		               		<field name="inv1" string="INV 1-------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv2" string="INV 2-------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv3" string="INV 3-------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv4" string="INV 4-------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv5" string="INV 5-------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv6" string="INV 6-------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv7" string="INV 7-------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv8" string="INV 8-------" sum="Total" attrs="{'readonly':[('locked','=',True)]}" />
+		               		<field name="inv9" string="INV 9-------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv10" string="INV 10------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv11" string="INV 11------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+		               		<field name="inv12" string="INV 12------" sum="Total" attrs="{'readonly':[('locked','=',True)]}"/>
+					       <field name="locked" invisible="1" />
+					     </tree>
+					   </field>
+					   <field name="inv_schedule_change" invisible="1"/>
+					  <!--  <button name="update_inv_relation" type="object" string="Process Distribution" />
+					    <separator string="Invoice Analytic Relation" />
+                  <field name="od_an_inv_rel_line" >
+               	<tree editable="bottom">
+               	    <field name="inv_seq" readonly="1"/>
+               		<field name="analytic_tag" readonly="1"/>
+               		<field name="value" readonly="1"/>
+               	</tree>
+               	</field> -->
+					</page>
+
+					<page string="Procurment Plan" attrs="{'invisible':[('state','not in',('processed','pmo','change','modify','analytic_change','done','waiting_po_processed','change_processed','redistribution_processed', 'handover', 'waiting_po','returned_by_fin','returned_by_pmo'))]}">
+
+
+						<separator string="Procurment Plan" />
+					  <table style="width:100%" class="table table-striped">
+					   <thead>
+					      <th></th>
+					      <th>PO1</th>
+					      <th>PO2</th>
+					      <th>PO3</th>
+					      <th>PO4</th>
+					      <th>PO5</th>
+					      <th>PO6</th>
+					      <th>PO7</th>
+					      <th>PO8</th>
+					      <th>PO9</th>
+					      <th>PO10</th>
+					      <th>PO11</th>
+					      <th>PO12</th>
+					   </thead>
+					   <tbody>
+					      <tr>
+					        <td>PO</td>
+					         <td><field name="po_select_1"/></td>
+					        <td><field name="po_select_2" attrs="{'readonly':[('po_select_1','=',False)]}"/></td>
+					        <td><field name="po_select_3" attrs="{'readonly':[('po_select_2','=',False)]}"/></td>
+					        <td><field name="po_select_4" attrs="{'readonly':[('po_select_3','=',False)]}"/></td>
+					        <td><field name="po_select_5" attrs="{'readonly':[('po_select_4','=',False)]}"/></td>
+					        <td><field name="po_select_6" attrs="{'readonly':[('po_select_5','=',False)]}"/></td>
+					        <td><field name="po_select_7" attrs="{'readonly':[('po_select_6','=',False)]}"/></td>
+					        <td><field name="po_select_8" attrs="{'readonly':[('po_select_7','=',False)]}"/></td>
+					        <td><field name="po_select_9" attrs="{'readonly':[('po_select_8','=',False)]}"/></td>
+					        <td><field name="po_select_10" attrs="{'readonly':[('po_select_9','=',False)]}"/></td>
+					        <td><field name="po_select_11" attrs="{'readonly':[('po_select_10','=',False)]}"/></td>
+					        <td><field name="po_select_12" attrs="{'readonly':[('po_select_11','=',False)]}"/></td>
+					      </tr>
+					      <tr>
+					        <td>Purchase Planning Date</td>
+					         <td><field name="po_date_1" attrs="{'readonly':[('po_select_1','=',False)]}"></field> </td>
+					         <td><field name="po_date_2" attrs="{'readonly':[('po_select_2','=',False)]}"></field> </td>
+					         <td><field name="po_date_3" attrs="{'readonly':[('po_select_3','=',False)]}"></field> </td>
+					         <td><field name="po_date_4" attrs="{'readonly':[('po_select_4','=',False)]}"></field> </td>
+					         <td><field name="po_date_5" attrs="{'readonly':[('po_select_5','=',False)]}"></field> </td>
+					         <td><field name="po_date_6" attrs="{'readonly':[('po_select_6','=',False)]}"></field> </td>
+					         <td><field name="po_date_7" attrs="{'readonly':[('po_select_7','=',False)]}"></field> </td>
+					         <td><field name="po_date_8" attrs="{'readonly':[('po_select_8','=',False)]}"></field> </td>
+					         <td><field name="po_date_9" attrs="{'readonly':[('po_select_9','=',False)]}"></field> </td>
+					         <td><field name="po_date_10" attrs="{'readonly':[('po_select_10','=',False)]}"></field> </td>
+					         <td><field name="po_date_11" attrs="{'readonly':[('po_select_11','=',False)]}"></field> </td>
+					         <td><field name="po_date_12" attrs="{'readonly':[('po_select_12','=',False)]}"></field> </td>
+					      </tr>
+					      <tr>
+					       <td>Purchase Planned Amount</td>
+					       <td><field name="po_amount_1" attrs="{'readonly':[('po_select_1','=',False)]}"></field> </td>
+					       <td><field name="po_amount_2" attrs="{'readonly':[('po_select_2','=',False)]}"></field> </td>
+					       <td><field name="po_amount_3" attrs="{'readonly':[('po_select_3','=',False)]}"></field> </td>
+					       <td><field name="po_amount_4" attrs="{'readonly':[('po_select_4','=',False)]}"></field> </td>
+					       <td><field name="po_amount_5" attrs="{'readonly':[('po_select_5','=',False)]}"></field> </td>
+					       <td><field name="po_amount_6" attrs="{'readonly':[('po_select_6','=',False)]}"></field> </td>
+					       <td><field name="po_amount_7" attrs="{'readonly':[('po_select_7','=',False)]}"></field> </td>
+					       <td><field name="po_amount_8" attrs="{'readonly':[('po_select_8','=',False)]}"></field> </td>
+					       <td><field name="po_amount_9" attrs="{'readonly':[('po_select_9','=',False)]}"></field> </td>
+					       <td><field name="po_amount_10" attrs="{'readonly':[('po_select_10','=',False)]}"></field> </td>
+					       <td><field name="po_amount_11" attrs="{'readonly':[('po_select_11','=',False)]}"></field> </td>
+					       <td><field name="po_amount_12" attrs="{'readonly':[('po_select_12','=',False)]}"></field> </td>
+					      </tr>
+					      
+					      <tr>
+					       <td>Taxes</td>
+					       <td><field name="po_tax_id_1" attrs="{'readonly':[('inv_select_1','=',False)]}"></field> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					       <td> </td>
+					      </tr>
+
+					       <tr>
+					       <td>Purchase VAT Amount</td>
+					       <td><field name="po_vat_1" attrs="{'readonly':[('po_select_1','=',False)]}"></field> </td>
+					       <td><field name="po_vat_2" attrs="{'readonly':[('po_select_2','=',False)]}"></field> </td>
+					       <td><field name="po_vat_3" attrs="{'readonly':[('po_select_3','=',False)]}"></field> </td>
+					       <td><field name="po_vat_4" attrs="{'readonly':[('po_select_4','=',False)]}"></field> </td>
+					       <td><field name="po_vat_5" attrs="{'readonly':[('po_select_5','=',False)]}"></field> </td>
+					       <td><field name="po_vat_6" attrs="{'readonly':[('po_select_6','=',False)]}"></field> </td>
+					       <td><field name="po_vat_7" attrs="{'readonly':[('po_select_7','=',False)]}"></field> </td>
+					       <td><field name="po_vat_8" attrs="{'readonly':[('po_select_8','=',False)]}"></field> </td>
+					       <td><field name="po_vat_9" attrs="{'readonly':[('po_select_9','=',False)]}"></field> </td>
+					       <td><field name="po_vat_10" attrs="{'readonly':[('po_select_10','=',False)]}"></field> </td>
+					       <td><field name="po_vat_11" attrs="{'readonly':[('po_select_11','=',False)]}"></field> </td>
+					       <td><field name="po_vat_12" attrs="{'readonly':[('po_select_12','=',False)]}"></field> </td>
+					      </tr>
+                             
+                           <tr>
+					       <td>Recommended Supplier</td>
+					       <td><field name="po_sup_1" attrs="{'readonly':[('po_select_1','=',False)]}"></field> </td>
+					       <td><field name="po_sup_2" attrs="{'readonly':[('po_select_2','=',False)]}"></field> </td>
+					       <td><field name="po_sup_3" attrs="{'readonly':[('po_select_3','=',False)]}"></field> </td>
+					       <td><field name="po_sup_4" attrs="{'readonly':[('po_select_4','=',False)]}"></field> </td>
+					       <td><field name="po_sup_5" attrs="{'readonly':[('po_select_5','=',False)]}"></field> </td>
+					       <td><field name="po_sup_6" attrs="{'readonly':[('po_select_6','=',False)]}"></field> </td>
+					       <td><field name="po_sup_7" attrs="{'readonly':[('po_select_7','=',False)]}"></field> </td>
+					       <td><field name="po_sup_8" attrs="{'readonly':[('po_select_8','=',False)]}"></field> </td>
+					       <td><field name="po_sup_9" attrs="{'readonly':[('po_select_9','=',False)]}"></field> </td>
+					       <td><field name="po_sup_10" attrs="{'readonly':[('po_select_10','=',False)]}"></field> </td>
+					       <td><field name="po_sup_11" attrs="{'readonly':[('po_select_11','=',False)]}"></field> </td>
+					       <td><field name="po_sup_12" attrs="{'readonly':[('po_select_12','=',False)]}"></field> </td>
+					      </tr>
+
+
+
+                            <tr>
+					       <td>Credit Days</td>
+					       <td><field name="po_cred_1" attrs="{'readonly':[('po_select_1','=',False)]}"></field> </td>
+					       <td><field name="po_cred_2" attrs="{'readonly':[('po_select_2','=',False)]}"></field> </td>
+					       <td><field name="po_cred_3" attrs="{'readonly':[('po_select_3','=',False)]}"></field> </td>
+					       <td><field name="po_cred_4" attrs="{'readonly':[('po_select_4','=',False)]}"></field> </td>
+					       <td><field name="po_cred_5" attrs="{'readonly':[('po_select_5','=',False)]}"></field> </td>
+					       <td><field name="po_cred_6" attrs="{'readonly':[('po_select_6','=',False)]}"></field> </td>
+					       <td><field name="po_cred_7" attrs="{'readonly':[('po_select_7','=',False)]}"></field> </td>
+					       <td><field name="po_cred_8" attrs="{'readonly':[('po_select_8','=',False)]}"></field> </td>
+					       <td><field name="po_cred_9" attrs="{'readonly':[('po_select_9','=',False)]}"></field> </td>
+					       <td><field name="po_cred_10" attrs="{'readonly':[('po_select_10','=',False)]}"></field> </td>
+					       <td><field name="po_cred_11" attrs="{'readonly':[('po_select_11','=',False)]}"></field> </td>
+					       <td><field name="po_cred_12" attrs="{'readonly':[('po_select_12','=',False)]}"></field> </td>
+					      </tr>
+					   </tbody>
+					  </table>
+						
+
+					</page>
+					
+				</xpath>
+			</field>
+			</record>
+	
+	
+	</data>
+</openerp>

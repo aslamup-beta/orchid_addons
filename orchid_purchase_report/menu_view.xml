@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem action="action_po_register" id="menu_po_reg" parent="base.next_id_73" sequence="2"/>
+
+    </data>
+</openerp>

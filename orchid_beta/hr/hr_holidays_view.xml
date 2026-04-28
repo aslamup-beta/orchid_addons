@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="od_hr_employee_betafd_holiday_allocation_od_form"
+			model="ir.ui.view">
+			<field name="name">hr.holidays</field>
+			<field name="model">hr.holidays</field>
+			<field name="inherit_id" ref="hr_holidays.view_holiday_allocation_tree" />
+			<field name="arch" type="xml">
+				<field name="date_from" position="replace">
+					<field name="date_from" />
+					<field name="date_to" />
+					<field name="od_exit_visa" />
+				</field>
+			</field>
+		</record>
+
+		<record id="od_hrms_holiday_inherited" model="ir.ui.view">
+			<field name="name">hr.holidays</field>
+			<field name="model">hr.holidays</field>
+			<field name="inherit_id" ref="orchid_hrms.od_hr_leave_form_inherit_hrms" />
+			<field name="arch" type="xml">
+				<field name="od_leave_encashment" position="replace">
+				</field>
+				<field name="od_ticket_required" position="replace">
+				</field>
+			</field>
+		</record>
+
+		<record id="od_hr_employee_betafd_od_form_inherit_hrms" model="ir.ui.view">
+			<field name="name">hr.holidays</field>
+			<field name="model">hr.holidays</field>
+			<field name="inherit_id" ref="hr_holidays.edit_holiday_new" />
+			<field name="arch" type="xml">
+
+				<xpath expr="/form/sheet/group/group/label[@for='number_of_days_temp']"
+					position="replace">
+					<label for="number_of_days_temp" string="Duration" invisible="1" />
+				</xpath>
+
+
+				<xpath expr="/form/sheet/group/group/div" position="replace">
+					<div invisible="1" />
+				</xpath>
+
+				<field name="name" position="before">
+					<label for="number_of_days_temp" string="Duration" />
+					<div>
+						<group col="3" attrs="{'invisible': [('type', '=', 'add')]}">
+							<field name="date_from" nolabel="1"
+								on_change="onchange_date_from(date_to, date_from)" attrs="{'required':[('type', '=', 'remove')]}"
+								class="oe_inline" />
+							<label string="-" class="oe_inline" />
+							<field name="date_to" nolabel="1"
+								on_change="onchange_date_to(date_to, date_from)" attrs="{'required':[('type', '=', 'remove')]}"
+								class="oe_inline" />
+						</group>
+						<div>
+							<field name="number_of_days_temp" class="oe_inline" />
+							days
+						</div>
+					</div>
+					<!-- <field name="holiday_status_id" context="{'employee_id':employee_id}" /> -->
+				</field>
+				<field name="number_of_days_temp" position="replace">
+					<field name="number_of_days_temp" attrs="{'invisible':[('holiday_status_id','=',5)]}" />
+					<field name="od_remark" attrs="{'invisible':[('holiday_status_id','!=',5)]}"
+						placeholder="Remarks...." />
+					<field name="od_hour" widget="float_time"
+						attrs="{'invisible':[('holiday_status_id','!=',5)]}" />
+
+				</field>
+				<field name="name" position="attributes">
+					<attribute name="required">True</attribute>
+				</field>
+				
+
+
+				<field name="name" position="after">
+					<field name="od_exit_visa" invisible="0" />
+
+					<field name="od_leave_encashment"
+						attrs="{'invisible':[('holiday_status_id','!=',1)],'readonly':[('state', 'in', ['approved', 'refused'])]}"
+						group="base.group_hr_manager" />
+
+					<field name="od_ticket_required"
+						attrs="{'invisible':[('holiday_status_id','!=',1)],'readonly':[('state', 'in', ['approved', 'refused'])]}" />
+				</field>
+
+			</field>
+		</record>
+		<record model="ir.ui.view" id="od_beta_hr_kanban_view_employees_kanban">
+			<field name="name">HR - Employees Kanban For Leave Orchid Beta</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.hr_kanban_view_employees" />
+			<field name="arch" type="xml">
+				<xpath expr="//templates" position="before">
+					<field name="od_short_leave" />
+					<field name="od_legal_leave" />
+					<field name="od_sick_leave" />
+					<field name="od_unpaid_leave" />
+				</xpath>
+				<xpath expr="//div[@class='oe_employee_details']/ul/li[@id='last_login']"
+					position="inside">
+					<div style="color:green">
+						Short Leaves :
+						<field name="od_short_leave" widget="float_time" />
+						Hours
+					</div>
+					<div style="color:green">
+						Legal Leaves :
+						<field name="od_legal_leave" />
+						Days
+					</div>
+					<div style="color:green">
+						Unpaid Leaves :
+						<field name="od_unpaid_leave" />
+						Days
+					</div>
+					<div style="color:green">
+						Sick Leaves :
+						<field name="od_sick_leave" />
+						Days
+					</div>
+					<div style="color:red">
+						Pending Amount :
+						<field name="od_exp_claim_amount" />
+					</div>
+					<div style="color:red">
+						Pending Docs :
+						<field name="od_document_count2" />
+					</div>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

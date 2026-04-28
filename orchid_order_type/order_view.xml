@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+
+        <record id="od_order_type_form" model="ir.ui.view">
+            <field name="name">Order Type</field>
+            <field name="model">od.order.type</field>
+            <field name="arch" type="xml">
+                <form string="Order Type" version="7.0">
+                    <sheet>
+                    <group>
+                        <group>
+                            <label for="name"/>
+                            <h2><field name="name" /></h2>
+
+                        </group>
+                        <group>
+                            <field name="type"/>
+                            <field name="sequence_id" readonly="1"/>
+                            <field name="company_id" />
+                            <field name="picking_type_id" />
+                            <field name="sample" />
+                        </group>
+                    </group>
+
+                    <group >
+                        <group string="Account Stock Properties">
+						      <field name="stock_input_account_id"  domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+						       <field name="stock_output_account_id" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+						        <field name="stock_valuation_account_id" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]" />
+						         <field name="stock_journal_id"/>
+                        </group>
+                        <group string="Accounts">
+                            <field name="journal_id"/>
+                            <field name="expense_acc_id"/>
+                            <field name="income_acc_id"/>
+                        </group>
+                       
+                    </group>
+
+
+                </sheet>
+                </form>
+           </field>
+        </record>
+
+
+
+        <record id="od_order_type_action" model="ir.actions.act_window">
+            <field name="name">Order Type</field>
+            <field name="res_model">od.order.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_type':'so'}</field>
+            <field name="domain">[('type','=','so')]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a Order Type.
+              </p>
+            </field>
+        </record>
+
+
+<menuitem action="od_order_type_action" id="menu_od_order_type_action" parent="base.menu_base_config" sequence="27" />
+
+        <record id="od_order_type_purchase_action" model="ir.actions.act_window">
+            <field name="name">Order Type</field>
+            <field name="res_model">od.order.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_type':'po'}</field>
+            <field name="domain">[('type','=','po')]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a Order Type.
+              </p>
+            </field>
+        </record>
+
+        <menuitem action="od_order_type_purchase_action" id="menu_od_order_type_po_action" parent="purchase.menu_purchase_config_purchase" sequence="30"/>
+
+
+    </data>
+</openerp>

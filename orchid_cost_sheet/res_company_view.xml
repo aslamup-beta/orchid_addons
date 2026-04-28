@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+   <record id="od_company_inherit_cost_sheet" model="ir.ui.view">
+            <field name="name">res.company.costsheet.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="/form/sheet/notebook/page[@string='Report Configuration']" position="after">
+
+                   <page string='Cost Sheet'>
+                       <group>
+                           <group>
+                             <field name="od_cost_factor" />
+                             <field name="od_log_factor" />
+                             <field name="od_supplier_currency_id" />
+                             <field name="od_tax_id" />
+                           </group>
+                            <group></group>
+                       </group>
+                   </page>
+
+               </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

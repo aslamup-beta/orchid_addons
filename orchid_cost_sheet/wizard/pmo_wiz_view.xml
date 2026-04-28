@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_pmo_form" model="ir.ui.view">
+            <field name="name">PMO Wizard</field>
+            <field name="model">pmo.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Confirm" >
+                <group>
+                    <label colspan="4" width="500"
+                           string="These Analytic Accounts have Zero or Negative Profit. Are you Sure you want to Continue?"/>
+                    <newline/>
+                </group>
+                <footer>
+                  <button name="btn_yes" string="Yes" type="object" class="oe_highlight"/>
+                    or
+                  <button string="No" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_pmo_action" model="ir.actions.act_window">
+            <field name="name">PMO Confirm</field>
+            <field name="res_model">pmo.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

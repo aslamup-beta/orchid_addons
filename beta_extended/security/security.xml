@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="business_trip_multi_company_rule" model="ir.rule">
+            <field name="name">Business Trip Multi Company</field>
+            <field name="model_id" ref="beta_extended.model_hr_business_trip"/>
+<!--            <field name="groups" eval="[]"/>-->
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+            </field>
+        </record>
+
+        <record id="business_trip_ess_rule" model="ir.rule">
+            <field name="name">Business Trip ESS</field>
+            <field name="model_id" ref="beta_extended.model_hr_business_trip"/>
+            <field name="groups" eval="[(4, ref('orchid_beta.group_beta_hr_manager'))]"/>
+            <field name="domain_force">[('employee_id.user_id','=',user.id)]
+            </field>
+        </record>
+
+        <record id="business_trip_ess_manager_rule" model="ir.rule">
+            <field name="name">Business Trip ESS Manager</field>
+            <field name="model_id" ref="beta_extended.model_hr_business_trip"/>
+            <field name="groups"
+                   eval="[(4, ref('orchid_beta.group_beta_hr_officers')),(4, ref('__export__.res_groups_227'))]"/>
+            <field name="domain_force">
+                ['|',('employee_id.user_id','=',user.id),('employee_id.parent_id.user_id','=',user.id)]
+            </field>
+        </record>
+
+        <record id="business_trip_admin_rule" model="ir.rule">
+            <field name="name">Business Trip All</field>
+            <field name="model_id" ref="beta_extended.model_hr_business_trip"/>
+            <field name="groups"
+                   eval="[(4, ref('orchid_beta.groups_beta_admin')),(4, ref('__export__.res_groups_186')),(4, ref('__export__.res_groups_200'))]"/>
+            <field name="domain_force">[(1, '=', 1)]
+            </field>
+        </record>
+
+        <record id="wfh_multi_company_rule" model="ir.rule">
+            <field name="name">WFH Multi Company</field>
+            <field name="model_id" ref="beta_extended.model_hr_holidays_wfh"/>
+<!--            <field name="groups" eval="[]"/>-->
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+            </field>
+        </record>
+
+        <record id="wfh_ESS_rule" model="ir.rule">
+            <field name="name">WFH ESS</field>
+            <field name="model_id" ref="beta_extended.model_hr_holidays_wfh"/>
+            <field name="groups" eval="[(4, ref('orchid_beta.group_beta_hr_manager'))]"/>
+            <field name="domain_force">[('employee_id.user_id','=',user.id)]
+            </field>
+        </record>
+
+        <record id="wfh_ESS_manager_rule" model="ir.rule">
+            <field name="name">WFH ESS Manager</field>
+            <field name="model_id" ref="beta_extended.model_hr_holidays_wfh"/>
+            <field name="groups"
+                   eval="[(4, ref('orchid_beta.group_beta_hr_officers')),(4, ref('__export__.res_groups_227'))]"/>
+            <field name="domain_force">
+                ['|',('employee_id.user_id','=',user.id),('employee_id.parent_id.user_id','=',user.id)]
+            </field>
+        </record>
+
+        <record id="wfh_admin_rule" model="ir.rule">
+            <field name="name">WFH All</field>
+            <field name="model_id" ref="beta_extended.model_hr_holidays_wfh"/>
+            <field name="groups"
+                   eval="[(4, ref('orchid_beta.groups_beta_admin')),(4, ref('__export__.res_groups_186')),(4, ref('__export__.res_groups_200'))]"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+            </field>
+        </record>
+
+        <record id="commitment_letter_multi_company_rule" model="ir.rule">
+            <field name="name">Commitment Letter Multi Company</field>
+            <field name="model_id" ref="beta_extended.model_commitment_letter"/>
+<!--            <field name="groups" eval="[]"/>-->
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+            </field>
+        </record>
+
+        <record id="commitment_letter_ESS_rule" model="ir.rule">
+            <field name="name">Commitment Letter ESS</field>
+            <field name="model_id" ref="beta_extended.model_commitment_letter"/>
+            <field name="groups" eval="[(4, ref('project.group_project_manager')),(4, ref('orchid_beta.group_od_project_manager')),(4, ref('__export__.res_groups_170'))]"/>
+            <field name="domain_force">[('manager_id','=',user.id)]
+            </field>
+        </record>
+
+        <record id="commitment_letter_admin_rule" model="ir.rule">
+            <field name="name">Commitment Letter All</field>
+            <field name="model_id" ref="beta_extended.model_commitment_letter"/>
+            <field name="groups"
+                   eval="[(4, ref('orchid_beta.groups_beta_admin')),(4, ref('__export__.res_groups_196')),(4, ref('__export__.res_groups_171')),(4, ref('__export__.res_groups_229')),(4, ref('__export__.res_groups_200'))]"/>
+            <field name="domain_force">[(1, '=', 1)]
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
+

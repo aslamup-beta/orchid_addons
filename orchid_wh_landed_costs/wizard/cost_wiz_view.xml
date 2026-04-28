@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="cost_wiz_form" model="ir.ui.view">
+            <field name="name">cost wiz form</field>
+            <field name="model">cost.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Cost Wiz">
+                    <group string="Cost">
+                        <h1>
+                        <field name="cost"  />
+                        </h1>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- <record id="cost_wiz_action" model="ir.actions.act_window">
+            <field name="name">Cost</field>
+            <field name="res_model">cost.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record> -->
+
+        <!-- <menuitem id="sessions_wiz_menu" parent="menu_general"
+            action="session_wiz_action"/> -->
+
+    </data>
+</openerp>

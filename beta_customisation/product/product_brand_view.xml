@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="od_product_brand_form_inherit" model="ir.ui.view">
+            <field name="name">od.product.brand.form.inherit</field>
+            <field name="model">od.product.brand</field>
+            <field name="inherit_id" ref="orchid_product.od_product_brand_form"/>
+            <field name="arch" type="xml">
+	             <xpath expr="//field[@name='description']" position="after">
+	             <notebook>
+                            <page string="Product Analysis">
+                            <separator string="Amro Najjar"/>
+                            <table style="width:100%" class="table table-striped">
+							<thead>
+								<th>User</th>
+								<th>Text 1</th>
+								<th>Text 2</th>
+								<th>Notes</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="user_id"/></td>
+									<td><field name="text1"/></td>
+									<td><field name="text2"/></td>
+									<td>
+										<field name="notes1">
+	                            			<tree editable="bottom">
+				                                <field name="date" readonly="1"/>
+				                                <field name="user_id" readonly="1"/>
+				                                <field name="note1" required="1"/>
+	                            			</tree>
+	                        			</field>
+                        			</td>
+									
+								</tr>
+							</tbody>
+						</table>
+                   			 
+                        </page>
+                        </notebook>
+               </xpath>
+               
+            </field>
+         </record>
+     </data>
+ </openerp>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="employee_cert_audition_form">
+			<field name="name">Employee Certificate form view</field>
+			<field name="model">employee.certificate</field>
+			<field name="arch" type="xml">
+				<form string="Course" version="7.0">
+					<sheet>
+
+						<div class="oe_title oe_left">
+							<h1>
+								<field name="name" />
+							</h1>
+
+						</div>
+						<group>
+							<group>
+								
+								<field name="pn" />
+								<field name="abr" />
+							</group>
+							
+							<group>
+								<field name="desc" />
+								<field name="validity" />
+								
+							</group>
+						</group>
+						
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="employee_ceritifcate_tree">
+			<field name="name">employee Ceritificate tree view</field>
+			<field name="model">employee.certificate</field>
+			<field name="arch" type="xml">
+				<tree string="Course">
+					<field name="name" />
+					<field name="pn" />
+					<field name="abr" />
+					<field name="desc" />
+					<field name="validity" />
+					
+					
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_employee_ceritifcate">
+			<field name="name">Employee Certification</field>
+			<field name="res_model">employee.certificate</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		
+		<menuitem name="Employee Certification" id="menu_audit_emp_cerit" parent="menu_audit" action="action_employee_ceritifcate"/>
+	</data>
+</openerp>

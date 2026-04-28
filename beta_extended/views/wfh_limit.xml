@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wfh_form_view">
+            <field name="name">WFH Limit</field>
+            <field name="model">wfh.days.limit</field>
+            <field name="arch" type="xml">
+                <form string="WFH Limit">
+                    <sheet>
+                        <group string="Limits">
+                            <group>
+                                <field name="company_id" invisible="1"/>
+                                <field name="monthly_limit" required="1"/>
+                            </group>
+                            <group>
+                                <field name="yearly_limit"/>
+                                <field name="max_days"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="wfh_days_limit_tree">
+            <field name="name">wfh.days.limit.tree</field>
+            <field name="model">wfh.days.limit</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree string="WFH Limit">
+                    <field name="company_id"/>
+                    <field name="monthly_limit"/>
+                    <field name="yearly_limit"/>
+                    <field name="max_days"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_open_wfh_days_limit">
+            <field name="name">WFH Limit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wfh.days.limit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new request.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="WFH Limit" action="action_open_wfh_days_limit" parent="hr.menu_hr_configuration"
+                  groups="orchid_beta.groups_beta_admin"
+                  id="menu_open_wfh_limit" sequence="90"/>
+
+    </data>
+</openerp>

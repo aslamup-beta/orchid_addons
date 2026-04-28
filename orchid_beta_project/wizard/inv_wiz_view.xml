@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_prj_inv_wizard" model="ir.ui.view">
+            <field name="name">Generate Invoice</field>
+            <field name="model">project.inv.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Invoice">
+                    <notebook>
+                      <page string="Invoice Plan">
+                         <field name="od_inv_sch_line" readonly="1">
+                         <tree>
+		                            <field name="inv_seq" />
+				               	    <field name="name" />
+				               		<field name="date" />
+				               		<field name="pmo_date" required="1" />
+				               		<field name="amount" />
+				                    <field name="credit_days" />
+				               		<button name="create_invoice" string="Create Invoice" type="object" icon="STOCK_EXECUTE"/>
+				               		<field name="invoice_id" />
+				               		<field name="invoice_amount" />
+				               		<field name="invoice_status" />
+				               		<field name="date_invoice" />
+				               		<field name="cust_date" />
+               			</tree>
+                   
+                         
+                         </field>
+                      </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_od_vproj_inv_act" model="ir.actions.act_window">
+            <field name="name">Project Invoice</field>
+            <field name="res_model">project.inv.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,1452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="od_beta_audit_employee_view_inheritted" model="ir.ui.view">
+			<field name="name">hr.employee</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//notebook[last()]" position="inside">
+					<page string="Audit">
+						<button string="Trial" type="object" name="trial_kpi"/>
+						<group>
+							<group>
+								<field name="audit_temp_id" />
+								
+							</group>
+							<group>
+								<field name="annual_target" readonly="1"/>
+							</group>
+						</group>
+						<group>
+							<field name="hr_subt" invisible="1"/>
+						</group>
+						<!-- start1 -->
+						<separator string="January" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+								
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute1" readonly="1"/></td>
+								
+									<td><field name="aud_date_start1" /></td>
+									<td><field name="aud_date_end1" /></td>
+									<td><field name="score1" readonly="1" /></td>
+									<td><field name="utl1" readonly="1" /></td>
+									<td><field name="audit_sample1" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<group><field name="mgr_feedback1" /></group>
+							<group><field name="mgr_score1" attrs="{'invisible':[('mgr_feedback1','=',False)]}" /></group>
+						
+						</group>
+						
+						<group>
+							<field name="cert1" />
+						</group>
+						
+						
+						
+						
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert1','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id1" readonly="1"/></td>
+									<!-- <td><field name="cert_weight1" readonly="1" /></td> -->
+									<td><field name="cert_status1" readonly="1"/></td>
+									<td><button name="btn_sale_cert_achieved1"  string="Achieved" type="object" attrs="{'invisible':[('cert_status1','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess1" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess1','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id1" readonly="1"/></td>
+									<td><field name="sess_status1" readonly="1"/></td>
+									<td><button name="btn_sess_achieved1"  string="Achieved" type="object" attrs="{'invisible':[('sess_status1','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						
+						<group>
+							<field name="second_sess1" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess1','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id1" readonly="1"/></td>
+									<td><field name="second_sess_status1" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved1"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status1','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess1" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess1','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id1" readonly="1"/></td>
+									<td><field name="third_sess_status1" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved1"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status1','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End1 -->
+						
+						<!-- start2 -->
+						<separator string="February" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+								
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute2"  readonly="1" /></td>
+									
+									<td><field name="aud_date_start2" /></td>
+									<td><field name="aud_date_end2" /></td>
+									<td><field name="score2" readonly="1" /></td>
+									<td><field name="utl2" readonly="1" /></td>
+									<td><field name="audit_sample2" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<group><field name="mgr_feedback2" /></group>
+							<group><field name="mgr_score2" attrs="{'invisible':[('mgr_feedback2','=',False)]}" /></group>
+						
+						</group>
+						
+						<group>
+							<field name="cert2" />
+						</group>
+						
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert2','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id2" readonly="1"/></td>
+									<!-- <td><field name="cert_weight2" readonly="1" /></td> -->
+									<td><field name="cert_status2" readonly="1" /></td>
+									<td><button name="btn_sale_cert_achieved2"  string="Achieved" type="object" attrs="{'invisible':[('cert_status2','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess2" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess2','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id2" readonly="1"/></td>
+									<td><field name="sess_status2" readonly="1"/></td>
+									<td><button name="btn_sess_achieved2"  string="Achieved" type="object" attrs="{'invisible':[('sess_status2','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="second_sess2" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess2','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id2" readonly="1"/></td>
+									<td><field name="second_sess_status2" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved2"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status2','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess2" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess2','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id2" readonly="1"/></td>
+									<td><field name="third_sess_status2" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved2"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status2','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End2 -->
+						
+						<!-- start3 -->
+						<separator string="March" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+							
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute3"   readonly="1"/></td>
+									
+									<td><field name="aud_date_start3" /></td>
+									<td><field name="aud_date_end3" /></td>
+									<td><field name="score3" readonly="1" /></td>
+									<td><field name="utl3" readonly="1" /></td>
+									<td><field name="audit_sample3" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+					
+					
+					
+						<group>
+							<group><field name="mgr_feedback3" /></group>
+							<group><field name="mgr_score3" attrs="{'invisible':[('mgr_feedback3','=',False)]}" /></group>
+						
+						</group>
+					
+						<group>
+							<field name="cert3" />
+						</group>
+					
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert3','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id3" readonly="1"/></td>
+									<!-- <td><field name="cert_weight3" readonly="1" /></td> -->
+									<td><field name="cert_status3" readonly="1" /></td>
+									<td><button name="btn_sale_cert_achieved3"  string="Achieved" type="object" attrs="{'invisible':[('cert_status3','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess3" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess3','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id3" readonly="1"/></td>
+									<td><field name="sess_status3" readonly="1"/></td>
+									<td><button name="btn_sess_achieved3"  string="Achieved" type="object" attrs="{'invisible':[('sess_status3','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="second_sess3" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess3','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id3" readonly="1"/></td>
+									<td><field name="second_sess_status3" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved3"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status3','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess3" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess3','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id3" readonly="1"/></td>
+									<td><field name="third_sess_status3" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved3"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status3','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End3 -->
+						
+						<!-- start4 -->
+						<separator string="April" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+								
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								 <th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute4" readonly="1" /></td>
+									
+									<td><field name="aud_date_start4" /></td>
+									<td><field name="aud_date_end4" /></td>
+									<td><field name="score4" readonly="1" /></td>
+									<td><field name="utl4" readonly="1" /></td>
+									<td><field name="audit_sample4" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<group><field name="mgr_feedback4" /></group>
+							<group><field name="mgr_score4" attrs="{'invisible':[('mgr_feedback4','=',False)]}" /></group>
+						
+						</group>
+						
+						<group>
+							<field name="cert4" />
+						</group>
+						
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert4','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+							<!-- 	<th>Weight</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id4" readonly="1"/></td>
+									<!-- <td><field name="cert_weight4" readonly="1" /></td> -->
+									<td><field name="cert_status4" readonly="1" /></td>
+									<td><button name="btn_sale_cert_achieved4"  string="Achieved" type="object" attrs="{'invisible':[('cert_status4','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess4" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess4','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id4" readonly="1"/></td>
+									<td><field name="sess_status4" readonly="1"/></td>
+									<td><button name="btn_sess_achieved4"  string="Achieved" type="object" attrs="{'invisible':[('sess_status4','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="second_sess4" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess4','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id4" readonly="1"/></td>
+									<td><field name="second_sess_status4" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved4"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status4','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess4" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess4','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id4" readonly="1"/></td>
+									<td><field name="third_sess_status4" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved4"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status4','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End4 -->
+						
+						<!-- start5 -->
+						<separator string="May" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+								
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute5" readonly="1" /></td>
+									
+									<td><field name="aud_date_start5" /></td>
+									<td><field name="aud_date_end5" /></td>
+									<td><field name="score5" readonly="1" /></td>
+									<td><field name="utl5" readonly="1" /></td>
+									<td><field name="audit_sample5" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						
+						<group>
+							<group><field name="mgr_feedback5" /></group>
+							<group><field name="mgr_score5" attrs="{'invisible':[('mgr_feedback5','=',False)]}" /></group>
+						
+						</group>
+						
+						<group>
+							<field name="cert5" />
+						</group>
+						
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert5','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id5" readonly="1" /></td>
+								<!-- 	<td><field name="cert_weight5" readonly="1" /></td> -->
+									<td><field name="cert_status5" readonly="1"/></td>
+									<td><button name="btn_sale_cert_achieved5"  string="Achieved" type="object" attrs="{'invisible':[('cert_status5','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess5" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess5','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id5" readonly="1"/></td>
+									<td><field name="sess_status5" readonly="1"/></td>
+									<td><button name="btn_sess_achieved5"  string="Achieved" type="object" attrs="{'invisible':[('sess_status5','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="second_sess5" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess5','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id5" readonly="1"/></td>
+									<td><field name="second_sess_status5" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved5"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status5','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess5" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess5','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id5" readonly="1"/></td>
+									<td><field name="third_sess_status5" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved5"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status5','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End5 -->
+						
+						<!-- start6 -->
+						<separator string="June" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+								
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute6" readonly="1"/></td>
+									
+									<td><field name="aud_date_start6" /></td>
+									<td><field name="aud_date_end6" /></td>
+									<td><field name="score6" readonly="1" /></td>
+									<td><field name="utl6" readonly="1" /></td>
+									<td><field name="audit_sample6" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<group><field name="mgr_feedback6" /></group>
+							<group><field name="mgr_score6" attrs="{'invisible':[('mgr_feedback6','=',False)]}" /></group>
+						
+						</group>
+						<group>
+							<field name="cert6" />
+						</group>
+						
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert6','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id6" readonly="1"/></td>
+								<!-- 	<td><field name="cert_weight6" readonly="1" /></td> -->
+									<td><field name="cert_status6" readonly="1"/></td>
+									<td><button name="btn_sale_cert_achieved6"  string="Achieved" type="object" attrs="{'invisible':[('cert_status6','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess6" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess6','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id6" readonly="1"/></td>
+									<td><field name="sess_status6" readonly="1"/></td>
+									<td><button name="btn_sess_achieved6"  string="Achieved" type="object" attrs="{'invisible':[('sess_status6','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="second_sess6" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess6','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id6" readonly="1"/></td>
+									<td><field name="second_sess_status6" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved6"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status6','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess6" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess6','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id6" readonly="1"/></td>
+									<td><field name="third_sess_status6" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved6"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status6','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End6 -->
+						
+						<!-- start7 -->
+						<separator string="July" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+								
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute7" readonly="1" /></td>
+									
+									<td><field name="aud_date_start7" /></td>
+									<td><field name="aud_date_end7" /></td>
+									<td><field name="score7" readonly="1" /></td>
+									<td><field name="utl7" readonly="1" /></td>
+									<td><field name="audit_sample7" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<group><field name="mgr_feedback7" /></group>
+							<group><field name="mgr_score7" attrs="{'invisible':[('mgr_feedback7','=',False)]}" /></group>
+						
+						</group>
+						
+						<group>
+							<field name="cert7" />
+						</group>
+						
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert7','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id7" readonly="1"/></td>
+								<!-- 	<td><field name="cert_weight7" readonly="1" /></td> -->
+									<td><field name="cert_status7" readonly="1"/></td>
+									<td><button name="btn_sale_cert_achieved7"  string="Achieved" type="object" attrs="{'invisible':[('cert_status7','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						
+						<group>
+							<field name="sess7" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess7','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id7" readonly="1"/></td>
+									<td><field name="sess_status7" readonly="1"/></td>
+									<td><button name="btn_sess_achieved7"  string="Achieved" type="object" attrs="{'invisible':[('sess_status7','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+							
+						<group>
+							<field name="second_sess7" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess7','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id7" readonly="1"/></td>
+									<td><field name="second_sess_status7" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved7"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status7','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess7" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess7','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id7" readonly="1"/></td>
+									<td><field name="third_sess_status7" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved7"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status7','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End7 -->
+						<!-- start8 -->
+						<separator string="August" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+							
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute8" readonly="1" /></td>
+								
+									<td><field name="aud_date_start8" /></td>
+									<td><field name="aud_date_end8" /></td>
+									<td><field name="score8" readonly="1" /></td>
+									<td><field name="utl8" readonly="1" /></td>
+									<td><field name="audit_sample8" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<group><field name="mgr_feedback8" /></group>
+							<group><field name="mgr_score8" attrs="{'invisible':[('mgr_feedback8','=',False)]}" /></group>
+						
+						</group>
+						
+						<group>
+							<field name="cert8" />
+						</group>
+						
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert8','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id8" readonly="1" /></td>
+								<!-- 	<td><field name="cert_weight8" readonly="1" /></td> -->
+									<td><field name="cert_status8" readonly="1"/></td>
+									<td><button name="btn_sale_cert_achieved8"  string="Achieved" type="object" attrs="{'invisible':[('cert_status8','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess8" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess8','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id8" readonly="1"/></td>
+									<td><field name="sess_status8" readonly="1"/></td>
+									<td><button name="btn_sess_achieved8"  string="Achieved" type="object" attrs="{'invisible':[('sess_status8','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+							
+						<group>
+							<field name="second_sess8" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess8','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id8" readonly="1"/></td>
+									<td><field name="second_sess_status8" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved8"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status8','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess8" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess8','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id8" readonly="1"/></td>
+									<td><field name="third_sess_status8" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved8"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status8','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End8 -->
+						
+						<!-- start9 -->
+						<separator string="September" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+								
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute9" readonly="1" /></td>
+									
+									<td><field name="aud_date_start9" /></td>
+									<td><field name="aud_date_end9" /></td>
+									<td><field name="score9" readonly="1" /></td>
+									<td><field name="utl9" readonly="1" /></td>
+									<td><field name="audit_sample9" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+							<group>
+							<group><field name="mgr_feedback9" /></group>
+							<group><field name="mgr_score9" attrs="{'invisible':[('mgr_feedback9','=',False)]}" /></group>
+						
+						</group>
+						
+						<group>
+							<field name="cert9" />
+						</group>
+					
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert9','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id9" readonly="1" /></td>
+									<!-- <td><field name="cert_weight9" readonly="1" /></td> -->
+									<td><field name="cert_status9" readonly="1" /></td>
+									<td><button name="btn_sale_cert_achieved9"  string="Achieved" type="object" attrs="{'invisible':[('cert_status9','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess9" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess9','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id9" readonly="1"/></td>
+									<td><field name="sess_status9" readonly="1"/></td>
+									<td><button name="btn_sess_achieved9"  string="Achieved" type="object" attrs="{'invisible':[('sess_status9','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+							
+						<group>
+							<field name="second_sess9" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess9','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id9" readonly="1"/></td>
+									<td><field name="second_sess_status9" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved9"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status9','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess9" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess9','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id9" readonly="1"/></td>
+									<td><field name="third_sess_status9" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved9"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status9','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End9 -->
+						
+						<!-- start10 -->
+						<separator string="October" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+							
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute10" readonly="1"/></td>
+									
+									<td><field name="aud_date_start10" /></td>
+									<td><field name="aud_date_end10" /></td>
+									<td><field name="score10" readonly="1" /></td>
+									<td><field name="utl10" readonly="1" /></td>
+									<td><field name="audit_sample10" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<group><field name="mgr_feedback10" /></group>
+							<group><field name="mgr_score10" attrs="{'invisible':[('mgr_feedback10','=',False)]}" /></group>
+						
+						</group>
+						
+						<group>
+							<field name="cert10" />
+						</group>
+						
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert10','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th>
+ -->								
+                                <th>Status</th>
+                                <th></th>
+ 
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id10" readonly="1"/></td>
+									<!-- <td><field name="cert_weight10" readonly="1" /></td>
+ -->									<td><field name="cert_status10" readonly="1"/></td>
+ 									<td><button name="btn_sale_cert_achieved10"  string="Achieved" type="object" attrs="{'invisible':[('cert_status10','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						
+						
+						<group>
+							<field name="sess10" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess10','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id10" readonly="1"/></td>
+									<td><field name="sess_status10" readonly="1"/></td>
+									<td><button name="btn_sess_achieved10"  string="Achieved" type="object" attrs="{'invisible':[('sess_status10','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+							
+						<group>
+							<field name="second_sess10" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess10','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id10" readonly="1"/></td>
+									<td><field name="second_sess_status10" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved10"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status10','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess10" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess10','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id10" readonly="1"/></td>
+									<td><field name="third_sess_status10" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved10"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status10','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End10 -->
+						
+						<!-- start11 -->
+						<separator string="November" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+								
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute11" readonly="1" /></td>
+									
+									<td><field name="aud_date_start11" /></td>
+									<td><field name="aud_date_end11" /></td>
+									<td><field name="score11" readonly="1" /></td>
+								    <td><field name="utl11" readonly="1" /></td>
+									<td><field name="audit_sample11" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+							<group>
+							<group><field name="mgr_feedback11" /></group>
+							<group><field name="mgr_score11" attrs="{'invisible':[('mgr_feedback11','=',False)]}" /></group>
+						</group>
+						<group>
+							<field name="cert11" />
+						</group>
+					
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert11','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id11" readonly="1"/></td>
+									<!-- <td><field name="cert_weight11" readonly="1" /></td> -->
+									<td><field name="cert_status11" readonly="1"/></td>
+									<td><button name="btn_sale_cert_achieved11"  string="Achieved" type="object" attrs="{'invisible':[('cert_status11','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess11" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess11','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id11" readonly="1"/></td>
+									<td><field name="sess_status11" readonly="1"/></td>
+									<td><button name="btn_sess_achieved11"  string="Achieved" type="object" attrs="{'invisible':[('sess_status11','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+							
+						<group>
+							<field name="second_sess11" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess11','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id11" readonly="1"/></td>
+									<td><field name="second_sess_status11" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved11"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status11','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess11" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess11','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id11" readonly="1"/></td>
+									<td><field name="third_sess_status11" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved11"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status11','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End11 -->
+						
+						<!-- start12 -->
+						<separator string="December" />
+						<table style="width:100%" class="table table-striped">
+							<thead>
+								<th>Execute</th>
+								
+								<th>Audit Period Start</th>
+								<th>Audit Period End</th>
+								<th>Monthly Score</th>
+								<th>Utilization</th>
+								<th>Audit Sample</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="execute12" readonly="1" /></td>
+									
+									<td><field name="aud_date_start12" /></td>
+									<td><field name="aud_date_end12" /></td>
+									<td><field name="score12" readonly="1" /></td>
+									<td><field name="utl12" readonly="1" /></td>
+									<td><field name="audit_sample12" readonly="1" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<group><field name="mgr_feedback12" /></group>
+							<group><field name="mgr_score12" attrs="{'invisible':[('mgr_feedback12','=',False)]}" /></group>
+						
+						</group>
+						<group>
+							<field name="cert12" />
+						</group>
+						
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('cert12','=',False)]}">
+							<thead>
+								<th>Career Certificate</th>
+								<!-- <th>Points</th> -->
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="cert_id12" readonly="1"/></td>
+									<!-- <td><field name="cert_weight12" readonly="1" /></td> -->
+									<td><field name="cert_status12" readonly="1"/></td>
+									<td><button name="btn_sale_cert_achieved12"  string="Achieved" type="object" attrs="{'invisible':[('cert_status12','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<group>
+							<field name="sess12" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('sess12','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="sale_enab_id12" readonly="1"/></td>
+									<td><field name="sess_status12" readonly="1"/></td>
+									<td><button name="btn_sess_achieved12"  string="Achieved" type="object" attrs="{'invisible':[('sess_status12','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+							
+						<group>
+							<field name="second_sess12" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('second_sess12','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="second_sale_enab_id12" readonly="1"/></td>
+									<td><field name="second_sess_status12" readonly="1"/></td>
+									<td><button name="btn_second_sess_achieved12"  string="Achieved" type="object" attrs="{'invisible':[('second_sess_status12','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<group>
+							<field name="third_sess12" />
+						</group>
+						<table style="width:100%" class="table table-striped"
+							attrs="{'invisible':[('third_sess12','=',False)]}">
+							<thead>
+								<th>Sales Enablement</th>
+								<th>Status</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td><field name="third_sale_enab_id12" readonly="1"/></td>
+									<td><field name="third_sess_status12" readonly="1"/></td>
+									<td><button name="btn_third_sess_achieved12"  string="Achieved" type="object" attrs="{'invisible':[('third_sess_status12','!=','not_achieved')]}" /></td>
+								</tr>
+							</tbody>
+						</table>
+						
+						
+						<hr style=" border-width: 3px; background-color: black;"/>
+						<br/>
+						<!--End1 -->
+						
+						
+						
+						
+					</page>
+					
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

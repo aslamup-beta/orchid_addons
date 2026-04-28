@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="od_menu_technical" name="Technical" sequence="4"/>
+        <menuitem id="od_menu_technical_sub" parent="od_menu_technical" name="Technical" sequence="1"/>
+        <record id="od_technical_view_task_search_form" model="ir.ui.view">
+            <field name="name">project.task.search.form</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+               <search string="Tasks">
+                    <field name="name" string="Tasks"/>
+                    <field name="categ_ids"/>
+                    <field name="partner_id"/>
+                    <field name="project_id"/>
+                    <field name="reviewer_id"/>
+                    <field name="user_id"/>
+                    <field name="stage_id"/>
+                    <filter string="My Tasks" name="my_task" domain="[('user_id','=',uid)]"/>
+                    <filter string="In Progress" name="in_progress" domain="[('od_stage','=','draft')]"/>
+                    <filter string="Unassigned" name="unassigned" domain="[('user_id', '=', False)]"/>
+                    <separator/>
+                    <filter string="New" name="draft" domain="[('stage_id.sequence', '&lt;=', 1)]"/>
+                    <separator/>
+                    <filter string="New Mail" name="message_unread" domain="[('message_unread','=',True)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Project" name="project" context="{'group_by':'project_id'}"/>
+                        <filter string="Task" context="{'group_by':'name'}"/>
+                        <filter string="Assigned to" name="User" context="{'group_by':'user_id'}"/>
+<!--                         <filter string="Stage" name="Stage" context="{'group_by':'stage_id'}"/> -->
+                        <filter string="Status" context="{'group_by':'od_stage'}"/>
+                        <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                        <separator/>
+                        <filter string="Last Message" name="group_message_last_post" context="{'group_by':'message_last_post:week'}"/>
+                        <filter string="Assignation Month" context="{'group_by':'date_start:month'}" help="Creation Date"/>
+                        <filter string="Status" context="{'group_by':'od_stage'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    <record id="od_technical_action_view_activities" model="ir.actions.act_window">
+        <field name="name">Activities</field>
+        <field name="res_model">project.task</field>
+        <field name="domain">[('od_type','=','activities')]</field>
+        <field name="view_mode">kanban,tree,form,calendar,gantt,graph</field>
+        <field name="search_view_id" ref="od_technical_view_task_search_form"/>
+        <field name="context">{'search_default_my_task': 1}</field>
+        <field name="help" type="html">
+            <p>
+                Odoo's project management allows you to manage the pipeline
+                of tasks in order to get things done efficiently. You can
+                track progress, discuss on tasks, attach documents, etc.
+            </p>
+        </field>
+    </record>
+    <menuitem name="Activites" id="od_menu_technical_activity" parent="od_menu_technical_sub" action="od_technical_action_view_activities" sequence="1"/>
+
+    <record id="od_technical_view_project_project_filter" model="ir.ui.view">
+        <field name="name">project.project.select</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <search string="Search Project">
+                <field name="name" string="Project Name"/>
+                <filter string="Open" name="Current" domain="[('state', '=','open')]"/>
+                <filter string="Type Of Project" name="od_type" domain="[('analytic_account_id.od_type_of_project', 'in',['amc','o_m'])]"/>
+                <filter string="Pending" name="Pending" domain="[('state', '=','pending')]"/>
+                <filter string="Template" name="Template" domain="[('state', '=','template')]"/>
+                <separator/>
+                <filter string="Member" name="Member" domain="['|',('user_id', '=', uid),('members', '=', uid)]"/>
+                <filter string="Manager" domain="[('user_id','=',uid)]"/>
+                <separator/>
+                <filter string="New Mail" name="message_unread" domain="[('message_unread','=',True)]"/>
+                <field name="user_id" string="Project Manager"/>
+                <field name="partner_id" string="Contact" filter_domain="[('partner_id', 'child_of', self)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Manager" name="Manager" context="{'group_by':'user_id'}"/>
+                    <filter string="Contact" name="Partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Parent" name="Parent" help="Parent" context="{'group_by':'parent_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="od_technical_open_view_project_all" model="ir.actions.act_window">
+    <field name="name">Projects</field>
+    <field name="res_model">project.project</field>
+    <field name="view_type">form</field>
+    <field name="domain">[]</field>
+    <field name="view_mode">kanban,tree,form,gantt</field>
+    <field name="view_id" ref="project.view_project_kanban"/>
+    <field name="search_view_id" ref="od_technical_view_project_project_filter"/>
+    <field name="context">{'search_default_Current': 1}</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to start a new project.
+        </p><p>
+          Projects are used to organize your activities; plan
+          tasks, track issues, invoice timesheets. You can define
+          internal projects (R&amp;D, Improve Sales Process),
+          private projects (My Todos) or customer ones.
+        </p><p>
+          You will be able collaborate with internal users on
+          projects or invite customers to share your activities.
+        </p>
+    </field>
+    </record>
+    <menuitem name="Projects" id="od_menu_technical_projects" parent="od_menu_technical_sub" action="od_technical_open_view_project_all" sequence="2"/>
+
+    <record id="od_technical_view_crm_case_opportunities_filter" model="ir.ui.view">
+        <field name="name">CRM - Opportunities Search</field>
+        <field name="model">crm.lead</field>
+        <field name="arch" type="xml">
+            <search string="Search Opportunities">
+                <field name="name" string="Opportunity" filter_domain="['|','|','|',('partner_id','ilike',self),('partner_name','ilike',self),('email_from','ilike',self),('name', 'ilike', self)]"/>
+                <field name="categ_ids" string="Tag" filter_domain="[('categ_ids', 'ilike', self)]"/>
+                <field name="section_id" groups="base.group_multi_salesteams"/>
+                <field name="user_id"/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="stage_id" domain="[]"/>
+                <field name="probability"/>
+                <separator/>
+                <filter string="New" name="new"
+                        domain="['&amp;', ('stage_id.probability', '=', 0), ('stage_id.sequence', '&lt;=', 1)]"/>
+                <filter string="Won" name="won"
+                        domain="['&amp;', ('stage_id.probability', '=', 100), ('stage_id.fold', '=', True)]"/>
+                <filter string="Lost" name="lost"
+                        domain="['&amp;', ('stage_id.probability', '=', 0), ('stage_id.fold', '=', True)]"/>
+                <separator/>
+                <filter string="My Opportunities" name="assigned_to_me"
+                        domain="[('user_id', '=', uid)]"
+                        help="Opportunities that are assigned to me"/>
+                <filter string="Unassigned" name="unassigned"
+                        domain="[('user_id','=', False)]" help="No salesperson"/>
+               <filter string="POC Date Not Set" name="poc_date_not_set" domain="[('finished_on_3','=',False)]"/>
+                <separator/>
+                <filter string="New Mail" name="message_unread" domain="[('message_unread','=',True)]"/>
+                <group expand="0" string="Group By" colspan="16">
+                    <filter string="Salesperson" context="{'group_by':'user_id'}"/>
+
+                    <filter string="Sales Team" context="{'group_by':'section_id'}" groups="base.group_multi_salesteams"/>
+                    <filter string="Country" context="{'group_by':'country_id'}" />
+                    <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    <filter string="Stage" context="{'group_by':'stage_id'}"/>
+                    <filter string="Campaign" domain="[]" context="{'group_by':'campaign_id'}"/>
+                    <filter string="Channel" domain="[]" context="{'group_by':'medium_id'}"/>
+                    <filter string="Source" domain="[]" context="{'group_by':'source_id'}"/>
+                    <separator orientation="vertical" />
+                    <filter string="Creation Month" context="{'group_by':'create_date:month'}" name="month"/>
+                    <filter string="Expected Closing" context="{'group_by':'date_deadline'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="od_technical_beta_crm_case_category_act_oppor11">
+      <field name="name">POC's</field>
+      <field name="res_model">crm.lead</field>
+      <field name="view_mode">kanban,tree,graph,form,calendar</field>
+      <field name="domain">[('type','=','opportunity'),('proof_of_concept','=',True)] </field>
+      <field name="context">{'stage_type': 'opportunity','default_type':'opportunity','search_default_poc_date_not_set': 1}  </field>
+      <field name="search_view_id" ref="od_technical_view_crm_case_opportunities_filter"/>
+      <field name="help" type="html">
+          <p>
+              Odoo helps you keep track of your sales pipeline to follow
+              up potential sales and better forecast your future revenues.
+          </p><p>
+              You will be able to plan meetings and phone calls from
+              opportunities, convert them into quotations, attach related
+              documents, track all discussions, and much more.
+          </p>
+      </field>
+  </record>
+          <record model="ir.actions.act_window.view" id="od_technical_action_crm_tag_kanban_view_oppor11">
+              <field name="sequence" eval="0"/>
+              <field name="view_mode">kanban</field>
+              <field name="view_id" ref="crm.crm_case_kanban_view_leads"/>
+              <field name="act_window_id" ref="od_technical_beta_crm_case_category_act_oppor11"/>
+          </record>
+
+          <record model="ir.actions.act_window.view" id="od_technical_action_crm_tag_tree_view_oppor11">
+              <field name="sequence" eval="1"/>
+              <field name="view_mode">tree</field>
+              <field name="view_id" ref="crm.crm_case_tree_view_oppor"/>
+              <field name="act_window_id" ref="od_technical_beta_crm_case_category_act_oppor11"/>
+          </record>
+
+          <record model="ir.actions.act_window.view" id="od_technical_action_crm_tag_form_view_oppor11">
+              <field name="sequence" eval="2"/>
+              <field name="view_mode">form</field>
+              <field name="view_id" ref="crm.crm_case_form_view_oppor"/>
+              <field name="act_window_id" ref="od_technical_beta_crm_case_category_act_oppor11"/>
+          </record>
+
+          <menuitem  id="od_technical_menu_pocs" parent="od_menu_technical_sub" action="od_technical_beta_crm_case_category_act_oppor11" sequence="3"/>
+
+         <record model="ir.actions.act_window" id="action_technical_od_implementation">
+  		<field name="name">Implementation Codes</field>
+  		<field name="res_model">od.implementation</field>
+  		<field name="view_mode">tree,form</field>
+  		</record>
+
+  	 	<menuitem name="Implementation Code" id="menu_technical_od_implementation" parent="od_menu_technical_sub"
+              action="action_technical_od_implementation" />
+
+    </data>
+</openerp>

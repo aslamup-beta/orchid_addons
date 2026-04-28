@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="view_od_stock_aging_report_form_xls" model="ir.ui.view">
+            <field name="name">Stock Aging Report</field>
+            <field name="model">od.stock.aging.report.wizard.xls</field>
+            <field name="arch" type="xml">
+                <form string="Stock Aging Report">
+                    <group>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="location_id" required="1"/>
+                        <field name="period_length"/>
+                        
+                    </group>
+
+
+                    <group>
+                        <field name="categ_id"/>
+                        <field name="age" invisible="1"/>
+                        <field name="stock_list"/>
+                        <field name="compare" groups="orchid_beta.groups_beta_admin"/>
+                       <!--  <field name="detail"/> -->
+                    </group>
+                   </group>
+                    <footer>
+                        <button name="export_rpt" string="Export" type="object" default_focus="1" class="oe_highlight"/> 
+		                 or
+                        <button name="print_directly" string="Print" type="object" class="oe_highlight"/>
+                       or
+                        <button string="Cancel" special="cancel" />
+ 
+ 				 
+ 				 </footer>
+            
+               </form>
+            </field>
+        </record>
+        
+     <record model="ir.ui.view" id="od_stock_aging_report_30tree_view">
+		<field name="name">od.betax.stock.rpt.data.30.tree</field>
+		<field name="model">od.betax.stock.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Stock Aging Report">
+				<field name="product_id"/>
+				<field name="q_30_1"  sum="Total" />
+				<field name="v_30_1"  sum="Total" />
+				<field name="q_30_2" sum="Total" />
+				<field name="v_30_2"   sum="Total" />
+				<field name="q_30_3"  sum="Total" />
+				<field name="v_30_3"  sum="Total" />
+				<field name="q_30_4"  sum="Total" />
+				<field name="v_30_4"  sum="Total" />
+				<field name="q_30_5"  sum="Total" />
+				<field name="v_30_5"  sum="Total" />
+				<field name="q_30_6"  sum="Total" />
+				<field name="v_30_6"  sum="Total" />
+				<field name="q_30_7"  sum="Total" />
+				<field name="v_30_7"  sum="Total" />
+						
+				<field name="total_qty" sum="Total" />
+				<field name="total_val" sum="Total" />
+				<field name="categ_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	 <record model="ir.ui.view" id="od_stock_aging_report_60tree_view">
+		<field name="name">od.betax.stock.rpt.data.60.tree</field>
+		<field name="model">od.betax.stock.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Stock Aging Report">
+				<field name="product_id"/>
+				<field name="q_60_1"  sum="Total" />
+				<field name="v_60_1"  sum="Total" />
+				<field name="q_60_2" sum="Total" />
+				<field name="v_60_2"   sum="Total" />
+				<field name="q_60_3"  sum="Total" />
+				<field name="v_60_3"  sum="Total" />
+				<field name="q_60_4"  sum="Total" />
+				<field name="v_60_4"  sum="Total" />
+				<field name="q_60_5"  sum="Total" />
+				<field name="v_60_5"  sum="Total" />
+				<field name="q_60_6"  sum="Total" />
+				<field name="v_60_6"  sum="Total" />
+				<field name="q_60_7"  sum="Total" />
+				<field name="v_60_7"  sum="Total" />
+						
+				<field name="total_qty" sum="Total" />
+				<field name="total_val" sum="Total" />
+				<field name="categ_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+
+
+	
+	     <record model="ir.ui.view" id="od_stock_aging_report_90tree_view">
+		<field name="name">od.betax.stock.rpt.data.90.tree</field>
+		<field name="model">od.betax.stock.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Stock Aging Report">
+				<field name="product_id"/>
+				<field name="q_90_1"  sum="Total" />
+				<field name="v_90_1"  sum="Total" />
+				<field name="q_90_2" sum="Total" />
+				<field name="v_90_2"   sum="Total" />
+				<field name="q_90_3"  sum="Total" />
+				<field name="v_90_3"  sum="Total" />
+				<field name="q_90_4"  sum="Total" />
+				<field name="v_90_4"  sum="Total" />
+				<field name="q_90_5"  sum="Total" />
+				<field name="v_90_5"  sum="Total" />
+				<field name="q_90_6"  sum="Total" />
+				<field name="v_90_6"  sum="Total" />
+				<field name="q_90_7"  sum="Total" />
+				<field name="v_90_7"  sum="Total" />
+						
+				<field name="total_qty" sum="Total" />
+				<field name="total_val" sum="Total" />
+				<field name="categ_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+	
+	
+	<record model="ir.ui.view" id="od_stock_aging_rpt_stock_list_only_tree_view">
+		<field name="name">od.betax.stock.rpt.data.tree</field>
+		<field name="model">od.betax.stock.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Stock Aging Report">
+				<field name="product_id"/>
+				<field name="name"/>
+				<field name="uom_id"/>						
+				<field name="total_qty" sum="Total" />
+				<field name="total_val" sum="Total" />
+				<field name="categ_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record model="ir.ui.view" id="od_stock_aging_rpt_stock_list_plus_compare_tree_view">
+		<field name="name">od.betax.stock.rpt.data.tree</field>
+		<field name="model">od.betax.stock.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Stock Aging Report">
+				<field name="product_id"/>
+				<field name="name"/>
+				<field name="uom_id"/>						
+				<field name="total_qty" sum="Total" />
+				<field name="total_val" sum="Total" />
+				<field name="entry_value" sum="Total" />
+				<field name="categ_id" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+	
+		<record model="ir.ui.view" id="od_stock_aging_report_search_view">
+		<field name="name">od.betax.stock.rpt.data.search</field>
+		<field name="model">od.betax.stock.rpt.data</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="product_id" string="Product"/>
+			<group expand="1" string="Group By">
+                       
+                        <filter string="Category" domain="[]" context="{'group_by':'categ_id'}"/>
+                     
+                    </group>
+			</search>
+			
+		</field>
+		</record>
+	
+        
+
+        <record id="action_pview_od_stock_aging_report_xls" model="ir.actions.act_window">
+            <field name="name">Stock Aging Report</field>
+            <field name="res_model">od.stock.aging.report.wizard.xls</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_od_stock_aging_report_form_xls"/>
+            <field name="target">new</field>
+        </record>
+    
+    <menuitem parent="stock.next_id_61" action="action_pview_od_stock_aging_report_xls"  string="Stock Aging Report" id="menu_aging_stock_report_xls" sequence="2"/>
+
+
+    </data>
+</openerp>

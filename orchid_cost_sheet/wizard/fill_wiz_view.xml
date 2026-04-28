@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_ren_fill_form" model="ir.ui.view">
+            <field name="name">Ren Fill form</field>
+            <field name="model">wiz.ren.fill</field>
+            <field name="arch" type="xml">
+                <form string="Ren Fill" version="7.0">
+                    <group string="Add/Edit">
+                        <field name="mat_data" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="brand_id"/>
+                                <field name="product_id" domain="[('od_pdt_brand_id','=', brand_id)]"/>
+                                <field name="qty"/>
+                               
+                            </tree>
+                        </field>
+                    </group>
+                <footer>
+                    <button string="Fill REN" name="fill_ren" type="object" class="oe_highlight"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="ren_fill_wiz_action" model="ir.actions.act_window">
+            <field name="name">Fill Renewal</field>
+            <field name="res_model">wiz.ren.fill</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

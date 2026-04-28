@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+
+
+        <record id="product_beta_price_type_view" model="ir.ui.view">
+            <field name="name">product.price.type.form</field>
+            <field name="model">product.price.type</field>
+            <field name="inherit_id" ref="product.product_price_type_view"/>
+            <field name="arch" type="xml">
+                <field name="currency_id" position="after">
+                    <field name="od_company_id"/>
+                </field>
+            </field>
+        </record>
+
+
+
+<record id="beta_inheriteed_od_product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="orchid_product.od_product_template_form_view"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='od_pdt_group_id']" position="attributes">
+            	<attribute name="required">True</attribute>
+            </xpath>
+             <xpath expr="//field[@name='od_pdt_sub_group_id']" position="attributes">
+            	<attribute name="invisible">True</attribute>
+            </xpath>
+             <xpath expr="//field[@name='od_pdt_type_id']" position="attributes">
+            	<attribute name="required">True</attribute>
+            </xpath>
+             <xpath expr="//field[@name='od_pdt_brand_id']" position="attributes">
+            	<attribute name="required">True</attribute>
+            </xpath>
+     
+            
+            </field>
+         </record>
+        <record id="beta_inheriteed_od_product_normal_template_form_view" model="ir.ui.view">
+            <field name="name">product.product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="default_code" position="attributes">
+					<attribute name="required">True</attribute>            		
+            	</field>
+            </field>
+           </record>
+           
+          <record id="o_temp_od_beta_product_template_only_form_view" model="ir.ui.view">
+            <field name="name">product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+            <data>
+            	<field name="default_code" position="attributes">
+					<attribute name="required">True</attribute>            		
+            	</field>
+            	<field name="description" position="attributes">
+            	   <attribute name="required">True</attribute>
+            	</field>
+            	<field name="description_purchase" position="attributes">
+                   <attribute name="required">True</attribute>
+                </field>
+            	
+            	</data>
+          </field>
+            	
+            </record>
+            
+           
+      </data>
+ </openerp>

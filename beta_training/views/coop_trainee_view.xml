@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- Applicants -->
+        <record model="ir.ui.view" id="coop_trainee_tree_view">
+            <field name="name">Coop Trainee</field>
+            <field name="model">coop.trainee</field>
+            <field name="arch" type="xml">
+                <tree string="Coop Trainee">
+                    <field name="name"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="training_start_date"/>
+                    <field name="training_end_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="coop_trainee_form_view">
+            <field name="name">Coop Trainee</field>
+            <field name="model">coop.trainee</field>
+            <field name="arch" type="xml">
+                <form string="Coop Trainee">
+                    <sheet>
+                        <div class="oe_right oe_button_box">
+                            <button name="od_open_attachement"
+                                    class="oe_stat_button"
+                                    icon="fa-book"
+                                    type="object">
+                                <field name="od_attachement_count" widget="statinfo" string="Documents"/>
+                            </button>
+                        </div>
+
+                        <field name="image_medium" widget='image' class="oe_left oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Personal Information">
+                                <field name="birthday"/>
+                                <field name="identification_id"/>
+                                <field name="mobile_phone"/>
+                                <field name="personal_email" widget="email"/>
+                                <field name="national_address"/>
+                                <field name="marital_status"/>
+                                <field name="country_id" options='{"no_open": True, "no_create": True}'/>
+                                <field name="active"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                            <group string="Training Information">
+                                <field name="responsible_user_id"/>
+                                <field name="profession" required="1"/>
+                                <field name="training_location" required="1"/>
+                                <field name="training_type" required="1"/>
+                                <field name="training_start_date" required="1"/>
+                                <field name="training_end_date" required="1"/>
+                                <field name="training_duration" required="1"/>
+                                <label for="stipend_amount"/>
+                                <div>
+                                    <field name="stipend_amount" class="oe_inline"/>
+                                </div>
+                            </group>
+                        </group>
+                        <separator string="Notes"/>
+                            <field name="description" placeholder="Additional Notes..."/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="coop_trainee_kanban_view">
+            <field name="name">Coop Trainee Kanban</field>
+            <field name="model">coop.trainee</field>
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="message_is_follower"/>
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_employee_vignette">
+                                <div class="oe_employee_image">
+                                    <a type="open">
+                                        <img t-att-src="kanban_image('coop.trainee', 'image_medium', record.id.value)"
+                                             class="oe_employee_picture"/>
+                                    </a>
+                                </div>
+                                <div class="oe_employee_details">
+                                    <h4>
+                                        <a type="open">
+                                            <field name="name"/>
+                                        </a>
+                                    </h4>
+                                    <ul>
+                                        <li t-if="record.personal_email.raw_value">
+                                            <a t-attf-href="mailto:#{record.personal_email.value}">
+                                                <field name="personal_email"/>
+                                            </a>
+                                        </li>
+                                        <h4>Cell Phone:
+                                            <field name="mobile_phone"/>
+                                        </h4>
+                                        <h4 style="color:grey">Training Start Date:
+                                            <field name="training_start_date"/>
+                                        </h4>
+                                        <div style="color:red">
+                                            Training End Date :
+                                            <field name="training_end_date"/>
+                                        </div>
+
+                                    </ul>
+                                    <div class="oe_kanban_footer_left">
+                                        <span title="Messages">
+                                            <span class="oe_e">9</span>
+                                            <t t-esc="record.message_ids.raw_value.length"/>
+                                        </span>
+                                        <span title="Followers">
+                                            <span class="oe_e">+</span>
+                                            <t t-esc="record.message_follower_ids.raw_value.length"/>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <script>
+                                $('.oe_employee_picture').load(function() { if($(this).width() &gt; $(this).height()) {
+                                $(this).addClass('oe_employee_picture_wide') } });
+                            </script>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <!--<record model="ir.ui.view" id="coop_trainee_search">
+            <field name="name">Coop Trainee search view</field>
+            <field name="model">coop.trainee</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <group expand="0" string="Group By" colspan="16">
+                        <filter string="Customer" context="{'group_by':'customer_id'}"/>
+                        <filter string="Project Manager" context="{'group_by':'proj_manager'}"/>
+                        <filter string="Contract End Month" context="{'group_by':'end_date:month'}"/>
+                        <filter string="Contract End Quarter" context="{'group_by':'end_date:quarter'}"/>
+                        <filter string="Contract End Year" context="{'group_by':'end_date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>-->
+
+
+        <record model="ir.actions.act_window" id="action_view_coop_trainee">
+            <field name="name">Coop Trainee</field>
+            <field name="res_model">coop.trainee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to Create a Coop Trainee
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_coop_trainee_main" name="Coop Trainees"
+                  parent="menu_training" sequence="4"
+        />
+
+        <menuitem id="menu_coop_trainee" name="Trainees"
+                  parent="menu_coop_trainee_main" action="action_view_coop_trainee"/>
+
+
+    </data>
+</openerp>

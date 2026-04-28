@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_hrms_provision_beta_tree" model="ir.ui.view">
+            <field name="name">od.hrms.provision.beta.tree</field>
+            <field name="model">od.hrms.provision.beta</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Provision Report" create="false">
+                    <field name="employee_id"/>
+                    <field name="address_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="period"/>
+                    <field name="od_joining_date" />
+                    <field name="identification"/>
+                    <field name="department_id"/>
+                    <field name="gross_salary"/>
+
+
+                     <field name="basic"/>
+
+
+
+
+                    <field name="days_in_month"/>
+                    <field name="working_days"/>
+                    
+                     <field name="other_allowance"/>
+                    <field name="leave_provision"/>
+                    <field name="gratuvity_provision"/>
+					 <field name="total_gratuvity_provision"/>
+
+
+                </tree>
+            </field>
+        </record>
+        <record id="od_hrms_provision_beta_search" model="ir.ui.view">
+            <field name="name">od.hrms.provision.beta.search</field>
+            <field name="model">od.hrms.provision.beta</field>
+            <field name="arch" type="xml">
+                <search string="Provision Report">
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Employee" icon="terp-personal" name="odemployee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Department" icon="terp-personal" name="odde_id" context="{'group_by':'department_id'}"/>
+
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_hrms_provision_beta_graph">
+            <field name="name">od.hrms.provision.beta.graph</field>
+            <field name="model">od.hrms.provision.beta</field>
+            <field name="arch" type="xml">
+                <graph string="Provision Report" type="bar">
+                      <field name="address_id"/>
+                    <field name="employee_id"/>
+                    <field name="identification" type="measure"/>
+
+                              <field name="basic" type="measure"/>
+                <field name="gross_salary" type="measure"/>
+<field name="days_in_month" type="measure"/>
+                     <field name="od_joining_date" />
+
+               <field name="working_days" type="measure"/>
+                    <field name="leave_provision" type="measure"/>
+                     <field name="other_allowance" type="measure"/>
+                    <field name="gratuvity_provision" type="measure"/>
+                     <field name="total_gratuvity_provision" type="measure"/>
+
+
+
+
+
+
+
+
+
+
+
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_hrms_provision_beta_graph" model="ir.actions.act_window">
+            <field name="name">Provision Report</field>
+            <field name="res_model">od.hrms.provision.beta</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_hrms_provision_beta_search"/>
+            <field name="view_id" ref="od_hrms_provision_beta_graph"/>
+<!--            <field name="context">{'search_default_odemployee_id':1}</field>-->
+            <field name="help">This report Provision Report.</field>
+        </record>
+        <menuitem parent="hr.menu_hr_reporting" action="action_od_hrms_provision_beta_graph" id="menu_action_od_hrms_provision_beta_graph" sequence="5"/>
+    </data>
+</openerp>

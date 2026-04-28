@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+
+
+        <record id="od_landed_cost_tree_inheriting_view" model="ir.ui.view">
+            <field name="name">stock.landed.cost.tree</field>
+            <field name="model">stock.landed.cost</field>
+            <field eval="12" name="priority"/>
+            <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="od_final_cost"/>
+                </field>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <record id='od_view_stock_landed_cost_limited_form' model='ir.ui.view'>
+            <field name="name">stock.landed.cost.form</field>
+            <field name="model">stock.landed.cost</field>
+            <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+            <field name="arch" type="xml">
+
+          <!--
+               <xpath expr="//field[@name='picking_ids']" position="attributes">
+                     <attribute name="widget">many2one</attribute>
+                     <attribute name="on_change">onchange_picking_ids(picking_ids)</attribute>
+                </xpath>
+               -->
+               <field name="picking_ids" position="attributes">
+                    <attribute name="required">True</attribute>
+               </field>
+              <xpath expr="//field[@name='picking_ids']" position="after">
+                    <field name='od_shipment_number' />
+                    <field name="od_airway_bill_no"/>
+                    <field name='od_partner_id' />
+                    <field name="od_company_id"/>
+
+
+
+<!--                        <group>-->
+
+<!--                        </group>-->
+                </xpath>
+
+               <xpath expr="//field[@name='cost_lines']/tree/field[@name='account_id']" position="before">
+                    <field name="od_partner_id"/>
+                </xpath>
+
+
+
+                <field name="valuation_adjustment_lines" position="replace">
+                    <notebook>
+                        <page string="Landed Cost">
+                            <field name="od_valuation_adjustment_limited_lines" nolabel="1" >
+                                <tree string="Valuation Adjustments" editable="bottom" create="0">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="cost" sum="Total"/>
+                                    <field name="cost_per_unit"/>
+                                </tree>
+                            </field>
+
+
+<!--                        <group class="oe_subtotal_footer oe_right">-->
+<!--                            <field name="od_final_cost" />-->
+<!--                        </group> -->
+
+
+<!--                            <group class="oe_subtotal_footer oe_right" colspan="2" name="final cost">-->
+<!--                    -->
+<!--                                <div class="oe_subtotal_footer_separator oe_inline">-->
+<!--                                    <label for="od_final_cost" />-->
+<!--                                    <button name="od_final_cost_generate"-->
+<!--                                        string="(update)" type="object" class="oe_edit_only oe_link"/>-->
+<!--                                </div>-->
+<!--                                <field name="od_final_cost" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' attrs="{'readonly': [('state', '=', 'done')]}"/>-->
+<!--                            </group>-->
+                        </page>
+
+
+
+
+<!-- <group class="oe_subtotal_footer oe_right" colspan="2" name="final cost">-->
+<!--                                <field name="od_final_cost" widget='monetary'/>-->
+<!--                            </group>-->
+
+
+
+
+
+
+                        <page string="Detailed">
+                            <button name="od_re_disribute" string="Recalculate" type="object" class="oe_link"/>
+                            <field name="valuation_adjustment_lines" nolabel="1">
+                                <form string="Valuation Adjustments">
+                                    <group>
+                                        <group>
+                                            <field name="product_id"/>
+                                            <field name="quantity"/>
+                                        </group>
+                                        <group>
+                                            <field name="former_cost"/>
+                                            <field name="additional_landed_cost"/>
+                                        </group>
+                                    </group>
+                                </form>
+                                <tree string="Valuation Adjustments" editable="bottom" create="0">
+                                    <field name="cost_line_id" readonly="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="od_partner_id"/>
+                                    <field name="weight" readonly="1"/>
+                                    <field name="volume" readonly="1"/>
+                                    <field name="quantity" readonly="1"/>
+                                    <field name="former_cost_per_unit" readonly="1"/>
+                                    <field name="former_cost" readonly="1"/>
+                                    <field name="additional_landed_cost" sum="Total"/>
+                                    <button name="od_get_move_cost" string="Show Cost" type="object" icon="gtk-print" />
+                                </tree>
+                            </field>
+
+                        </page>
+                    </notebook>
+
+                </field>
+
+            </field>
+        </record>
+
+        <record id="view_od_bill_of_entry_wh_landed_cost_internal_search" model="ir.ui.view">
+            <field name="name">stock.picking.internals.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="od_shipment_no"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="view_od_bill_of_entry_wh_landed_picking_form" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field eval="12" name="priority"/>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="od_shipment_no"/>
+                </field>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </data>
+</openerp>

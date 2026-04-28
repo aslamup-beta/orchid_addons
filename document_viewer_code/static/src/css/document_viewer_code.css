@@ -1,0 +1,21 @@
+.openerp .o_sidebar_viewer_code_item{
+    cursor: pointer !important;
+    position: absolute;
+    top: 4px;
+    right: 20px;
+}
+
+.openerp .o_sidebar_viewer_code_item:hover{
+    color: #fff;
+    background-color: #8786b7;
+}
+
+.modal .o_document_viewer_code{
+    margin: -15px;
+}
+
+.modal .o_document_viewer_code pre{
+    padding: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+}

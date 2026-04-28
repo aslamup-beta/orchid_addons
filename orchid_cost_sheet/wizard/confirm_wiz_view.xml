@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_confirm_form" model="ir.ui.view">
+            <field name="name">Confirm Return</field>
+            <field name="model">confirm.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Confirm" >
+                
+                <group string="Are you sure you want to Return the cost sheet?, if Yes, Pls mention the reason:">
+						<field name="reason" required="1"/>
+						
+                      </group>
+                      <group>
+<!--                     <label colspan="4" width="500" -->
+<!--                            string="Are you sure you want to Return the cost sheet?"/> -->
+                    <newline/>
+                </group>
+                <footer>
+                  <button name="btn_yes" string="Yes" type="object" class="oe_highlight"/>
+                    or
+                  <button string="No" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_confirm_action" model="ir.actions.act_window">
+            <field name="name">Confirm Return</field>
+            <field name="res_model">confirm.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

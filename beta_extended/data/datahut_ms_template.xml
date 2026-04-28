@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+
+        <record id="od_subscription_dates_entry" model="email.template">
+            <field name="name">UAE - Subscription Dates Entry</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Subscription Dates Entry - Data Hut Managed Services</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mamoun.daour@betait.net,sami.nazzal@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.reviewed_id.name},</p>
+	             	<p>Kindly fill out the start and end dates of the product subscription in the cost sheet column - MS TAB.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Cost Sheet No: ${object.number}</li>
+	                    	<li>Cost Sheet Name: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+	                    </ul>    		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_od_subscription_dates_entry_saudi" model="email.template">
+            <field name="name">KSA - Subscription Dates Entry</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Subscription Dates Entry - Data Hut Managed Services</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mahmoud.alkhatib@betait.net,yazan.abukhalil@betait.net,ahmed.siddiqui@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="body_html"><![CDATA[
+	          <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.reviewed_id.name},</p>
+	             	<p>Kindly fill out the start and end dates of the product subscription in the cost sheet column - MS TAB.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Cost Sheet No: ${object.number}</li>
+	                    	<li>Cost Sheet Name: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+	                    </ul>    		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_subscription_expiry_reminders_one_month" model="email.template">
+            <field name="name">UAE - Subscription Expiry Reminders 30 Days</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Subscription Expiry Reminder 30 Days - Data Hut Managed Services</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mamoun.daour@betait.net,sami.nazzal@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.reviewed_id.name},</p>
+	             	<p>This is a reminder regarding the expiry of Data Hut managed services. The service will expire after 30 days. Please take the required actions. If already renewed, please ignore this email.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Cost Sheet No: ${object.number}</li>
+	                    	<li>Cost Sheet Name: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+	                    </ul>    		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_subscription_expiry_reminders_one_month_saudi" model="email.template">
+            <field name="name">KSA - Subscription Expiry Reminders 30 Days</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Subscription Expiry Reminder 30 Days - Data Hut Managed Services</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mahmoud.alkhatib@betait.net,yazan.abukhalil@betait.net,ahmed.siddiqui@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="body_html"><![CDATA[
+	          <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.reviewed_id.name},</p>
+	             	<p>This is a reminder regarding the expiry of Data Hut managed services. The service will expire after 30 days. Please take the required actions. If already renewed, please ignore this email.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Cost Sheet No: ${object.number}</li>
+	                    	<li>Cost Sheet Name: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+	                    </ul>    		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_subscription_expiry_reminders_one_week" model="email.template">
+            <field name="name">UAE - Subscription Expiry Reminders 7 Days</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Subscription Expiry Reminder 7 Days - Data Hut Managed Services</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mamoun.daour@betait.net,sami.nazzal@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.reviewed_id.name},</p>
+	             	<p>This is a reminder regarding the expiry of Data Hut managed services. The service will expire after 7 days. Please take the required actions. If already renewed, please ignore this email.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Cost Sheet No: ${object.number}</li>
+	                    	<li>Cost Sheet Name: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_subscription_expiry_reminders_one_week_saudi" model="email.template">
+            <field name="name">KSA - Subscription Expiry Reminders 7 Days</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Subscription Expiry Reminder 7 Days - Data Hut Managed Services</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mahmoud.alkhatib@betait.net,yazan.abukhalil@betait.net,ahmed.siddiqui@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="body_html"><![CDATA[
+	          <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.reviewed_id.name},</p>
+	             	<p>This is a reminder regarding the expiry of Data Hut managed services. The service will expire after 7 days. Please take the required actions. If already renewed, please ignore this email.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Cost Sheet No: ${object.number}</li>
+	                    	<li>Cost Sheet Name: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_subscription_expiry_reminders_today" model="email.template">
+            <field name="name">UAE - Subscription Expiry Reminders Today</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Subscription Expiry Reminder Today - Data Hut Managed Services</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mamoun.daour@betait.net,sami.nazzal@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.reviewed_id.name},</p>
+	             	<p>This is a reminder regarding the expiry of Data Hut managed services. The service will expire today. Please take the required actions. If already renewed, please ignore this email.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Cost Sheet No: ${object.number}</li>
+	                    	<li>Cost Sheet Name: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_subscription_expiry_reminders_today_saudi" model="email.template">
+            <field name="name">KSA - Subscription Expiry Reminders Today</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Subscription Expiry Reminder Today - Data Hut Managed Services</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mahmoud.alkhatib@betait.net,yazan.abukhalil@betait.net,ahmed.siddiqui@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="body_html"><![CDATA[
+	          <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.reviewed_id.name},</p>
+	             	<p>This is a reminder regarding the expiry of Data Hut managed services. The service will expire today. Please take the required actions. If already renewed, please ignore this email.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Cost Sheet No: ${object.number}</li>
+	                    	<li>Cost Sheet Name: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
+

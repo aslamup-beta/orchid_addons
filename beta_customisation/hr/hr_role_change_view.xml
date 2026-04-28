@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	    <record model="ir.ui.view" id="view_beta_role_change_tree_view">
+	        <field name="name">od.beta.role.change.form</field>
+	        <field name="model">od.beta.role.change.form</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	            	<field name="employee_id"/>
+	            	<field name="job_id"/>
+	            	<field name="state"/>
+	            </tree>
+	       </field>
+	    </record>
+	    
+        <record id="beta_role_change_form_view" model="ir.ui.view">
+            <field name="name">od.beta.role.change.form.form</field>
+            <field name="model">od.beta.role.change.form</field>
+            <field name="arch" type="xml">
+            <form string="Employee Role Change Form" version="7.0">
+            <header>
+				<button name="first_approval" type="object" class="oe_highlight" string="Approve" attrs="{'invisible':[('state', '!=', 'approval1')]}"/>
+				<button name="refuse" type="object" string="Refuse" attrs="{'invisible': [('state', '!=', 'approval1')]}"/>
+                <field name="state" widget="statusbar" />
+            </header>
+            	<sheet>
+	    			<div class="oe_title">
+	                    <label for="employee_id" class="oe_edit_only"/>
+	                    <h1>
+	                        <field name="employee_id" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                    </h1>
+	                </div>
+                <group>
+	               <group string="Current">
+		               <field name="job_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		               <field name="department_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		               <field name="parent_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		               <field name="coach_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		               <field name="branch_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		               <field name="tech_dept_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		               <field name="cost_centre_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		               <field name="manager1_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                   <field name="manager2_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		               
+	               </group>	
+	               <group string="Change To">
+	               		<field name="n_job_id" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		                <field name="n_department_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		               	<field name="n_parent_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		              	<field name="n_coach_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		                <field name="n_branch_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		                <field name="n_tech_dept_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		                <field name="n_cost_centre_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+		                <field name="n_manager1_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                    <field name="n_manager2_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	        			</group>              
+                </group>
+                	<div>
+	                    <label for="notes"/>
+	                    <field name="notes" placeholder="Notes.." attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                </div>
+               </sheet>
+            	<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+         </record>
+         
+	     <record model="ir.actions.act_window" id="action_od_beta_role_change_form">
+	        <field name="name">Role Change</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">od.beta.role.change.form</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	         <field name="help" type="html">
+	          <p class="oe_view_nocontent_create">
+	            Click to Create a Role Change for Existing Employee.
+	          </p>
+	        </field>
+	    </record>
+    
+     <menuitem id="od_menu_beta_role_change_form" name="Beta IT Role Change" action="action_od_beta_role_change_form" parent="orchid_hrms.menu_od_hr_documents" sequence="2"/>
+    
+    
+    </data>
+</openerp>

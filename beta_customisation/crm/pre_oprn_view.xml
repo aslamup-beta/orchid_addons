@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	    <record model="ir.ui.view" id="view_pre_oprn_logs_tree_view">
+	        <field name="name">od.pre_opr.log.tree</field>
+	        <field name="model">od.pre_opr.log</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	            	<field name="opp_id"/>
+	            	<field name="cancel_date"/>
+	            	<field name="cancel_by"/>
+	            	<field name="sam_id"/>
+	            	<field name="amount"/>
+	            </tree>
+	       </field>
+	    </record>
+	    
+	    <record id="view_pre_oprn_logs_search" model="ir.ui.view">
+            <field name="name">Pre-Opreration Logs - Search</field>
+            <field name="model">od.pre_opr.log</field>
+            <field name="arch" type="xml">
+                <search string="Salesteams Search">
+                    <field name="opp_id"/>
+                    <field name="sam_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Sales Person" name="sam" domain="[]" context="{'group_by':'sam_id'}"/>
+                        <filter string="Opportunity" domain="[]" context="{'group_by':'opp_id'}"/>
+                         <filter string="Cancel Month" context="{'group_by':'cancel_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+         
+	     <record model="ir.actions.act_window" id="action_od_pre_operation_log_view">
+	        <field name="name">Pre-Operation Logs</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">od.pre_opr.log</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree</field>
+	        <field name="context">{'search_default_sam': True} </field>
+	         <field name="help" type="html">
+	          <p class="oe_view_nocontent_create">
+	            Pre-Operations Logs
+	          </p>
+	        </field>
+	    </record>
+    
+     <menuitem id="menu_od_pre_operation_log_view" name="Cancelled Opportunities" action="action_od_pre_operation_log_view" parent="base.menu_sales" sequence="200"/>
+    
+    
+    </data>
+</openerp>

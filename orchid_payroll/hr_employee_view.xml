@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+
+   <record id="od_employee_master_ide_inherit" model="ir.ui.view">
+            <field name="name">hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="identification_id" position="after">
+                    <field name="od_identification_no"/>
+                </field>
+
+            <div class="oe_right oe_button_box" position="inside">
+
+
+            <button name="action_open_airfare" type="object" string="Airfare" class="oe_inline oe_stat_button" icon="fa-strikethrough">
+                                       <field name="od_airfare_count" widget="statinfo" nolabel="1"/>
+
+            </button>
+
+
+            </div>
+
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+    </data>
+</openerp>

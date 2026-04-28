@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!--<od.cost.branch form>-->
+        <record id="od_view_partner_form_inherit1" model="ir.ui.view">
+            <field name="name">Partner Form inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+	        	<field name="employee" position="after">
+	            	<field name="named_account" readonly="1" invisible="1"/>
+	            	<field name="parent_supplier" invisible="1"/>
+	            	<field name="parent_class" invisible="1"/>
+	            	<field name="parent_sam" invisible="1"/>
+	            	<field name="parent_territory" invisible="1"/>
+	            	<field name="parent_industry" invisible="1"/>
+	        	</field>
+	        	
+	        	<xpath expr="//div[2]" position="after">
+                  <label for="od_class" string="CLASS" attrs="{'invisible': [('is_company','=', False)]}"/>
+                    <field name="od_class" style="width:30%" attrs="{'invisible': [('is_company','=', False)]}"/>
+              	</xpath>
+              	
+              	<field name="website" position="before">
+
+						<field name="district" groups="orchid_beta.group_beta_finance_manger_acc"/>
+						<field name="od_building_no" groups="orchid_beta.group_beta_finance_manger_acc"/>
+						<field name="od_additional_no"  string="Secondary No." groups="orchid_beta.group_beta_finance_manger_acc"/>
+
+						<field name="buyer_identification" groups="orchid_beta.group_beta_finance_manger_acc"/>
+						<field name="od_other_buyer_id" groups="orchid_beta.group_beta_finance_manger_acc" attrs="{'required': [('buyer_identification', 'not in', [None, False, ''])]}"/>
+						<field name="od_cr_no" groups="orchid_beta.group_beta_finance_manger_acc"/>
+
+              	</field>
+
+
+            
+           </field>
+        </record>
+
+		
+    </data>
+</openerp>
+

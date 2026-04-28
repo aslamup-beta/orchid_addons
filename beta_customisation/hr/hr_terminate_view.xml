@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_beta_terminate_tree_view">
+            <field name="name">od.beta.terminate.form.tree</field>
+            <field name="model">od.beta.terminate.form</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="job_id"/>
+                    <field name="last_day_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="beta_terminate_form_view" model="ir.ui.view">
+            <field name="name">od.beta.terminate.form.form</field>
+            <field name="model">od.beta.terminate.form</field>
+            <field name="arch" type="xml">
+                <form string="Employee Terminating Form">
+                    <header>
+                        <button name="submit" type="object" string="Submit"
+                                attrs="{'invisible':[('state', '!=', 'draft')]}"/>
+                        <!-- 				<button name="first_approval" type="object" class="oe_highlight" string="First Approval" attrs="{'invisible':[('state', '!=', 'approval1')]}"/> -->
+                        <button name="finance_approval" type="object" class="oe_highlight" string="Finance Approval"
+                                groups="__export__.res_groups_200,__export__.res_groups_229"
+                                attrs="{'invisible':[('state', '!=', 'approval2')]}"/>
+                        <button name="it_approval" type="object" class="oe_highlight" string="IT Dept. Approval"
+                                attrs="{'invisible':[('state', '!=', 'approval4')]}"/>
+                        <button name="action_cs_approval" type="object" class="oe_highlight"
+                                string="Cyber Security Approval"
+                                attrs="{'invisible':[('state', '!=', 'cs_approval')]}"/>
+                        <button name="action_return" type="object" class="oe_highlight" string="Return"
+                                attrs="{'invisible':[('state', '!=', 'cs_approval')]}"/>
+                        <button name="action_notify_bank" type="object" string="Notify Bank" class="oe_highlight"
+                                attrs="{'invisible':['|',('notified_bank','=',True),('state', 'not in', 'notify_bank')]}"
+                                groups="orchid_beta.group_beta_workers,base.group_hr_manager"/>
+                        <button name="skip_notify_bank" type="object" string="Skip Notifying Bank"
+                                attrs="{'invisible':['|',('notified_bank','=',True),('state', 'not in', 'notify_bank')]}"
+                                groups="orchid_beta.group_beta_workers,base.group_hr_manager"/>
+                        <button name="second_approval" type="object" class="oe_highlight" string="GM Approval"
+                                groups="__export__.res_groups_188"
+                                attrs="{'invisible':[('state', '!=', 'approval3')]}"/>
+                        <button name="hr_approval" type="object" class="oe_highlight" string="HR Approval"
+                                groups="__export__.res_groups_200,__export__.res_groups_245"
+                                attrs="{'invisible':[('state', '!=', 'approval5')]}"/>
+                        <button name="sent_clearance_to_bank" type="object" string="Send Clearance to Bank"
+                                attrs="{'invisible':['|','|',('notified_bank','=',False),('clearance_sent_to_bank','=',True),('state', 'not in', 'confirm')]}"
+                                groups="orchid_beta.group_beta_workers,base.group_hr_manager,__export__.res_groups_229"/>
+                        <button name="refuse" type="object" string="Refuse"
+                                attrs="{'invisible': [('state', 'not in', ['approval2', 'approval3','approval5'])]}"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,approval1,approval2,approval3,approval5,approval4,cs_approval,confirm"
+                               statusbar_colors='{"approve":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="employee_id" class="oe_edit_only"/>
+                            <h1>
+                                <field name="employee_id" required="1"
+                                       attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="job_id"/>
+                                <field name="department_id"/>
+                                <field name="branch_id"/>
+                                <field name="tech_dept_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="force_majure" attrs="{'invisible':[('company_id', '!=', 6)]}"/>
+                            </group>
+                            <group>
+                                <field name="term_date" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                <field name="last_day_date" required="1"
+                                       attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                <field name="manager1_id" required="1"/>
+                                <field name="manager2_id" required="0" invisible="1"/>
+                            </group>
+                        </group>
+                        <div>
+                            <label for="reason"/>
+                            <field name="reason" placeholder="Reason for Termination" required="1"/>
+                        </div>
+
+                        <notebook>
+
+
+                            <page string="Clearance Form">
+                                <group>
+                                    <group>
+                                        <field name="staff_no" required="1"/>
+                                        <field name="profession"/>
+                                        <field name="overtime_hrs"/>
+                                    </group>
+
+
+                                </group>
+                                <group>
+                                    <label colspan="4" width="500"
+                                           string="He has handed over all liabilities, and we have no objection in allowing the above person
+					                  to cancel or transfer the visa."/>
+                                    <field name="bank_clearnce" widget="radio"/>
+
+                                </group>
+                                <div>
+                                    <field name="notes" placeholder="Remarks Form Accounts and Admin Dept.."/>
+
+                                </div>
+
+                                <group col="3">
+
+                                    <group>
+                                        <field name="approved_by" readonly="1"/>
+                                        <field name="approved_date" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="fin_approved_by" readonly="1"/>
+                                        <field name="fin_approved_date" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="it_approved_by" readonly="1"
+                                               attrs="{'invisible':[('company_id', '!=', 6)]}"/>
+                                        <field name="it_approved_date" readonly="1"
+                                               attrs="{'invisible':[('company_id', '!=', 6)]}"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <group>
+                                        <field name="gm_approved_by" readonly="1"/>
+                                        <field name="gm_approved_date" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="hr_approved_by" readonly="1"/>
+                                        <field name="hr_approved_date" readonly="1"/>
+                                    </group>
+                                </group>
+
+                            </page>
+
+                            <page string='Cyber Security Clearance'>
+                                <table style="width:100%" class="table table-striped">
+                                    <thead>
+                                        <th>Feedbacks</th>
+                                        <!-- 									<th>Manager Comments</th> -->
+                                        <th>Cyber Security Comments</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Email Address Disabled?</td>
+                                            <!-- 										<td> -->
+                                            <!-- 											<field name="m_form_cmd_id" attrs="{'readonly':[('state', '!=', 'manager')]}"/> -->
+                                            <!-- 										</td> -->
+                                            <td>
+                                                <field name="cs_feedback_1"
+                                                       attrs="{'readonly':[('state', '!=', 'cs_approval')]}"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Azure Active Directory User Disabled?</td>
+                                            <!-- 										<td> -->
+                                            <!-- 											<field name="m_bank_cmd_id" attrs="{'readonly':[('state', '!=', 'manager')]}"/> -->
+                                            <!-- 										</td> -->
+                                            <td>
+                                                <field name="cs_feedback_2"
+                                                       attrs="{'readonly':[('state', '!=', 'cs_approval')]}"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Laptop Formatted (Sanitized)?</td>
+                                            <!-- 										<td> -->
+                                            <!-- 											<field name="m_salary_cmd_id" attrs="{'readonly':[('state', '!=', 'manager')]}"/> -->
+                                            <!-- 										</td> -->
+                                            <td>
+                                                <field name="cs_feedback_3"
+                                                       attrs="{'readonly':[('state', '!=', 'cs_approval')]}"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Physical Access Revoked</td>
+                                            <td>
+                                                <field name="cs_feedback_4"
+                                                       attrs="{'readonly':[('state', '!=', 'cs_approval')]}"/>
+                                            </td>
+                                        </tr>
+
+                                        <tr attrs="{'invisible':[('cs_feedback_1', '=', 2)]}">
+                                            <td>Lab Access Revoked</td>
+                                            <td>
+                                                <field name="cs_feedback_5"
+                                                       attrs="{'readonly':[('state', '!=', 'cs_approval')]}"/>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </page>
+
+                            <page string="Final Settlement">
+                                <group>
+                                    <group>
+                                        <field name="joining_date" readonly="1"/>
+                                        <field name="years_of_service"/>
+                                        <field name="unpaid_days"/>
+                                        <field name="final_years_of_service"/>
+                                        <field name="gratuvity"/>
+                                        <field name="leave_pending"/>
+                                        <field name="leave_salary_amount"/>
+                                        <field name="is_manual_leave_salary_amount"
+                                               attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                        <field name="man_leave_salary_amount"
+                                               attrs="{'invisible':[('is_manual_leave_salary_amount', '!=', True)], 'required':[('is_manual_leave_salary_amount', '=', True)]}"/>
+                                        <field name="final_settlement"/>
+                                        <field name="amount_to_pay"/>
+                                    </group>
+                                    <group>
+                                        <field name="has_pending_salary"
+                                               attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                        <field name="date_start"
+                                               attrs="{'invisible':[('has_pending_salary', '!=', True)], 'required':[('has_pending_salary', '=', True)]}"/>
+                                        <field name="date_end"
+                                               attrs="{'invisible':[('has_pending_salary', '!=', True)], 'required':[('has_pending_salary', '=', True)]}"/>
+                                        <field name="pending_salary"
+                                               attrs="{'invisible':[('has_pending_salary', '!=', True)], 'required':[('has_pending_salary', '=', True)]}"/>
+                                        <field name="is_manual_pending_salary"
+                                               attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                        <field name="man_pending_salary"
+                                               attrs="{'invisible':[('is_manual_pending_salary', '!=', True)], 'required':[('is_manual_pending_salary', '=', True)]}"/>
+                                        <field name="other_payment" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                        <field name="other_deduction" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                                        <field name="basic_salary" invisible="1"/>
+                                        <field name="allowance" invisible="1"/>
+                                        <field name="final_grat" invisible="1"/>
+                                    </group>
+
+                                </group>
+                            </page>
+
+                            <page string="Bank Clearance"
+                                  groups="__export__.res_groups_229,orchid_beta.group_beta_workers,base.group_hr_manager"
+                                  attrs="{'invisible':[('company_id', '!=', 6)]}">
+                                <group>
+                                    <group>
+                                        <field name="bank_clearnce"/>
+                                        <field name="l_bank_id"/>
+                                        <field name="bank_email"/>
+
+
+                                    </group>
+                                    <group>
+                                        <field name="notified_bank" readonly="1"/>
+                                        <field name="clearance_sent_to_bank" readonly="1"/>
+
+
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Accounting" groups="__export__.res_groups_229"
+                                  attrs="{'invisible':[('state', 'not in', ('confirm','sent_clearance'))]}">
+                                <group string="Accounting Data">
+                                    <field name="account_move_id"/>
+                                </group>
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_od_beta_termination_form">
+            <field name="name">Termination</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">od.beta.terminate.form</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to Create a Termination.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="od_menu_beta_terminate_form" name="Beta IT Termination Form"
+                  action="action_od_beta_termination_form" parent="orchid_hrms.menu_od_hr_documents" sequence="1"/>
+
+
+    </data>
+</openerp>

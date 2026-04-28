@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="hr_contract_quarterly_form_view">
+            <field name="name">Quarterly Contracts Expiry List</field>
+            <field name="model">hr.contract.quarterly</field>
+            <field name="arch" type="xml">
+                <form string="Quarterly Contracts List">
+                    <sheet>
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                            </group>
+                            <!--<group>
+                                <field name="date_to"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>-->
+                        </group>
+                        <notebook>
+                            <page string="">
+                                <group string="Expiring Contracts List">
+                                    <field name="emp_contracts_line_ids" nolabel="1">
+                                        <tree colors="red:remaining_days &lt;= 30">
+                                            <field name="employee_id" invisible="1"/>
+                                            <field name="contract_id"/>
+                                            <button name="btn_open_contract" type="object" icon="STOCK_FIND" string="Open"/>
+                                            <field name="id_number"/>
+                                            <field name="start_date"/>
+                                            <field name="end_date"/>
+                                            <field name="remaining_days"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_contract_quarterly_tree">
+            <field name="name">hr.contract.quarterly.tree</field>
+            <field name="model">hr.contract.quarterly</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree string="Quarterly Contracts Expiry List">
+                    <field name="name"/>
+<!--                    <field name="date_from"/>-->
+<!--                    <field name="date_to"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_contract_quarterly_search_view">
+            <field name="name">hr.contract.quarterly.search.view</field>
+            <field name="model">hr.contract.quarterly</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Month" context="{'group_by': 'date_from:month'}"/>
+                        <filter string="Year" context="{'group_by': 'date_from:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_open_hr_contract_quarterly">
+            <field name="name">Quarterly Contracts Expiry List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.contract.quarterly</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new request.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Quarterly Contracts Expiry List" action="action_open_hr_contract_quarterly"
+                  parent="beta_extended.menu_hr_reporting"
+                  id="menu_open_hr_contract_quarterly" sequence="90"/>
+
+    </data>
+</openerp>

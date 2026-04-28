@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_expenses_tree_inheritted_beta" model="ir.ui.view">
+            <field name="name">hr.expense.treee.beta</field>
+            <field name="model">hr.expense.expense</field>
+            <field name="inherit_id" ref="hr_expense.view_expenses_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="od_payment_status" />
+                    <field name="od_payment_datetime" />
+                    <field name="od_paid_amount" />
+                </field>
+                
+            </field>
+        </record>
+
+        <record id="view_expenses_form_inheritted_beta" model="ir.ui.view">
+            <field name="name">hr.expense.form.beta</field>
+            <field name="model">hr.expense.expense</field>
+            <field name="inherit_id" ref="hr_expense.view_expenses_form"/>
+            <field name="arch" type="xml">
+                 <field name="currency_id" position="after">
+                     <field name="od_payment_status" groups="orchid_beta.group_beta_finance_manger_acc"/>
+                     <field name="od_payment_datetime" groups="orchid_beta.group_beta_finance_manger_acc"/>
+                     <field name="od_paid_amount" groups="orchid_beta.group_beta_finance_manger_acc"/>
+                 </field>
+                 
+                 <field name="company_id" position="after">
+                    <field name="od_expense_type" required="1"/>
+                    <field name="od_prj_mngr" context="{'project_manager':1}" attrs="{'required':[('od_expense_type', '=', 'project')], 'invisible':[('od_expense_type', '!=', 'project')]}"/>
+                    
+                </field>
+
+                 <xpath expr="/form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='analytic_account']" position="attributes">
+                     <attribute name="required">False</attribute>
+                </xpath>
+                 <xpath expr="/form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='analytic_account']" position="after">
+                     <field name="od_opp_id" domain="[('stage_id','not in',(6,7,8,13,2))]"/>
+                     <field name="od_brand_id"/>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='date_value']" position="after">
+                     <field name="date_value_to" />
+                     
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[@string='Accounting']" position="after">
+	                <page string="Log Date History" >
+	                	<group string="Log Date History">	
+	                       <field name="date_log_history_line" nolabel="1">
+								<tree>
+									<field name="name"/>
+									<field name="user_id"/>
+									<field name="date"/>
+								</tree>
+							</field>
+							</group>
+	                </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

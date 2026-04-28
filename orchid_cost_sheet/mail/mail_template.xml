@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+    <data noupdate="1">
+    
+       <record id="cst_sheet_pmo_mail" model="email.template">
+            <field name="name">Cost Sheet PMO Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Revenue Structure Ready for Finance Approval </field>
+           <!--  <field name="email_to">${object.finance_reviewer.email}</field> -->
+            <field name="email_to">finance@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear Team,</p>
+
+                    <p>Cost Sheet Revenue Structure Ready,Please Check It</p>
+
+                     <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+        
+        <record id="cst_sheet_pmo_mail_saudi" model="email.template">
+            <field name="name">Cost Sheet PMO Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Revenue Structure Ready for Finance Approval </field>
+           <!--  <field name="email_to">${object.finance_reviewer.email}</field> -->
+            <field name="email_to">finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear Team,</p>
+
+                    <p>Cost Sheet Revenue Structure Ready,Please Check It</p>
+
+                     <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+    
+     
+   
+    </data>
+  </openerp>
+ 

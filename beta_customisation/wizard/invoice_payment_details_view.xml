@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_inv_rpt_wizard" model="ir.ui.view">
+            <field name="name">Invoice Payment Report</field>
+            <field name="model">inv.pay.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+                     <group>
+                         <group>
+	                          <field name="date_start" />
+	                          <field name="date_end"/>
+                         </group>
+                    </group>
+                    <group><field name="cust_ids" widget="many2many_tags"/></group>
+                           		<group></group>
+                        	    <group></group>
+			                    
+                           
+                       
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" class="oe_highlight"/>
+                       
+<!--                         <button name="print_directly" string="Print" type="object" class="oe_highlight"/> -->
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="tree_view_inv_pay_detail">
+		<field name="name">inv.pay.rpt.data.line.tree</field>
+		<field name="model">inv.pay.rpt.data.line</field>
+		<field name="arch" type="xml">
+			<tree string="Invoice Payment Analysis Report">
+			<field name="company_id" invisible="1" />
+				<field name="partner_id"/>
+				<field name="inv_id" invisible="1"/>
+				<field name="name" />
+				<button name="btn_open_inv" type="object" icon="STOCK_FIND" string="Open" />
+				<field name="inv_amount" sum="Total"/>
+				<field name="invoice_date" />
+				<field name="pay_date" />
+			    <field name="age" />
+			</tree>
+		</field>
+	</record>
+	
+		<record model="ir.ui.view" id="inv_pay_analysis_search_view">
+		<field name="name">inv.pay.rpt.data.line.search</field>
+		<field name="model">inv.pay.rpt.data.line</field>
+		<field name="arch" type="xml">
+			<search>
+			<field name="name" />
+			<field name="partner_id" />
+				<group expand="1" string="Group By">
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+	
+        
+
+       
+
+        <record id="action_inv_payment_rpt_act" model="ir.actions.act_window">
+            <field name="name">Invoice Payment Report</field>
+            <field name="res_model">inv.pay.rpt.wiz</field>
+            <field name="view_mode">form</field>
+<!--             <field name="context">{'default_partner_id':cont}</field> -->
+            <field name="target">new</field>
+        </record>
+         
+        <menuitem
+			id="od_menu_inv_pay_rpt"
+			parent="account.menu_finance_reports"
+			sequence="206" 
+			action="action_inv_payment_rpt_act" />
+			
+			
+    </data>
+</openerp>

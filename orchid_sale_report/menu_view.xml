@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<menuitem action="action_od_so_register_report_view" id="menu_od_so_register" parent="base.next_id_64" sequence="8"/>
+<!--<menuitem action="action_od_so_po_document_analysis" id="od_so_po_document_analysis" parent="base.next_id_64" sequence="9"/>-->
+
+
+<!--<menuitem parent="base.next_id_64" action="action_od_sales_cost_view" id="menu_od_sales_view1" sequence="2"/>-->
+    </data>
+</openerp>

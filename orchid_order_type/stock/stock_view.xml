@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_picking_order_type_form" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="picking_type_id" position="after">
+                    <field name="od_order_type_id" on_change="onchange_order_type(od_order_type_id)"/>
+                    <field name="od_analytic_id"/>
+                    <field name="od_cost_sheet_id"/>
+                     <field name="od_cost_centre_id"/>
+                      <field name="od_branch_id"/>
+                       <field name="od_division_id"/>
+                </field>
+
+
+            </field>
+        </record>
+
+
+        <record id="ordertype_procurement_group_form_view" model="ir.ui.view">
+            <field name="name">procurement.group.form</field>
+            <field name="model">procurement.group</field>
+            <field name="inherit_id" ref="procurement.procurement_group_form_view"/>
+            <field name="arch" type="xml">
+                <field name="move_type" position="after">
+                    <field name="od_order_type_id"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="ordertype_view_move_picking_form" model="ir.ui.view">
+            <field name="name">stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_form" />
+            <field name="arch" type="xml">
+                <field name="date_expected" position="after">
+                    <field name="od_order_type_id"/>
+                </field>
+            </field>
+
+        </record>
+
+
+    </data>
+</openerp>

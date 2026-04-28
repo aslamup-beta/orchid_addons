@@ -1,0 +1,8 @@
+<openerp>
+    <data>
+
+		<menuitem name="Orchid_attachement" id="orchid_attachement_menu_root" />
+		<menuitem name="Orchid_attachement Menu" id="orchid_attachement_menu_general" parent="orchid_attachement_menu_root" />
+
+    </data>
+</openerp>

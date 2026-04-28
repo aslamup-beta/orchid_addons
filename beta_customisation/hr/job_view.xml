@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="od_hr_job_beta" model="ir.ui.view">
+	        <field name="name">hr.job.beta</field>
+	        <field name="model">hr.job</field>
+	        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+	        <field name="arch" type="xml">
+	      	    <xpath expr="//form/sheet" position="inside">
+	      	       <notebook>
+		      	        <page string="User Group Permissions">
+		      	          <group>
+		      	              <group>
+		      	                 <field name="audit_temp_id" />
+		      	              </group>
+		      	          </group>
+		      	         <field name="groups_id" />
+		      	        </page>
+	      	       </notebook>
+	      	    </xpath>
+	        </field>
+        </record>
+    </data>
+</openerp>

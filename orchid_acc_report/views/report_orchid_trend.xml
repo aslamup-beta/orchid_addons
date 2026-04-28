@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="orchid_acc_report.report_orchid_trend">
+        <t t-foreach="docs" t-as="o">
+           	      <div class="page">
+                     	<!-- <span t-esc="get_lines(data)"/>
+                     	dddddddddddddddddddddddddd
+                     	<span t-esc="get_period_name(data)"/> -->
+	<div class="row" style="background-color:#1E90FF">
+				<font color="white"><h1>Trend Analysis</h1><br/></font>
+	</div>
+	<h3><font color="#1E90FF">
+                   <t t-if="data['group_by']=='ledger'"><strong>Ledger</strong></t> 
+  <t t-if="data['group_by']=='partner'"><strong>Partner</strong></t> 
+  <t t-if="data['group_by']=='analytic'"><strong>Analytic</strong></t> 
+  <t t-if="data['group_by']=='costcentre'"><strong>Cost Centre</strong></t>  - Wise </font></h3>
+                       
+				<table class="table table-condensed" style="border: 1px solid black; width:100%">  
+						<thead  style="background-color:#ECF2E9">
+							<th style="border-right:1px solid black;">
+									 <t t-if="data['group_by']=='ledger'"><strong>Ledger</strong></t> 
+									<t t-if="data['group_by']=='partner'"><strong>Partner</strong></t> 
+									<t t-if="data['group_by']=='analytic'"><strong>Analytic</strong></t> 
+									<t t-if="data['group_by']=='costcentre'"><strong>Cost Centre</strong></t>
+							</th>
+							<t t-foreach="get_period_name(data)" t-as="period">
+								<th style="border-right:1px solid black;"><span t-esc="period['name']"/></th>
+							</t>
+						</thead>  
+						<tbody>
+							<tr t-foreach="get_lines(data)" t-as="value">
+								<td style="border-bottom:1px solid black;border-right:1px solid black;">
+									<span  t-esc="value['obj_id'].name"/>
+								</td>
+								<t t-foreach="get_period_name(data)" t-as="period">
+									<td style="border-right:1px solid black;"><span t-esc="value['balance'].get(period['id'])"/> </td>
+								</t>
+							</tr>
+					</tbody>
+				</table>  
+                       
+                 </div> 
+<div class="footer" style="text-align:right">
+<right>Page <span class="page"/> /<span class="topage"/></right>
+</div>				   
+       </t>
+
+        </template>
+    </data>
+</openerp>

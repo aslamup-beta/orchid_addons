@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+
+ 
+        <record id="od_custom_report_balance_view" model="ir.ui.view">
+          <field name="name">Trial Balance</field>
+          <field name="model">account.balance.report</field>
+          <field name="inherit_id" ref="account.account_report_balance_view" />
+          <field name="arch" type="xml">
+            <data>
+            <xpath expr="//field[@name='filter']" position="after">
+            	<field name="od_branch_id" domain="[('id','in',(1,2))]" attrs="{'invisible':[('company_id', '!=', 1)]}" />
+                <field name="x_proj_fin_status" attrs="{'invisible':['|',('filter', '!=', 'filter_date'),('od_detail', '=', False)]}"/>               
+             
+ 			</xpath>
+             
+            </data>
+          </field>
+        </record>
+
+
+     </data>
+ </openerp>

@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <openerp>
+    <data noupdate="1">
+    
+    <record id="cst_sheet_gp_approval1_mail" model="email.template">
+            <field name="name">Cost Sheet GP First Approval Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Cost Sheet GP Approval</field>
+            <field name="email_to">${object.od_branch_id.user_id_1.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.od_branch_id.user_id_1.name or 'Sale Team'},</p>
+
+				    <p>Cost Sheet Submitted for GP Approval,Please Check It</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+
+        <record id="cst_sheet_gp_approval1_mail_saudi" model="email.template">
+            <field name="name">Cost Sheet GP First Approval Mail Saudi</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Cost Sheet GP Approval</field>
+            <field name="email_to">${object.od_branch_id.user_id_1.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.od_branch_id.user_id_1.name or 'Sale Team'},</p>
+
+                    <p>Cost Sheet Submitted for GP Approval,Please Check It</p>
+                    <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>Branch:${object.od_branch_id.name}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+            <record id="cst_sheet_gp_approval2_mail" model="email.template">
+            <field name="name">Cost Sheet GP Second Approval Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Cost Sheet GP Approval</field>
+            <field name="email_to">${object.od_branch_id.user_id_2.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.od_branch_id.user_id_2.name or 'Sale Team'},</p>
+
+				    <p>Cost Sheet Submitted for GP Approval,Please Check It</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+
+        <record id="cst_sheet_gp_approval2_mail_saudi" model="email.template">
+            <field name="name">Cost Sheet GP Second Approval Mail Saudi</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Cost Sheet GP Approval</field>
+            <field name="email_to">${object.od_branch_id.user_id_2.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.od_branch_id.user_id_2.name or 'Sale Team'},</p>
+
+                    <p>Cost Sheet Submitted for GP Approval,Please Check It</p>
+                    <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>Branch:${object.od_branch_id.name}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+            <record id="cst_sheet_gp_approval3_mail" model="email.template">
+            <field name="name">Cost Sheet GP Third Approval Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Cost Sheet GP Approval</field>
+            <field name="email_to">${object.od_branch_id.user_id_3.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.od_branch_id.user_id_3.name},</p>
+
+				    <p>Cost Sheet Submitted for GP Approval,Please Check It</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+
+        <record id="cst_sheet_gp_approval3_mail_saudi" model="email.template">
+            <field name="name">Cost Sheet GP Third Approval Mail Saudi</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Cost Sheet GP Approval</field>
+            <field name="email_to">${object.od_branch_id.user_id_3.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.od_branch_id.user_id_3.name},</p>
+
+                    <p>Cost Sheet Submitted for GP Approval,Please Check It</p>
+                    <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>Branch:${object.od_branch_id.name}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+            <record id="cst_sheet_gp_approval4_mail" model="email.template">
+            <field name="name">Cost Sheet GP Final Approval Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Cost Sheet GP Approval</field>
+            <field name="email_to">${object.od_branch_id.user_id_4.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.od_branch_id.user_id_4.name},</p>
+
+				    <p>Cost Sheet Submitted for GP Approval,Kindly Check It</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+
+        <record id="cst_sheet_gp_approval4_mail_saudi" model="email.template">
+            <field name="name">Cost Sheet GP Final Approval Mail Saudi</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Cost Sheet GP Approval</field>
+            <field name="email_to">${object.od_branch_id.user_id_4.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.od_branch_id.user_id_4.name},</p>
+
+                    <p>Cost Sheet Submitted for GP Approval,Kindly Check It</p>
+                    <p>Info</p>
+                    <ul>
+                    <li>CostSheet No:${object.number}  </li>
+                    <li>CostSheet Name:${object.name}</li>
+                    <li>Customer Name:${object.od_customer_id.name}</li>
+                    <li>Opportunity Name:${object.lead_id.name}</li>
+                    <li>Opportunity Number:${object.lead_id.od_number}</li>
+                    <li>Branch:${object.od_branch_id.name}</li>
+                    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+                    </ul>
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+        <record id="cst_sheet_modification_req_mail" model="email.template">
+            <field name="name">UAE-Request Modification</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Request Modification- ${object.number}</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">khalid.eqtifan@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.reviewed_id.name or 'Project Team'},</p>
+
+				    <p>Kindly Open My 'Waiting PO' Cost Sheet for Modifications</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+        
+         <record id="cst_sheet_modification_req_mail_saudi" model="email.template">
+            <field name="name">KSA-Request Modification</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Request Modification- ${object.number}</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="email_cc">mahmoud.alkhatib@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.reviewed_id.name or 'Project Team'},</p>
+
+				    <p>Kindly Open My 'Waiting PO' Cost Sheet for Modifications</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+        
+        <record id="cst_sheet_modification_open_mail" model="email.template">
+            <field name="name">UAE-Waiting PO Cost SHeet Open</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Waiting PO Cost Sheet Open- ${object.number}</field>
+            <field name="email_to">${object.sales_acc_manager.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.sales_acc_manager.name or 'Sale Team'},</p>
+
+				    <p>Your 'Waiting PO' Cost Sheet is Open for Modifications</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+        
+         <record id="cst_sheet_modification_open_mail_saudi" model="email.template">
+            <field name="name">KSA-Waiting PO Cost SHeet Open</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Waiting PO Cost Sheet Open- ${object.number}</field>
+            <field name="email_to">${object.sales_acc_manager.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.sales_acc_manager.name or 'Sale Team'},</p>
+
+				    <p>Your 'Waiting PO' Cost Sheet is Open for Modifications</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+        
+        <record id="cst_sheet_modification_finished_mail" model="email.template">
+            <field name="name">UAE-Finished Modification</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Finished Modification- ${object.number}</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.reviewed_id.name or 'Project Team'},</p>
+
+				    <p>'Waiting PO' Cost Sheet Finished Modifications. Kindly Lock Cost Sheet</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+        
+         <record id="cst_sheet_modification_finished_mail_saudi" model="email.template">
+            <field name="name">KSA-Finished Modification</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Finished Modification- ${object.number}</field>
+            <field name="email_to">${object.reviewed_id.email}</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.reviewed_id.name or 'Project Team'},</p>
+
+				   <p>'Waiting PO' Cost Sheet Finished Modifications. Kindly Lock Cost Sheet</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+        
+        
+        <record id="cst_sheet_three_day_rule_not_ok_mail" model="email.template">
+            <field name="name">UAE- Cost Sheet 3 day Rule NOT OK</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">3-Day Rule 'Not OK' !!</field>
+            <field name="email_to">${object.sales_acc_manager.email}</field>
+            <field name="email_cc">hani.mahmood@betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.sales_acc_manager.name or 'Sale Team'},</p>
+
+				    <p>3-Day Rule for the following Cost SHeet is 'NOT OK'</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+        
+         <record id="cst_sheet_three_day_rule_not_ok_mail_saudi" model="email.template">
+            <field name="name">KSA- Cost Sheet 3 day Rule NOT OK</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">3-Day Rule 'Not OK' !!</field>
+            <field name="email_to">${object.sales_acc_manager.email}</field>
+            <field name="email_cc">laith.ablasi@sa.betait.net</field>
+            <field name="model_id" ref="model_od_cost_sheet"/>
+
+            <field name="body_html"><![CDATA[
+				<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+				    <p>Dear ${object.sales_acc_manager.name or 'Sale Team'},</p>
+
+				   <p>3-Day Rule for the following Cost SHeet is 'NOT OK'</p>
+				    <p>Info</p>
+				    <ul>
+				    <li>CostSheet No:${object.number}  </li>
+				    <li>CostSheet Name:${object.name}</li>
+				    <li>Customer Name:${object.od_customer_id.name}</li>
+				    <li>Opportunity Name:${object.lead_id.name}</li>
+				    <li>Opportunity Number:${object.lead_id.od_number}</li>
+				    <li>Branch:${object.od_branch_id.name}</li>
+				    <li>link:https://erp.betait.net/web?#id=${object.id}&view_type=form&model=od.cost.sheet&menu_id=791&action=1012</li>
+				    </ul>
+				    <p>Thank You</p>
+
+				</div>
+            ]]></field>
+        </record>
+        
+        
+        
+        </data>
+      </openerp>
+        

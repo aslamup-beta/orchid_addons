@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+        <record id="orchid_purchase_jinherit_view" model="ir.ui.view">
+          <field name="name">orchid.purchase.form.view</field>
+          <field name="model">purchase.order</field>
+          <field name="inherit_id" ref="purchase.purchase_order_form" />
+          <field name="arch" type="xml">
+            <data>
+            <xpath expr="//field[@name='picking_type_id']" position="after">
+            	<field name='od_customer_id' domain="[('customer','=',True), ('is_company','=', False)]" />
+            	
+            	<field name="od_tax_id" attrs="{'invisible':[('state','not in',('draft','sent', 'bid'))]}"/>
+		    <button string="Apply" type="object" name="apply_tax_all" attrs="{'invisible':['|',('state','not in',('draft','sent', 'bid')), ('od_tax_id','=', False)]}"/>
+            	
+            	<!-- <field name='od_custom_duty'/>
+            	<field name='od_freight_charge'/> -->
+            </xpath>
+             <field name="amount_untaxed" position="after">
+                <field name="od_discount" invisible="1"/>
+               </field>
+              <field name="amount_total" position="after"> 
+              <h2>
+              <div class="oe_inline oe_right">
+               	 <label for="bt_amount_total" class="oe_inline"/>
+              	<field name="bt_amount_total" nolabel="1" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+              
+              </div>
+             
+              </h2>
+              
+              </field>
+              <field name="amount_total" position="attributes">
+              <attribute name="invisible">True</attribute>
+              </field> 
+              <label for="amount_total" position="attributes">
+              	<attribute name="invisible">True</attribute>
+              </label>
+              
+            </data>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="before">
+               <field name="od_select" nolabel="1" />
+           </xpath>
+           
+           <xpath expr="/form/sheet/group" position="inside">
+           	<group>
+           		<field name="od_select_all"/>
+           		<button name="od_delete_lines" states="draft" string="Delete" type="object" icon="STOCK_DELETE"/>
+           	</group>
+           </xpath>
+           
+           <xpath expr="//notebook[last()]" position="inside">
+           	<page string="Approvals">
+           		<group string="Approval">
+           			<group>
+           				<field name="first_approval_id" required="1"/>
+           				<field name="second_approval_id" required="1"/>
+           			</group>
+           			
+           			
+           			<group>
+           			   <field name="warehouse_user_id" required="1"/>
+           				<field name="confirmation_id" required="1"/>
+           			</group>
+           		</group>
+           		<separator string="Logs"/>
+           		<field name="bt_purchase_log_lines" readonly="1">
+           			<tree>
+           				 <field name="state"/>
+           				 <field name="user_id"/>
+           				 <field name="date"/>
+           				 <field name="next_user_id"/>
+           				 
+           			</tree>           		
+           		</field>
+           	</page>
+           	<page string="Costsheet">
+           	<group>
+           		<group>
+           		 <field name="project_id"/>
+           		 <field name="od_cost_sheet_id"/>
+           		</group>
+           		<group>
+           			<field name="od_cost_centre_id"/>
+           			<field name="od_branch_id"/>
+           			<field name="od_division_id"/>
+           			
+           			
+           		</group>
+           	</group>
+           		
+           	
+           	</page>
+           	
+           </xpath>
+            
+            
+          </field>
+        </record>
+ 	</data>
+ </openerp>

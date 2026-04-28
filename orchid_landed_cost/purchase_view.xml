@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  	 <record model="ir.ui.view" id="od_purchase_order_landed_cost_view">
+      <field name="name">od_purchase.order.landed.cost.form.view</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form"/>
+      <field name="arch" type="xml">
+          
+          
+          
+     
+          
+          <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
+				<attribute name="string">Final</attribute>          
+          </xpath>
+          
+          <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="before">
+          	 <field name="additional_cost"  sum="amount" />
+          	<field name="final_cost" string="Subtotal" />
+          </xpath>
+         <!--  <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+         </xpath> -->
+         <xpath expr="//field[@name='amount_untaxed']" position="attributes" >
+         <attribute name="invisible">True</attribute>
+         </xpath>
+         <xpath expr="//field[@name='amount_untaxed']" position="after" >
+          <field name="od_amount_sub" /> 
+         <field name="od_amount_additional_exp" />
+         </xpath>
+       <notebook position="inside">
+          <page string="Additional Expenses" attrs="{'readonly':[('state','=','done')]}">
+          	 <field name="landed_cost_line_ids" nolabel="1" context="{'default_partner_id':partner_id}">
+              <tree string="Additional Expense" editable="bottom">
+               	  <field name="name" />
+                  <field name="od_pdt_type_id" invisible="1"/>
+                  <field name="partner_id" invisible="1"/>
+                  <field name="amount" sum="amount"/>
+                  <field name="distribution_type"/>
+              </tree>
+            </field>
+         </page>
+        </notebook>
+      </field>
+      </record>
+  </data>
+</openerp>

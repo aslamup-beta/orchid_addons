@@ -1,0 +1,9 @@
+<openerp>
+    <data>
+
+		<!-- <menuitem name="Orchid_asset" id="orchid_asset_menu_root" /> -->
+		<!-- <menuitem id="orchid_asset_menu_general" name="Orchid_asset Menu" parent="account.menu_finance" /> -->
+		<!-- <menuitem name="Orchid_asset Menu" id="orchid_asset_menu_general" parent="orchid_asset_menu_root" /> -->
+
+    </data>
+</openerp>

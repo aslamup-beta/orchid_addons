@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Sequence for Asset -->
+        <record id="seq_type_od_asset" model="ir.sequence.type">
+            <field name="name">Orchid Asset</field>
+            <field name="code">od.asset.asset</field>
+        </record>
+
+        <record id="seq_od_asset_asset" model="ir.sequence">
+            <field name="name">Orchid Asset</field>
+            <field name="code">od.asset.asset</field>
+            <field name="prefix">AST/</field>
+            <field name="padding">5</field>
+        </record>
+
+    </data>
+</openerp>

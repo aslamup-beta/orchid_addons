@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="entry_sch_form">
+            <field name="name">Entry Sch form view</field>
+            <field name="model">od.entry.sch</field>
+            <field name="arch" type="xml">
+                <form string="Entry Sch" >
+                    <header>
+                    <button string="Show Entries" name="show_entries" type="object"  class="oe_highlight"  />
+                    <button string="Update Branch" name="update_branch" type="object"  class="oe_highlight"  />
+                    <button string="Delete Branch" name="delete_branch" type="object"  class="oe_highlight"  />
+                     <field name="state" widget="status_bar" />
+                   </header>
+                    <sheet>
+                     
+                        <group>
+                        		<group>
+                        		    <field name="name" />
+                        			<field name="move_id" />
+                        			<field name="branch_id" />
+                        			<field name="date_from" />
+                        			<field name="date_to" />
+                        		</group>
+                        		<group>
+                        			<field name="partner_ids" widget="many2many_tags" />
+                        			
+                        		</group>
+                        		<group>
+                        		   <field name="account_ids" widget="many2many_tags" />
+                        		</group>
+                        </group>
+                       
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="entry_sch_tree">
+            <field name="name">entry sch tree view</field>
+            <field name="model">od.entry.sch</field>
+            <field name="arch" type="xml">
+                <tree string="Course">
+                    <field name="name" />
+                    <field name="move_id" />
+                    <field name="partner_ids" widget="many2many_tags" />
+                    <field name="account_ids" widget="many2many_tags" />
+                     <field name="branch_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_entry_sch">
+            <field name="name">Entry Check</field>
+            <field name="res_model">od.entry.sch</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem  id="menu_entry_sch_b" parent="orchid_cost_centre.cost_centre_main_menu"
+            action="action_entry_sch" />
+            
+         
+          <record id="view_sch_entry_b_moveline_search" model="ir.ui.view">
+            <field name="name">account.move.line.beta.checking.search</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <search string="Account Entry">
+                    <field name="name" />
+                    <field name="date"/>
+                    <field name="partner_id" />
+                  	<field name="account_id" />
+                   <field name="od_branch_id" />
+                   <field name="move_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                         <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Account" domain="[]" context="{'group_by':'account_id'}"/>
+                         <filter string="Branch" domain="[]" context="{'group_by':'od_branch_id'}"/>
+                           <filter string="Move" domain="[]" context="{'group_by':'move_id'}"/>
+                       
+                    </group>
+                </search>
+            </field>
+        </record>
+         <record id="view_account_movelineb_sch_tree" model="ir.ui.view">
+            <field name="name">account.move.line.beta.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree string="Entry Lines"  delete="false" editable="top">
+                    <field name="od_branch_id"/>
+                    <field name="move_id" readonly="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="date" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="account_id" readonly="1"/>
+                    <field name="debit" readonly="1" sum="Total"/>
+                    <field name="credit" readonly="1" sum="Total"/>
+                    
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_mat_report_graph">
+            <field name="name">material.report.graph</field>
+            <field name="model">material.report</field>
+            <field name="arch" type="xml">
+                <graph string="Material Order Statistics" type="pivot">
+                    <field name="partner_id" type="row"/>
+                    <field name="cost" type="measure"/>
+                  
+                </graph>
+            </field>
+        </record>
+
+        <!-- Custom reports (aka filters) -->
+      
+        <record id="filter_mat_cost_sheet" model="ir.filters">
+            <field name="name">Costsheet Wise</field>
+            <field name="model_id">material.report</field>
+            
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['cost_sheet_id'], 'col_group_by': ['brand_id'], 'measures': ['cost']}</field>
+        </record>
+        
+
+
+        <record id="view_material_repoart_search" model="ir.ui.view">
+        <field name="name">report.material.report.search</field>
+        <field name="model">material.report</field>
+        <field name="arch" type="xml">
+            <search string="MAT">
+                
+                <field name="partner_id"/>
+                <field name="brand_id"/>
+                
+                <group expand="1" string="Group By">
+                    <filter string="Customer" name="group_partner_id" context="{'group_by':'partner_id'}"/>
+                    
+                    <filter string="Brand" name="group_category_id" context="{'group_by':'brand_id'}"/>
+                    <filter string="Costsheet" context="{'group_by':'cost_sheet_id'}"/>
+                    <filter string="Opp Stage" context="{'group_by':'op_stage_id'}"/>
+                    
+                    
+                </group>
+            </search>
+        </field>
+    </record>
+    
+     <record id="view_material_repoart_tree" model="ir.ui.view">
+        <field name="name">report.material.report.tree</field>
+        <field name="model">material.report</field>
+        <field name="arch" type="xml">
+            <tree string="MAT">
+                <field name="cost_sheet_id"/>
+               <field name="partner_id"/>
+               <field name="brand_id"/>
+                <field name="currency_id"/>
+                 <field name="cost"/>
+                  <field name="op_stage_id"/>
+            </tree>
+            </field>
+            </record>
+
+    <record id="action_mat_report_all" model="ir.actions.act_window">
+        <field name="name">MAT Analysis</field>
+        <field name="res_model">material.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,graph</field>
+        <field name="view_id" ref="view_material_repoart_tree"></field>
+        <!-- <field name="context"></field> -->
+       
+    </record>
+
+    <menuitem id="base.cost_sheet" name="Costsheet" parent="base.menu_reporting" sequence="10"
+        groups="purchase.group_purchase_manager"/>
+    <menuitem action="action_mat_report_all" id="menu_action_mat_report_all" parent="base.cost_sheet" sequence="3"/>
+
+   
+    </data>
+</openerp>

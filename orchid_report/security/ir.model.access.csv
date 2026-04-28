@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_od_account_move_line_credit,access_od_account_move_line_credit,model_od_account_move_line_credit,stock.group_stock_manager,1,1,1,1
+access_od_account_move_line_debit,access_od_account_move_line_debit,model_od_account_move_line_debit,stock.group_stock_manager,1,1,1,1
+
+
+
+
+

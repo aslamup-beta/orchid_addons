@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="od_beta_employee_view_inheritted" model="ir.ui.view">
+            <field name="name">hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <div class="oe_right oe_button_box" position="inside">
+                    <!-- <button name="od_btn_open_short_leaves" type="object"  class="oe_inline oe_stat_button" icon="fa-list">
+                        <div><strong><field name="od_short_leave" widget="float_time"/></strong><br/>Short Leave</div>
+                    </button> -->
+                    <button name="od_btn_open_legal_leaves" type="object" class="oe_inline oe_stat_button"
+                            icon="fa-list">
+                        <div>
+                            <strong>
+                                <field name="od_legal_leave"/>
+                            </strong>
+                            <br/>Annual Leaves
+                        </div>
+                    </button>
+                    <!-- <button name="od_btn_open_sick_leaves" type="object" class="oe_inline oe_stat_button" icon="fa-list">
+                        <div><strong><field name="od_sick_leave"/></strong><br/>Sick Leaves</div>
+                    </button>
+                    <button name="od_btn_open_unpaid_leaves" type="object"  class="oe_inline oe_stat_button" icon="fa-list">
+                        <div><strong><field name="od_unpaid_leave" /></strong><br/>Unpaid Leaves</div>
+                    </button> -->
+                    <button name="od_btn_open_expense_claim" type="object" class="oe_inline oe_stat_button"
+                            icon="fa-list">
+                        <div>
+                            <strong>
+                                <field name="od_exp_claim_amount"/>
+                            </strong>
+                            <br/>Claims
+                        </div>
+                    </button>
+                </div>
+
+            </field>
+        </record>
+        <record id="beta_employee_doc_request_button_replace" model="ir.ui.view">
+            <field name="name">hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="orchid_hrms.view_od_hrms_employee_inherit"/>
+            <field name="arch" type="xml">
+                <button name="action_open_document_request" position="replace">
+                    <button name="od_action_open_document_request" type="object" class="oe_inline oe_stat_button"
+                            icon="fa-list">
+                        <div>
+                            <strong>
+                                <field name="od_document_count2"/>
+                            </strong>
+                            <br/>Doc Request
+                        </div>
+                    </button>
+                </button>
+            </field>
+        </record>
+
+        <record id="beta_employee_contract_inherit_payroll" model="ir.ui.view">
+            <field name="name">beta.employee.contract.inherit.payroll</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="orchid_payroll.hr_contract_view_orchid_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='xo_total_wage']" position="replace">
+                    <field name="xo_total_wage" readonly="1" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="beta_employee_contract_inherit" model="ir.ui.view">
+            <field name="name">beta.employee.contract.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='struct_id']" position="before">
+                    <field name="od_allowance"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

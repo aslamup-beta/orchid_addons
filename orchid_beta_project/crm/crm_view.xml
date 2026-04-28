@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="crm_case_form_view_oppor_beta_project">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/div/button[@name='action_schedule_meeting']" position="after">
+                         <!--   <button class="oe_inline oe_stat_button" name="od_open_hr_expense_claim" type="object"  icon="fa-list">
+                                   <div><strong><field name="od_hr_claim_amount" /></strong><br/>HR Expense</div>
+                           </button> -->
+                           <!-- <button class="oe_inline oe_stat_button" name="od_open_hr_expense_claim_draft" type="object"  icon="fa-list">
+                                   <div style="color:#C7ABA5"><strong><field name="od_hr_claim_amount_draft" /></strong><br/>HR Expense</div>
+                           </button> -->
+                           <button class="oe_inline oe_stat_button" name="od_btn_open_account_move_lines" type="object"  icon="fa-list">
+                                   <div><strong><field name="od_journal_amount" /></strong><br/>Pre-Operation</div>
+                           </button>
+                          <!--  <button class="oe_inline oe_stat_button" name="od_btn_open_account_move_lines_draft" type="object"  icon="fa-list">
+                                   <div style="color:#C7ABA5"><strong><field name="od_journal_amount_draft" /></strong><br/>Journal Items</div>
+                           </button> -->
+                           
+                           <!--  Commeneted by Aslam on May 5 2021 as per Elayyan request  -->
+<!--                            <button class="oe_inline oe_stat_button" name="od_btn_open_timsheet_for_opp" type="object"  icon="fa-list"> -->
+<!--                                    <div><strong><field name="od_timesheet_amount" /></strong><br/>Timesheets</div> -->
+<!--                            </button> -->
+                </xpath>
+                <xpath expr="//field[@name='referred']" position="after">
+               		<field name="kpi_considered" invisible="1"/>
+               		<field name="kpi_considered_sec" invisible="1"/>
+                </xpath>
+                
+
+            </field>
+        </record>
+    </data>
+</openerp>

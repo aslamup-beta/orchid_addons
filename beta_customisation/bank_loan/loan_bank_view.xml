@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="loan_bank_form_view">
+            <field name="name">Loan Bank</field>
+            <field name="model">beta.loan.bank</field>
+            <field name="arch" type="xml">
+                <form string="Loan Bank">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="name_ar"/>
+                            </group>
+                            <group>
+                                <field name="bank_email" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_holidays_loan_bank_tree">
+            <field name="name">beta.loan.bank.tree</field>
+            <field name="model">beta.loan.bank</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree string="Loan Bank">
+                    <field name="name"/>
+                    <field name="name_ar"/>
+                    <field name="bank_email"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_open_loan_bank">
+            <field name="name">Loan Bank</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">beta.loan.bank</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new request.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Loan Bank" action="action_open_loan_bank" parent="hr.menu_hr_configuration"
+                  id="menu_open_loan_bank" sequence="110"/>
+
+    </data>
+</openerp>

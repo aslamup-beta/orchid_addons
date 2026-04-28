@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="od_beta_cust_account_analytic_account_form_lesson_learned" model="ir.ui.view">
+        <field name="name">account.analytic.account.beta.form1</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="orchid_beta_project.od_beta_project_account_analytic_account_form_inherited"/>
+        <field name="arch" type="xml">
+			<page string="Beta Admins" position="after">
+            	<page string="Post Project Evaluation - Lessons Learned">
+	            	<group string="Project Lessons Learned">
+		            	<field name="od_cust_lpo_ref" readonly="1"/>
+		            	<field name="od_cust_name" readonly="1"/>
+		            	<field name="od_proj_manager" readonly="1"/>
+		            	<field name="od_sales_ord_no" readonly="1"/>
+		            	<field name="od_proj_desc" readonly="1"/>
+	            	
+	    			</group>
+<!-- 	            	<group string="Management Area"> -->
+<!-- 	            	</group> -->
+		            	<group string="Cost Management">
+			            	<field name="od_gp_cm" readonly="1"/>
+			            	<field name="od_prb_cm" readonly="1"/>
+			            	<field name="od_imp_opp_cm" readonly="1"/>
+			            	<field name="od_consumed_25" readonly="1"/>
+			            	<field name="od_consumed_50" readonly="1"/>
+			            	<field name="od_consumed_75" readonly="1"/>
+			            	<field name="od_consumed_90" readonly="1"/>
+			            	
+		            	</group>
+		            	
+		            	<group string="Time Management">
+			            	<field name="od_gp_tm" readonly="1"/>
+			            	<field name="od_prb_tm" readonly="1"/>
+			            	<field name="od_imp_opp_tm" readonly="1"/>
+		            	</group>
+		            	<group string="Scope Management">
+			            	<field name="od_gp_sm" readonly="1"/>
+			            	<field name="od_prb_sm" readonly="1"/>
+			            	<field name="od_imp_opp_sm" readonly="1"/>
+		            	</group>
+		            	<group string="Quality Management">
+			            	<field name="od_gp_qm" readonly="1"/>
+			            	<field name="od_prb_qm" readonly="1"/>
+			            	<field name="od_imp_opp_qm" readonly="1"/>
+		            	</group>
+		            	<group string="Risk Management">
+			            	<field name="od_gp_rm" readonly="1"/>
+			            	<field name="od_prb_rm" readonly="1"/>
+			            	<field name="od_imp_opp_rm" readonly="1"/>
+		            	</group>
+		            	<group string="Communication Management">
+			            	<field name="od_gp_com" readonly="1"/>
+			            	<field name="od_prb_com" readonly="1"/>
+			            	<field name="od_imp_opp_com" readonly="1"/>
+		            	</group>
+		            	<group string="Procurement Management">
+			            	<field name="od_gp_pm" readonly="1"/>
+			            	<field name="od_prb_pm" readonly="1"/>
+			            	<field name="od_imp_opp_pm" readonly="1"/>
+		            	</group>
+		            	<group string="HR Management">
+			            	<field name="od_gp_hm" readonly="1"/>
+			            	<field name="od_prb_hm" readonly="1"/>
+			            	<field name="od_imp_opp_hm" readonly="1"/>
+		            	</group>
+<!-- 	            	</group> -->
+            	</page>
+            	</page>
+      		</field>
+     	</record>
+
+
+    </data>
+</openerp>

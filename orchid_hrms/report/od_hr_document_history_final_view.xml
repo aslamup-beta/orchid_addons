@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_hr_document_history_final_view_tree" model="ir.ui.view">
+            <field name="name">od.hr.document.history.final.view.tree</field>
+            <field name="model">od.hr.document.history.final.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Document Expiry">
+                    <field name="employee_id"/>
+                     <field name="document_type_id"/>
+                    <field name="process_date"/>
+                    <field name="doc_action"/>
+                    <field name="action_type"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+
+
+
+        <record id="od_hr_document_history_final_view_search" model="ir.ui.view">
+            <field name="name">od.hr.document.history.final.view.search</field>
+            <field name="model">od.hr.document.history.final.view</field>
+            <field name="arch" type="xml">
+                <search string="Document Expiry">
+                    <field name="employee_id"/>
+                     <field name="document_type_id"/>
+                    <field name="process_date"/>
+                    <field name="doc_action"/>
+                    <field name="action_type"/>
+
+                    <group expand="1" string="Group By...">
+                        <filter string="Employee" icon="terp-personal" name="odemployee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Document Type" icon="terp-personal" name="document_type_id" context="{'group_by':'document_type_id'}"/>
+                        <filter string="Action Date" icon="terp-personal" name="process_date" context="{'group_by':'process_date'}"/>
+                        <filter string="Action Type" icon="terp-personal" name="action_type" context="{'group_by':'action_type'}"/>
+                         <filter string="Document Action" icon="terp-personal" name="doc_action" context="{'group_by':'doc_action'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_hr_document_history_final_view_graph">
+            <field name="name">od.hr.document.history.final.view.graph</field>
+            <field name="model">od.hr.document.history.final.view</field>
+            <field name="arch" type="xml">
+                <graph string="Document Expiry" type="bar">
+                    <field name="employee_id"/>
+                     <field name="document_type_id"/>
+                    <field name="process_date"/>
+                    <field name="doc_action"/>
+                    <field name="action_type"/>
+
+
+
+
+
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_hr_document_history_final_view" model="ir.actions.act_window">
+            <field name="name">Document History</field>
+            <field name="res_model">od.hr.document.history.final.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="search_view_id" ref="od_hr_document_history_final_view_search"/>
+            <field name="view_id" ref="od_hr_document_history_final_view_tree"/>
+            <field name="context">{'search_default_odemployee_id':1}</field>
+            <field name="help">This report Document History.</field>
+        </record>
+        <menuitem parent="hr.menu_hr_reporting" action="action_od_hr_document_history_final_view" id="menu_od_hr_document_history_view" sequence="3"/>
+    </data>
+</openerp>

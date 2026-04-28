@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record model="ir.ui.view" id="od_llsale_margin_form">
+        <field name="name">sale.margin.line.margin.view.llform</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree//field[@name='purchase_price']" position="replace">
+                <field name="purchase_price" groups="orchid_utilities.group_od_view_cost_group"/>
+            </xpath>
+        </field>
+    </record>
+
+   <record model="ir.ui.view" id="od_llsale_margin_form_view_inherit">
+        <field name="name">sale.margin.line.margin.view.llform</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+        <field name="arch" type="xml">
+           <xpath expr="////field[@name='margin']" position="replace">
+                    <field name="margin" widget="monetary" options="{'currency_field': 'currency_id'}" groups="orchid_utilities.group_od_view_cost_group"/>
+           </xpath>
+        </field>
+    </record>
+</data>
+</openerp>

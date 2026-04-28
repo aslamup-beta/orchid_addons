@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	    <record model="ir.ui.view" id="view_beta_joining_tree_view">
+	        <field name="name">od.beta.joining.form.tree</field>
+	        <field name="model">od.beta.joining.form</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	            	<field name="name"/>
+	            	<field name="job_id" />
+	            	<field name="state"/>
+	            </tree>
+	       </field>
+	    </record>
+	    
+        <record id="view_beta_joining_form_view" model="ir.ui.view">
+            <field name="name">od.beta.joining.form.form</field>
+            <field name="model">od.beta.joining.form</field>
+            <field name="arch" type="xml">
+            <form string="Employee Joining Form" version="7.0">
+            <header>
+				<button name="send_to_employee" type="object" class="oe_highlight" string="Send to Employee" attrs="{'invisible':[('state', '!=', 'draft')]}"/>
+<!-- 				<button name="send_to_hr" type="object" class="oe_highlight" string="Send to HR" attrs="{'invisible':[('state', '!=', 'manager')]}"/> -->
+				<button name="send_to_finance" type="object" class="oe_highlight" string="Send to Finance" attrs="{'invisible':[('state', '!=', 'employee')]}"/>
+				<button name="confirm_emp" type="object" class="oe_highlight" string="Confirm Employee" attrs="{'invisible':[('state', '!=', 'finance')]}"/>
+				
+              <!--   <button name="cancel_emp" type="object" class="oe_highlight" string="Terminate Employee" attrs="{'invisible':[('state', 'in', ['draft','cancel'])]}"/> -->
+                <field name="state" widget="statusbar" statusbar_visible="draft,employee,finance,confirm" statusbar_colors='{"confirm":"blue"}'/>
+            </header>
+            <sheet>
+            	<field name="image_medium" widget='image' class="oe_left oe_avatar"/>
+            	<div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" attrs="{'required': [('state','=','draft')],'readonly':[('state','=','confirm')]}"/>
+                            </h1>
+                            <label for="personal_email" class="oe_edit_only"/>
+                            <field name="personal_email" widget="email" attrs="{'required': [('state','=','draft')],'readonly':[('state','=','confirm')]}"/>
+<!--                             <label for="mobile" class="oe_edit_only"/> -->
+<!--                             <field name="mobile"/> -->
+                        </div>
+            	
+                <group>
+	               
+	               <group string="Public Info">
+	               		<field name="work_email" attrs="{'required': [('state','=','draft')],'readonly':[('state','in','confirm')]}"/>
+	                   <field name="department_id" attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
+	                   <field name="job_id" attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
+	                   <field name="sales_team_id" attrs="{'required': [('job_id','in',(40,83,182))],'invisible':[('job_id','not in',(40,83,182))],'readonly':[('state','in',('finance', 'confirm'))]}"/>
+	                   <field name="manager_id" attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
+	                   <field name="coach_id" attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
+	                   <field name="manager1_id" attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
+	                   <field name="manager2_id" attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
+	                   <field name="joining_date" attrs="{'required': [('state','=','draft')],'readonly':[('state','=','confirm')]}"/>
+	                   <field name="branch_id" attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
+	                   <field name="tech_dept_id"/>
+	                   <field name="cost_centre_id" attrs="{'required': [('state','=','finance')],'invisible':[('state','not in',('finance', 'confirm'))],'readonly':[('state','=','confirm')]}"/>
+	                   <field name="analytic_account_id" attrs="{'invisible':[('state','not in',('finance', 'confirm'))],'readonly':[('state','=','confirm')]}"/>
+	                   
+	               </group>	               
+	               
+	               <group string="Contract Info" attrs="{'invisible':[('state','not in',('finance', 'confirm'))]}">
+	               		<field name="pay_salary_during_annual_leave" />
+	                   <field name="type_id" attrs="{'required': [('state','=','finance')],'readonly':[('state','=','confirm')]}"/>
+	                   <field name="mode_of_pay_id" attrs="{'required': [('state','=','finance')],'readonly':[('state','=','confirm')]}"/>
+	                   <field name="total_wage" attrs="{'required': [('state','=','finance')],'readonly':[('state','=','confirm')]}"/>
+	                   <field name="basic_wage" attrs="{'required': [('state','=','finance')],'readonly':[('state','=','confirm')]}"/>
+	                   <field name="allowance_rule_line_ids" nolabel="1" colspan="2">
+		                    <tree editable="bottom">
+		                        <field name="rule_type" on_change="onchange_rule_type(rule_type)" required="1" domain="[('category_id.code','in',('ALW','DED'))]" />
+		                        <field name="code"/>
+		                        <field name="amt"/>
+		                    </tree>
+            			</field>
+	                   <field name="work_sched" attrs="{'required': [('state','=','finance')],'readonly':[('state','=','confirm')]}"/>
+	                   <field name="salary_struct" attrs="{'required': [('state','=','finance')],'readonly':[('state','=','confirm')]}"/>
+	                 <!--   <field name="work_hrs" required="1"/>
+	                   <field name="schedule_pay" required="1"/>
+	                   <field name="journal_id" required="1"/>
+	                   <field name="audit_temp_id" /> -->
+	               </group>
+	               
+                </group>
+                
+                 <notebook>
+                    <page string='Documents' attrs="{'invisible':[('state','in',('draft'))]}">
+                        <field name='document_line_ids'>
+                            <tree editable='top'>
+                                <field name="document_type_id"/>
+                                <field name="document_referance"/>
+                                <field name="attach_file" filename="attach_fname"/>
+                                <field name="attach_fname" invisible="1"/>
+                                <field name="issue_date"/>
+                                <field name="expiry_date"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string='Personal Information' attrs="{'invisible':[('state','in',('draft'))]}">
+                    <group>
+                    	<group string="Citizenship" attrs="{'invisible':[('state','=','draft')]}">
+	                   <field name="nationality" attrs="{'required': [('state','=','employee')],'readonly':[('state','=','confirm')]}"/>
+	                   <field name="passport_no" attrs="{'required': [('state','=','employee')]}"/>
+	               </group>
+	               
+	               <group string='Employee Linked'>
+	               		 <field name="employee_id" attrs="{'invisible':[('state','not in',('confirm'))],'readonly':[('state','=','confirm')]}"/>
+	               	
+	               </group>
+                    	<group string="Home Address">             
+ 								<field name="street" placeholder="Street..."/>
+                               <field name="street2"/>
+                               <field name="state_id" class="oe_no_button" placeholder="State" style="width: 100%%"/>
+                               <field name="city" placeholder="City" style="width: 100%%"/>
+                               <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                               <field name="country_id" placeholder="Country" class="oe_no_button"/>
+                               <field name="mobile" attrs="{'required': [('state','=','employee')],'invisible':[('state','=','draft')]}"/>
+                               
+                                </group>
+                           <group string="Emergency Contact">
+	                           <field name="e_c1_name"/>
+	                           <field name="e_c1_relationship"/>
+	                           <field name="e_c1_street"/>
+	                           <field name="e_c1_street2"/>
+	                           <field name="e_c1_state_id"/>
+	                           <field name="e_c1_city"/>
+	                           <field name="e_c1_country_id"/>
+	                           <field name="e_c1_ph1"/>
+	                           <field name="e_c1_ph2"/>
+							</group>
+							<group string="Birth">
+								<field name="dob" attrs="{'required': [('state','=','employee')],'invisible':[('state','=','draft')]}"/>
+								<field name="place_of_birth" attrs="{'required': [('state','=','employee')],'invisible':[('state','=','draft')]}"/>
+							
+							</group>
+							<group string="Status">
+								<field name="gender" attrs="{'required': [('state','=','employee')]}"/>
+								<field name="martial" attrs="{'required': [('state','=','employee')]}"/>
+							</group>
+							
+					</group>
+                    </page>
+                    
+                    <page string='Outsourced Employee Information' attrs="{'invisible':[('job_id','!=', 161)]}" >
+                    	<group>
+                     		<group string="Job and Contract">
+	                           <field name="sponsorship" attrs="{'required':[('job_id','=', 161)]}"/>
+	                           <field name="join_date" attrs="{'required':[('job_id','=', 161)]}"/>
+	                           <field name="end_date" attrs="{'required':[('job_id','=', 161)]}"/>
+	                           <field name="employee_end_date" attrs="{'required':[('job_id','=', 161)]}"/>
+							</group>
+							<group string="Beta Reference">
+								<field name="costsheet_id" attrs="{'required':[('job_id','=', 161)]}"/>
+								<field name="customer_id"/>
+								<field name="so_id"/>
+								<field name="analytic_id"/>	
+								<field name="proj_manager"/>	
+							</group>							
+						</group>
+                    </page>
+                    </notebook>
+                
+
+               </sheet>
+            	<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+         </record>
+         
+        <record model="ir.actions.act_window" id="action_od_beta_joining_form">
+        <field name="name">Beta IT Joining Form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.beta.joining.form</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Employee. 
+          </p>
+        </field>
+    </record>
+    
+     <menuitem id="od_menu_beta_joining_form" name="Beta IT Joining Form" action="action_od_beta_joining_form" parent="orchid_hrms.menu_od_hr_documents" sequence="1"/>
+    
+    <record id="view_certificate_od_employee_inherit" model="ir.ui.view">
+            <field name="name">hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//div[@name='button_box']" position="inside">
+                    	<button name="od_view_carrier_cert" class="oe_inline oe_stat_button" type="object"  icon="fa-book">
+                             <div><strong><field name="od_cert_line_count"/></strong><br/>Career Certificates</div>
+                        </button>
+                    </xpath>
+    	    </field>
+	</record>
+	
+	<record id="view_appreciation_od_employee_inherit" model="ir.ui.view">
+            <field name="name">hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//div[@name='button_box']" position="inside">
+                    	<button name="od_view_appreciation" class="oe_inline oe_stat_button" type="object"  icon="fa-book">
+                             <div><strong><field name="od_appreciation_line_count"/></strong><br/>Appreciations</div>
+                        </button>
+                    </xpath>
+    	    </field>
+	</record>
+	
+	<record id="view_order_form_annual_target_readonly" model="ir.ui.view">
+		    <field name="name">hr.employee.form.readonly.target</field>
+		    <field name="model">hr.employee</field>
+		    <field name="inherit_id" ref="orchid_beta_project.od_beta_audit_employee_view_inheritted"/>
+		    <field name="groups_id" eval="[(6, 0, [ref('orchid_beta.groups_beta_admin') ])]"/>
+		    <field name="arch" type="xml">
+		        <field name='annual_target' position="attributes">
+		            <attribute name="readonly">0</attribute>
+		        </field>
+		    </field>
+	</record>
+    
+    </data>
+</openerp>

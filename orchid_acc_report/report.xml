@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="action_report_orchid_trend" 
+            model="account.move.line" 
+            string="Trend Report"
+            report_type="qweb-pdf"
+            name="orchid_acc_report.report_orchid_trend" 
+            file="orchid_acc_report.report_orchid_trend" 
+            menu="False"
+        />
+    </data>
+</openerp>

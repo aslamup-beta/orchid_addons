@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_costgroup_form" model="ir.ui.view">
+            <field name="name">Costgroup Link Wizard</field>
+            <field name="model">costgroup.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+                <group>
+                    <label colspan="4" width="500"
+                           string="You are Going to Link These Costgroup"/>
+                    <newline/>
+                </group>
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id'))]">
+                    <tree>
+                        <field name="group" />
+                        <field name="manufacture_id" />
+                        <field name="part_no" />
+                        <field name="name" />
+                        <field name="types" />
+
+                    </tree>
+                </field>
+                <footer>
+                    <button name="link" string="Link" type="object" class="oe_highlight" />
+                </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_costgroup_remove_form" model="ir.ui.view">
+            <field name="name">Costgroup Remove Wizard</field>
+            <field name="model">costgroup.remove.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id')),('group','=',context.get('group_id'))]">
+                    <tree>
+                        <field name="group" />
+                        <field name="manufacture_id" />
+                        <field name="part_no" />
+                        <field name="name" />
+                        <field name="types" />
+
+                    </tree>
+                </field>
+                <footer>
+                    <button name="remove_link" string="Clear Cost Group" type="object" class="oe_highlight" />
+                </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_costgroup_opt_form" model="ir.ui.view">
+            <field name="name">Costgroup Opt Link Wizard</field>
+            <field name="model">costgroup.opt.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+                <group>
+                    <label colspan="4" width="500"
+                           string="You are Going to Link These Costgroup"/>
+                    <newline/>
+                </group>
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id'))]">
+                    <tree>
+                        <field name="group_id" />
+                        <field name="manufacture_id" />
+                        <field name="part_no" />
+                        <field name="name" />
+                        <field name="types" />
+
+                    </tree>
+                </field>
+                <footer>
+                    <button name="link" string="Link" type="object" class="oe_highlight" />
+                </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_costgroup_opt_remove_form" model="ir.ui.view">
+            <field name="name">Costgroup Opt Remove Wizard</field>
+            <field name="model">costgroup.opt.remove.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id')),('group_id','=',context.get('group_id'))]">
+                    <tree>
+                        <field name="group_id" />
+                        <field name="manufacture_id" />
+                        <field name="part_no" />
+                        <field name="name" />
+                        <field name="types" />
+
+                    </tree>
+                </field>
+                <footer>
+                    <button name="remove_link" string="Clear Cost Group" type="object" class="oe_highlight" />
+                </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_costgroup_extra_form" model="ir.ui.view">
+            <field name="name">Costgroup Extra Link Wizard</field>
+            <field name="model">costgroup.extra.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id'))]">
+                    <tree>
+                        <field name="group2" />
+
+                        <field name="name" />
+
+
+                    </tree>
+                </field>
+                <footer>
+                    <button name="link" string="Link" type="object" class="oe_highlight" />
+                </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="wiz_costgroup_extra_remove_form" model="ir.ui.view">
+            <field name="name">Costgroup Extra Remove Wizard</field>
+            <field name="model">costgroup.extra.remove.wiz</field>
+            <field name="arch" type="xml">
+                <form string="costgroup" >
+
+                <field name="mat_ids" domain="[('cost_sheet_id','=',context.get('cost_sheet_id')),('group2','=',context.get('group_id'))]">
+                    <tree>
+                        <field name="group2" />
+
+                        <field name="name" />
+
+                    </tree>
+                </field>
+                <footer>
+                    <button name="remove_link" string="Clear Cost Group" type="object" class="oe_highlight" />
+                </footer>
+
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

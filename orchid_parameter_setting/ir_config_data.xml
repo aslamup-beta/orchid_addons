@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+<!--Partner-->
+       <record id="def_supplier" model="ir.config_parameter">
+            <field name="key">def_sup</field>
+            <field name="value">Value of supplier you selected from the Partner Table</field>
+        </record>
+
+       <record id="def_customer" model="ir.config_parameter">
+            <field name="key">def_cust</field>
+            <field name="value">Value of Customer you selected from the Partner Table</field>
+        </record>
+
+
+<!--Accounts-->
+       <record id="def_receivable" model="ir.config_parameter">
+            <field name="key">Def_AR</field>
+            <field name="value">Value of Default Account Receivable</field>
+        </record>
+
+       <record id="def_payable" model="ir.config_parameter">
+            <field name="key">Def_AP</field>
+            <field name="value">Value of Default Account Payable</field>
+        </record>
+
+       <record id="def_sale" model="ir.config_parameter">
+            <field name="key">Def_Sale</field>
+            <field name="value">Value of Default Sale Account</field>
+        </record>
+
+       <record id="def_cost_of_sales" model="ir.config_parameter">
+            <field name="key">Def_COS</field>
+            <field name="value">Value of Default Cost of Sales Account</field>
+        </record>
+
+       <record id="def_bank" model="ir.config_parameter">
+            <field name="key">Def_BANK</field>
+            <field name="value">Value of Default Bank Account</field>
+        </record>
+
+
+       <record id="def_cash" model="ir.config_parameter">
+            <field name="key">Def_CASH</field>
+            <field name="value">Value of Default CASH Account</field>
+        </record>
+
+       <record id="def_pdcr_acc" model="ir.config_parameter">
+            <field name="key">Def_PDCR_Acc</field>
+            <field name="value">Value of Default PDC Recievable Account</field>
+        </record>
+
+       <record id="def_pdcp_acc" model="ir.config_parameter">
+            <field name="key">Def_PDCP_Acc</field>
+            <field name="value">Value of Default PDC Payable Account</field>
+        </record>
+
+<!--Journals-->
+       <record id="def_bank_journal" model="ir.config_parameter">
+            <field name="key">Def_Bank_Journal</field>
+            <field name="value">Value of Default Bank Journal</field>
+        </record>
+
+       <record id="def_sales_journal" model="ir.config_parameter">
+            <field name="key">Def_Sales_Journal</field>
+            <field name="value">Value of Default Sales Journal</field>
+        </record>
+
+       <record id="def_purchase_journal" model="ir.config_parameter">
+            <field name="key">Def_Purchase_Journal</field>
+            <field name="value">Value of Default Purchase Journal</field>
+        </record>
+
+       <record id="def_pdcp_journal" model="ir.config_parameter">
+            <field name="key">Def_PDCP_Journal</field>
+            <field name="value">Value of Default PDC Payable Journal</field>
+        </record>
+
+
+       <record id="def_pdcr_journal" model="ir.config_parameter">
+            <field name="key">Def_PDCR_Journal</field>
+            <field name="value">Value of Default PDC Receivable Journal</field>
+        </record>
+
+       <record id="def_chq_rel_journal" model="ir.config_parameter">
+            <field name="key">Def_Chq_Rel_Journal</field>
+            <field name="value">Value of Default Cheque Release  Journal</field>
+        </record>
+
+       <record id="def_cash_journal" model="ir.config_parameter">
+            <field name="key">Def_Cash_Journal</field>
+            <field name="value">Value of Default Cash Jounral</field>
+        </record>
+<!--Others-->
+       <record id="def_cost_centre" model="ir.config_parameter">
+            <field name="key">Def_CC</field>
+            <field name="value">Value of Default Cost Centre</field>
+        </record>
+
+    </data>
+</openerp>

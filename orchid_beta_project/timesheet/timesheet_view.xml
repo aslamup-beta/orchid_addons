@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="hr_timesheet_line_tree_inherit_beta_project">
+            <field name="name">hr.analytic.timesheet.tree.beta</field>
+            <field name="model">hr.analytic.timesheet</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="amount" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="unit_amount" position="after">
+                    <field name="product_id"  />
+                    <field name="od_unit_cost" readonly="1" />
+                    <field name="hourly_rate"  />
+                     <field name="overtime_type"/>
+                     <field name="overtime_percentage"/>
+                    <field name="overtime_amount" />
+                    <field name="normal_amount" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="hr_timesheet_line_form_inherit_beta_project">
+            <field name="name">hr.analytic.timesheet.form.beta</field>
+            <field name="model">hr.analytic.timesheet</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="od_unit_cost" readonly="1" />
+                    <field name="hourly_rate"/>
+                   	<field name="overtime_type" domain="[('category_id.code','=','OT')]"/>
+                    <field name="overtime_percentage"/>
+                    <field name="overtime_amount"/>
+                    <field name="normal_amount"/>
+                </field>
+                <xpath expr="//group[@string='Accounting']" position="after">
+                	<group>
+                	 <field name="cancelled_by_owner"/>
+                	 <field name="cancelled_by_id"/>
+                	  <field name="narration"/>
+                	</group>
+                
+                </xpath>
+
+            </field>
+        </record>
+        <record id="beta_project_amount_add_inherit" model="ir.ui.view">
+            <field name="name">Beta Project Timesheet Button Form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project_timesheet.project_invoice_form"/>
+            <field name="arch" type="xml">
+                <button name="open_timesheets" position="replace">
+                    <button class="oe_inline oe_stat_button" name="open_timesheets" type="object" invisible="1" icon="fa-calendar" >
+                        <div><strong><field name="od_timesheet_amount" /></strong><br/>Timesheets</div>
+                    </button>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</openerp>

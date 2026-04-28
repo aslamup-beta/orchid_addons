@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		
+
+		<record id="view_vat_register_output_form" model="ir.ui.view">
+			<field name="name">orchid.vat.register.form</field>
+			<field name="model">orchid.vat.register</field>
+			<field name="arch" type="xml">
+				<form string="Vat Register ">
+					<!-- <sheet> -->
+					<group>
+						<group>
+							<field name="from_date" required="1"/>
+							<field name="excel_file" filename="file_name"/>
+						</group>
+						<group>
+							<field name="to_date" required="1"/>
+							<field name="file_name"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Accounts">
+							<field name="wizard_line">
+								<!-- <tree editable="top">
+									<field name="account_id"/>
+								</tree> -->
+							</field>
+						</page>
+					</notebook>
+					<!-- </sheet> -->
+					<footer>
+						<button string="Excel" name="generate" type="object" class="btn-primary"/>
+						<button string="Print" name="print_pdf" type="object" class="btn-primary"/>
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<record id="action_view_vat_register_output" model="ir.actions.act_window">
+			<field name="name">Vat Register</field>
+			<field name="res_model">orchid.vat.register</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_vat_register_output_form"/>
+			<field name="target">new</field>
+		</record>
+
+
+		 <menuitem
+			id="menu_view_tax_register_purchase"
+			name="Vat Register"
+			parent="account.menu_finance_reporting"
+			sequence="151"
+			action="action_view_vat_register_output" />
+
+		
+	</data>
+</openerp>

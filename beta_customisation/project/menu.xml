@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+<!--     credit menu filter -->
+    
+    <record id="od_credits_project_project_filter" model="ir.ui.view">
+        <field name="name">project.project.credits</field>
+        <field name="model">project.project</field>
+        <field name="arch" type="xml">
+            <search string="Search Project">
+                <field name="name" string="Project Name"/>
+                <field name="code"/>
+                <filter string="Open" name="Current" domain="[('state', '=','open')]"/>
+                <filter string="Pending" name="Pending" domain="[('state', '=','pending')]"/>
+                <filter string="Template" name="Template" domain="[('state', '=','template')]"/>
+                <separator/>
+                <filter string="Member" name="Member" domain="['|',('user_id', '=', uid),('members', '=', uid)]"/>
+                <filter string="Manager" domain="[('user_id','=',uid)]"/>
+                <separator/>
+                <filter string="New Mail" name="message_unread" domain="[('message_unread','=',True)]"/>
+                <field name="user_id" string="Project Manager"/>
+                <field name="partner_id" string="Contact" filter_domain="[('partner_id', 'child_of', self)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Manager" name="Manager" context="{'group_by':'user_id'}"/>
+                    <filter string="Contact" name="Partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Parent" name="Parent" help="Parent" context="{'group_by':'parent_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="od_open_view_project_credit_all" model="ir.actions.act_window">
+    <field name="name">Credits</field>
+    <field name="res_model">project.project</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('od_type_of_project','=','credit')]</field>
+    <field name="view_mode">kanban,tree,form,gantt</field>
+    <field name="view_id" ref="project.view_project_kanban"/>
+    <field name="search_view_id" ref="od_credits_project_project_filter"/>
+    <field name="context">{'search_default_Current': 1}</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to start a new project.
+        </p><p>
+          Projects are used to organize your activities; plan
+          tasks, track issues, invoice timesheets. You can define
+          internal projects (R&amp;D, Improve Sales Process),
+          private projects (My Todos) or customer ones.
+        </p><p>
+          You will be able collaborate with internal users on
+          projects or invite customers to share your activities.
+        </p>
+    </field>
+    </record>
+    <menuitem name="Credits" 
+    id="od_menu_credit_projects" 
+    parent="project.menu_project_management" 
+    action="od_open_view_project_credit_all" 
+    sequence="3"/>
+
+
+<!-- AMC,O&M menu Filter-->
+
+<record id="od_open_view_project_amc_om_all" model="ir.actions.act_window">
+    <field name="name">AMC O&amp;M</field>
+    <field name="res_model">project.project</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('od_type_of_project','in',('amc','o_m'))]</field>
+    <field name="view_mode">kanban,tree,form,gantt</field>
+    <field name="view_id" ref="project.view_project_kanban"/>
+    <field name="search_view_id" ref="od_credits_project_project_filter"/>
+    <field name="context">{'search_default_Current': 1}</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to start a new project.
+        </p><p>
+          Projects are used to organize your activities; plan
+          tasks, track issues, invoice timesheets. You can define
+          internal projects (R&amp;D, Improve Sales Process),
+          private projects (My Todos) or customer ones.
+        </p><p>
+          You will be able collaborate with internal users on
+          projects or invite customers to share your activities.
+        </p>
+    </field>
+    </record>
+    <menuitem name="AMC &amp; O&amp;M" id="od_menu_amc_om_projects" parent="project.menu_project_management" action="od_open_view_project_amc_om_all" sequence="3"/>
+    
+    
+    <!-- level 0 -->
+    
+    
+    <record id="od_open_levelo_analytic" model="ir.actions.act_window">
+    <field name="name">Level 0</field>
+    <field name="res_model">account.analytic.account</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('od_analytic_level','=','level0')]</field>
+    <field name="view_mode">tree,form</field>
+  
+   
+    </record>
+    <menuitem name="Level 0" id="od_menu_level0_analytic" parent="project.menu_project_management" action="od_open_levelo_analytic" sequence="2"/>
+   
+    <!-- level 0 --> 
+    
+
+<!-- POC,PRESALES menu Filter-->
+
+<record id="od_open_view_project_poc_all" model="ir.actions.act_window">
+    <field name="name">POC&amp;Presales</field>
+    <field name="res_model">project.project</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('od_type_of_project','=','poc')]</field>
+    <field name="view_mode">kanban,tree,form,gantt</field>
+    <field name="view_id" ref="project.view_project_kanban"/>
+    <field name="search_view_id" ref="od_credits_project_project_filter"/>
+    <field name="context">{'search_default_Current': 1}</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to start a new project.
+        </p><p>
+          Projects are used to organize your activities; plan
+          tasks, track issues, invoice timesheets. You can define
+          internal projects (R&amp;D, Improve Sales Process),
+          private projects (My Todos) or customer ones.
+        </p><p>
+          You will be able collaborate with internal users on
+          projects or invite customers to share your activities.
+        </p>
+    </field>
+    </record>
+    <menuitem name="POC &amp; Pre-sales" id="od_menu_poc_projects" parent="project.menu_project_management" action="od_open_view_project_poc_all" sequence="3"/>
+
+
+<!-- POC,PRESALES menu Filter-->
+
+<record id="od_open_view_project_comp_gen_all" model="ir.actions.act_window">
+    <field name="name">Training/Company General</field>
+    <field name="res_model">project.project</field>
+    <field name="view_type">form</field>
+    <field name="domain">[('od_type_of_project','=','comp_gen')]</field>
+    <field name="view_mode">kanban,tree,form,gantt</field>
+    <field name="view_id" ref="project.view_project_kanban"/>
+    <field name="search_view_id" ref="od_credits_project_project_filter"/>
+    <field name="context">{'search_default_Current': 1}</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Click to start a new project.
+        </p><p>
+          Projects are used to organize your activities; plan
+          tasks, track issues, invoice timesheets. You can define
+          internal projects (R&amp;D, Improve Sales Process),
+          private projects (My Todos) or customer ones.
+        </p><p>
+          You will be able collaborate with internal users on
+          projects or invite customers to share your activities.
+        </p>
+    </field>
+    </record>
+    <menuitem name="Training &amp; Company General" id="od_menu_comp_general_projects" parent="project.menu_project_management" action="od_open_view_project_comp_gen_all" sequence="3"/>
+
+</data>
+</openerp>

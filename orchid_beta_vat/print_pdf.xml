@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            id="report_vat_outputregister_pdf_document"
+            string="VAT Register Print"
+            model="orchid.vat.register.input" 
+            report_type="qweb-pdf"
+            file="orchid_beta_vat.report_vat_register_pdf" 
+            name="orchid_beta_vat.report_vat_register_pdf"
+                    />
+    </data>
+</openerp>

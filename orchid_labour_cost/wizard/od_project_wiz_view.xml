@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="wiz_od_project_form" model="ir.ui.view">
+            <field name="name">od project wiz form</field>
+            <field name="model">od.project.wiz</field>
+            <field name="arch" type="xml">
+                <form>
+                  <notebook>
+                    <page string="Analytic Accounts">
+                      <field name="project_ids" />
+                    </page>
+                    <page string="Exclude Analytic Accounts">
+                         <field name="excluded_project_ids" />
+                    </page>
+                  </notebook>
+
+                <footer>
+                    <button string="Generate" name="generate_timesheet" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Close" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="od_project_wiz_action" model="ir.actions.act_window">
+            <field name="name">Generate Labour Cost</field>
+            <field name="res_model">od.project.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+    </data>
+</openerp>

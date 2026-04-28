@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+        <record id="orchid_sale_beta_inherit_view" model="ir.ui.view">
+          <field name="name">orchid.sale.order.form.view</field>
+          <field name="model">sale.order</field>
+          <field name="inherit_id" ref="sale.view_order_form" />
+          <field name="arch" type="xml">
+            <data>
+             <field name="amount_untaxed" position="after">
+                <field name="od_discount"/>
+               </field>
+               <button name="action_button_confirm" position="before">
+                  <button name="od_action_approve" class="oe_highlight" type="object" states="draft" string="Approve" />
+              </button>
+
+                <button string="Create Invoice" position="replace" >
+                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice" type="action" states="manual,od_approved" class="oe_highlight" groups="base.group_user"/>
+                     <button name="od_action_cancel" class="oe_highlight" type="object" states="od_approved" string="Cancel" />
+                  </button>
+
+            </data>
+
+          </field>
+        </record>
+
+
+        <record id="view_orchid_partner_form_inherit_orchid_beta2" model="ir.ui.view">
+            <field name="name">res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="orchid_partner.view_orchid_partner_form_inherit"/>
+            <field name="arch" type="xml">
+                  <field name="od_direct_no" position="attributes">
+                    <attribute name="attrs">{'invisible':[('is_company','=',True)]}</attribute>
+                </field>
+            </field>
+          </record>
+
+        <record id="view_orchid_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='child_ids']" position="attributes">
+                <attribute name="context">{'default_user_id':user_id,'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_supplier': supplier, 'default_customer': customer, 'default_use_parent_address': True}</attribute>
+                </xpath>
+
+
+             <!--    <xpath expr="/form/sheet/notebook" position="before">
+                	<group col="4" colspan="2">
+                		<group >
+
+                		</group>
+                		<group>
+                		</group>
+                	</group>
+                </xpath> -->
+                <field name="email" position="after">
+                        <field name="od_google_map_link" widget="url"/>
+                </field>
+
+                <field name="title" position="attributes">
+                    <attribute name="attrs">{'invisible':[('is_company','=',True)]}</attribute>
+                </field>
+
+ 			</field>
+   		</record>
+ 	</data>
+ </openerp>

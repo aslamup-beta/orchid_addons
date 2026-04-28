@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_gratuity_wizard" model="ir.ui.view">
+            <field name="name">gratuity Report</field>
+            <field name="model">gratuity.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group>
+                        <group>
+                            <field name="date" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="emp_ids" widget="many2many_tags"/>
+
+                    </group>
+                    <group>
+                        <field name="branch_ids" widget="many2many_tags"/>
+                    </group>
+                    <group></group>
+
+                    <footer>
+                        <button name="export_rpt" string="Export" type="object" class="oe_highlight"/>
+                        or
+                        <button name="print_directly" string="Print" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" special="cancel"/>
+
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tree_view_gratuity_rpt">
+            <field name="name">gratuity.rpt.data.line.tree</field>
+            <field name="model">gratuity.rpt.data.line</field>
+            <field name="arch" type="xml">
+                <tree string="Gratuity Report">
+                    <field name="emp_name"/>
+                    <field name="od_cost_centre_id"/>
+                    <field name="join_date"/>
+                    <field name="leave_days"/>
+                    <field name="gratuity_days"/>
+                    <field name="basic_salary"/>
+                    <!--<field name="company_id" invisble="1"/>-->
+                    <field name="total_salary"/>
+                    <field name="this_month_bal"/>
+                    <field name="bal" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="gratuity_rpt_data_line_search_view">
+            <field name="name">gratuity.rpt.data.line.search.view</field>
+            <field name="model">gratuity.rpt.data.line</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="emp_name"/>
+                    <field name="od_cost_centre_id"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Department" name="od_cost_centre_id" domain="[]"
+                                context="{'group_by':'od_cost_centre_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_gratuity_rpt_act" model="ir.actions.act_window">
+            <field name="name">Gratuity Report</field>
+            <field name="res_model">gratuity.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="od_menu_gratuity_rpt"
+                parent="account.menu_finance_reports"
+                sequence="220"
+                action="action_gratuity_rpt_act"
+                groups="__export__.res_groups_229,__export__.res_groups_200"/>
+
+
+    </data>
+</openerp>

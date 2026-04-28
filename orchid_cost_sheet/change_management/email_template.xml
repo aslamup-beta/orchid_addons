@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+      <record id="cm_submit_mail" model="email.template">
+            <field name="name">CM Submit Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Submitted </field>
+            <field name="email_to">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.manager_id.name or '' },</p>
+
+                    <p>Change Management,Please Check It</p>
+                          <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        <record id="cm_submit_mail_saudi" model="email.template">
+            <field name="name">CM Submit Mail Saudi</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Submitted </field>
+            <field name="email_to">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ${object.manager_id.name or '' },</p>
+
+                    <p>Change Management,Please Check It</p>
+                          <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+        <record id="cm_first_approval_mail" model="email.template">
+            <field name="name">CM First Approval Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management First Approval </field>
+            <field name="email_to">coo@betait.net,gm@betait.net</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear,</p>
+
+                    <p>Change Management,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                    <li>Approval By :${object.first_approval_by.name}  </li>
+                    <li>Approval Date :${object.first_approval_date}  </li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+        <record id="cm_first_approval_mail_saudi" model="email.template">
+            <field name="name">CM First Approval Mail Saudi</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management First Approval </field>
+            <field name="email_to">coo@sa.betait.net,gm@sa.betait.net</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ,</p>
+
+                    <p>Change Management,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                    <li>Approval By :${object.first_approval_by.name}  </li>
+                    <li>Approval Date :${object.first_approval_date}  </li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+        <record id="cm_second_approval_mail" model="email.template">
+            <field name="name">CM Second Approval Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Second Approval </field>
+            <field name="email_to">gm@betait.net</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ,</p>
+
+                    <p>Change Management,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                    <li>Approval By :${object.second_approval_by.name}  </li>
+                    <li>Approval Date :${object.second_approval_date}  </li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        <record id="cm_second_approval_mail_saudi" model="email.template">
+            <field name="name">CM Second Approval Mail Saudi</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Second Approval </field>
+            <field name="email_to">gm@sa.betait.net</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ,</p>
+
+                    <p>Change Management,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                    <li>Approval By :${object.second_approval_by.name}  </li>
+                    <li>Approval Date :${object.second_approval_date}  </li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        <record id="cm_third_approval_mail" model="email.template">
+            <field name="name">CM Third Approval Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Third Approval </field>
+            <field name="email_to">FD@betait.net</field>
+            <field name="email_cc">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ,</p>
+
+                    <p>Change Management,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                    <li>Approval By :${object.third_approval_by.name}  </li>
+                    <li>Approval Date :${object.third_approval_date}  </li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+         <record id="cm_third_approval_mail_saudi" model="email.template">
+            <field name="name">CM Third Approval Mail Saudi</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Third Approval </field>
+            <field name="email_to">FD@sa.betait.net </field>
+            <field name="email_cc">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ,</p>
+
+                    <p>Change Management,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                    <li>Approval By :${object.third_approval_by.name}  </li>
+                    <li>Approval Date :${object.third_approval_date}  </li>
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+        <record id="cm_reject_mail" model="email.template">
+            <field name="name">CM Reject Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Cancelled </field>
+            <field name="email_to">${object.user_id.email}</field>
+             <field name="email_cc">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ,</p>
+
+                    <p>Change Management Cancelled,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                   
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+         <record id="cm_reject_mail_saudi" model="email.template">
+            <field name="name">CM Reject Mail Saudi</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Rejected </field>
+            <field name="email_to">${object.user_id.email}</field>
+            <field name="email_cc">${object.manager_id.email}</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ,</p>
+
+                    <p>Change Management Cancelled,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                   
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        <record id="cm_cancel_mail" model="email.template">
+            <field name="name">CM Cancel Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Cancelled </field>
+            <field name="email_to">${object.user_id.email}</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ,</p>
+
+                    <p>Change Management Cancelled,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                   
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        <record id="cm_cancel_mail_saudi" model="email.template">
+            <field name="name">CM Cancel Mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Change Management Cancelled </field>
+            <field name="email_to">${object.user_id.email}</field>
+            <field name="model_id" ref="model_change_management"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear ,</p>
+
+                    <p>Change Management Cancelled,Please Check It</p>
+                     <p>Info</p>
+                    <ul>
+                    <li>ChangeManagement Ref:${object.name}  </li>
+                   
+                    <li>link:http://betait.net/web?#id=${object.id}&view_type=form&model=change.management&menu_id=1064&action=1314</li>
+                    </ul>
+
+                    <p>Thank You</p>
+
+                </div>
+            ]]></field>
+        </record>
+        
+        
+    
+    </data>
+</openerp>

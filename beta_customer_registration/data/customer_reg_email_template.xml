@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+
+        <record id="customer_registration_approval_manager" model="email.template">
+            <field name="name">UAE - Approve Customer Registration</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Approval of Customer Registration - ${object.name}</field>
+            <field name="email_to">osama.aldaour@betait.net</field>
+            <field name="model_id" ref="model_beta_partner"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Osama Al Daour ,</p>
+	             	<p>Kindly need your approval for the below Customer Registration. Could you please review and approve at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Customer: ${object.name}</li>
+	                    	<li>Sales Account Manager: ${object.user_id.name}</li>
+	                    	<li>Created By: ${object.create_uid.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=beta.partner&menu_id=1237&action=2013</li>
+	                    </ul>    		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="customer_registration_approval_manager_saudi" model="email.template">
+            <field name="name">KSA - Approve Customer Registration</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Approval of Customer Registration - ${object.name}</field>
+            <field name="email_to">osama.aldaour@betait.net</field>
+            <field name="model_id" ref="model_beta_partner"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Osama Al Daour ,</p>
+	             	<p>Kindly need your approval for the below Customer Registration. Could you please review and approve at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Customer: ${object.name}</li>
+	                    	<li>Sales Account Manager: ${object.user_id.name}</li>
+	                    	<li>Created By: ${object.create_uid.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=beta.partner&menu_id=1237&action=2013</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="customer_registration_notify_manager" model="email.template">
+            <field name="name">UAE - Customer Registration Approved by CEO</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Customer Registration Approved- ${object.name}</field>
+            <field name="email_to">${object.user_id.email},${object.create_uid.email}</field>
+            <field name="model_id" ref="model_beta_partner"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Team,</p>
+	             	<p>Customer registration has been approved, and the customer has been successfully created in the ERP system.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Customer: ${object.name}</li>
+	                    	<li>Sales Account Manager: ${object.user_id.name}</li>
+	                    	<li>Created By: ${object.create_uid.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=beta.partner&menu_id=1237&action=2013</li>
+	                    </ul>    	 		
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="customer_registration_notify_manager_saudi" model="email.template">
+            <field name="name">KSA - Customer Registration Approved by CEO</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Customer Registration Approved - ${object.name}</field>
+            <field name="email_to">${object.user_id.email},${object.create_uid.email}</field>
+            <field name="model_id" ref="model_beta_partner"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Team,</p>
+	             	<p>Customer registration has been approved, and the customer has been successfully created in the ERP system.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Customer: ${object.name}</li>
+	                    	<li>Sales Account Manager: ${object.user_id.name}</li>
+	                    	<li>Created By: ${object.create_uid.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=beta.partner&menu_id=1237&action=2013</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+
+        <record id="customer_registration_refused" model="email.template">
+            <field name="name">UAE - Customer Registration Refused by CEO</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Customer Registration Refused - ${object.name}</field>
+            <field name="email_to">${object.user_id.email},${object.create_uid.email}</field>
+            <!--              <field name="email_cc">${object.employee_id.email}</field> -->
+            <field name="model_id" ref="model_beta_partner"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.create_uid.name},</p>
+	             	<p>Kindly note that your Customer Registration is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Customer: ${object.name}</li>
+	                    	<li>Sales Account Manager: ${object.user_id.name}</li>
+	                    	<li>Created By: ${object.create_uid.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=beta.partner&menu_id=1237&action=2013</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="customer_registration_refused_saudi" model="email.template">
+            <field name="name">KSA - Customer Registration Refused by CEO</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Customer Registration Refused - ${object.name}</field>
+            <field name="email_to">${object.user_id.email},${object.create_uid.email}</field>
+            <!--              <field name="email_cc">${object.employee_id.email}</field> -->
+            <field name="model_id" ref="model_beta_partner"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.create_uid.name},</p>
+	             	<p>Kindly note that your Customer Registration is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Customer: ${object.name}</li>
+	                    	<li>Sales Account Manager: ${object.user_id.name}</li>
+	                    	<li>Created By: ${object.create_uid.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=beta.partner&menu_id=1237&action=2013</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+
+         <record id="customer_modify_approval_manager" model="email.template">
+            <field name="name">UAE - Approve Customer Modification</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Approval of Customer Modification - ${object.name}</field>
+            <field name="email_to">osama.aldaour@betait.net</field>
+            <field name="model_id" ref="model_beta_partner"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Osama Al Daour ,</p>
+	             	<p>Kindly need your approval for the below Customer Modification. Could you please review and approve at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Customer: ${object.name}</li>
+	                    	<li>Sales Account Manager: ${object.user_id.name}</li>
+	                    	<li>Created By: ${object.create_uid.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=beta.partner&menu_id=1237&action=2013</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="customer_modify_approval_manager_saudi" model="email.template">
+            <field name="name">KSA - Approve Customer Modification</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Approval of Customer Modification - ${object.name}</field>
+            <field name="email_to">osama.aldaour@betait.net</field>
+            <field name="model_id" ref="model_beta_partner"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Osama Al Daour ,</p>
+	             	<p>Kindly need your approval for the below Customer Modification. Could you please review and approve at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Customer: ${object.name}</li>
+	                    	<li>Sales Account Manager: ${object.user_id.name}</li>
+	                    	<li>Created By: ${object.create_uid.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=beta.partner&menu_id=1237&action=2013</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
+

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <record id="view_po_register_report_tree" model="ir.ui.view">
+            <field name="name">od.po.register.report.view</field>
+            <field name="model">od.po.register.report.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+                <tree string="Po Register Analysis" create="false">
+                     <field name="date_planned"/>
+                     <field name="name"/>
+                     <field name="date_order"/>
+                     <field name="partner_id"/>
+                     <field name="currency_id"/>
+                     <field name="location_id" />
+                     <field name="partner_ref"/>
+                     <field name="date_approve"/>
+                     <field name="product_id" />
+                     <field name="product_uom"/>
+                     <field name="price_unit"/>
+                     <field name="product_qty" />
+                     <field name="povalue"/>
+                     <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_po_register_report_graph">
+            <field name="name">od.po.register.report.view</field>
+            <field name="model">od.po.register.report.view</field>
+            <field name="arch" type="xml">
+                <graph string="So Register Analysis" type="bar">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                    <field name="location_id" />
+                    <field name="partner_ref"/>
+                    <field name="date_approve"/>
+                    <field name="date_planned"/>
+                    <field name="product_id" />
+                    <field name="product_uom"/>
+                    <field name="price_unit"/>
+                    <field name="product_qty" />
+                    <field name="povalue"/>
+                </graph>
+            </field>
+        </record>
+
+    <record id="view_po_register_report_search" model="ir.ui.view">
+        <field name="name">od.po.register.report.view</field>
+        <field name="model">od.po.register.report.view</field>
+        <field name="arch" type="xml">
+            <search string="PO Register">
+
+               <filter icon="terp-go-month" string="Today " separator="1"
+                           domain="[('date_planned','&lt;=', (datetime.date.today()).strftime('%%Y-%%m-%%d')),('date_planned','&gt;=',(datetime.date.today()).strftime('%%Y-%%m-%%d'))]"
+                           help="Created today"/>
+                <filter icon="terp-go-month" string="Week" separator="1"
+                           domain="[('date_planned','&lt;=', (datetime.date.today()+relativedelta(days=7)).strftime('%%Y-%%m-%%d'))]"
+                           help="Created One Week"/>
+
+                <filter icon="terp-go-month" string="Month" separator="1"
+                           domain="[('date_planned','like',time.strftime('%Y-%m%'))]"
+                           help="Created One Month"/>
+
+
+
+
+                <field name="product_id" string="Product"/>
+                <field name="date_planned" string="Date Planned"/>
+                <field name="partner_id" string="Partner"/>
+                <field name="name"/>
+                    <group string="Group By...">
+                     <filter string="Name" icon="terp-personal" name="name" context="{'group_by':'name'}"/>
+                     <filter string="Date Planned" icon="terp-personal" name="date_planned" context="{'group_by':'date_planned'}"/>
+                     <filter string="Partner" icon="terp-personal" name="partner_id" context="{'group_by':'partner_id'}"/>
+                     <filter string="Currency" icon="terp-personal" name="currency_id" context="{'group_by':'currency_id'}"/>
+                     <filter string="Product" icon="terp-personal" name="product_id" context="{'group_by':'product_id'}"/>
+                    </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_po_register" model="ir.actions.act_window">
+        <field name="name">PO Register</field>
+        <field name="res_model">od.po.register.report.view</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,graph</field>
+        <field name="search_view_id" ref="view_po_register_report_search"/>
+        <field name="view_id" ref="view_po_register_report_tree"/>
+        <field name="context">{}</field>
+        <field name="help">This report PO Register Report.</field>
+    </record>
+
+
+
+    </data>
+</openerp>

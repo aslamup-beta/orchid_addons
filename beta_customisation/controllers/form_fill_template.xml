@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="employee_join_form">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Fill the Form</t>
+        <div id="wrap">
+            <div class="container">
+                <h1 class="text-center">
+                    Employee Personal Data Entry Form
+                </h1>
+                <h2 t-if="joinee" class="text-center text-muted">
+                    <span t-field="joinee.name"/>
+                </h2>
+
+ 			  <style>
+						   h3 {
+						    color:blue;
+						   }
+			  </style>
+			  
+                <div class="row">
+                    <section id="forms">
+                        <form class="form-horizontal mt32" action="/beta_join/thankyou" method="post" enctype="multipart/form-data">
+                            <input type="hidden" t-att-value="job and job.department_id.id or False" name="department_id"/>
+                            <input type="hidden" t-att-value="job and job.id or False" name="job_id"/>
+                            <input type="hidden" t-att-value="joinee and joinee.id or False" name="join_id"/>
+                            <h3>Your Contact Information</h3>
+                            <div t-attf-class="form-group #{error.get('partner_name') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="partner_name">Your Name (Same as in Passport)</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('name')" class="form-control" name="name" required="True"/>
+                                </div>
+                            </div>
+<!--                             <div t-attf-class="form-group #{error.get('email_from') and 'has-error' or ''}"> -->
+<!--                                 <label class="col-md-3 col-sm-4 control-label" for="email_from">Email ID</label> -->
+<!--                                 <div class="col-md-7 col-sm-8"> -->
+<!--                                     <input type="email" t-att-value="default.get('personal_email')" class="form-control" name="personal_email" required="True"/> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+                           
+                            <div t-attf-class="form-group #{error.get('mobile') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="mobile">Mobile</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('mobile')" class="form-control" name="mobile" required="True"/>
+                                </div>
+                            </div>
+                            
+<!--  							<div t-attf-class="form-group #{error.get('phone') and 'has-error' or ''}"> -->
+<!--                                 <label class="col-md-3 col-sm-4 control-label" for="phone">Landline</label> -->
+<!--                                 <div class="col-md-7 col-sm-8"> -->
+<!--                                     <input type="text" t-att-value="default.get('phone')" class="form-control" name="phone" /> -->
+<!--                                 </div> -->
+<!--                             </div>                             -->
+                          
+                           <h3>Your Personal Details</h3>
+<!--                            <div t-attf-class="form-group #{error.get('father_name') and 'has-error' or ''}"> -->
+<!--                                 <label class="col-md-3 col-sm-4 control-label" for="father_name">Father's Name</label> -->
+<!--                                 <div class="col-md-7 col-sm-8"> -->
+<!--                                     <input type="text" t-att-value="default.get('father_name')" class="form-control" name="father_name" /> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+               			   <div t-attf-class="form-group #{error.get('dob') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="dob">Date of Birth</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input id="date" type="date" t-att-value="default.get('dob')" class="form-control" name="dob" required="True" />
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('place_of_birth') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="place_of_birth">Place of Birth</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('place_of_birth')" class="form-control" name="place_of_birth" required="True"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('passport_no') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="passport_no">Passport Number</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('passport_no')" class="form-control" name="passport_no" required="True"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('nationality') and 'has-error' or ''}">
+		                      <label class="col-md-3 col-sm-4 control-label" for="nationality">Nationality</label>
+		                      <div class="col-md-7 col-sm-8">
+		                      <select name="nationality" class="form-control" required="True">
+		                          <option value="">Nationality...</option>
+		                          <t t-foreach="countries or []" t-as="country">
+<!-- 		                             <option t-att-value="country.id" t-att-selected="country.id == checkout.get('country_id')"><t t-esc="country.name"/></option> -->
+		                          	
+		                              <option t-att-value="country.id" t-att-selected="country.id == default.get('nationality')"><t t-esc="country.name"/></option>
+		                          </t>
+		                      </select>
+		                      </div>
+		                  </div>
+                            <div t-attf-class="form-group #{error.get('gender') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="gender">Gender</label>
+                                <div class="col-md-7 col-sm-8">
+				                <select id="myselect" name="gender" t-att-value="default.get('gender')">
+								  <option  value="male">Male</option>
+								  <option value="female">Female</option>
+								</select>
+								</div>
+							</div>
+							<div t-attf-class="form-group #{error.get('marital') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="marital">Martial status</label>
+                                <div class="col-md-7 col-sm-8">
+                                   <select id="martial" name="martial" t-att-value="default.get('martial')">
+								  <option  value="single">Single</option>
+								  <option value="married">Married</option>
+								  <option  value="widower">Widower</option>
+								  <option value="divoreced">Divorced</option>
+								</select>
+                                </div>
+                            </div>
+                            <h3>Home Address</h3>
+                            <div t-attf-class="form-group #{error.get('street') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="street">Street</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('street')" class="form-control" name="street" required="True"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('street2') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="street2">Street2</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('street2')" class="form-control" name="street2" />
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('city') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="city">City</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('city')" class="form-control" name="city" required="True"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="zip">Zip</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('zip')" class="form-control" name="zip" required="True"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('state_id') and 'has-error' or ''}">
+		                      <label class="col-md-3 col-sm-4 control-label" for="state_id">State</label>
+		                      <div class="col-md-7 col-sm-8">
+		                      <select name="state_id" class="form-control">
+		                          <option value="">State...</option>
+		                          <t t-foreach="states or []" t-as="state">
+<!-- 		                             <option t-att-value="country.id" t-att-selected="country.id == checkout.get('country_id')"><t t-esc="country.name"/></option> -->
+		                          	
+		                              <option t-att-value="state.id" t-att-selected="state.id == default.get('state_id')"><t t-esc="state.name"/></option>
+		                          </t>
+		                      </select>
+		                      </div>
+		                  </div>
+                            <div t-attf-class="form-group #{error.get('country_id') and 'has-error' or ''}">
+		                      <label class="col-md-3 col-sm-4 control-label" for="country_id">Country</label>
+		                      <div class="col-md-7 col-sm-8">
+		                      <select name="e_c1_country_id" class="form-control" required="True">
+		                          <option value="">Country...</option>
+		                          <t t-foreach="countries or []" t-as="country">
+<!-- 		                             <option t-att-value="country.id" t-att-selected="country.id == checkout.get('country_id')"><t t-esc="country.name"/></option> -->
+		                          	
+		                              <option t-att-value="country.id" t-att-selected="country.id == default.get('country_id')"><t t-esc="country.name"/></option>
+		                          </t>
+		                      </select>
+		                      </div>
+		                  </div>
+                            <h3>Emergency Contact</h3>
+                            <div t-attf-class="form-group #{error.get('e_c1_name') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="e_c1_name">Contact Name</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('e_c1_name')" class="form-control" name="e_c1_name" required="True"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('e_c1_relationship') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="e_c1_relationship">Relationship</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('e_c1_relationship')" class="form-control" name="e_c1_relationship" required="True"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('e_c1_street') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="e_c1_street">Street</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('e_c1_street')" class="form-control" name="e_c1_street"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('e_c1_street2') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="e_c1_street2">Street2</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('e_c1_street2')" class="form-control" name="e_c1_street2"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('e_c1_city') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="e_c1_city">City</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('e_c1_city')" class="form-control" name="e_c1_city"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('e_c1_state_id') and 'has-error' or ''}">
+		                      <label class="col-md-3 col-sm-4 control-label" for="e_c1_state_id">State</label>
+		                      <div class="col-md-7 col-sm-8">
+		                      <select name="e_c1_state_id" class="form-control">
+		                          <option value="">State...</option>
+		                          <t t-foreach="states or []" t-as="state">
+<!-- 		                             <option t-att-value="country.id" t-att-selected="country.id == checkout.get('country_id')"><t t-esc="country.name"/></option> -->
+		                          	
+		                              <option t-att-value="state.id" t-att-selected="state.id == default.get('e_c1_state_id')"><t t-esc="state.name"/></option>
+		                          </t>
+		                      </select>
+		                      </div>
+		                  </div>
+                            <div t-attf-class="form-group #{error.get('e_c1_country_id') and 'has-error' or ''}">
+		                      <label class="col-md-3 col-sm-4 control-label" for="e_c1_country_id">Country</label>
+		                      <div class="col-md-7 col-sm-8">
+		                      <select name="country_id" class="form-control">
+		                          <option value="">Country...</option>
+		                          <t t-foreach="countries or []" t-as="country">
+<!-- 		                             <option t-att-value="country.id" t-att-selected="country.id == checkout.get('country_id')"><t t-esc="country.name"/></option> -->
+		                          	
+		                              <option t-att-value="country.id" t-att-selected="country.id == default.get('e_c1_country_id')"><t t-esc="country.name"/></option>
+		                          </t>
+		                      </select>
+		                      </div>
+		                  </div>
+                            <div t-attf-class="form-group #{error.get('e_c1_ph1') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="e_c1_ph1">Mobile</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('e_c1_ph1')" class="form-control" name="e_c1_ph1" required="True"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('e_c1_ph2') and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="e_c1_ph2">Phone</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" t-att-value="default.get('e_c1_ph2')" class="form-control" name="e_c1_ph2"/>
+                                </div>
+                            </div>
+                             <h3>Upload Your Personal Documents</h3>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label" for="image">Upload your Photo (Less than 30kb)</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input class="input-file" id="fileInput" type="file" name="image" required="True"/>
+                                    <span t-if="error.get('image')">Please send your Photo copy again.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label" for="passport">Upload your Passport Copy</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input class="input-file" id="fileInput" type="file" name="passport" required="True"/>
+                                    <span t-if="error.get('passport')">Please send your passport copy again.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label" for="education">Upload your Educational Certificate</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input class="input-file" id="fileInput" type="file" name="education" required="True"/>
+                                    <span t-if="error.get('education')">Please send your certificate again.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-4 control-label" for="local_id">Local ID (if any..)</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input class="input-file" id="fileInput" type="file" name="local_id"/>
+                                    <span t-if="error.get('local_id')">Please send your certificate again.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                        </section>  
+              
+                        </div>
+                        </div>
+                        </div>
+                        </t>
+                        </template>
+                        
+  
+                        
+  <template id="beta_thankyou">
+    <t t-call="website.layout">
+        <div id="wrap">
+            <div class="oe_structure">
+                <div class="container">
+                    <h1>Thank you !</h1>
+                    <p>
+                        Your Personal data has been successfully updated,
+                        we will get back to you soon.
+                    </p>
+                </div>
+                <section data-snippet-id="cta" class="oe_dark">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center mt16 mb16">
+                                <a href="/" class="btn btn-primary btn-lg">Continue To Our Website</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+</template>
+                        
+      </data>
+      </openerp>
+                       

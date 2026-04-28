@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+
+        <record id="od_accaccount_aged_balance_view" model="ir.ui.view">
+            <field name="name">Aged Partner Balance</field>
+            <field name="model">account.aged.trial.balance</field>
+            <field name="inherit_id" ref="account.account_aged_balance_view" />
+            <field name="arch" type="xml">
+
+
+                <field name="journal_ids" position="after">
+                    <notebook>
+                        <page string="Partner">
+                            <field name="od_partner_ids" nolabel="1"/>
+                        </page>
+                        <page string="Sales Person">
+                            <field name="od_sale_person_ids" nolabel="1"/>
+                        </page>
+                         <page string="Accounts">
+                            <field name="od_account_ids" nolabel="1"/>
+                        </page>
+                        <page string="Cost Centre">
+                            <field name="od_cost_centre_ids" nolabel="1"/>
+                        </page>
+                         <page string="Branch">
+                            <field name="od_branch_ids" nolabel="1"/>
+                        </page>
+                         <page string="Division">
+                            <field name="od_division_ids" nolabel="1"/>
+                        </page>
+
+                    </notebook>
+                </field>
+
+<!--                 <button name="check_report" position="after"> -->
+<!--                     <button icon="gtk-execute" name="xls_export" string="Export" type="object" context="{'xls_export':1}" colspan="2"/> -->
+<!--                 </button> -->
+
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

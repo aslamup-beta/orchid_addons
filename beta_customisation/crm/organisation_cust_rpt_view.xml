@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+          <record id="view_org_cust_rpt_wizard" model="ir.ui.view">
+            <field name="name">Named Accounts</field>
+            <field name="model">org.cust.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                <group>
+                <label colspan="4" width="500"
+                string="You are on about to generate Named Accounts list of the Organisation ."/>
+                
+                </group>
+                       <footer>
+                       <button name="export_rpt" string="Export" type="object" />
+                       or
+                        <button string="Cancel" special="cancel" />
+                       
+                       </footer>
+                        
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="action_org_cust_rpt_act" model="ir.actions.act_window">
+            <field name="name">Named Accounts</field>
+            <field name="res_model">org.cust.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+         
+         <menuitem
+         	
+			id="menu_org_cust_rpt"
+			parent="beta_customisation.named_accounts_parent"
+			sequence="1" 
+			action="action_org_cust_rpt_act" />
+
+
+	<record model="ir.ui.view" id="od_org_cust_tree_view">
+		<field name="name">org.cust.rpt.data</field>
+		<field name="model">org.cust.rpt.data</field>
+		<field name="arch" type="xml">
+			<tree string="Named Accounts">
+				<field name="name" />
+				<field name="industry" />
+				<field name="od_class" />
+				<field name="sam_id" />
+				<field name="od_city" invisible="1"/>
+				<field name="pipeline_sale"  sum="Total" />
+				<field name="pipeline_profit" sum="Total" />
+				<field name="won_sale"  sum="Total" />
+				<field name="won_profit" sum="Total" />
+				<field name="od_territory"/>
+			</tree>
+		</field>
+	</record>
+	
+
+	<record model="ir.ui.view" id="od_org_cust_search_view">
+		<field name="name">org.cust.rpt.data.search</field>
+		<field name="model">org.cust.rpt.data</field>
+		<field name="arch" type="xml">
+			<search>
+			<field name="name"/>
+			<group expand="1" string="Group By">
+	              <filter string="Class" name="class" domain="[]" context="{'group_by':'od_class'}"/>
+                   <filter string="Sales Account Manager" name="sam" domain="[]" context="{'group_by':'sam_id'}"/>
+                   <filter string="Industry" domain="[]" context="{'group_by':'industry'}"/>
+                   <filter string="City" domain="[]" context="{'group_by':'od_city'}"/>
+                   <filter string="Territory" domain="[]" context="{'group_by':'od_territory'}"/>
+                   
+            </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+    </data>
+</openerp>

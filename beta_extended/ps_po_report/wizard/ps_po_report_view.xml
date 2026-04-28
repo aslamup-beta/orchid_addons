@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_ps_po_rpt_wiz" model="ir.ui.view">
+            <field name="name">Professional Service PO Report</field>
+            <field name="model">ps.po.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="export_rpt" string="Export" type="object" class="oe_highlight"/>
+                        or
+                        <button name="print_directly" string="Print" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" special="cancel"/>
+
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ps_po_rpt_wiz" model="ir.actions.act_window">
+            <field name="name">PS PO Report</field>
+            <field name="res_model">ps.po.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="od_menu_ps_po_rpt"
+                parent="beta_invoice.sup_aging_rpt_gne"
+                sequence="205"
+                action="action_ps_po_rpt_wiz"/>
+
+
+        <record model="ir.ui.view" id="tree_view_ps_po_rpt_data_line">
+            <field name="name">ps.po.rpt.data.line.tree</field>
+            <field name="model">ps.po.rpt.data.line</field>
+            <field name="arch" type="xml">
+                <tree string="PS PO Report">
+                    <field name="company_id" invisible="1"/>
+                    <field name="purchase_id"/>
+                    <button name="btn_open_po" type="object" icon="STOCK_FIND" string="Open"/>
+                    <field name="order_date" string="Order Date"/>
+                    <field name="product_id"/>
+                    <field name="pdt_description"/>
+                    <field name="partner_id"/>
+                    <field name="od_customer_id"/>
+                    <field name="od_pdt_brand_id"/>
+                    <field name="od_product_group_id"/>
+                    <field name="ps_total" sum="Total"/>
+                    <field name="od_division_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="ps_po_rpt_data_line_search_view">
+            <field name="name">ps.po.rpt.data.line.search</field>
+            <field name="model">ps.po.rpt.data.line</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="partner_id"/>
+                    <field name="od_customer_id"/>
+                    <field name="od_division_id"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Supplier" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Purchase Order" domain="[]" context="{'group_by':'purchase_id'}"/>
+                        <filter string="End User" domain="[]" context="{'group_by':'od_customer_id'}"/>
+                        <filter string="Part Number" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Vendor" domain="[]" context="{'group_by':'od_pdt_brand_id'}"/>
+                        <filter string="Unit" domain="[]" context="{'group_by':'od_product_group_id'}"/>
+                        <filter string="PO State" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Order Date By Day" context="{'group_by':'order_date:day'}"/>
+                        <filter string="Order Date By Month" context="{'group_by': 'order_date:month'}"/>
+                        <filter string="Order Date By Year" context="{'group_by': 'order_date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="od_sub_category_form">
+		<field name="name">od sub category form view</field>
+		<field name="model">od.project.sub.category</field>
+		<field name="arch" type="xml">
+		<form string="Od Implementation" version="7.0">
+ 			<sheet>
+ 			 <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Description" />
+                            </h1>
+                        </div>
+			</sheet>
+		</form>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_sub_category_tree">
+		<field name="name">od sub category tree view</field>
+		<field name="model">od.project.sub.category</field>
+		<field name="arch" type="xml">
+			<tree string="Od Implementation">
+					<field name="name" />
+			</tree>
+		</field>
+		</record>
+
+		<record model="ir.ui.view" id="od_sub_category_search">
+		<field name="name">od sub category search view</field>
+		<field name="model">od.project.sub.category</field>
+		<field name="arch" type="xml">
+			<search>
+					<field name="name" />
+			</search>
+		</field>
+		</record>
+
+	
+
+		<record model="ir.actions.act_window" id="action_od_sub_category">
+		<field name="name">Sub Category</field>
+		<field name="res_model">od.project.sub.category</field>
+		<field name="view_mode">tree,form</field>
+		</record>
+
+	 	<menuitem name="Sub Category" 
+	  		id="menu_od_sub_category" 
+	  		parent="base.menu_definitions"
+            action="action_od_sub_category" />
+
+	</data>
+</openerp>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_cust_statement_rpt_wiz_inherit" model="ir.ui.view">
+            <field name="name">view.cust.statement.rpt.wiz.inherit</field>
+            <field name="model">cust.statement.rpt.wiz</field>
+            <field name="inherit_id" ref="beta_customisation.view_cust_statement_rpt_wizard"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='print_directly']" position="after">
+                    <button name="new_print_directly" string="Account Statement" type="object" groups="__export__.res_groups_200"/>
+                    <span groups="__export__.res_groups_200">or</span>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

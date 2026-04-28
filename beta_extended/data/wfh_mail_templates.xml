@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+
+    	<record id="od_wfh_approval_manager" model="email.template">
+             <field name="name">UAE - Request to Approve Work from Home</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Approve Work from Home - ${object.employee_id.name}</field>
+             <field name="email_to">${object.manager_id.email}</field>
+             <field name="email_cc">${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_hr_holidays_wfh"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Manager,</p>
+	             	<p>Kindly need your Approval for the below work from home request.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+                       		<li>Reason: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.holidays.wfh&menu_id=1205&action=1903</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_wfh_approval_manager_saudi" model="email.template">
+             <field name="name">KSA - Request to Approve Work from Home</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Approve Work from Home - ${object.employee_id.name}</field>
+             <field name="email_to">${object.manager_id.email}</field>
+             <field name="email_cc">${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_hr_holidays_wfh"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Manager,</p>
+	             	<p>Kindly need your Approval for the below work from home request.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+                       		<li>Reason: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.holidays.wfh&menu_id=1205&action=1903</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_wfh_approval_hr" model="email.template">
+             <field name="name">UAE - Request to Confirm Work from Home</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Confirm Work from Home - ${object.employee_id.name}</field>
+             <field name="email_to">sami.nazzal@betait.net</field>
+             <field name="email_cc">mohd.sageer@betait.net, ${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_hr_holidays_wfh"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear HR Manager,</p>
+	             	<p>Work from Home request is Approved for below employee. Kindly need your Confirmation.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+                       		<li>Reason: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.holidays.wfh&menu_id=1205&action=1903</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_wfh_approval_hr_saudi" model="email.template">
+             <field name="name">KSA - Request to Confirm Work from Home</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Confirm Work from Home - ${object.employee_id.name}</field>
+             <field name="email_to">hr.ksa@betait.net</field>
+             <field name="email_cc">${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_hr_holidays_wfh"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear HR Manager,</p>
+	             	<p>Work from Home request is Approved for below employee. Kindly need your Confirmation.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+                       		<li>Reason: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.holidays.wfh&menu_id=1205&action=1903</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_wfh_approved_employee" model="email.template">
+             <field name="name">UAE - Work from Home Approved</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Work from Home Approved- ${object.employee_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.user_id.email}</field> -->
+             <field name="model_id" ref="model_hr_holidays_wfh"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Work from Home request is Approved in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.holidays.wfh&menu_id=1205&action=1903</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_wfh_approved_employee_saudi" model="email.template">
+             <field name="name">KSA - Work from Home Approved</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Work from Home Approved- ${object.employee_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.user_id.email}</field> -->
+             <field name="model_id" ref="model_hr_holidays_wfh"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Work from Home request is Approved in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.holidays.wfh&menu_id=1205&action=1903</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_wfh_refused_employee" model="email.template">
+             <field name="name">UAE - Work from Home Refused</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Work from Home Refused- ${object.employee_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.user_id.email}</field> -->
+             <field name="model_id" ref="model_hr_holidays_wfh"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Work from Home request is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.holidays.wfh&menu_id=1205&action=1903</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_wfh_refused_employee_saudi" model="email.template">
+             <field name="name">KSA - Work from Home Refused</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Work from Home Refused- ${object.employee_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.user_id.email}</field> -->
+             <field name="model_id" ref="model_hr_holidays_wfh"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Work from Home request is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.holidays.wfh&menu_id=1205&action=1903</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_buisness_trip_approval_manager" model="email.template">
+             <field name="name">UAE - Request to Approve Business Trip</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Approve Business Trip - ${object.employee_id.name}</field>
+             <field name="email_to">${object.manager_id.email}</field>
+             <field name="email_cc">${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_hr_business_trip"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Manager,</p>
+	             	<p>Kindly need your Approval for the below buisness trip request.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+                       		<li>Reason: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.business.trip&menu_id=1206&action=1904</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_buisness_trip_approval_manager_saudi" model="email.template">
+             <field name="name">KSA - Request to Approve Business Trip</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Approve Business Trip - ${object.employee_id.name}</field>
+             <field name="email_to">${object.manager_id.email}</field>
+             <field name="email_cc">${object.employee_id.user_id.email}</field>
+             <field name="model_id" ref="model_hr_business_trip"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Manager,</p>
+	             	<p>Kindly need your Approval for the below buisness trip request.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                    	<li>Employee Name: ${object.employee_id.name}</li>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+                       		<li>Reason: ${object.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.business.trip&menu_id=1206&action=1904</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_buisness_trip_approved_employee" model="email.template">
+             <field name="name">UAE - Business Trip Approved</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Business Trip Approved- ${object.employee_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.user_id.email}</field> -->
+             <field name="model_id" ref="model_hr_business_trip"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Business Trip request is Approved in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.business.trip&menu_id=1206&action=1904</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+
+
+         <record id="od_buisness_trip_approved_employee_saudi" model="email.template">
+             <field name="name">KSA - Business Trip Approved</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Business Trip Approved- ${object.employee_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.user_id.email}</field> -->
+             <field name="model_id" ref="model_hr_business_trip"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Business Trip request is Approved in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.business.trip&menu_id=1206&action=1904</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_buisness_trip_refused_employee" model="email.template">
+             <field name="name">UAE - Business Trip Refused</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Business Trip Refused- ${object.employee_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.user_id.email}</field> -->
+             <field name="model_id" ref="model_hr_business_trip"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Business Trip request is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.business.trip&menu_id=1206&action=1904</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="od_buisness_trip_refused_employee_saudi" model="email.template">
+             <field name="name">KSA - Business Trip Refused</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Business Trip Refused- ${object.employee_id.name}</field>
+             <field name="email_to">${object.employee_id.user_id.email}</field>
+<!--              <field name="email_cc">${object.employee_id.user_id.email}</field> -->
+             <field name="model_id" ref="model_hr_business_trip"/>
+             <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear ${object.employee_id.name},</p>
+	             	<p>Kindly note that your Business Trip request is refused in ERP.</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>Start Date: ${object.date_from}</li>
+	                    	<li>End Date: ${object.date_to}</li>
+                       		<li>Number of Days: ${object.number_of_days}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=hr.business.trip&menu_id=1206&action=1904</li>
+	                    </ul>
+
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+             </field>
+         </record>
+
+
+
+     </data>
+</openerp>

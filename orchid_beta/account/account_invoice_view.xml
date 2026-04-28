@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+
+   <record id="od_supp_form_inherited_view" model="ir.ui.view">
+            <field name="name">od.account.invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <field name="supplier_invoice_number" position="replace">
+                    <field name="supplier_invoice_number" required="1" string="Partner Reference"/>
+                </field>
+
+                <field name="date_invoice" position="replace">
+                    <field name="date_invoice" required="1"/>
+                </field>
+                <field name="move_id" position="before">
+          		  <field name="od_allow_extra_exp" />
+          		 </field>
+               
+<!--                <field name="amount_tax" position="replace">-->
+<!--                    <field name="amount_tax" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>-->
+<!--                    <field name="od_discount" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>-->
+<!--                </field>-->
+
+                <field name="tax_line" position="replace">
+                        <field name="tax_line" invisible="1">
+                            <tree editable="bottom" string="Taxes">
+                                <field name="name"/>
+                                <field name="account_id" groups="account.group_account_invoice"/>
+                                <field name="account_analytic_id" domain="[('type','&lt;&gt;','view'), ('company_id', '=', parent.company_id)]" groups="analytic.group_analytic_accounting"/>
+                                <field name="base" on_change="base_change(base,parent.currency_id,parent.company_id,parent.date_invoice)" readonly="1"/>
+                                <field name="amount" on_change="amount_change(amount,parent.currency_id,parent.company_id,parent.date_invoice)"/>
+
+                                <field invisible="True" name="base_amount"/>
+                                <field invisible="True" name="tax_amount"/>
+                                <field name="factor_base" invisible="True"/>
+                                <field name="factor_tax" invisible="True"/>
+                            </tree>
+                        </field>
+
+                <label for="od_discount"/>
+                <field name="od_discount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="od_discount_acc_id" attrs="{'required':[('od_discount','!=',0)],'invisible':[('od_discount','=',0)]}" placeholder="Discount Account"/>
+               </field>
+
+
+            </field>
+        </record>
+        
+        
+   <record id="od_customer_beta_form_inherited_view" model="ir.ui.view">
+            <field name="name">od.account.invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            
+                <field name="residual" position="after" >
+            	
+                <field name="od_discount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                <field name="od_discount_acc_id" attrs="{'required':[('od_discount','!=',0)],'invisible':[('od_discount','=',0)]}" placeholder="Discount Account"/>
+            	</field>
+            
+            <field name="move_id" position="before">
+          		  <field name="od_allow_extra_exp" />          		  
+          		 </field>
+          		 
+          		 <xpath expr="//notebook[last()]" position="inside">
+					<page string="QR Code" invisible="True">
+						<group>
+							<field name="qr_code" widget="image"/>
+						</group>
+            		</page>
+				 </xpath>
+				 
+				  <field name="journal_id" position="before" >
+				   		<field name="display_contract_no" />     
+				    	<field name="contract_no" attrs="{'required':[(('display_contract_no','!=',False))],'invisible':[('display_contract_no','=',False)]}"/>     
+				     	<field name="service_wo" attrs="{'required':[(('display_contract_no','!=',False))],'invisible':[('display_contract_no','=',False)]}"/>     
+				  </field>
+            
+            </field>
+            
+            
+            
+           </record>
+    </data>
+</openerp>

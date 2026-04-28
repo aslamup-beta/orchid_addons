@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+  
+        <record id="view_sales_commit_rpt_wizard" model="ir.ui.view">
+            <field name="name">Sales Commit Form</field>
+            <field name="model">sales.commit.rpt.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report" >
+                    <group>
+                     	<field name="sam_ids" context="{'sam_ids':1}" widget="many2many_tags"/>
+                    </group>
+                    <br/>
+                    <br/>
+                <footer>
+                 <button name="export_rpt" string="Export" type="object" />
+                 or
+                  <button string="Cancel" special="cancel" />
+                
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sales_commit_rpt_act" model="ir.actions.act_window">
+            <field name="name">Sales Commit</field>
+            <field name="res_model">sales.commit.rpt.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+<!--             <field name="context">{'search_default_audit_start':1,'search_default_sam':1,}</field> -->
+        </record>
+         
+         <menuitem
+			id="menu_sales_commit_rpt"
+			parent="orchid_beta.menu_mis_reporting"
+			 sequence="1" 
+			action="action_sales_commit_rpt_act" 
+			name="Sales Commit"
+			/>
+			
+			<record model="ir.ui.view" id="od_sales_commit_data_tree_view">
+				<field name="name">sales.commit.rpt.data.tree</field>
+				<field name="model">sales.commit.rpt.data</field>
+				<field name="arch" type="xml">
+					<tree string="Sales Commit">
+						<field name="company_id" invisible="1" />
+						
+						<field name="aud_date_start" />
+						<field name="aud_date_end" />
+						<field name="sam_id" />
+						
+						<field name="partner_id" />
+						<field name="od_cost_sheet_id" />
+						<field name="stage_id" />
+						<field name="gp" sum="Total"/>
+						
+					</tree>
+				</field>
+			</record>
+			
+			<record model="ir.ui.view" id="od_sales_commit_search_view">
+					<field name="name">sales.commit.rpt.data.search</field>
+					<field name="model">sales.commit.rpt.data</field>
+					<field name="arch" type="xml">
+						<search>
+							<field name="sam_id" />
+							<field name="od_cost_sheet_id" />
+						<group expand="1" string="Group By">
+                       
+<!--                         <filter string="Branch" domain="[]" context="{'group_by':'branch_id'}"/> -->
+                        
+                      <!--   <filter name="audit_start" string="Audit Start" context="{'group_by':'aud_date_start'}"/> -->
+                        <filter name="audit_end" string="Audit End" context="{'group_by':'aud_date_end'}"/>
+                        <filter name="sam" string="Sale Account Manager" domain="[]" context="{'group_by':'sam_id'}"/>
+                         <filter name="customer" string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                          <filter name="stage" string="Current Opp Status" domain="[]" context="{'group_by':'stage_id'}"/>
+                    </group>
+			
+			</search>
+			
+			
+		</field>
+	</record>
+			
+	
+    </data>
+</openerp>

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="action_report_stock_aging" 
+            model="stock.quant" 
+            string="Stock Aging"
+            report_type="qweb-pdf"
+            name="orchid_stock_report.report_stock_aging" 
+            file="orchid_stock_report.report_stock_aging" 
+            menu="False"
+        />
+        
+        <report
+            id="action_report_stock_list" 
+            model="stock.quant" 
+            string="Stock Aging"
+            report_type="qweb-pdf"
+            name="orchid_stock_report.report_stock_list" 
+            file="orchid_stock_report.report_stock_list" 
+            menu="False"
+        />
+        
+        
+          <report
+            id="action_report_stock_aging_detail" 
+            model="stock.quant" 
+            string="Stock Aging"
+            report_type="qweb-pdf"
+            name="orchid_stock_report.report_stock_aging_detail" 
+            file="orchid_stock_report.report_stock_aging_detail" 
+            menu="False"
+        />
+
+
+          <report
+            id="action_report_stock_closing" 
+            model="od.stock.move.analysis" 
+            string="Closing Inventory Report"
+            report_type="qweb-pdf"
+            name="orchid_stock_report.report_stock_closing" 
+            file="orchid_stock_report.report_stock_closing" 
+            menu="False"
+        />
+
+
+          <report
+            id="action_report_stock_move_analysis" 
+            model="od.stock.move.analysis" 
+            string="Move Analysis Report"
+            report_type="qweb-pdf"
+            name="orchid_stock_report.report_stock_move_analysis" 
+            file="orchid_stock_report.report_stock_move_analysis" 
+            menu="False"
+        />
+
+
+    </data>
+</openerp>

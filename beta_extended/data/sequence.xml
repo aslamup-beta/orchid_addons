@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record model="ir.sequence.type" id="seq_type_od_commitment_letter">
+            <field name="name">Project Commitment Letter</field>
+            <field name="code">od.project.commitment.letter</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_od_commitment_letter">
+            <field name="name">Project Commitment Letter</field>
+            <field name="code">od.project.commitment.letter</field>
+            <field name="prefix">KSA/%(year)s/</field>
+            <field name="padding">3</field>
+            <!--        <field name="company_id" eval="6"/>-->
+        </record>
+
+
+        <record model="ir.sequence.type" id="seq_type_od_commitment_letter_uae">
+            <field name="name">Project Commitment Letter UAE</field>
+            <field name="code">od.project.commitment.letter.uae</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_od_commitment_letter_uae">
+            <field name="name">Project Commitment Letter UAE</field>
+            <field name="code">od.project.commitment.letter.uae</field>
+            <field name="prefix">UAE/%(year)s/</field>
+            <field name="padding">3</field>
+            <!--        <field name="company_id" eval="6"/>-->
+        </record>
+
+    </data>
+</openerp>

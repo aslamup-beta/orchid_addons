@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="Sidebar">
+        <t t-jquery=".oe_sidebar_delete_item" t-operation="before">
+            <span t-if="section.name == 'files' and !item.callback and item.name.substring(item.name.lastIndexOf('.'), item.name.length).toLowerCase() == '.pdf'" class="fa fa-file-pdf-o o_sidebar_viewer_pdf_item" t-att-data-id="item.id" title="View this attachment"/>
+        </t>
+    </t>
+    <t t-name="ViewerPdf">
+        <div class="o_document_viewer_pdf">
+            <iframe t-att-src="widget.url"/>
+        </div>
+    </t>
+</templates>

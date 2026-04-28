@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      
+      <record id="view_cc_od_trend_report" model="ir.ui.view">
+        <field name="name">Trend Report</field>
+        <field name="model">od.trend.report</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="orchid_acc_report.view_od_trend_report"/>
+        <field name="arch" type="xml">
+			<page string="Partner" position="after">
+				<page string="Cost Centre">
+					<field name="costcentre_ids">
+					</field>
+				</page>
+			</page>
+
+        </field>
+      </record>
+
+      
+    </data>
+</openerp>

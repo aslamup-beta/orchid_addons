@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+
+
+<!--	<record id="view_od_hr_job_form_inherit" model="ir.ui.view">-->
+<!--            <field name="name">od.hr.job</field>-->
+<!--            <field name="model">hr.job</field>-->
+<!--            <field name="inherit_id" ref="hr.view_hr_job_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--            	<xpath expr="//field[@name='address_id']" position="after">-->
+<!--            	<label for='od_notes' string='Description'/>-->
+<!--            		<field name='od_notes' />-->
+<!--            	</xpath>-->
+<!--			</field>-->
+<!--	</record>-->
+   <record id="view_od_hrms_employee_inherit" model="ir.ui.view">
+            <field name="name">hr.employee</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="/form/sheet/notebook/page[@string='Public Information']/group/group/field[@name='user_id']" position="after">
+                    <field name="od_sponser_id"/>
+<!--                     <field name="od_employee_type_id"/>-->
+                   <!--  <field name="od_parent"/>
+                    <field name="od_manager_mail"/> -->
+
+
+                 </xpath>
+
+
+                    <xpath expr="//div[@name='button_box']" position="inside">
+                        <button name="od_view_documents" class="oe_stat_button" type="object"  icon="fa-book" string="Documents">
+                             <field name="od_document_line_count" nolabel="1"/>
+
+                        </button>
+                    <button name="action_open_document_request" class="oe_stat_button" type="object"  icon="fa-book" string="Doc Req">
+                                <field name="od_document_count" nolabel="1"/>
+
+
+</button>
+<!--                        </button>-->
+                    </xpath>
+
+
+                 <xpath expr="/form/sheet/notebook/page[@string='Personal Information']/group/group[@string='Birth']" position="after">
+                        <group string="Air Route">
+                            <group>
+                                
+                                <field name="od_air_route_id"/>
+                                <field name="od_air_route_code"/>
+                                <field name="od_air_route_fare"/>
+                                <field name="od_eligibility_date"/>
+                            </group>
+                        </group>
+                 </xpath>
+
+<xpath expr="/form/sheet/notebook/page[@string='Personal Information']" position="after">
+
+<page string="Emergency Contact">
+
+<group>
+
+<group string="Emergency Contact 1">
+                                <field name="od_e_c1_name"/>
+                                <field name="od_e_c1_relationship"/>
+                                <field name="od_e_c1_street"/>
+                                <field name="od_e_c1_street2"/>
+
+                                <field name="od_e_c1_state_id"/>
+                                <field name="od_e_c1_city"/>
+                                <field name="od_e_c1_country_id"/>
+                                <field name="od_e_c1_ph1"/>
+                                <field name="od_e_c1_ph2"/>
+
+
+
+
+
+
+
+</group>
+
+<group string="Emergency Contact 2">
+                                <field name="od_e_c2_name"/>
+                                <field name="od_e_c2_relationship"/>
+                                <field name="od_e_c2_street"/>
+                                <field name="od_e_c2_street2"/>
+
+                                <field name="od_e_c2_state_id"/>
+                                <field name="od_e_c2_city"/>
+                                <field name="od_e_c2_country_id"/>
+                                <field name="od_e_c2_ph1"/>
+                                <field name="od_e_c2_ph2"/>
+
+
+</group>
+
+
+</group>
+
+<group>
+
+<group string="Medical Contact &amp; History">
+
+
+                                <field name="od_mc_dr_name"/>
+                                <field name="od_mc_street"/>
+                                <field name="od_mc_street2"/>
+                                <field name="od_mc_state_id"/>
+
+                                <field name="od_mc_city"/>
+                                <field name="od_mc_country_id"/>
+                                <field name="od_mc_ph1"/>
+                                <field name="od_mc_ph2"/>
+                                <field name="od_mc_blood_group"/>
+
+
+                                <field name="od_mc_medical_conditions"/>
+                                <field name="od_mc_allergies"/>
+                                <field name="od_mc_medications"/>
+
+</group>
+
+<group >
+
+</group>
+
+
+</group>
+
+
+
+</page>
+
+</xpath>
+
+
+
+                 <xpath expr="/form/sheet/notebook/page[@string='Personal Information']/group/group[@string='Contact Information']/field[@name='address_home_id']" position="replace">
+                       <field name="address_home_id" context="{'show_address': 1, 'default_customer': False}" options="{&quot;always_reload&quot;: True, &quot;highlight_first_line&quot;: True}" string="Local Address"/>
+                 </xpath>
+
+
+             
+
+
+
+                 <xpath expr="/form/sheet/notebook/page[@string='Personal Information']/group/group[@string='Citizenship &amp; Other Info']/field[@name='country_id']" position="after">
+                       <field name="od_father"/>
+                 </xpath>
+
+
+                 <xpath expr="/form/sheet/notebook/page[@string='HR Settings']/group/group[@string='Active']/field[@name='active']" position="after">
+                    <field name="od_pay_salary_during_annual_leave"/>
+                 </xpath>
+
+                 <xpath expr="/form/sheet/notebook/page[@string='HR Settings']/group/group[@string='Active']" position="after">
+
+                    <group string="Accruals">
+                        <group>
+
+
+                            
+<label for="od_air_fare"/>
+<div>
+<field name="od_air_fare" class="oe_inline"/>
+
+<button name="od_generate_airfare" type="object" string="Compute" class="oe_link"/>
+</div>
+
+
+
+
+
+
+<label for="od_leave_salary"/>
+<div>
+
+<field name="od_leave_salary" class="oe_inline"/>
+<field name="od_leave_salary_date" class="oe_inline"/>
+<button name="od_generate_leave_salary" type="object" string="Compute" class="oe_link"/>
+<field name="od_leaves" string="Leaves" class="oe_inline"/>
+</div>
+                    
+<!--                    <field name="od_gratuity"/>-->
+
+
+
+<label for="od_gratuity"/>
+<div>
+<field name="od_gratuity" class="oe_inline"/>
+<field name="od_gratuity_date" class="oe_inline"/>
+<button name="od_generate_gratuity_value" type="object" string="Compute" class="oe_link"/>
+
+</div>
+<field name="od_based_on_basic" />
+   <field name="od_terminated"/>                 
+                    </group>
+
+
+<!--                    <group>-->
+
+
+
+
+<!--                    </group>-->
+                    </group>
+                 </xpath>
+                    <xpath expr="/form/sheet/notebook/page[@string='HR Settings']" position="after">
+                        <page string="Dependents">
+                            <field name="od_dependents_line">
+                                <tree editable="top">
+                                    <field name="contacts" required="1"/>
+                                    <field name="relation_id"/>
+<field name="od_benefits_ids" widget="many2many_tags"/>
+                                </tree>
+                            </field>
+                        </page>
+                        </xpath>
+                    <xpath expr="/form/sheet/notebook/page[@string='Dependents']" position="after">
+                        <page string="Relatives In The Company" invisible="1">
+                            <field name="od_relatives_line">
+                                <tree editable="top">
+                                    <field name="contacts"/>
+                                    <field name="relation_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </xpath>
+                    <xpath expr="/form/sheet/notebook/page[@string='Relatives In The Company']" position="after">
+                        <page string="Education">
+                            <field name="od_education_line">
+                                <tree editable="top">
+                                    <field name="academic_qualification_id"/>
+                                    <field name="instituite"/>
+                                    <field name="year"/>
+                                    <field name="country_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </xpath>
+                    <xpath expr="/form/sheet/notebook/page[@string='Education']" position="after">
+                        <page string="Launguage">
+                            <field name="od_launguage_line">
+                                <tree editable="top">
+                                    <field name="launguage_id"/>
+                                    <field name="speak"/>
+                                    <field name="reads"/>
+                                    <field name="writes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </xpath>
+
+                    <xpath expr="/form/sheet/notebook/page[@string='Launguage']" position="after">
+                        <page string="Beneficiary">
+                            <field name="od_beneficiary_line">
+                                <tree editable="top">
+                                    <field name="contacts"/>
+                                    <field name="relation_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Job Histroy">
+                        <field name="od_job_role_line" nolabel="1">
+                        	<tree editable="bottom">
+                        		<field name="date_from" />
+                        		<field name="date_to" />
+                        		<field name="job_id" />
+                        		<field name="name" />
+                        	</tree>
+                        </field>
+                        </page>
+                    </xpath>
+
+                    <xpath expr="/form/sheet/notebook/page[@string='HR Settings']" position="after">
+                        <page string="Leave History">
+<!--                                <group>-->
+<!--                                      <field name="od_leave_eligible"/>compute_leave_eligible_employee_master-->
+
+
+
+<!--                                </group>-->
+
+<group>
+<!-- <label for="od_leave_eligible"/> -->
+<div>
+<!-- <field name="od_leave_eligible" class="oe_inline"/> -->
+<button name="compute_leave_eligible_employee_master" type="object" string="Leave Eligible Compute" class="oe_link" invisible="1"/>
+</div>
+<!-- <field name="od_original_leave_eligible" /> -->
+
+</group>
+
+
+
+
+
+
+
+
+                            <field name="od_leave_history_line" readonly="1">
+                            </field>
+                        </page>
+                    </xpath>
+
+<!--                    <xpath expr="/form/sheet/notebook/page[@string='HR Settings']" position="after">-->
+<!--                        <page string="Documents">-->
+<!--                            <field name="od_document_line">-->
+<!--                                <tree editable="top">-->
+
+<!--                                    <field name="document_type_id"/>-->
+<!--                                    <field name="document_referance"/>-->
+
+<!--                                    <field name="attach_file" filename="attach_fname"/>-->
+<!--                                    <field name="attach_fname" invisible="1"/>-->
+<!--                                    <field name="issue_date"/>-->
+
+<!--                                    <field name="expiry_date"/>-->
+
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </page>-->
+<!--                    </xpath>-->
+
+        <xpath expr="/form/sheet/notebook/page[@string='Launguage']" position="after">
+                   <page string="Entitlement">
+                    <group>
+                        <group string="Transportation">
+                                    <field name="od_transportation_id"/>
+                                    <field name="od_pickup_point"/>
+                                     <field name="od_land_mark"/>
+                        </group>
+                        <group string="Accommodation">
+                                    <field name="od_accomadtion_id"/>
+                                    <field name="od_room_no"/>
+                        </group>
+
+                    </group>
+
+                      <field name="od_facilitates_line">
+                        <tree string="Facilitates" editable="top">
+                            <field name="entitlement_id" groups="orchid_hrms.group_od_entitelment_by_entitlements" />
+                      
+                            <field name='asset_id'  groups="orchid_hrms.group_od_entitelment_by_assets"/>
+                             <field name="ref"/>
+                              <field name="od_from_date"/>
+                         </tree>
+                      </field>
+                   </page>
+                  </xpath>
+
+<!--               <xpath expr="/form/sheet/notebook/page[@string='Personal Information']/group/group[@string='Contact Information']/field[@name='address_home_id']" position="after"> -->
+
+<!--                                 <group string="Home Address">-->
+
+<xpath expr="/form/sheet/notebook/page[@string='Personal Information']/group/group[@string='Contact Information']" position="after">
+
+                                                  <group string="Home Address">             
+  <field name="od_street" placeholder="Street..."/>
+                                <field name="od_street2"/>
+                                 <field name="od_state_id" class="oe_no_button" placeholder="State" style="width: 100%%"/>
+                                 <field name="od_city" placeholder="City" style="width: 100%%"/>
+                                    
+                                    
+                                    <field name="od_zip" placeholder="ZIP" style="width: 20%%"/>
+                                
+                                <field name="od_country_id" placeholder="Country" class="oe_no_button"/>
+                                <field name="od_personal_email"/>
+                                  </group>
+
+                   </xpath>
+
+
+<!--                <xpath expr="/form/sheet/notebook/page[@string='HR Settings']/group/group[@string='Active']" position="after">-->
+<!--hr_contract.hr_hr_employee_view_form2-->
+
+                    <xpath expr="/form/sheet/notebook/page[@string='HR Settings']/group/group/field[@name='active']" position="after">
+                            <field name="od_joining_date"/>
+                                
+                        </xpath>
+
+
+
+
+
+            </field>
+        </record>
+
+        <record id="view_employee_filter_inherited_hrms" model="ir.ui.view">
+            <field name="name">Employees</field>
+            <field name="model">hr.employee</field>
+             <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+            <field name="department_id" position="after">
+                <field name="gender"/>
+                <field name="country_id"/>
+            </field>
+             <filter string="Manager" position="after">
+                        <filter string="Gender" icon="terp-personal" domain="[]" context="{'group_by':'gender'}"/>
+                        <filter string="Nationality" icon="terp-personal" domain="[]" context="{'group_by':'country_id'}"/>
+             </filter>
+
+
+             </field>
+         </record>
+
+
+
+
+
+    </data>
+</openerp>

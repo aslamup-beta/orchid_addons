@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="od_labour_form">
+            <field name="name">Labour Cost Form view</field>
+            <field name="model">od.labour</field>
+            <field name="arch" type="xml">
+                <form string="Labour Cost" version="7.0">
+                <header>
+                <button name='create_move' string="Validate" states="draft" type="object" class="oe_highlight" />
+                <button name='btn_cancel' string="Cancel" states="done" type="object" class="oe_highlight" />
+                <button name='btn_reset_draft' string="Reset To Draft" states="cancel" type="object" class="oe_highlight" />
+                <field name="state" widget='statusbar' statusbar_visible="draft,done"  />
+                </header>
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Title" />
+                            </h1>
+                        </div>
+                        <group>
+                        <group>
+                            <field name="date" />
+                            <field name="date_from" />
+                            <field name="date_to" />
+                             <field name="move" />
+                             <field name="actual" />
+                        </group>
+                        <group>
+                        	<field name="journal_id" />
+                        	<field name="wip_account_id"  domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+
+                        	<field name="expense_account_id" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+
+                        	<!-- <field name="working_hour" /> -->
+                        </group>
+
+                       <group>
+
+
+                       </group>
+
+
+                        </group>
+                        <notebook>
+                        	<page string="Labour Cost">
+                        	<!-- <button name='get_timesheet' string='Generate' states="draft" class="oe_highlight" type="object" /> -->
+                          <button name="%(od_project_wiz_action)d" string="Generate" type="action" class="oe_highlight" states="draft"/>
+                          <field name='labour_line'>
+                      		 <tree editable='bottom'>
+
+	                       		<field name='partner_id' />
+	                       		<field name='od_opp_id' />
+	                       		<field name='project_id' />
+	                       		<field name='cust_id' />
+	                       		<field name='branch_id' />
+	                       		<field name='duration' sum="Duration" />
+	                       		<field name='amount' sum="Amount"/>
+	                       		<field name='actual_amount' sum="Actual Amount" />
+                       		</tree>
+                       </field>
+                        	</page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_labour_tree">
+            <field name="name">Labour Cost tree view</field>
+            <field name="model">od.labour</field>
+            <field name="arch" type="xml">
+                <tree string="Labour Cost">
+                    <field name="name" />
+                    <field name="date" />
+                  <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_od_labour_graph" model="ir.ui.view">
+         <field name="name">od.labour.graph</field>
+         <field name="model">od.labour</field>
+         <field name="arch" type="xml">
+             <graph string="Labour Cost" type="pivot" stacked="True">
+                 <field name="name" />
+
+
+             </graph>
+         </field>
+    </record>
+        <record model="ir.actions.act_window" id="action_labour_cost">
+            <field name="name">Labour Cost</field>
+            <field name="res_model">od.labour</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+
+        <menuitem name="Labour Cost" id="menu_labour_cost" parent="orchid_wip.menu_wip_project"
+            action="action_labour_cost" />
+
+    </data>
+</openerp>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_hrms_salary_sheet_view_beta_tree" model="ir.ui.view">
+            <field name="name">od.hrms.salary.sheet.view.beta.tree</field>
+            <field name="model">od.hrms.salary.sheet.view.beta</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+               <tree string="Salary Sheet" create="false">
+                    <field name="employee_id"/>
+                    <field name="address_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+<!--                    <field name="xo_total_wage"/>-->
+                    <field name="daily_salary"/>
+                    <field name="period"/>
+                    <field name="identification"/>
+                    <field name="department_id"/>
+                    <field name="net_salary"/>
+                    <field name="loan_deduction"/>
+                
+                    <field name="wps_beta_it"/>
+                    <field name="wps_beta_engineering"/>
+                    <field name="gross_salary"/>
+                    <field name="net_salary"/>
+
+
+                     <field name="basic"/>
+                    <field name="other_allowance"/>
+                    <field name="transport_allowance"/>
+                    <field name="cash"/>
+                    <field name="house_allowance"/>
+                    <field name="period_id"/>
+                    <field name="xo_mode_of_payment_id"/>
+
+				    <field name="late_arival_deduction"/>
+                    <field name="leave_deduction"/>
+                    <field name="other_deduction"/>
+                    <field name="leave_salary"/>
+                    <field name="total_salary"/>
+                    <field name="ot_allowance"/>
+                    <field name="other_payment"/>
+
+
+                    <field name="days_in_month"/>
+                    <field name="working_days"/>
+					<field name="unresume_ded" type="measure"/>
+
+
+                </tree>
+            </field>
+        </record>
+        <record id="od_hrms_salary_sheet_view_search_beta" model="ir.ui.view">
+            <field name="name">od.hrms.salary.sheet.view.beta.search</field>
+            <field name="model">od.hrms.salary.sheet.view.beta</field>
+            <field name="arch" type="xml">
+                <search string="Salary Sheet">
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <filter icon="terp-go-month" string="Current Month" name="month" domain="[('date_from','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date_from','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]" help="Current Month"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Employee" icon="terp-personal" name="odemployee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Department" icon="terp-personal" name="odde_id" context="{'group_by':'department_id'}"/>
+
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="od_hrms_salary_sheet_view_graph_beta">
+            <field name="name">od.hrms.salary.sheet.view.beta.graph</field>
+            <field name="model">od.hrms.salary.sheet.view.beta</field>
+            <field name="arch" type="xml">
+                <graph string="Salary Sheet" type="pivot">
+<!--                    <field name="department_id"/>-->
+                      <field name="address_id"/>
+                    <field name="employee_id"/>
+                    <field name="identification" type="measure"/>
+
+                              <field name="basic" type="measure"/>
+        <field name="house_allowance" type="measure"/>
+     <field name="transport_allowance" type="measure"/>
+                    <field name="other_allowance" type="measure"/>
+                <field name="gross_salary" type="measure"/>
+<field name="days_in_month" type="measure"/>
+
+
+                    <field name="other_payment" type="measure"/>
+                           <field name="ot_allowance" type="measure"/>    
+             <field name="total_salary" type="measure"/>    
+                    <field name="loan_deduction" type="measure"/>
+               <field name="other_deduction" type="measure"/>
+               <field name="working_days" type="measure"/>
+                    <field name="leave_deduction" type="measure"/>
+                    <field name="unresume_ded" type="measure"/>
+                    <field name="net_salary" type="measure" />
+                      <field name="leave_salary" type="measure" />
+					 <field name="late_arival_deduction" type="measure"/>
+                    <field name="wps_beta_engineering" type="measure"/>
+     <field name="wps_beta_it" type="measure"/>
+
+<field name="cash" type="measure"/>
+
+
+
+
+
+
+
+
+
+
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_od_hrms_salary_sheet_view_beta" model="ir.actions.act_window">
+            <field name="name">Salary Sheet</field>
+            <field name="res_model">od.hrms.salary.sheet.view.beta</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="search_view_id" ref="od_hrms_salary_sheet_view_search_beta"/>
+            <field name="view_id" ref="od_hrms_salary_sheet_view_graph_beta"/>
+           <field name="context">{'search_default_month':1}</field>
+            <field name="help">This report Salary Sheet.</field>
+        </record>
+        <menuitem parent="hr.menu_hr_reporting" action="action_od_hrms_salary_sheet_view_beta" id="menu_od_hrms_salary_sheet_view_beta" sequence="5"/>
+    </data>
+</openerp>

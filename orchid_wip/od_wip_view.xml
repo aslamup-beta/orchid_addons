@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="course_form">
+            <field name="name">Wip form view</field>
+            <field name="model">od.wip</field>
+            <field name="arch" type="xml">
+                <form string="Wip" version="7.0">
+                <header>
+                 <field name="state" widget='statusbar'  />
+                 <button name="validate" type="object" string="Validate" states="draft" class="oe_highlight"/>
+                </header>
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" placeholder="Title" />
+                            </h1>
+                        </div>
+                        <group>
+                        <group>
+                            <field name="date" />
+                            <field name="project_id" on_change="onchange_analytic_account(project_id,wip_account_id,invoice_account_id)" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]" context="{'signed_off':1}"/>
+                        	<field name="move" />
+                        
+                        </group>
+                        <group>
+                       
+                        		<field name="journal_id" />
+                        		
+                     
+                        	
+                        	
+                        	<field name="invoice_account_id" string="Invoiced/Advance" on_change="onchange_analytic_account(project_id,wip_account_id,invoice_account_id)" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+                        	<field name="income_account_id" on_change="onchange_analytic_account(project_id,wip_account_id,invoice_account_id)" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+	                     
+	                       <field name="wip_account_id" on_change="onchange_analytic_account(project_id,wip_account_id,invoice_account_id)" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+	                       <field name="expense_account_id" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
+	                       
+	                       <field name="provision" />
+                        	<field name="provision_account_id" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]" attrs="{'required':[('provision', '=',True)],'invisible':[('provision','=',False)]}"/>
+                        
+                        </group>
+                        <group>
+                            <field name="wip_account_balance" />
+                            <field name="provision_percentage" attrs="{'required':[('provision', '=',True)],'invisible':[('provision','=',False)]}"/>
+                            <field name="provision_amount" attrs="{'required':[('provision', '=',True)],'invisible':[('provision','=',False)]}"/>
+                        	
+                        	
+                        </group>
+                       <group>
+                       <field name="invoice_amount" />
+                       <field name="project_cost" />
+                       <field name="profit" />
+                       </group>
+                      
+                        
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="od_wip_tree">
+            <field name="name">wip tree view</field>
+            <field name="model">od.wip</field>
+            <field name="arch" type="xml">
+                <tree string="Wip">
+                    <field name="name" />
+                    <field name="date" />
+                  <field name="state" />
+                </tree>
+            </field>
+        </record>
+       
+    <record id="view_od_wip_graph" model="ir.ui.view">
+         <field name="name">od.wip.graph</field>
+         <field name="model">od.wip</field>
+         <field name="arch" type="xml">
+             <graph string="WIP" type="pivot" stacked="True">
+                 <field name="name" />
+                 
+             
+             </graph>
+         </field>
+    </record>
+        <record model="ir.actions.act_window" id="action_wip_process">
+            <field name="name">WIP Process</field>
+            <field name="res_model">od.wip</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+         <menuitem name ="Job Cost" id="menu_wip_project" parent="account.menu_finance" sequence="20" />
+        <menuitem name="WIP Process" id="menu_wip_process" parent="menu_wip_project"
+            action="action_wip_process" />
+
+    </data>
+</openerp>

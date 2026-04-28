@@ -1,0 +1,1266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+
+        <record model="ir.ui.view" id="change_management_tree_view">
+            <field name="name">change.management.tree</field>
+            <field name="model">change.management</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="tree_string">
+                    <field name="name" />
+                    <field name="user_id" />
+                    <!-- <field name="change_type_id" />
+						<field name="impact_sale_id" />
+						<field name="impact_cost_id" />
+						<field name="impact_profit_id" /> -->
+                    <field name="date" />
+                    <field name="first_approval_by" />
+                    <!-- 	<field name="second_approval_by" /> -->
+                    <field name="third_approval_by" string="Final Approval"/>
+                    <field name="third_approval_date" string="Final Approval Date"/>
+                    <field name="closing_date" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="change_management_form_view">
+            <field name="name">change.management.form</field>
+            <field name="model">change.management</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="form_string">
+                    <header>
+                        <!--   <button string="Import" name="import_sale" type="object" class="oe_highlight" states="draft" /> -->
+                        <button string="Import" name="import_cost_sheet" type="object" class="oe_highlight" states="draft" />
+                        <button string="Submit" name="button_submit" type="object" class="oe_highlight" states="imported" />
+
+                        <button string="PMO Director Approval" name="button_first_approval" groups="__export__.res_groups_171,__export__.res_groups_196,orchid_beta.groups_beta_admin,__export__.res_groups_200" type="object" class="oe_highlight" states="submit" />
+                        <!-- <button string="Second Approval" name="button_second_approval" type="object" class="oe_highlight" states="first_approval" /> -->
+                        <button string="GM Approval" name="button_third_approval" type="object" groups="__export__.res_groups_171,__export__.res_groups_196,orchid_beta.groups_beta_admin,__export__.res_groups_200" class="oe_highlight" states="first_approval" />
+
+                        <button string="Cancel" name="button_cancel" type="object" class="oe_highlight" states="draft,imported,submit,first_approval"/>
+                        <button string="Reject" name="button_reject" type="object" class="oe_highlight" states="draft,imported,submit,first_approval"/>
+
+
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <field name="lock_fin_struct" invisible="1" />
+                        <h1>
+                            <field name="name" />
+
+
+
+                        </h1>
+                        <group>
+                            <group>
+								
+                                <field name="cost_sheet_id" domain="[('status','=','active'),('state','=','done')]" required="1"/>
+                                <field name="partner_id"/>
+                                <field name="user_id"/>
+                                <field name="first_approval_manager_id" required="1"/>
+                                <field name="branch_id" required="1"/>
+                                <field name="special_discount" readonly="1" />
+                                <field name="sp_ch" />
+                                <field name="new_special_discount" attrs="{'invisible':[('sp_ch','=',False)]}" />
+                                <field name="v2" invisible="1"/>
+
+                                <field name="ignore_sell" invisible="1"/>
+                                <field name="ignore_p" invisible="1"/>
+                                <field name="change_method" readonly="1" />
+
+                                <!-- <field name="pre_opn_cost" readonly="1" /> -->
+                            </group>
+                            <group attrs="{'invisible': [('change_method' ,'=', 'redist')]}">
+                                <table style="width:100%" class="table table-bordered">
+
+                                    <tbody>
+
+                                        <tr>
+                                            <td></td>
+                                            <td style="font-weight:bold">Current</td>
+                                            <td style="font-weight:bold">After Change</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bold">Total Price</td>
+                                            <td>
+                                                <field name="total_price_v2" />
+                                            </td>
+                                            <td>
+                                                <field name="new_total_price_v2" />
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="font-weight:bold">Total Cost</td>
+                                            <td>
+                                                <field name="total_cost_v2" />
+                                            </td>
+                                            <td>
+                                                <field name="new_total_cost_v2" />
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td style="font-weight:bold">Profit</td>
+                                            <td>
+                                                <field name="profit_v2" />
+                                            </td>
+                                            <td>
+                                                <field name="new_profit_v2" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bold">Profit With Returned MP</td>
+                                            <td>
+                                                <field name="total_gp_v2" readonly="1" />
+                                            </td>
+                                            <td>
+                                                <field name="new_gp" readonly="1" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </group>
+                        </group>
+                        <div style="color:#DE63CF;font-size:22px;">
+                            <field name="warn_string" colspan="4" attrs="{'invisible': [('warn_string','=','')]}" nolabel="1"/>
+                        </div>
+
+
+                        <notebook attrs="{'invisible': [('change_method' ,'!=', 'redist')]}">
+                            
+                            <page string="Revenue Structure">
+                                
+                                
+                                <separator string="Addional Child Anlytic"></separator>
+                            <group>
+                                <group>
+                                    <field name="child_am" />
+                                    <field name="extra_child_no" />
+                                </group>
+
+                            </group>
+                                
+                                <separator string="Level 0" />
+                                <table style="width:100%" class="table table-striped">
+                                    <thead>
+
+                                        <th>Select</th>
+                                        <th>Analytic</th>
+                                        <th>Date Start</th>
+                                        <th>Date End</th>
+                                        <th>Name of the Analytic</th>
+                                        <th>AA</th>
+                                        <th>State</th>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <field name="select_a0" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+                                            <td>
+										A0
+                                            </td>
+
+                                            <td>
+                                                <field name="date_start_a0" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="date_end_a0" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="name_a0" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a0" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a0_state" readonly="1"/>
+                                            </td>
+
+
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+                                <separator string="Level 1" />
+                                <table style="width:100%" class="table table-striped">
+                                    <thead>
+
+                                        <th>Select</th>
+                                        <th>Analytic</th>
+                                        <th width="30%">Tabs Included</th>
+                                        <th>Date Start</th>
+                                        <th>Date End</th>
+                                        <th>Name of the Analytic</th>
+                                        <th>Owner</th>
+                                        <th>Type</th>
+                                        <th>AA</th>
+                                        <th>State</th>
+
+
+                                    </thead>
+                                    <tbody>
+
+
+                                        <tr>
+                                            <td>
+                                                <field name="select_a1" />
+                                            </td>
+                                            <td>
+										  A1
+                                            </td>
+                                            <td>
+                                                <field name="tabs_a1" widget="many2many_tags" attrs="{ 'required':[('select_a1','=',True)],'readonly':[('select_a1','=',False)]}" />
+                                            </td>
+
+                                            <td>
+                                                <field name="date_start_a1" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a1','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="date_end_a1" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a1','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="name_a1" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a1','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="owner_id_a1" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a1','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="type_of_project_a1" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a1','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a1" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a1_state" readonly="1"/>
+                                            </td>
+
+
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <field name="select_a2" />
+                                            </td>
+                                            <td>
+										A2
+                                            </td>
+                                            <td>
+                                                <field name="tabs_a2" attrs="{ 'required':[('select_a2','=',True)],'readonly':[('select_a2','=',False)]}" widget="many2many_tags" />
+                                            </td>
+                                            <td>
+                                                <field name="date_start_a2" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a2','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="date_end_a2" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a2','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="name_a2" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a2','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="owner_id_a2" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a2','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="type_of_project_a2" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a2','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="analytic_a2" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a2_state" readonly="1"/>
+                                            </td>
+
+
+
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <field name="select_a3" />
+                                            </td>
+                                            <td>
+										A3
+                                            </td>
+                                            <td>
+                                                <field name="tabs_a3" attrs="{ 'required':[('select_a3','=',True)],'readonly':[('select_a3','=',False)]}" widget="many2many_tags" />
+                                            </td>
+                                            <td>
+                                                <field name="date_start_a3" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a3','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="date_end_a3" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a3','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="name_a3" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a3','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="owner_id_a3" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a3','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="type_of_project_a3" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)], 'required':[('select_a3','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a3" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a3_state" readonly="1"/>
+                                            </td>
+
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>
+                                                <field name="select_a4" />
+                                            </td>
+                                            <td>
+										A4 (AMC View)
+                                            </td>
+                                            <td>
+                                                <field name="tabs_a4" attrs="{ 'required':[('select_a4','=',True)],'readonly':[('select_a4','=',False)]}" widget="many2many_tags" />
+                                            </td>
+                                            <td>
+                                                <field name="date_start_a4" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)],}"/>
+                                            </td>
+                                            <td>
+                                                <field name="date_end_a4" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="name_a4" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="owner_id_a4" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="type_of_project_a4" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a4" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a4_state" readonly="1"/>
+                                            </td>
+
+
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>
+                                                <field name="select_a5" />
+                                            </td>
+                                            <td>
+										A5 (O&amp;M View)
+                                            </td>
+                                            <td>
+                                                <field name="tabs_a5" attrs="{ 'required':[('select_a5','=',True)],'readonly':[('select_a5','=',False)]}" widget="many2many_tags" />
+                                            </td>
+                                            <td>
+                                                <field name="date_start_a5" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="date_end_a5" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="name_a5" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="owner_id_a5" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+
+                                            <td>
+                                                <field name="type_of_project_a5" attrs="{'readonly':['|',('state','=','done'),('lock_fin_struct','=',True)]}"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a5" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="analytic_a5_state" readonly="1"/>
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <separator string="Level 2 (AMC) " />
+                                <table style="width:100%" class="table table-striped">
+                                    <thead>
+
+                                        <th>Periodicity</th>
+                                        <th>Start Date</th>
+                                        <th>No.Of L2 Accounts</th>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <field name="periodicity_amc" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="l2_start_date_amc" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="no_of_l2_accounts_amc" readonly="1"/>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <separtor string="Details" />
+                                <field name="amc_analytic_line">
+                                    <tree editable="bottom">
+                                        <field name="start_date" />
+                                        <field name="end_date" />
+                                        <field name="analytic_id" />
+                                        <field name="state" />
+                                    </tree>
+                                </field> -->
+
+                                <separator string="Level 2 (O&amp;M) " />
+                                <table style="width:100%" class="table table-striped">
+                                    <thead>
+                                        <th>Periodicity</th>
+                                        <th>Start Date</th>
+                                        <th>No.Of L2 Accounts</th>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <field name="periodicity_om" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="l2_start_date_om" readonly="1"/>
+                                            </td>
+                                            <td>
+                                                <field name="no_of_l2_accounts_om" readonly="1"/>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <separtor string="Details" />
+                                <field name="om_analytic_line">
+                                    <tree editable="bottom">
+                                        <field name="start_date" />
+                                        <field name="end_date" />
+                                        <field name="analytic_id" />
+                                        <field name="state" />
+                                    </tree>
+                                </field> -->
+
+
+                            </page>
+                        </notebook>
+
+
+                        <notebook attrs="{'invisible': [('change_method' ,'=', 'redist')]}">
+                            <page string="Details" invisible="1">
+                                <field name="change_line" attrs="{'invisible': [('v2' ,'!=', False)]}">
+                                    <tree editable="bottom" delete="false" colors="gray:remove_item == True;">
+                                        <field name="state" invisible="1" />
+                                        <field name="remove_item" />
+                                        <field name="od_manufacture_id" />
+                                        <field name="product_id" domain="[('od_pdt_brand_id','=', od_manufacture_id)]"/>
+                                        <field name="name" />
+                                        <field name="product_uom_qty" readonly="1" sum="total"/>
+                                        <field name="price_unit" readonly="1"/>
+                                        <field name="total_price" string="Total Price" sum="total"/>
+                                        <field name="purchase_price" readonly="1"/>
+                                        <field name="od_amended_line_cost" string="Total Cost" sum="total"/>
+                                        <field name="change_qty" sum="total" />
+                                        <field name="change_price" />
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="change_cost" />
+                                        <field name="new_total_cost" sum="total"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="MAT" attrs="{'invisible':[('mat_inc','=',False)]}">
+                                <field name="mat_inc" readonly="1"/>
+                                <separator string="Main Proposal - Bill of Material" />
+                                <field name="change_mat_line" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <field name="ren" invisible="1" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('od_pdt_brand_id','=', manufacture_id)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                        <!--   <field name="qty" readonly="1" sum="total" string="Current Qty"/>
+                                        <field name="unit_price" readonly="1" string="Current Unit Selling"/>
+                                        <field name="line_selling" string="Current Total Selling" sum="total"/>
+                                        <field name="unit_cost_local" readonly="1" string="Current Unit Cost"/>
+                                        <field name="line_cost" string="Current Total Cost" sum="total" /> -->
+                                    </tree>
+                                </field>
+
+
+
+
+                                <separator string="Material Extra Expense" />
+                                <field name="change_extra_mat_line" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                        <!-- <field name="qty" readonly="1" sum="total" string="Current Qty"/>
+                                        <field name="unit_price" readonly="1" string="Current Unit Selling"/>
+                                        <field name="line_selling" string="Current Total Selling" sum="total"/>
+                                        <field name="unit_cost_local" readonly="1" string="Current Unit Cost"/>
+                                        <field name="line_cost" string="Current Total Cost" sum="total" /> -->
+                                    </tree>
+                                </field>
+
+                            </page>
+
+                            <page string="TRN" attrs="{'invisible':[('trn_inc','=',False)]}">
+                                <field name="trn_inc" readonly="1" />
+                                <separator string="Customer Training Details" />
+                                <field name="change_trn" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('od_pdt_brand_id','=', manufacture_id)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+                                <separator string="Training Extra Expenses" />
+                                <field name="change_trn_extra" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                            </page>
+
+
+                            <page string="PS" attrs="{'invisible':[('imp_inc','=',False)]}">
+                                <field name="imp_inc" readonly="1" />
+                                <separator string="Additional Services" />
+                                <field name="change_imp" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" domain="[('id','=', 1)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('id','in', (244327,244406,244326,244407,244328,244408,256715,256714))]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+                                <separator string="Extra Expenses " />
+                                <field name="change_imp_extra" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+
+                                <separator string="Outsourced Implementation Price Calculation" attrs="{'invisible':[('change_imp_out', '=', [])]}"/>
+                                <field name="change_imp_out" attrs="{'readonly':True, 'invisible':[('change_imp_out', '=', [])]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+
+                                <separator string="Professional Services - Subcontractors" />
+
+                                <field name="change_imp_out_extra" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+								<separator string="Professional Services - Vendors" />
+                                <field name="change_ps_vendor" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <field name="ren" invisible="1" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('od_pdt_brand_id','=', manufacture_id)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                        <!--   <field name="qty" readonly="1" sum="total" string="Current Qty"/>
+                                        <field name="unit_price" readonly="1" string="Current Unit Selling"/>
+                                        <field name="line_selling" string="Current Total Selling" sum="total"/>
+                                        <field name="unit_cost_local" readonly="1" string="Current Unit Cost"/>
+                                        <field name="line_cost" string="Current Total Cost" sum="total" /> -->
+                                    </tree>
+                                </field>
+
+                                <separator string="Beta IT Manpower-Other Services" attrs="{'invisible':[('change_imp_manpower', '=', [])]}"/>
+
+                                <field name="change_imp_manpower" attrs="{'readonly':True, 'invisible':[('change_imp_manpower', '=', [])]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                                <table style="width:100%" class="table table-striped" attrs="{'invisible':[('bim_log_select','=',False)]}">
+                                    <thead>
+                                        <th></th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+
+                                        <th>Cost</th>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <field name="bim_log_select" readonly="1"/>
+                                            </td>
+                                            <td>Beta IT Implementation Cost</td>
+                                            <td>
+                                                <field name="bim_log_price" invisible="1"/>
+                                                <field name="display_bim_log_price" readonly="1"/>
+
+                                            </td>
+
+                                            <td>
+                                                <field name="bim_log_cost" invisible="1"/>
+                                                <field name="display_bim_log_cost" readonly="1"/>
+
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </page>
+                            
+                            <page string="IS" attrs="{'invisible':[('info_sec_inc','=',False)]}">
+                                <field name="info_sec_inc" readonly="1" />
+                                <separator string="IS - Additional Services" />
+                                <field name="change_info_sec" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" domain="[('id','=', 1)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('id','in', (284591,284592,284593,284594,284595,284596,284597,284598,284599,284600,284601,284602,284603,289809,282592))]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+                                <separator string="IS - Extra Expenses " />
+                                <field name="change_info_sec_extra" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                                <separator string="IS - Subcontractors" />
+
+                                <field name="change_info_sec_sub" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                                <separator string="IS - Vendors" />
+                                <field name="change_info_sec_vendor" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <field name="ren" invisible="1" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('od_pdt_brand_id','=', manufacture_id)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                            </page>
+                            
+                            <page string="MC" attrs="{'invisible':[('amc_inc','=',False)]}">
+                                <field name="amc_inc" readonly="1" />
+
+
+
+                                <separator string="AMC Technology Product Unit " />
+                                <field name="amc_tech" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" domain="[('id','=', 1)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('id','in', (244394,244393,244392))]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                                <separator string="Spare Parts for Beta IT Maintenance " />
+                                <field name="amc_spare" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('od_pdt_brand_id','=', manufacture_id)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                                <separator string="Beta IT Maintenance Extra Expenses" />
+                                <field name="amc_extra" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+                                <separator string="Outsourced Preventive Maintenance" attrs="{'invisible':[('amc_out_prevent', '=', [])]}"/>
+                                <field name="amc_out_prevent" attrs="{'readonly':True, 'invisible':[('amc_out_prevent', '=', [])]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                                <separator string="Outsourced Remedial Maintenance" attrs="{'invisible':[('amc_out_remed', '=', [])]}"/>
+                                <field name="amc_out_remed" attrs="{'readonly':True, 'invisible':[('amc_out_remed', '=', [])]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                                <separator string="Spare Parts for Outsourced Maintenance" attrs="{'invisible':[('amc_out_remed', '=', [])]}"/>
+                                <field name="amc_out_spare" attrs="{'readonly':True, 'invisible':[('amc_out_remed', '=', [])]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('od_pdt_brand_id','=', manufacture_id)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+                                <separator string="Maintenance - Subcontractors" />
+                                <field name="amc_out_extra" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                                <separator string=" Beta IT Preventive Maintenance " attrs="{'invisible':[('amc_prevent', '=', [])]}"/>
+                                <field name="amc_prevent" attrs="{'readonly':True, 'invisible':[('amc_prevent', '=', [])]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+                                <separator string="Beta IT Remedial Maintenance" attrs="{'invisible':[('amc_remed', '=', [])]}"/>
+                                <field name="amc_remed" attrs="{'readonly':True, 'invisible':[('amc_remed', '=', [])]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+
+                            </page>
+                            <page string="OM" attrs="{'invisible':[('om_inc','=',False)]}">
+                                <field name="om_inc" readonly="1" />
+                                <separator string="OM Technology Products" />
+                                <field name="om_tech">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('od_pdt_brand_id','=', manufacture_id)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+
+                                <separator string="Resident Engineer" />
+                                <field name="om_resident" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+                                <separator string="Material / Tools / Equipment Required for O&amp;M" attrs="{'invisible':[('om_tool', '=', [])]}"/>
+                                <field name="om_tool" attrs="{'readonly':True, 'invisible':[('om_tool', '=', [])]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="manufacture_id" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="part_no" domain="[('od_pdt_brand_id','=', manufacture_id)]" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="types" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" required="1"/>
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+
+                                <separator string="OM Extra Expenses" />
+                                <field name="om_extra" attrs="{'readonly':[('state','not in',('draft', 'imported'))]}">
+                                    <tree editable="bottom" delete="false" colors="red:line_id == False; green:type == 'remove';blue:type == 'change'">
+                                        <field name="add_new_item" attrs="{'invisible':[('line_id','!=',False)]}" />
+                                        <field name="type" attrs="{'readonly':[('line_id','=',False)]}" />
+                                        <!-- <field name="item_int" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <!-- <field name="item" attrs="{'readonly':[('type','=','remove')]}"/> -->
+                                        <field name="line_id" invisible="1" />
+                                        <field name="name" attrs="{'readonly':['|',('add_new_item','!=',True),('line_id','!=',False)]}" />
+                                        <field name="is_change_qty" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_qty" sum="total" attrs="{'readonly':[('is_change_qty','=',False)]}" />
+                                        <field name="is_change_price" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_price" attrs="{'readonly':[('is_change_price','=',False)]}"/>
+                                        <field name="new_total_price" sum="total" />
+                                        <field name="is_change_cost" attrs="{'invisible':[('type','!=','change')]}" string="-"/>
+                                        <field name="change_cost" attrs="{'readonly':[('is_change_cost','=',False)]}"/>
+                                        <field name="new_total_cost" sum="total" />
+                                    </tree>
+                                </field>
+
+                            </page>
+
+                            <page string="Change Summary" invisible="1">
+                                <table style="width:100%" class="table table-striped">
+                                    <thead>
+                                        <th></th>
+                                        <th>Total Selling</th>
+                                        <th>Total Cost</th>
+                                        <th>Profit</th>
+                                        <th>Profit Percent</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Current</td>
+                                            <td>
+                                                <field name="total_price" />
+                                            </td>
+                                            <td>
+                                                <field name="total_cost" />
+                                            </td>
+                                            <td>
+                                                <field name="profit" />
+                                            </td>
+                                            <td>
+                                                <field name="profit_percent" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>New</td>
+                                            <td>
+                                                <field name="new_total_price" />
+                                            </td>
+                                            <td>
+                                                <field name="new_total_cost" />
+                                            </td>
+                                            <td>
+                                                <field name="new_profit" />
+                                            </td>
+                                            <td>
+                                                <field name="new_profit_percent" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </page>
+
+                            <!--   <page string="New Change Summary">
+		                        
+                                </page> -->
+
+                            <page string="Notes">
+                                <field name="notes" />
+                            </page>
+
+                        </notebook>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" />
+                            <field name="message_ids" widget="mail_thread" />
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_change_management_tree_view">
+            <field name="name">Change Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">change.management</field>
+            <!-- <field name="domain">[('field_name','condition',criteria)]</field>-->
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="change_management_tree_view"/>
+        </record>
+
+        <menuitem id="change_management_menu" parent="project.menu_project_management" action="action_change_management_tree_view" sequence="100"/>
+
+
+    </data>
+</openerp>

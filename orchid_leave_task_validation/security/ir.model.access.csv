@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+od_hr_employee_event_line_access_right_user,od_hr_employee_event_line_access_right,model_od_hr_employee_event_line,base.group_hr_user,1,1,1,1
