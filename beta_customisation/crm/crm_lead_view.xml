@@ -125,6 +125,35 @@
                     <field name="other_division_ids" invisible="1" widget="many2many_tags"/>
                 </xpath>
                 <xpath expr="//field[@name='od_responsible_id']" position="after">
+
+                    <button name="%(beta_customisation.od_assign_cs_presales_action)d"
+                            string="Assign CS Solution Architect"
+                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" type="action" class="oe_link"/>
+
+                    <field name="od_cs_presale_id" readonly="1" nolabel="1"
+                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" context="{'solution_arch_ids':1}"/>
+
+                    <button name="%(beta_customisation.od_assign_an_presales_action)d"
+                            string="Assign AN Solution Architect"
+                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" type="action" class="oe_link"/>
+
+                    <field name="od_an_presale_id" readonly="1" nolabel="1"
+                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" context="{'solution_arch_ids':1}"/>
+
+                    <button name="%(beta_customisation.od_assign_dc_presales_action)d"
+                            string="Assign DC Solution Architect"
+                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" type="action" class="oe_link"/>
+
+                    <field name="od_dc_presale_id" readonly="1" nolabel="1"
+                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" context="{'solution_arch_ids':1}"/>
+
+                    <button name="%(beta_customisation.od_assign_is_presales_action)d"
+                            string="Assign IS Solution Architect"
+                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" type="action" class="oe_link"/>
+
+                    <field name="od_is_presale_id" readonly="1" nolabel="1"
+                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" context="{'solution_arch_ids':1}"/>
+
                     <button name="%(beta_customisation.od_assign_supp_presales_action1)d"
                             string="Assign Supporting PreSales"
                             attrs="{'invisible':[('od_approval_state','=','pending')]}" type="action" class="oe_link"/>

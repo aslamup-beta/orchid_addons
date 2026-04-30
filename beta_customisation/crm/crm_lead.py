@@ -589,7 +589,7 @@ class crm_lead(osv.osv):
         lead_id = lead.id
         lead_user = lead.od_lead_user_id and lead.od_lead_user_id.id or False
         customer_am = lead.user_id and lead.user_id.id or False
-        if lead.od_partner_class in ('a','b') and uid != customer_am and uid not in (1,5,6,8,2137,101,154,268,2429,134,2663,2441,2536):
+        if lead.od_partner_class in ('a','b') and uid != customer_am and uid not in (1,5,6,8,2137,101,154,268,2429,134,2663,2441,2536,2537):
             raise Warning("Opportunities under A and B accounts should not be opened except by the assigned Sales Account Manager.")
         if lead.type == 'lead' and uid != lead_user:
             email_obj.send_mail(cr,uid,template_id,lead_id, force_send=True)
@@ -644,6 +644,17 @@ class crm_lead(osv.osv):
              help="Other technology units associated with this opportunity"),
         'other_presale_ids':fields.many2many('res.users', 'crm_lead_res_users1', 'lead_id', 'user_id', 'Supporting PreSales', \
              help="Other Pre Sales Engineers associated with this opportunity"),
+        'od_cs_presale_id': fields.many2one('res.users', 'CS Solution Architect', select=True, track_visibility='onchange',
+                                             help=" CS Solution Architect handling"),
+        'od_an_presale_id': fields.many2one('res.users', 'AN Solution Architect', select=True,
+                                            track_visibility='onchange',
+                                            help=" AN Solution Architect handling"),
+        'od_dc_presale_id': fields.many2one('res.users', 'DC Solution Architect', select=True,
+                                            track_visibility='onchange',
+                                            help=" DC Solution Architect handling"),
+        'od_is_presale_id': fields.many2one('res.users', 'InfoSec Solution Architect', select=True,
+                                            track_visibility='onchange',
+                                            help=" InfoSec Solution Architect handling"),
         'od_approved_date': fields.date(string="Opp. Approval Date"),
         'od_approved_by': fields.many2one('res.users', 'Opp. Approved by', select=True,help="Opp. Approved by"),
         'od_lead_user_id': fields.many2one('res.users', 'Lead AM', select=True,help="Lead Account Manager"),

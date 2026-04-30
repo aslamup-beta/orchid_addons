@@ -53,6 +53,102 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
+
+        <record id="wiz_assign_cs_presale_form" model="ir.ui.view">
+            <field name="name">Assign CS Solution Architect</field>
+            <field name="model">wiz.assign.cs.presale</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                    <group string="Assign">
+                        <field name="od_cs_presale_id" context="{'cs_solution_arch_ids':1}"/>
+                    </group>
+                <footer>
+                  <button name="assign_presales" string="Assign" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="od_assign_cs_presales_action" model="ir.actions.act_window">
+            <field name="name">Assign CS Solution Architect</field>
+            <field name="res_model">wiz.assign.cs.presale</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="wiz_assign_an_presale_form" model="ir.ui.view">
+            <field name="name">Assign AN Solution Architect</field>
+            <field name="model">wiz.assign.an.presale</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                    <group string="Assign">
+                        <field name="od_an_presale_id" context="{'an_solution_arch_ids':1}"/>
+                    </group>
+                <footer>
+                  <button name="assign_presales" string="Assign" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="od_assign_an_presales_action" model="ir.actions.act_window">
+            <field name="name">Assign AN Solution Architect</field>
+            <field name="res_model">wiz.assign.an.presale</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="wiz_assign_dc_presale_form" model="ir.ui.view">
+            <field name="name">Assign DC Solution Architect</field>
+            <field name="model">wiz.assign.dc.presale</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                    <group string="Assign">
+                        <field name="od_dc_presale_id" context="{'dc_solution_arch_ids':1}"/>
+                    </group>
+                <footer>
+                  <button name="assign_presales" string="Assign" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="od_assign_dc_presales_action" model="ir.actions.act_window">
+            <field name="name">Assign DC Solution Architect</field>
+            <field name="res_model">wiz.assign.dc.presale</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="wiz_assign_is_presale_form" model="ir.ui.view">
+            <field name="name">Assign InfoSec Solution Architect</field>
+            <field name="model">wiz.assign.is.presale</field>
+            <field name="arch" type="xml">
+                <form string="Assign" >
+                    <group string="Assign">
+                        <field name="od_is_presale_id" context="{'is_solution_arch_ids':1}"/>
+                    </group>
+                <footer>
+                  <button name="assign_presales" string="Assign" type="object" class="oe_highlight"/>
+                    or
+                  <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="od_assign_is_presales_action" model="ir.actions.act_window">
+            <field name="name">Assign IS Solution Architect</field>
+            <field name="res_model">wiz.assign.is.presale</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
         
 
     </data>

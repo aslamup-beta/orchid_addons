@@ -115,3 +115,13 @@ class ManagedServices(models.Model):
     description = fields.Char(string="Description")
     start_date = fields.Datetime(string="Start Date")
     end_date = fields.Datetime(string="End Date")
+
+class od_cost_summary_weight(models.Model):
+    _inherit = 'od.cost.summary.group.weight'
+
+    presales_id = fields.Many2one('res.users',string='Solution Architect')
+
+class od_cost_original_summary_weight(models.Model):
+    _inherit = 'od.cost.original.summary.group.weight'
+
+    presales_id = fields.Many2one('res.users',string='Solution Architect')

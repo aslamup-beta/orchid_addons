@@ -26,6 +26,12 @@
                         </group>
                     </page>
                 </xpath>
+                <xpath expr="//field[@name='summary_weight_line']/tree/field[@name='pdt_grp_id']" position="after">
+                <field name="presales_id"/>
+            </xpath>
+                <xpath expr="//field[@name='original_summary_weight_line']/tree/field[@name='pdt_grp_id']" position="after">
+                <field name="presales_id"/>
+            </xpath>
             </field>
         </record>
     </data>

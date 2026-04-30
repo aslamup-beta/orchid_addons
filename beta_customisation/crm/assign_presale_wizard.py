@@ -26,6 +26,107 @@ class wiz_assign_presale(models.TransientModel):
         lead_obj.write({'od_responsible_id':od_responsible_id})
         lead_obj.od_send_mail('od_opportunity_assigned_presales')
         return True
+
+
+class wiz_assign_cs_presale(models.TransientModel):
+    _name = 'wiz.assign.cs.presale'
+
+    od_cs_presale_id = fields.Many2one('res.users', string='CS Solution Architect', required=True)
+
+    def is_a_sales_acc_manager(self, user):
+        hr_pool = self.env['hr.employee']
+        emp_rec = hr_pool.sudo().search([('user_id', '=', user)])
+        return emp_rec.job_id.id in (40, 83)
+
+    @api.one
+    def assign_presales(self):
+        user = self.env.user.id or False
+        if self.is_a_sales_acc_manager(user):
+            raise Warning(
+                "You are not allowed to assign CS Solution Architects. Kindly contact CS Technology Unit Manager.")
+        context = self._context
+        active_id = context.get('active_id')
+        od_cs_presale_id = self.od_cs_presale_id and self.od_cs_presale_id.id or False
+        lead = self.env['crm.lead']
+        lead_obj = lead.browse(active_id)
+        lead_obj.write({'od_cs_presale_id': od_cs_presale_id})
+        #lead_obj.od_send_mail('od_opportunity_assigned_presales')
+        return True
+
+class wiz_assign_an_presale(models.TransientModel):
+    _name = 'wiz.assign.an.presale'
+
+    od_an_presale_id = fields.Many2one('res.users', string='AN Solution Architect', required=True)
+
+    def is_a_sales_acc_manager(self, user):
+        hr_pool = self.env['hr.employee']
+        emp_rec = hr_pool.sudo().search([('user_id', '=', user)])
+        return emp_rec.job_id.id in (40, 83)
+
+    @api.one
+    def assign_presales(self):
+        user = self.env.user.id or False
+        if self.is_a_sales_acc_manager(user):
+            raise Warning(
+                "You are not allowed to assign AN Solution Architects. Kindly contact AN Technology Unit Manager.")
+        context = self._context
+        active_id = context.get('active_id')
+        od_an_presale_id = self.od_an_presale_id and self.od_an_presale_id.id or False
+        lead = self.env['crm.lead']
+        lead_obj = lead.browse(active_id)
+        lead_obj.write({'od_an_presale_id': od_an_presale_id})
+        #lead_obj.od_send_mail('od_opportunity_assigned_presales')
+        return True
+
+class wiz_assign_dc_presale(models.TransientModel):
+    _name = 'wiz.assign.dc.presale'
+
+    od_dc_presale_id = fields.Many2one('res.users', string='DC Solution Architect', required=True)
+
+    def is_a_sales_acc_manager(self, user):
+        hr_pool = self.env['hr.employee']
+        emp_rec = hr_pool.sudo().search([('user_id', '=', user)])
+        return emp_rec.job_id.id in (40, 83)
+
+    @api.one
+    def assign_presales(self):
+        user = self.env.user.id or False
+        if self.is_a_sales_acc_manager(user):
+            raise Warning(
+                "You are not allowed to assign DC Solution Architects. Kindly contact DC Technology Unit Manager.")
+        context = self._context
+        active_id = context.get('active_id')
+        od_dc_presale_id = self.od_dc_presale_id and self.od_dc_presale_id.id or False
+        lead = self.env['crm.lead']
+        lead_obj = lead.browse(active_id)
+        lead_obj.write({'od_dc_presale_id': od_dc_presale_id})
+        #lead_obj.od_send_mail('od_opportunity_assigned_presales')
+        return True
+
+class wiz_assign_is_presale(models.TransientModel):
+    _name = 'wiz.assign.is.presale'
+
+    od_is_presale_id = fields.Many2one('res.users', string='IS Solution Architect', required=True)
+
+    def is_a_sales_acc_manager(self, user):
+        hr_pool = self.env['hr.employee']
+        emp_rec = hr_pool.sudo().search([('user_id', '=', user)])
+        return emp_rec.job_id.id in (40, 83)
+
+    @api.one
+    def assign_presales(self):
+        user = self.env.user.id or False
+        if self.is_a_sales_acc_manager(user):
+            raise Warning(
+                "You are not allowed to assign DC Solution Architects. Kindly contact DC Technology Unit Manager.")
+        context = self._context
+        active_id = context.get('active_id')
+        od_is_presale_id = self.od_is_presale_id and self.od_is_presale_id.id or False
+        lead = self.env['crm.lead']
+        lead_obj = lead.browse(active_id)
+        lead_obj.write({'od_is_presale_id': od_is_presale_id})
+        # lead_obj.od_send_mail('od_opportunity_assigned_presales')
+        return True
     
     
 class wiz_assign_supporting_presale(models.TransientModel):

@@ -71,6 +71,87 @@ class res_users(osv.osv):
                 domain =[('id','in',user_ids)]
                 ids = self.search(cr, uid, expression.AND([domain, args]), limit=limit, context=context)
             return self.name_get(cr, uid, ids, context=context)
+
+        if context.get('cs_solution_arch_ids', False):
+            company_id = self.browse(cr, uid, uid, context=context).company_id.id
+            hr_pool = self.pool.get('hr.employee')
+            emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
+                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                        ('od_division_id', '=', 10),],
+                                     context=context)
+            user_ids = []
+            for emp_id in emp_ids:
+                employee = hr_pool.browse(cr, SUPERUSER_ID, emp_id)
+                user_ids.append(employee.user_id.id)
+            #             user_ids = list(set(user_ids))
+            if name:
+                ids = self.search(cr, uid, [('name', operator, name), ('id', 'in', user_ids)] + args, limit=limit,
+                                  context=context or {})
+            else:
+                domain = [('id', 'in', user_ids)]
+                ids = self.search(cr, uid, expression.AND([domain, args]), limit=limit, context=context)
+            return self.name_get(cr, uid, ids, context=context)
+
+        if context.get('an_solution_arch_ids', False):
+            company_id = self.browse(cr, uid, uid, context=context).company_id.id
+            hr_pool = self.pool.get('hr.employee')
+            emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
+                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                        ('od_division_id', '=', 9),],
+                                     context=context)
+            user_ids = []
+            for emp_id in emp_ids:
+                employee = hr_pool.browse(cr, SUPERUSER_ID, emp_id)
+                user_ids.append(employee.user_id.id)
+            #             user_ids = list(set(user_ids))
+            if name:
+                ids = self.search(cr, uid, [('name', operator, name), ('id', 'in', user_ids)] + args, limit=limit,
+                                  context=context or {})
+            else:
+                domain = [('id', 'in', user_ids)]
+                ids = self.search(cr, uid, expression.AND([domain, args]), limit=limit, context=context)
+            return self.name_get(cr, uid, ids, context=context)
+
+        if context.get('dc_solution_arch_ids', False):
+            company_id = self.browse(cr, uid, uid, context=context).company_id.id
+            hr_pool = self.pool.get('hr.employee')
+            emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
+                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                        ('od_division_id', '=', 11),],
+                                     context=context)
+            user_ids = []
+            for emp_id in emp_ids:
+                employee = hr_pool.browse(cr, SUPERUSER_ID, emp_id)
+                user_ids.append(employee.user_id.id)
+            #             user_ids = list(set(user_ids))
+            if name:
+                ids = self.search(cr, uid, [('name', operator, name), ('id', 'in', user_ids)] + args, limit=limit,
+                                  context=context or {})
+            else:
+                domain = [('id', 'in', user_ids)]
+                ids = self.search(cr, uid, expression.AND([domain, args]), limit=limit, context=context)
+            return self.name_get(cr, uid, ids, context=context)
+
+        if context.get('is_solution_arch_ids', False):
+            company_id = self.browse(cr, uid, uid, context=context).company_id.id
+            hr_pool = self.pool.get('hr.employee')
+            emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
+                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                        ('od_division_id', '=', 40),],
+                                     context=context)
+            user_ids = []
+            for emp_id in emp_ids:
+                employee = hr_pool.browse(cr, SUPERUSER_ID, emp_id)
+                user_ids.append(employee.user_id.id)
+            #             user_ids = list(set(user_ids))
+            if name:
+                ids = self.search(cr, uid, [('name', operator, name), ('id', 'in', user_ids)] + args, limit=limit,
+                                  context=context or {})
+            else:
+                domain = [('id', 'in', user_ids)]
+                ids = self.search(cr, uid, expression.AND([domain, args]), limit=limit, context=context)
+            return self.name_get(cr, uid, ids, context=context)
+
         if context.get('bdm_ids',False):
             company_id = self.browse(cr, uid, uid, context=context).company_id.id
             hr_pool = self.pool.get('hr.employee')

@@ -4022,7 +4022,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>Critical (Hours)</td>
+										<td>Critical (Hrs)</td>
 										<td>
 											<field name="od_respons_time_ctc_rel"/>
 										</td>
@@ -4039,7 +4039,7 @@
 									</tr>
 
 									<tr>
-										<td>Major (Hours)</td>
+										<td>Major (Hrs)</td>
 										<td>
 											<field name="od_respons_time_maj_rel"/>
 										</td>
@@ -4056,7 +4056,7 @@
 									</tr>
 
 									<tr>
-										<td>Minor (Hours)</td>
+										<td>Minor (Hrs)</td>
 										<td>
 											<field name="od_respons_time_min_rel"/>
 										</td>
