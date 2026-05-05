@@ -258,6 +258,8 @@ class gratuity_rpt(models.TransientModel):
                              ('od_joining_date', '<=', self.date),
                              ('country_id', '!=', 2), ('od_last_day', '!=', False),
                              ('od_last_day', '!=', None),('od_last_day', '>=', self.date)]
+        if branch_ids:
+            non_active_domain += [('od_branch_id', 'in', branch_ids)]
         non_active_amp_list = emp_obj.search(non_active_domain, order='od_identification_no')
         emp_list = active_amp_list + non_active_amp_list
         return emp_list

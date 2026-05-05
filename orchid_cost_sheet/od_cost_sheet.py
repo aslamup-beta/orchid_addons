@@ -2949,6 +2949,7 @@ class od_cost_sheet(models.Model):
     
     @api.one
     def btn_process(self):
+        self.check_tabs_in_loss()
 #         self.update_cost_sheet()
         self.check_rev_exist()
         if not self.processed_date:
@@ -3037,6 +3038,7 @@ class od_cost_sheet(models.Model):
     
     @api.one
     def btn_process_waiting_po(self):
+        self.check_tabs_in_loss()
 #         self.update_cost_sheet()
         self.check_rev_exist()
         self.check_process_min_docs()
