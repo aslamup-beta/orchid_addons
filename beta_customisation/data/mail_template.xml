@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="1">
-    
-    	<record id="od_fill_detail_employee" model="email.template">
-             <field name="name">UAE - Employee Personal Data Entry Form</field>
-             <field name="email_from">${(user.email or '')|safe}</field>
-             <field name="subject">Update Beta Joining Form</field>
-             <field name="email_to">${object.personal_email},${object.work_email}</field>
-<!--              <field name="email_cc">${object.od_owner_id.email}</field> -->
-             <field name="model_id" ref="model_od_beta_joining_form"/>
-             <field name="body_html"><![CDATA[
+    <data noupdate="0">
+
+        <record id="od_fill_detail_employee" model="email.template">
+            <field name="name">UAE - Employee Personal Data Entry Form</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Update Beta Joining Form</field>
+            <field name="email_to">${object.personal_email},${object.work_email}</field>
+            <field name="email_cc">${object.manager_id.work_email},erp@betait.net</field>
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
           
           <div style="background-color: rgb(255, 255, 255);">
              <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear ${object.name or ''},</p>
@@ -18,17 +18,17 @@
 
          </div>
              ]]>
-             </field>
-         </record>
-         
-         <record id="od_fill_detail_employee_saudi" model="email.template">
-             <field name="name">KSA - Employee Personal Data Entry Form</field>
-             <field name="email_from">${(user.email or '')|safe}</field>
-             <field name="subject">Update Beta Joining Form</field>
-             <field name="email_to">${object.personal_email},${object.work_email}</field>
-<!--              <field name="email_cc">${object.od_owner_id.email}</field> -->
-             <field name="model_id" ref="model_od_beta_joining_form"/>
-             <field name="body_html"><![CDATA[
+            </field>
+        </record>
+
+        <record id="od_fill_detail_employee_saudi" model="email.template">
+            <field name="name">KSA - Employee Personal Data Entry Form</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Update Beta Joining Form</field>
+            <field name="email_to">${object.personal_email},${object.work_email}</field>
+            <field name="email_cc">${object.manager_id.work_email}</field>
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
           
           <div style="background-color: rgb(255, 255, 255);">
              <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">Dear ${object.name or ''},</p>
@@ -37,51 +37,296 @@
 
          </div>
              ]]>
-             </field>
-         </record>
-         
-         <record id="od_fill_detail_finance" model="email.template">
-             <field name="name">UAE - Employee detail fill by Finance</field>
-             <field name="email_from">${(user.email or '')|safe}</field>
-             <field name="subject">Fill Employee Finance details</field>
-             <field name="email_to">mohd.sageer@betait.net,finance@betait.net</field>
-             <field name="email_cc">${object.manager_id.work_email}</field>
-             <field name="model_id" ref="model_od_beta_joining_form"/>
-             <field name="body_html"><![CDATA[
+            </field>
+        </record>
+
+        <record id="od_training_completion_form_saudi" model="email.template">
+            <field name="name">Training Completion Form</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Complete Your Training Completion Form</field>
+            <field name="email_to">${object.personal_email},${object.work_email}</field>
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
+
+                <div style="background-color: rgb(255, 255, 255);">
+                    <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">
+                        Dear ${object.name or ''},
+                    </p>
+                    <br></br>
+                    <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">
+                        Please complete your training listed below.
+                    </p>
+                    <br></br>
+                    <div
+                            style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                        <font color="#222222" face="FreeSerif, serif">
+                            <span style="font-size: 12.3333px;">&nbsp; &nbsp; 1. Internet and Social Media Security :
+                            </span>
+                            <span>
+                                <a href="${object.training_videos_id.cs_training_1}">
+                                    ${object.training_videos_id.cs_training_1}
+                                </a>
+                            </span>
+                        </font>
+                    </div>
+                    <div
+                            style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                        <font color="#222222" face="FreeSerif, serif">
+                            <span style="font-size: 12.3333px;">&nbsp; &nbsp; 2. Social Engineering and Phishing Emails :
+                            </span>
+                            <span>
+                                <a href="${object.training_videos_id.cs_training_1}">
+                                    ${object.training_videos_id.cs_training_2}
+                                </a>
+                            </span>
+                        </font>
+                    </div>
+                    <div
+                            style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                        <font color="#222222" face="FreeSerif, serif">
+                            <span style="font-size: 12.3333px;">&nbsp; &nbsp; 3. Credential Sharing :
+                            </span>
+                            <span>
+                                <a href="${object.training_videos_id.cs_training_1}">
+                                    ${object.training_videos_id.cs_training_3}
+                                </a>
+                            </span>
+                        </font>
+                    </div>
+                    <div
+                            style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                        <font color="#222222" face="FreeSerif, serif">
+                            <span style="font-size: 12.3333px;">&nbsp; &nbsp; 4. Data Security :
+                            </span>
+                            <span>
+                                <a href="${object.training_videos_id.cs_training_1}">
+                                    ${object.training_videos_id.cs_training_4}
+                                </a>
+                            </span>
+                        </font>
+                    </div>
+                    <div
+                            style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                        <font color="#222222" face="FreeSerif, serif">
+                            <span style="font-size: 12.3333px;">&nbsp; &nbsp; 5. Mobile Security :
+                            </span>
+                            <span>
+                                <a href="${object.training_videos_id.cs_training_1}">
+                                    ${object.training_videos_id.cs_training_5}
+                                </a>
+                            </span>
+                        </font>
+                    </div>
+                    <div
+                            style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                        <font color="#222222" face="FreeSerif, serif">
+                            <span style="font-size: 12.3333px;">&nbsp; &nbsp; 6. Work Systems and Internal Tools :
+                            </span>
+                            <span>
+                                <a href="${object.training_videos_id.cs_training_1}">
+                                    ${object.training_videos_id.cs_training_6}
+                                </a>
+                            </span>
+                        </font>
+                    </div>
+                    <br></br>
+                    <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 13px;">
+                        After completing all the training above, please fill out the training completion form by clicking the following
+                        link.
+                    </p>
+                    <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">
+                        <a href="http://betait.net/training_completion/${object.id}">
+                            http://betait.net/training_completion/${object.id}
+                        </a>
+                    </p>
+                    <br></br>
+                    <p style="color: rgb(34, 34, 34); font-family: &quot;Lucica Grande&quot;, Ubuntu, Arial, Verdana, sans-serif; font-size: 12px;">
+                        Thank You
+                    </p>
+                </div>
+                ]]>
+            </field>
+        </record>
+
+        <record id="beta_cs_approval_request_saudi" model="email.template">
+            <field name="name">KSA - Joining Form CS Approval</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Employee Joining Form CS Approval</field>
+            <field name="email_to">cyber_sec.ksa@betait.net</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear Mr Fakhri,</p>
+             <p> The employee ${object.name or ''} has completed the training. Kindly please check and approve the joining form</p>
+<p><a href="http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469">http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469</a></p>             <p>Thank You</p>
+         </div>
+             ]]>
+            </field>
+        </record>
+
+
+        <record id="beta_it_approval_request_saudi" model="email.template">
+            <field name="name">KSA - Joining Form IT Approval</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Employee Joining Form IT Approval</field>
+            <field name="email_to">it.ksa@betait.net</field>
+            <field name="email_cc">hr.ksa@betait.net</field>
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
+                     <div>
+                        <div style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">Dear IT Team,</span>
+                            </font>
+                        </div>
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">
+                                    <br/>
+                                </span>
+                            </font>
+                        </div>
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">Could you please verify that the following items have been completed for
+                                    our new employee, ${object.employee_id.name}, to ensure he has everything needed to start work?
+                                </span>
+                            </font>
+                        </div>
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">
+                                    <br/>
+                                </span>
+                            </font>
+                        </div>
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">&nbsp; &nbsp; 1. Laptop delivered ?
+                                </span>
+                            </font>
+                        </div>
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">&nbsp; &nbsp; 2. Email issued ?
+                                </span>
+                            </font>
+                        </div>
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">&nbsp; &nbsp; 3. Access control verification completed ?
+                                </span>
+                            </font>
+                        </div>
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">&nbsp; &nbsp; 4. Keyboard, monitor, mouse, and all accessories provided
+                                    ?
+                                </span>
+                            </font>
+                        </div>
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Telephone & extension setup ?
+                                </span>
+                            </font>
+                        </div>
+
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <p>
+                                <a href="http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469">
+                                    http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469
+                                </a>
+                            </p>
+
+                        </div>
+                        <div
+                                style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">
+                            <span style="font-size: 17.3333px;">&nbsp;</span>
+                            <font color="#222222" face="FreeSerif, serif">
+                                <span style="font-size: 17.3333px;">Thank you for your support!</span>
+                            </font>
+                        </div>
+
+                    </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="beta_hr_approval_request_saudi" model="email.template">
+            <field name="name">KSA - Joining Form HR Approval</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Employee Joining Form HR Approval</field>
+            <field name="email_to">hr.ksa@betait.net</field>
+            <!--            <field name="email_cc">${object.manager_id.work_email}</field>-->
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
+                 <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                    <p>Dear HR Team,</p>
+                    <p>Kindly please review and approve the joining form for the employee ${object.name or ''} at your earliest convenience?</p>
+                    <p>
+                        <a href="http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469">
+                            http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469
+                        </a>
+                    </p>
+                    <p>Thank you for your support.</p>
+                </div>
+             ]]>
+            </field>
+        </record>
+
+        <record id="od_fill_detail_finance" model="email.template">
+            <field name="name">UAE - Employee detail fill by Finance</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Fill Employee Finance details</field>
+            <field name="email_to">mohd.sageer@betait.net,sami.nazzal@betait.net</field>
+            <field name="email_cc">erp@betait.net</field>
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
          <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
              <p>Dear Team,</p>
              <p>Please Fill the Finance details of our newly joined employee ${object.name or ''} and confirm employee.</p>
 <p><a href="http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469">http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469</a></p>             <p>Thank You</p>
          </div>
              ]]>
-             </field>
-         </record>
-         
-         <record id="od_fill_detail_finance_saudi" model="email.template">
-             <field name="name">KSA - Employee detail fill by Finance</field>
-             <field name="email_from">${(user.email or '')|safe}</field>
-             <field name="subject">Fill Employee Finance details</field>
-             <field name="email_to">finance.ksa@betait.net</field>
-             <field name="email_cc">${object.manager_id.work_email}</field>
-             <field name="model_id" ref="model_od_beta_joining_form"/>
-             <field name="body_html"><![CDATA[
+            </field>
+        </record>
+
+        <record id="od_fill_detail_finance_saudi" model="email.template">
+            <field name="name">KSA - Employee detail fill by Finance</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Fill Employee Finance details</field>
+            <field name="email_to">hr.ksa@betait.net</field>
+            <field name="email_cc">${object.manager_id.work_email},erp@betait.net</field>
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
          <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
              <p>Dear Team,</p>
              <p>Please Fill the Finance details of our newly joined employee ${object.name or ''} and confirm employee.</p>
 <p><a href="http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469">http://betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.joining.form&amp;menu_id=1102&amp;action=1469</a></p>             <p>Thank You</p>
          </div>
              ]]>
-             </field>
-         </record>
-         
-         <record id="od_hr_welcome_mail" model="email.template">
-             <field name="name">UAE - Employee welcome mail</field>
-             <field name="email_from">${(user.email or '')|safe}</field>
-             <field name="subject">Welcome to Beta IT</field>
-             <field name="email_to">${object.work_email}</field>
-             <field name="email_cc">mohd.sageer@betait.net,hr@betait.net</field>
-             <field name="model_id" ref="model_od_beta_joining_form"/>
-             <field name="body_html"><![CDATA[
+            </field>
+        </record>
+
+        <record id="od_hr_welcome_mail" model="email.template">
+            <field name="name">UAE - Employee welcome mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Welcome to Beta IT</field>
+            <field name="email_to">${object.work_email}</field>
+            <field name="email_cc">mohd.sageer@betait.net,hr@betait.net,erp@betait.net</field>
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
          <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; " --="">
              <p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">Dear ${object.name}, </p>
  
@@ -118,17 +363,17 @@
              
              </div>
             ]]>
-             </field>
-         </record>
-         
-         <record id="od_hr_welcome_mail_saudi" model="email.template">
-             <field name="name">KSA - Employee welcome mail</field>
-             <field name="email_from">${(user.email or '')|safe}</field>
-             <field name="subject">Welcome to Beta IT --- مرحبا بك في بيتا</field>
-             <field name="email_to">${object.work_email},</field>
-             <field name="email_cc">hr.ksa@betait.net</field>
-             <field name="model_id" ref="model_od_beta_joining_form"/>
-             <field name="body_html"><![CDATA[
+            </field>
+        </record>
+
+        <record id="od_hr_welcome_mail_saudi" model="email.template">
+            <field name="name">KSA - Employee welcome mail</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Welcome to Beta IT --- مرحبا بك في بيتا</field>
+            <field name="email_to">${object.work_email},</field>
+            <field name="email_cc">hr.ksa@betait.net,erp@betait.net</field>
+            <field name="model_id" ref="model_od_beta_joining_form"/>
+            <field name="body_html"><![CDATA[
              
              <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; " --="">
              <p style="color: rgb(76, 76, 76); font-family: &quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif; font-size: 13px;">Dear ${object.name}, </p>
@@ -167,10 +412,9 @@
              </div>
         
              ]]>
-             </field>
-         </record>
-         
-         
-         
-     </data>
+            </field>
+        </record>
+
+
+    </data>
 </openerp>

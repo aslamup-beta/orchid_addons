@@ -637,7 +637,29 @@ class crm_lead(osv.osv):
     @api.depends('user_id')    
     def _compute_cust_user_id(self):
         self.user_id_dummy = self.user_id and self.user_id.id or False
-        
+
+    @api.one
+    @api.depends('od_division_id','od_cs_presale_id','od_an_presale_id','od_dc_presale_id','od_is_presale_id')
+    def _compute_leading_solution_arc_id(self):
+        if self.od_division_id:
+            if self.od_division_id.code == 'KSA-CS':
+                self.od_leading_solution_arc_id = self.od_cs_presale_id and self.od_cs_presale_id.id or False
+                if self.od_leading_solution_arc_id:
+                    self.od_responsible_id = self.od_leading_solution_arc_id and self.od_leading_solution_arc_id.id or False
+            if self.od_division_id.code == 'KSA-AN':
+                self.od_leading_solution_arc_id = self.od_an_presale_id and self.od_an_presale_id.id or False
+                if self.od_leading_solution_arc_id:
+                    self.od_responsible_id = self.od_leading_solution_arc_id and self.od_leading_solution_arc_id.id or False
+            if self.od_division_id.code == 'KSA-DC':
+                self.od_leading_solution_arc_id = self.od_dc_presale_id and self.od_dc_presale_id.id or False
+                if self.od_leading_solution_arc_id:
+                    self.od_responsible_id = self.od_leading_solution_arc_id and self.od_leading_solution_arc_id.id or False
+            if self.od_division_id.code == 'KSA-InfSec':
+                self.od_leading_solution_arc_id = self.od_is_presale_id and self.od_is_presale_id.id or False
+                if self.od_leading_solution_arc_id:
+                    self.od_responsible_id = self.od_leading_solution_arc_id and self.od_leading_solution_arc_id.id or False
+
+
     _columns = {
         'meeting_count_lead': fields.function(_meeting_count_lead, string='# Meetings', type='integer'),
         'other_division_ids': fields.many2many('od.cost.division', 'crm_lead_cost_division', 'lead_id', 'division_id', 'Other Technology Unit', \
@@ -658,12 +680,22 @@ class crm_lead(osv.osv):
         'od_approved_date': fields.date(string="Opp. Approval Date"),
         'od_approved_by': fields.many2one('res.users', 'Opp. Approved by', select=True,help="Opp. Approved by"),
         'od_lead_user_id': fields.many2one('res.users', 'Lead AM', select=True,help="Lead Account Manager"),
-
+        'od_leading_solution_arc_id': fields.many2one('res.users', compute='_compute_leading_solution_arc_id', string='Leading Solution Architect', select=True,
+                                            track_visibility='onchange',
+                                            help="Leading Solution Architect"),
         'support_presales_emails': fields.char(string="Support presales emails"),
         'user_id_dummy' : fields.many2one('res.users', compute='_compute_cust_user_id', string="Customer AM"),
         'od_partner_class' : fields.selection([('a', 'A'), ('b', 'B'), ('c', 'C'), ('r', 'R')],string="Class",related='partner_id.od_class',store=True)
 
     }
+
+    @api.onchange('od_leading_solution_arc_id')
+    def onchange_employee_id(self):
+        for record in self:
+            leading_solution_arc = record.od_leading_solution_arc_id and record.od_leading_solution_arc_id.id or False
+            if leading_solution_arc:
+                record.write({'od_responsible_id':leading_solution_arc})
+
 
 class calendar_event(osv.osv):
     """ Model for Calendar Event """
@@ -693,5 +725,219 @@ class crm_lead2opportunity_partner(osv.osv_memory):
                 res.update({'opportunity_ids': []})
         return res
 
-    
+class od_cost_sheet(models.Model):
+    _inherit = 'od.cost.sheet'
+
+    def generate_summary_weight(self):
+        print("Nabeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeel")
+        result, mat_res, total_mat_cost = self.get_weight_summary()
+        data = []
+        total_cost = 0.0
+        total_sale = 0.0
+        distribute_cost = 0.0
+        disc = (self.special_discount)
+        tech_vals = self.get_tech_pdtgrp_vals()
+        tech_sale = sum([val.get('total_sale') for val in tech_vals])
+        tech_cost = sum([val.get('total_cost') for val in tech_vals])
+        redist_tech_manual = self.redist_tech_manual
+        redist_re_manual = self.redist_re_manual
+        if self.included_om_in_quotation and redist_re_manual:
+            om_sale, om_cost, om_profit = self.get_tot_sale_cost2(self.om_residenteng_line)
+            for line in self.dist_re_line:
+                pdt_grp_id = line.pdt_grp_id and line.pdt_grp_id.id
+                value = line.value / 100.0
+                result_data = result.get(pdt_grp_id, {})
+                if result_data:
+                    sale = result_data.get('sale', 0.0)
+                    sale += om_sale * value
+                    cost = result_data.get('cost', 0.0)
+                    cost += om_cost * value
+                    result_data['sale'] = sale
+                    result_data['cost'] = cost
+
+                else:
+                    result[pdt_grp_id] = {'sale': om_sale * value, 'cost': om_cost * value, 'manpower_cost': 0.0,
+                                          'manpower_sale': 0.0, 'no_distribute': True}
+
+        if not result and redist_tech_manual:
+            sale = self.sum_tot_sale - tech_sale
+            # added by aslam to decrease preopn if no mat values
+            cost = self.sum_tot_cost - tech_cost - self.pre_opn_cost
+            total_manpower_cost = self.get_imp_cost() + self.get_bmn_cost()
+            total_manpower_sale = self.get_imp_sale() + self.get_bmn_sale()
+            for line in self.dist_tech_line:
+                pdt_grp_id = line.pdt_grp_id.id
+                value = line.value
+                sale_p = sale * (value / 100.0)
+                cost_p = cost * (value / 100.0)
+                mp_c = total_manpower_cost * (value / 100.0)
+                mp_s = total_manpower_sale * (value / 100.0)
+                result[pdt_grp_id] = {'sale': sale_p, 'cost': cost_p, 'manpower_cost': mp_c, 'manpower_sale': mp_s}
+
+        if not result and not redist_tech_manual:
+            sale = self.sum_tot_sale - tech_sale
+            # added by aslam to decrease preopn if no mat values
+            cost = self.sum_tot_cost - tech_cost - self.pre_opn_cost
+            total_manpower_cost = self.get_imp_cost() + self.get_bmn_cost()
+            total_manpower_sale = self.get_imp_sale() + self.get_bmn_sale()
+            result[21] = {'sale': sale, 'cost': cost, 'manpower_cost': total_manpower_cost,
+                          'manpower_sale': total_manpower_sale}
+
+        # Added by aslam to update pre-operation cost to general (revenue tab to fix sale in)
+        # Commented by Aslam to remove general product group from revenue for pre-oprn and include on other prd grps
+        #         if self.pre_opn_cost:
+        #             if result.get(21, False):
+        #                 result[21]['cost']= result[21]['cost'] + self.pre_opn_cost
+        #             else:
+        #                 result[21] = {'sale':0.0,'cost':self.pre_opn_cost,'manpower_cost':0.0,'manpower_sale':0.0}
+
+        for val in tech_vals:
+            pdt_grp_id = val.get('pdt_grp_id')
+            total_sale1 = val.get('total_sale')
+            total_cost1 = val.get('total_cost')
+            profit = total_sale1 - total_cost1
+            result_data = result.get(pdt_grp_id, {})
+            if result_data:
+                sale = result_data.get('sale', 0.0)
+                sale += total_sale1
+                cost = result_data.get('cost', 0.0)
+                cost += total_cost1
+                result_data['sale'] = sale
+                result_data['cost'] = cost
+                result_data['manpower_cost'] = total_cost1
+                result_data['manpower_sale'] = total_sale1
+            else:
+                result[pdt_grp_id] = {'sale': total_sale1, 'cost': total_cost1, 'manpower_cost': total_cost1,
+                                      'manpower_sale': total_sale1, 'no_distribute': True}
+
+        for key, val in result.iteritems():
+            pdt_grp_id = key
+            sale = val.get('sale')
+            total_sale += sale
+            sale_aftr_disc = sale
+            cost = val.get('cost')
+            if not val.get('no_distribute', False):
+                distribute_cost += cost
+            manpower_cost = val.get('manpower_cost', 0.0)
+            manpower_sale = val.get('manpower_sale', 0.0)
+            total_cost += cost
+            profit = sale_aftr_disc - cost
+            gp = profit + manpower_cost
+            data.append(
+                {'pdt_grp_id': pdt_grp_id, 'total_sale': sale, 'total_cost': cost, 'sale_aftr_disc': sale_aftr_disc,
+                 'profit': profit,
+                 'total_gp': gp, 'manpower_cost': manpower_cost, 'manpower_sale': manpower_sale,
+                 'no_distribute': val.get('no_distribute', False)})
+
+        if total_sale:
+            for val in data:
+                sale = val.get('total_sale')
+                discount = disc * (sale / total_sale)
+                discount = -1 * discount
+                sale_aftr_disc = sale - (discount)
+                cost = val.get('total_cost')
+                # Modified by Aslam to add pre-operation cost to other product groups based on their cost
+                pre_cost = self.pre_opn_cost
+                if pre_cost:
+                    pre_weight = (cost / total_cost) * pre_cost
+                    val['total_cost'] = cost + pre_weight
+                profit = sale_aftr_disc - val.get('total_cost')
+                val['sale_aftr_disc'] = sale_aftr_disc
+                val['profit'] = profit
+                val['total_gp'] = profit
+
+        if total_mat_cost:
+            total_manpower_cost = self.get_imp_cost() + self.get_bmn_cost()
+            total_manpower_sale = self.get_imp_sale() + self.get_bmn_sale()
+            #             total_manpower_cost = self.a_bim_cost + self.a_bmn_cost
+
+            for val in data:
+                pdt_grp_id = val.get('pdt_grp_id')
+                manpower_cost = 0.0
+                if not val.get('no_distribute'):
+                    manpower_cost = total_manpower_cost * (mat_res.get(pdt_grp_id, 0.0) / (total_mat_cost or 1.0))
+                    manpower_sale = total_manpower_sale * (mat_res.get(pdt_grp_id, 0.0) / (total_mat_cost or 1.0))
+                mp = val.get('manpower_cost', 0.0)
+                mp_sale = val.get('manpower_sale', 0.0)
+                val['manpower_cost'] = manpower_cost + mp
+                val['manpower_sale'] = manpower_sale + mp_sale
+                profit = val.get('profit')
+                total_gp = profit + manpower_cost + mp
+                val['total_gp'] = total_gp
+        for val in data:
+            mp = val.get('manpower_cost', 0.0)
+            profit = val.get('profit')
+            total_gp = profit + mp
+            val['total_gp'] = total_gp
+        if not data:
+            #             total_manpower_cost = self.get_imp_cost() + self.get_bmn_cost()
+            total_manpower_cost = self.a_bim_cost + self.a_bmn_cost + self.a_bis_cost
+            if total_manpower_cost and not redist_tech_manual:
+                data.append({
+                    'pdt_grp_id': 21,
+                    'manpower_cost': total_manpower_cost,
+                    'manpower_sale': total_manpower_sale,
+                    'total_gp': total_manpower_cost,
+                })
+            if total_manpower_cost and redist_tech_manual:
+                for line in self.dist_tech_line:
+                    pdt_grp_id = line.pdt_grp_id.id
+                    value = line.value
+                    mp_c = total_manpower_cost * (value / 100.0)
+                    total_gp = total_manpower_cost * (value / 100.0)
+                    mp_s = total_manpower_sale * (value / 100.0)
+                    result[pdt_grp_id] = {'manpower_cost': mp_c, 'manpower_sale': mp_s, 'total_gp': total_gp}
+        # Added by Aslam to reflect rebate to revenue of each product groups Mar/2022
+        if self.prn_ven_reb_cost:
+            for rebate_line in self.vendor_rebate_line:
+                rebate_pdt_grp = rebate_line.tech_unit_id and rebate_line.tech_unit_id.id or False
+                for val in data:
+                    if val['pdt_grp_id'] == rebate_pdt_grp:
+                        new_gp = val['total_gp'] + rebate_line.value
+                        val['total_gp'] = new_gp
+
+        print("data", data)
+        for t_unit in data:
+            print("t_unit", t_unit)
+            print("t_unit['pdt_grp_id']", t_unit['pdt_grp_id'])
+            if t_unit['pdt_grp_id'] == 1:
+                if self.lead_id and self.lead_id.od_an_presale_id:
+                    t_unit['presales_id'] = self.lead_id.od_an_presale_id.id
+            if t_unit['pdt_grp_id'] == 2:
+                if self.lead_id and self.lead_id.od_cs_presale_id:
+                    t_unit['presales_id'] = self.lead_id.od_cs_presale_id.id
+            if t_unit['pdt_grp_id'] == 3:
+                if self.lead_id and self.lead_id.od_dc_presale_id:
+                    t_unit['presales_id'] = self.lead_id.od_dc_presale_id.id
+            if t_unit['pdt_grp_id'] == 25:
+                if self.lead_id and self.lead_id.od_is_presale_id:
+                    t_unit['presales_id'] = self.lead_id.od_is_presale_id.id
+        self.summary_weight_line.unlink()
+        self.summary_weight_line = data
+
+
+
+    def copy_revenue_summary(self):
+        res = []
+        for line in self.summary_weight_line:
+            res.append(({
+                'cost_sheet_id':self.id,
+                'pdt_grp_id':line.pdt_grp_id and line.pdt_grp_id.id or False,
+                'presales_id':line.presales_id and line.presales_id.id or False,
+                'total_sale':line.total_sale,
+                'disc':line.disc,
+                'sale_aftr_disc':line.sale_aftr_disc,
+                'total_cost':line.total_cost,
+                'profit':line.profit,
+                'manpower_cost':line.manpower_cost,
+                'manpower_sale':line.manpower_sale,
+                'total_gp':line.total_gp,
+                'profit_percent':line.profit_percent,
+                }))
+        self.original_summary_weight_line =res
+
+
+
+
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -480,45 +480,94 @@
         </record>
 
 
-<!--        <record model="ir.ui.view" id="employee_certificate_line_inherit">-->
-<!--            <field name="name">employee.certificate.line.inherit</field>-->
-<!--            <field name="model">od.hr.employee.certificate.line</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <tree string="Career Certificates">-->
-<!--                    <field name="employee_id"/>-->
-<!--                    <field name="document_type_id"/>-->
-<!--                    <field name="document_referance" string="Name"/>-->
-<!--                    <field name="attach_file" filename="attach_fname"/>-->
-<!--                    <field name="attach_fname" invisible="1"/>-->
-<!--                    <field name="issue_date"/>-->
-<!--                    <field name="expiry_date" required="1"/>-->
-<!--                </tree>-->
-<!--            </field>-->
-<!--        </record>-->
+        <record model="ir.ui.view" id="joining_training_videos_form_view">
+            <field name="name">joining.training.videos.form.view</field>
+            <field name="model">joining.training.videos</field>
+            <field name="arch" type="xml">
+                <form string="Joining Training Videos">
+                    <sheet>
+                        <group>
+                            <group>
 
-<!--        <record model="ir.ui.view" id="employee_certificate_line_search2">-->
-<!--            <field name="name">employee.certificate.line.search2</field>-->
-<!--            <field name="model">od.hr.employee.certificate.line</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <search string="Career Certificates">-->
-<!--                    <field name="employee_id"/>-->
-<!--                    <field name="document_type_id"/>-->
-<!--                    <group expand="0" string="Group By">-->
-<!--                        <filter name="group_by_employee" string="Employee" domain="[]" context="{'group_by':'employee_id'}"/>-->
-<!--                        <filter name="group_by_document_type" string="Document Type" domain="[]" context="{'group_by':'document_type_id'}"/>-->
-<!--                    </group>-->
-<!--                </search>-->
-<!--            </field>-->
-<!--        </record>-->
+                                <label for="name" class="oe_edit_only"/>
+                                <h2>
+                                    <field name="name"/>
+                                </h2>
+                            </group>
+                        </group>
+                        <group string="Video Links">
+                            <field name="cs_training_1" widget="url" placeholder="URL"/>
+<!--                            <field name="cs_training_2" widget="url" placeholder="URL"/>-->
+                            <field name="cs_training_3" widget="url" placeholder="URL"/>
+                            <field name="cs_training_4" widget="url" placeholder="URL"/>
+                            <field name="cs_training_5" widget="url" placeholder="URL"/>
+                            <field name="cs_training_6" widget="url" placeholder="URL"/>
+<!--                            <field name="cs_training_7" widget="url"/>-->
+                            <field name="cs_training_8" widget="url" placeholder="URL"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-<!--        <record model="ir.actions.act_window" id="action_employee_certificate_line_2">-->
-<!--            <field name="name">Career Certificates</field>-->
-<!--            <field name="res_model">od.hr.employee.certificate.line</field>-->
-<!--            <field name="view_mode">tree</field>-->
-<!--            <field name="search_view_id" ref="employee_certificate_line_search2"/>-->
-<!--            <field name="view_id" ref="employee_certificate_line_inherit"/>-->
-<!--            <field name="context">{"search_default_group_by_employee" : True}</field>-->
-<!--        </record>-->
+        <record model="ir.ui.view" id="joining_training_videos_tree_view">
+            <field name="name">joining.training.videos.tree.view</field>
+            <field name="model">joining.training.videos</field>
+            <field name="arch" type="xml">
+                <tree string="Joining Training Videos">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_joining_training_videos">
+            <field name="name">Joining Training Videos</field>
+            <field name="res_model">joining.training.videos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--        <record model="ir.ui.view" id="employee_certificate_line_inherit">-->
+        <!--            <field name="name">employee.certificate.line.inherit</field>-->
+        <!--            <field name="model">od.hr.employee.certificate.line</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <tree string="Career Certificates">-->
+        <!--                    <field name="employee_id"/>-->
+        <!--                    <field name="document_type_id"/>-->
+        <!--                    <field name="document_referance" string="Name"/>-->
+        <!--                    <field name="attach_file" filename="attach_fname"/>-->
+        <!--                    <field name="attach_fname" invisible="1"/>-->
+        <!--                    <field name="issue_date"/>-->
+        <!--                    <field name="expiry_date" required="1"/>-->
+        <!--                </tree>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!--        <record model="ir.ui.view" id="employee_certificate_line_search2">-->
+        <!--            <field name="name">employee.certificate.line.search2</field>-->
+        <!--            <field name="model">od.hr.employee.certificate.line</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <search string="Career Certificates">-->
+        <!--                    <field name="employee_id"/>-->
+        <!--                    <field name="document_type_id"/>-->
+        <!--                    <group expand="0" string="Group By">-->
+        <!--                        <filter name="group_by_employee" string="Employee" domain="[]" context="{'group_by':'employee_id'}"/>-->
+        <!--                        <filter name="group_by_document_type" string="Document Type" domain="[]" context="{'group_by':'document_type_id'}"/>-->
+        <!--                    </group>-->
+        <!--                </search>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!--        <record model="ir.actions.act_window" id="action_employee_certificate_line_2">-->
+        <!--            <field name="name">Career Certificates</field>-->
+        <!--            <field name="res_model">od.hr.employee.certificate.line</field>-->
+        <!--            <field name="view_mode">tree</field>-->
+        <!--            <field name="search_view_id" ref="employee_certificate_line_search2"/>-->
+        <!--            <field name="view_id" ref="employee_certificate_line_inherit"/>-->
+        <!--            <field name="context">{"search_default_group_by_employee" : True}</field>-->
+        <!--        </record>-->
 
 
         <menuitem id="od_menu_beta_structure" name="Structure" action="action_od_beta_structures"
@@ -553,9 +602,11 @@
                   parent="beta_procedures.menu_company_sub" sequence="15"/>
         <menuitem id="od_menu_beta_videos" name="Video Trainings" action="action_od_beta_videos"
                   parent="beta_procedures.menu_company_sub" sequence="16"/>
-<!--        <menuitem id="menu_employee_certificate_line_2" name="Career Certificates"-->
-<!--                  action="action_employee_certificate_line_2"-->
-<!--                  parent="beta_procedures.menu_company_sub" sequence="16"/>-->
+        <menuitem id="od_menu_beta_training_videos" name="Joining Training Videos" action="action_joining_training_videos"
+                  parent="beta_procedures.menu_company_sub" sequence="19"/>
+        <!--        <menuitem id="menu_employee_certificate_line_2" name="Career Certificates"-->
+        <!--                  action="action_employee_certificate_line_2"-->
+        <!--                  parent="beta_procedures.menu_company_sub" sequence="16"/>-->
 
 
     </data>

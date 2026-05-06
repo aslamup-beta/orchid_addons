@@ -65,7 +65,7 @@ class uae_service_team_ot_rpt(models.TransientModel):
                     overnight_ot += data.od_overnight_ot
                     holiday_ot += data.od_holiday_ot
             total_hrs = normal_ot + friday_ot + overnight_ot + holiday_ot
-            total_amt = (1.25 * hourly_rate *normal_ot) + (1.50 * hourly_rate *friday_ot) + (1.50 * hourly_rate *overnight_ot) + (1.50 * hourly_rate *holiday_ot)
+            total_amt = (1.25 * hourly_rate *normal_ot) + (1.50 * hourly_rate *friday_ot) + (2.50 * hourly_rate *overnight_ot) + (1.50 * hourly_rate *holiday_ot)
             result.append((0,0,{
                     'wiz_id':wiz_id,
                     'name':user,

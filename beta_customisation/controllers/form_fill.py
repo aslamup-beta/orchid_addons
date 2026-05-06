@@ -33,6 +33,70 @@ class BetaJoin(http.Controller):
         
         })
 
+    @http.route('/training_completion/<model("od.beta.joining.form"):join_id>', type='http', auth="public", website=True)
+    def beta_join_form_training_completion(self, join_id):
+        cr, uid, context, registry = request.cr, request.uid, request.context, request.registry
+        orm_country = registry.get('res.country')
+        orm_state = registry.get('res.country.state')
+        country_ids = orm_country.search(cr, SUPERUSER_ID, [], context=context)
+        countries = orm_country.browse(cr, SUPERUSER_ID, country_ids, context)
+        state_ids = orm_state.search(cr, SUPERUSER_ID, [], context=context)
+        states = orm_state.browse(cr, SUPERUSER_ID, state_ids, context)
+
+        error = {}
+        default = {}
+        if 'website_hr_recruitment_error' in request.session:
+            error = request.session.pop('consyshr_error')
+            default = request.session.pop('consyshr_default')
+        return request.render("beta_customisation.employee_training_completion_form", {
+            'joinee': join_id,
+            'error': error,
+            'default': default,
+        })
+
+
+
+    @http.route('/beta_join/cs_thankyou', methods=['POST'], type='http', auth="public", website=True)
+    def training_thankyou(self, **post):
+        print("training_thankyou")
+        error = {}
+        # for field_name in ["name"]:
+        #     if not post.get(field_name):
+        #         error[field_name] = 'missing'
+
+        env = request.env(user=SUPERUSER_ID)
+        value = {
+        }
+        for f in ['cs_training_1', 'cs_training_3', 'cs_training_4', 'cs_training_5', 'cs_training_6', 'cs_training_8']:
+            print("post.get(f)", post.get(f))
+            if post.get(f) == 'not_completed':
+                print("$$$$$$$$$###########")
+                raise Warning(
+                    "Please complete all training before submitting")
+                # error['message'] = _('Please complete all training before submitting.')
+            value[f] = post.get(f)
+
+        # if error:
+        #     return request.render('beta_customisation.employee_training_completion_form', {
+        #         'error': error,
+        #         'form_data': post,  # Preserve entered data
+        #     })
+
+        # lll
+        for f in ['join_id']:
+            join_id = int(post.get(f) or False)
+            emp_join_form_rec = env['od.beta.joining.form'].browse(join_id)
+        # Retro-compatibility for saas-3. "phone" field should be replace by "partner_phone" in the template in trunk.
+        #         value['partner_phone'] = post.pop('phone', False)
+
+        print("emp_join_form_rec",emp_join_form_rec)
+        if emp_join_form_rec:
+            emp_join_form_rec.write(value)
+        emp_join_form_rec.action_complete_training()
+        return request.render("beta_customisation.beta_cs_training_thankyou", {})
+
+
+
     @http.route('/beta_join/thankyou', methods=['POST'], type='http', auth="public", website=True)
     def jobs_thankyou(self, **post):
         error = {}

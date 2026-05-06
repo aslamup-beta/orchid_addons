@@ -121,41 +121,62 @@
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="orchid_beta.crm_case_form_view_beta_approval"/>
             <field name="arch" type="xml">
+<!--                <xpath expr="//button[@name='%(beta_customisation.od_assign_presales_action)d']" position="replace"/>-->
+
+                <!-- Replace the field -->
+                <xpath expr="//button[@name='%(beta_customisation.od_assign_presales_action)d']" position="replace">
+                    <button name="%(beta_customisation.od_assign_presales_action)d" string="Assign Leading PreSales" attrs="{'invisible':['|',('company_id','=', 6),('od_approval_state','=','pending')]}" type="action" class="oe_link"/>
+                </xpath>
+                <xpath expr="//field[@name='od_responsible_id']" position="replace">
+                    <field name="od_responsible_id" nolabel="1" string="Leading Presales" attrs="{'invisible':['|',('company_id','=', 6),('od_approval_state','=','pending')],'readonly':[('company_id','!=', 6)]}" context="{'solution_arch_ids':1}"/>
+                </xpath>
+
                 <xpath expr="//field[@name='od_division_id']" position="after">
                     <field name="other_division_ids" invisible="1" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//field[@name='od_division_id']" position="after">
+                    <field name="od_leading_solution_arc_id" readonly="1"  attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='od_responsible_id']" position="after">
 
                     <button name="%(beta_customisation.od_assign_cs_presales_action)d"
                             string="Assign CS Solution Architect"
-                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" type="action" class="oe_link"/>
+                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}"
+                            type="action" class="oe_link"/>
 
                     <field name="od_cs_presale_id" readonly="1" nolabel="1"
-                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" context="{'solution_arch_ids':1}"/>
+                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}"
+                           context="{'solution_arch_ids':1}"/>
 
                     <button name="%(beta_customisation.od_assign_an_presales_action)d"
                             string="Assign AN Solution Architect"
-                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" type="action" class="oe_link"/>
+                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}"
+                            type="action" class="oe_link"/>
 
                     <field name="od_an_presale_id" readonly="1" nolabel="1"
-                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" context="{'solution_arch_ids':1}"/>
+                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}"
+                           context="{'solution_arch_ids':1}"/>
 
                     <button name="%(beta_customisation.od_assign_dc_presales_action)d"
                             string="Assign DC Solution Architect"
-                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" type="action" class="oe_link"/>
+                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}"
+                            type="action" class="oe_link"/>
 
                     <field name="od_dc_presale_id" readonly="1" nolabel="1"
-                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" context="{'solution_arch_ids':1}"/>
+                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}"
+                           context="{'solution_arch_ids':1}"/>
 
                     <button name="%(beta_customisation.od_assign_is_presales_action)d"
                             string="Assign IS Solution Architect"
-                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" type="action" class="oe_link"/>
+                            attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}"
+                            type="action" class="oe_link"/>
 
                     <field name="od_is_presale_id" readonly="1" nolabel="1"
-                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}" context="{'solution_arch_ids':1}"/>
+                           attrs="{'invisible':['|', ('od_approval_state','=','pending'), ('company_id','!=', 6)]}"
+                           context="{'solution_arch_ids':1}"/>
 
                     <button name="%(beta_customisation.od_assign_supp_presales_action1)d"
-                            string="Assign Supporting PreSales"
+                            string="Assign Supporting Team"
                             attrs="{'invisible':[('od_approval_state','=','pending')]}" type="action" class="oe_link"/>
 
                     <field name="other_presale_ids" readonly="1" nolabel="1" widget="many2many_tags"

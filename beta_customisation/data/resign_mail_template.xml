@@ -306,9 +306,7 @@
             <field name="email_cc">hr.ksa@betait.net</field>
             <field name="model_id" ref="model_od_beta_resign_form"/>
             <field name="body_html"><![CDATA[
-                       <font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear CS Department,</span>
-                       </font>
-                       <div>
+                       <font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear&nbsp;</span></font><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Mr. Fakhri,</span></font><div>
                        <font color="#222222" face="FreeSerif, serif">
                            <span style="font-size: 17.3333px;">
                                <br>
@@ -317,7 +315,7 @@
                        </div><div>
                        <font color="#222222" face="FreeSerif, serif">
                            <span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has resigned and the last working day
-                               will be ${object.last_day_date} . We need you to do the following:
+                               will be ${object.last_day_date} . We need you to verify the following and approve:
                            </span>
                        </font>
                        </div><div>
@@ -350,27 +348,7 @@
                            <span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure Lab Access Revoked
                            </span>
                        </font>
-                       </div><div>
-                       <font color="#222222" face="FreeSerif, serif">
-                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
-                       </font>
-                       </div><div>
-                       <font color="#222222" face="FreeSerif, serif">
-                           <span style="font-size: 17.3333px;">Dear Administration Team,</span>
-                       </font>
-                       </div><div>
-                       <font color="#222222" face="FreeSerif, serif">
-                           <span style="font-size: 17.3333px;">
-                               <br>
-                           </span>
-                       </font>
-                       </div><div>
-                       <font color="#222222" face="FreeSerif, serif">
-                           <span style="font-size: 17.3333px;">Once the CS Team is done, we need you to kindly Approve this on the system using
-                               the following link :
-                           </span>
-                       </font>
-                       </div><div>
+                       </div><div><font color="#222222" face="FreeSerif, serif">&nbsp;<span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span></font></div><div>
                        <font color="#222222" face="FreeSerif, serif">
                            <span style="font-size: 17.3333px;">Link:
                                <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490">
@@ -725,7 +703,7 @@
 
 
 
-        <font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear CS Department,</span>
+        <font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear&nbsp;</span></font><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Mr Fakhri,</span>
                        </font>
                        <div>
                        <font color="#222222" face="FreeSerif, serif">
@@ -735,9 +713,8 @@
                        </font>
                        </div><div>
                        <font color="#222222" face="FreeSerif, serif">
-                           <span style="font-size: 17.3333px;"><span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has terminated and the last working
-        day will be ${object.last_day_date} . We need you to do the following:
-    </span>
+                           <span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has terminated his contract and the last working day
+                               will be ${object.last_day_date} . We need you to verify the following and approve:
                            </span>
                        </font>
                        </div><div>
@@ -793,8 +770,8 @@
                        </div><div>
                        <font color="#222222" face="FreeSerif, serif">
                            <span style="font-size: 17.3333px;">Link:
-                               <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490">
-                                   https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=od.beta.resign.form&amp;menu_id=1107&amp;action=1490
+                               <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854">
+                                   https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854
                                </a>
                            </span>
                        </font>
@@ -807,6 +784,8 @@
                            <span style="font-size: 17.3333px;">Thank You</span>
                        </font>
                        </div>
+
+
 
 
 
@@ -1037,12 +1016,12 @@
             <field name="name">KSA - End of Contract CS Approval</field>
             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
             <field name="subject">Clearance - ${object.employee_id.name}</field>
-            <field name="email_to">cyber_sec.ksa@betait.net’</field>
+            <field name="email_to">cyber_sec.ksa@betait.net</field>
             <field name="email_cc">hr.ksa@betait.net</field>
             <field name="model_id" ref="model_end_of_contract"/>
             <field name="body_html"><![CDATA[
 
-			<font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear CS Department,</span>
+			<font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Dear&nbsp;</span></font><font color="#222222" face="FreeSerif, serif"><span style="font-size: 17.3333px;">Mr Fakhri,</span>
                        </font>
                        <div>
                        <font color="#222222" face="FreeSerif, serif">
@@ -1053,7 +1032,7 @@
                        </div><div>
                        <font color="#222222" face="FreeSerif, serif">
                            <span style="font-size: 17.3333px;">Our employee - ${object.employee_id.name} has terminated his contract and the last working day
-                               will be ${object.last_day_date} . We need you to do the following:
+                               will be ${object.last_day_date} . We need you to verify the following and approve:
                            </span>
                        </font>
                        </div><div>
@@ -1086,27 +1065,7 @@
                            <span style="font-size: 17.3333px;">&nbsp; &nbsp; 5. Make sure Lab Access Revoked
                            </span>
                        </font>
-                       </div><div>
-                       <font color="#222222" face="FreeSerif, serif">
-                           <span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span>
-                       </font>
-                       </div><div>
-                       <font color="#222222" face="FreeSerif, serif">
-                           <span style="font-size: 17.3333px;">Dear Administration Team,</span>
-                       </font>
-                       </div><div>
-                       <font color="#222222" face="FreeSerif, serif">
-                           <span style="font-size: 17.3333px;">
-                               <br>
-                           </span>
-                       </font>
-                       </div><div>
-                       <font color="#222222" face="FreeSerif, serif">
-                           <span style="font-size: 17.3333px;">Once the CS Team is done, we need you to kindly Approve this on the system using
-                               the following link :
-                           </span>
-                       </font>
-                       </div><div>
+                       </div><div><font color="#222222" face="FreeSerif, serif">&nbsp;<span style="font-size: 17.3333px;">&nbsp; &nbsp;&nbsp;</span></font></div><div>
                        <font color="#222222" face="FreeSerif, serif">
                            <span style="font-size: 17.3333px;">Link:
                                <a href="https://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=end.of.contract&amp;menu_id=1193&amp;action=1854">
@@ -1123,6 +1082,8 @@
                            <span style="font-size: 17.3333px;">Thank You</span>
                        </font>
                        </div>
+
+
              ]]>
             </field>
         </record>
