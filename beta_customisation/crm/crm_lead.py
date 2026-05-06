@@ -186,18 +186,21 @@ class hr_employee(osv.osv):
                         idp_rec = idp_pool.browse(cr, uid, idp)
                         idp_rec.write({'active': False})
                 if emp_rec.company_id.id ==6 and emp_rec.od_resigned:
-                    resign_id = resign_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance'])], order='id desc',context=context)[0]
+                    resign_id = resign_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance'])], order='id desc',context=context)
                     if resign_id:
+                        resign_id = resign_id[0]
                         resign_rec = resign_pool.browse(cr,uid,resign_id)
                         resign_rec.generate_gratuity_accounting_entry()
                 if emp_rec.company_id.id ==6 and emp_rec.od_terminated:
-                    term_id = term_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance'])], order='id desc',context=context)[0]
+                    term_id = term_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance'])], order='id desc',context=context)
                     if term_id:
+                        term_id =  term_id[0]
                         term_rec = term_pool.browse(cr,uid,term_id)
                         term_rec.generate_gratuity_accounting_entry()
                 if emp_rec.company_id.id ==6 and emp_rec.od_end_contract:
-                    eoc_id = eoc_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance'])], order='id desc',context=context)[0]
+                    eoc_id = eoc_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance'])], order='id desc',context=context)
                     if eoc_id:
+                        eoc_id = eoc_id[0]
                         eoc_rec = eoc_pool.browse(cr,uid,eoc_id)
                         eoc_rec.generate_gratuity_accounting_entry()
                     

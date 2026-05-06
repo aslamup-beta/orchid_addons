@@ -994,6 +994,8 @@ class task(models.Model):
     def btn_owner_resolved(self):
         if self.od_owner_esc_status == 'not_solved':
             raise Warning("24 Hr Time Exceeded to Resolve the Task, Now you cant Resolve this Activity")
+        if self.env.user.id == self.user_id.id:
+            raise Warning("Please ask Project Manager to do this action.")
         resolve_time = datetime.strftime(datetime.now(),DEFAULT_SERVER_DATETIME_FORMAT)
         escalation_time = self.od_owner_esc_time
         hours = self.get_time_diff(escalation_time, resolve_time)

@@ -270,7 +270,7 @@ class HrHolidays(models.Model):
         if leaves:
             for leave in leaves:
                 maternity_leave_taken = maternity_leave_taken + leave.od_number_of_days
-        if maternity_leave_taken > 70:
+        if maternity_leave_taken > 90:
             raise osv.except_osv(_('Warning!'),
                                  _('Leave is not eligible for the requested number of days for this leave type. Please reach out to the HR team for more help.'))
 
