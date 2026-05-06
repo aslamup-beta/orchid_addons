@@ -76,10 +76,8 @@ class res_users(osv.osv):
             company_id = self.browse(cr, uid, uid, context=context).company_id.id
             hr_pool = self.pool.get('hr.employee')
             emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
-                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217,78, 183)),
-                                                        '|',  # OR operator
-                                                        ('od_division_id', '=', 10),
-                                                        ('od_division_id', '=', False),],
+                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                        ('od_division_id', '=', 10),],
                                      context=context)
             user_ids = []
             for emp_id in emp_ids:
@@ -98,10 +96,8 @@ class res_users(osv.osv):
             company_id = self.browse(cr, uid, uid, context=context).company_id.id
             hr_pool = self.pool.get('hr.employee')
             emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
-                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217,78, 183)),
-                                                        '|',  # OR operator
-                                                        ('od_division_id', '=', 9),
-                                                        ('od_division_id', '=', False),],
+                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                        ('od_division_id', '=', 9),],
                                      context=context)
             user_ids = []
             for emp_id in emp_ids:
@@ -120,10 +116,8 @@ class res_users(osv.osv):
             company_id = self.browse(cr, uid, uid, context=context).company_id.id
             hr_pool = self.pool.get('hr.employee')
             emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
-                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217,78, 183)),
-                                                        '|',  # OR operator
-                                                        ('od_division_id', '=', 11),
-                                                        ('od_division_id', '=', False),],
+                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                        ('od_division_id', '=', 11),],
                                      context=context)
             user_ids = []
             for emp_id in emp_ids:
@@ -142,10 +136,8 @@ class res_users(osv.osv):
             company_id = self.browse(cr, uid, uid, context=context).company_id.id
             hr_pool = self.pool.get('hr.employee')
             emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
-                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217, 78, 183)),
-                                                        '|',  # OR operator
-                                                        ('od_division_id', '=', 40),
-                                                        ('od_division_id', '=', False),],
+                                                        ('job_id', 'in', (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                        ('od_division_id', '=', 40),],
                                      context=context)
             user_ids = []
             for emp_id in emp_ids:

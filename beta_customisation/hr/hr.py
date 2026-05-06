@@ -2,7 +2,6 @@
 import time
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from openerp.exceptions import Warning
 
 from openerp import models, fields, api, _
 
@@ -24,16 +23,6 @@ class BetaJoiningForm(models.Model):
             salary_struct = 8
         return salary_struct
 
-    def od_get_training_videos_id(self):
-        video_record =self.env['joining.training.videos'].search([],limit=1)
-        if video_record:
-            video_record = video_record
-        else:
-            video_record = False
-        return video_record
-
-
-
     def _get_work_hrs_id(self):
         company_id = self.env.user.company_id.id or False
         if company_id == 6:
@@ -44,9 +33,7 @@ class BetaJoiningForm(models.Model):
 
     name = fields.Char(string='Employee Name', track_visibility='onchange')
     state = fields.Selection(
-        [('draft', 'Start'), ('employee', 'Waiting for Employee'), ('finance', 'Finance'),
-         ('training_confirm', 'Training Confirmation'), ('cs_approval', 'Cyber Security Approval'),
-         ('it_approval', 'IT Approval'), ('hr_approval', 'HR Approval'), ('confirm', 'Confirmed'),
+        [('draft', 'Start'), ('employee', 'Waiting for Employee'), ('finance', 'Finance'), ('confirm', 'Confirmed'),
          ('cancel', 'Terminated')],
         string='State', readonly=True,
         track_visibility='always', copy=False, default='draft')
@@ -55,7 +42,7 @@ class BetaJoiningForm(models.Model):
     mobile = fields.Char(string="Mobile No")
     #     father_name = fields.Char(string="Father Name")
     passport_no = fields.Char(string="Passport Number")
-    # company_id = fields.Many2one('res.company', string='Company', default=od_get_company_id)
+
     place_of_birth = fields.Char(string="Place of Birth")
     department_id = fields.Many2one('hr.department', string='Department')
     job_id = fields.Many2one('hr.job', string='Job Title')
@@ -131,34 +118,6 @@ class BetaJoiningForm(models.Model):
     join_date = fields.Date(string="Customer Joining Date")
     end_date = fields.Date(string="Customer Contract End Date")
     employee_end_date = fields.Date(string="Employee Contract End Date")
-
-    cs_training_1 = fields.Selection([('completed', 'Completed'), ('not_completed', 'Not Completed')],
-                                     'Internet and Social Media Security')
-    cs_training_2 = fields.Selection([('completed', 'Completed'), ('not_completed', 'Not Completed')],
-                                     'Cybersecurity Acceptable Use Policy')
-    cs_training_3 = fields.Selection([('completed', 'Completed'), ('not_completed', 'Not Completed')],
-                                     'Social Engineering and Phishing Emails')
-    cs_training_4 = fields.Selection([('completed', 'Completed'), ('not_completed', 'Not Completed')],
-                                     'Credential Sharing')
-    cs_training_5 = fields.Selection([('completed', 'Completed'), ('not_completed', 'Not Completed')], 'Data Security')
-    cs_training_6 = fields.Selection([('completed', 'Completed'), ('not_completed', 'Not Completed')],
-                                     'Mobile Security')
-    cs_training_7 = fields.Selection([('completed', 'Completed'), ('not_completed', 'Not Completed')],
-                                     'Company Policies and Regulations')
-    cs_training_8 = fields.Selection([('completed', 'Completed'), ('not_completed', 'Not Completed')],
-                                     'Work Systems and Internal Tools')
-
-    it_checklist_1 = fields.Selection([('done', 'Done'), ('pending', 'Pending')], 'Laptop delivered ?')
-    it_checklist_2 = fields.Selection([('done', 'Done'), ('pending', 'Pending')], 'Email  issued ?')
-    it_checklist_3 = fields.Selection([('done', 'Done'), ('pending', 'Pending')],
-                                      'Access control verification completed ?')
-    it_checklist_4 = fields.Selection([('done', 'Done'), ('pending', 'Pending')],
-                                      'Keyboard, monitor, mouse, and all accessories provided ?')
-    it_checklist_5 = fields.Selection([('done', 'Done'), ('pending', 'Pending')], 'Telephone & extension setup ?')
-
-    hr_join_approval_history_line = fields.One2many('date.log.hr.join', 'join_form_id', strint="Approval History",
-                                            readonly=True, copy=False)
-    training_videos_id = fields.Many2one('joining.training.videos', string='Training Videos', default=od_get_training_videos_id)
 
     # For Creation of Outsourced Employees
     @api.onchange('costsheet_id')
@@ -389,8 +348,6 @@ class BetaJoiningForm(models.Model):
     @api.one
     @api.model
     def send_to_employee(self):
-        self.hr_join_approval_history_line = [
-            {'name': 'Send To Employee', 'user_id': self.env.user.id, 'date': str(datetime.now())}]
         self.state = 'employee'
         self.od_send_mail('od_fill_detail_employee')
         return True
@@ -398,53 +355,8 @@ class BetaJoiningForm(models.Model):
     @api.one
     @api.model
     def send_to_finance(self):
-        self.hr_join_approval_history_line = [
-            {'name': 'Employee Data Updated & Send To Finance For Approval', 'user_id': self.env.user.id, 'date': str(datetime.now())}]
         self.od_send_mail('od_fill_detail_finance')
         self.state = 'finance'
-        return True
-
-    @api.one
-    @api.model
-    def send_to_employee_for_training(self):
-        self.hr_join_approval_history_line = [
-            {'name': 'Approved By Finance', 'user_id': self.env.user.id, 'date': str(datetime.now())}]
-        self.state = 'training_confirm'
-        self.od_send_mail('od_training_completion_form')
-        return True
-
-    @api.one
-    @api.model
-    def action_complete_training(self):
-        print("action_complete_training")
-        self.hr_join_approval_history_line = [
-            {'name': 'Training Completed By Employee', 'user_id': self.env.user.id, 'date': str(datetime.now())}]
-        self.state = 'cs_approval'
-        self.od_send_mail('beta_cs_approval_request')
-        return True
-
-    @api.one
-    @api.model
-    def action_cs_approval(self):
-        self.hr_join_approval_history_line = [
-            {'name': 'Approved By Cyber Security Team', 'user_id': self.env.user.id,
-             'date': str(datetime.now())}]
-        self.state = 'it_approval'
-        self.od_send_mail('beta_it_approval_request')
-        return True
-
-    @api.one
-    @api.model
-    def action_it_approval(self):
-        if not self.it_checklist_1 or not self.it_checklist_3 or not self.it_checklist_4 or not self.it_checklist_5:
-            raise Warning("Please fill out the missing data in IT Onboarding Checklist")
-        if self.it_checklist_2 == 'pending':
-            raise Warning("Please issue an email and update the work email in the joining form")
-        self.hr_join_approval_history_line = [
-            {'name': 'Approved By IT Team', 'user_id': self.env.user.id,
-             'date': str(datetime.now())}]
-        self.state = 'hr_approval'
-        self.od_send_mail('beta_hr_approval_request')
         return True
 
     @api.one
@@ -463,37 +375,10 @@ class BetaJoiningForm(models.Model):
 
     @api.one
     @api.model
-    def action_confirm_emp(self):
-        emp_id = self.create_employee()
-        contract_id = self.create_contract(emp_id)
-        user_id = self.create_user()
-        self.hr_join_approval_history_line = [
-            {'name': 'Approved By HR & Created Employee', 'user_id': self.env.user.id,
-             'date': str(datetime.now())}]
-        emp_id.write({'user_id': user_id and user_id.id or False,
-                      'address_home_id': user_id.partner_id and user_id.partner_id.id or False})
-        self.state = 'confirm'
-        self.employee_id = emp_id.id
-        self.attach_doc_emp(emp_id)
-        self.send_hr_welcome_mail()
-        emp_id.audit_set_date()
-        if emp_id and self.company_id == 6:
-            self.action_create_emp_idp(emp_id)
-        if emp_id.job_id.id in (40, 83, 182):
-            self.sales_team_id.member_ids = [(4, user_id.id)]
-        if emp_id.job_id.id == 161:
-            self.create_outsourced_employee()
-        return emp_id
-
-    @api.one
-    @api.model
     def confirm_emp(self):
         emp_id = self.create_employee()
         contract_id = self.create_contract(emp_id)
         user_id = self.create_user()
-        self.hr_join_approval_history_line = [
-            {'name': 'Approved By HR & Created Employee', 'user_id': self.env.user.id,
-             'date': str(datetime.now())}]
         emp_id.write({'user_id': user_id and user_id.id or False,
                       'address_home_id': user_id.partner_id and user_id.partner_id.id or False})
         self.state = 'confirm'
@@ -579,16 +464,3 @@ class hr_employee(models.Model):
 
     od_cert_line_count = fields.Float(string='Count', compute='_compute_cert_line_count')
     od_appreciation_line_count = fields.Float(string='Count', compute='_compute_appreciation_line_count')
-
-
-class DateLogJoin(models.Model):
-    _name = 'date.log.hr.join'
-
-    def od_get_company_id(self):
-        return self.env.user.company_id
-
-    company_id = fields.Many2one('res.company', string='Company', default=od_get_company_id)
-    join_form_id = fields.Many2one('od.beta.joining.form', string="Joining Form")
-    name = fields.Char(string='Name')
-    user_id = fields.Many2one('res.users', string="User")
-    date = fields.Datetime(string="Date")

@@ -7,4 +7,3 @@ access_beta_docs,beta.docs.user,model_beta_docs,,1,1,0,0
 access_beta_videos,beta.videos.user,model_beta_videos,,1,1,0,0
 access_od_infosec_temp_user,access.od.infosec.temp.user,model_od_infosec_temp,,1,1,1,0
 access_od_vendor_temp_user,access.od.vendor.temp.user,model_od_vendor_temp,,1,1,1,0
-access_joining_training_videos_user,access.joining.training.videos.user,model_joining_training_videos,,1,1,1,0

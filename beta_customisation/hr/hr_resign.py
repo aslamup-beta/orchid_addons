@@ -560,7 +560,7 @@ class BetaResignForm(models.Model):
         saudi_comp =6
         emp_company_id = self.company_id.id
         if emp_company_id == saudi_comp:
-            template = template +'_saudi'
+            template = template +'_saudi'    
         template_id = ir_model_data.get_object_reference('beta_customisation', template)[1]
         crm_id = self.id
         email_obj.send_mail(self.env.cr, self.env.uid, template_id,crm_id)
@@ -620,7 +620,7 @@ class BetaResignForm(models.Model):
         #     self.od_send_mail('od_notification_to_hr_finance_to_notify_bank')
         #     self.state = 'notify_bank'
         # else:
-        self.od_send_mail('od_resignation_approval_cs')
+        self.od_send_mail('od_termination_approval_cs')
         self.state = 'cs_approval'
         self.it_approved_by = self.env.user.id
         self.it_approved_date = fields.Date.today()
