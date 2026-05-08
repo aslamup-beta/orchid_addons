@@ -3,27 +3,28 @@ from openerp import models, fields, api
 from openerp.exceptions import Warning
 from __builtin__ import False
 
-class wiz_assign_presale(models.TransientModel):
 
+class wiz_assign_presale(models.TransientModel):
     _name = 'wiz.assign.presale'
-    od_responsible_id = fields.Many2one('res.users',string='Presales Engineer',required=True)
-    
+    od_responsible_id = fields.Many2one('res.users', string='Presales Engineer', required=True)
+
     def is_a_sales_acc_manager(self, user):
-            hr_pool = self.env['hr.employee']
-            emp_rec = hr_pool.sudo().search([('user_id', '=', user)])
-            return emp_rec.job_id.id in (40,83)
+        hr_pool = self.env['hr.employee']
+        emp_rec = hr_pool.sudo().search([('user_id', '=', user)])
+        return emp_rec.job_id.id in (40, 83)
 
     @api.one
     def assign_presales(self):
         user = self.env.user.id or False
         if self.is_a_sales_acc_manager(user):
-            raise Warning("You are not allowed to assign Pre-Sales Engineers. Kindly contact related Technology Unit Manager.")
+            raise Warning(
+                "You are not allowed to assign Pre-Sales Engineers. Kindly contact related Technology Unit Manager.")
         context = self._context
         active_id = context.get('active_id')
         od_responsible_id = self.od_responsible_id and self.od_responsible_id.id or False
         lead = self.env['crm.lead']
         lead_obj = lead.browse(active_id)
-        lead_obj.write({'od_responsible_id':od_responsible_id})
+        lead_obj.write({'od_responsible_id': od_responsible_id})
         lead_obj.od_send_mail('od_opportunity_assigned_presales')
         return True
 
@@ -49,9 +50,28 @@ class wiz_assign_cs_presale(models.TransientModel):
         od_cs_presale_id = self.od_cs_presale_id and self.od_cs_presale_id.id or False
         lead = self.env['crm.lead']
         lead_obj = lead.browse(active_id)
+        if lead_obj.od_division_id:
+            # if lead_obj.od_division_id.code == 'KSA-CS':
+            #     if not lead_obj.od_cs_presale_id:
+            #         raise Warning(
+            #             "Please fill Leading Solution Architect first")
+            if lead_obj.od_division_id.code == 'KSA-AN':
+                if not lead_obj.od_an_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+            if lead_obj.od_division_id.code == 'KSA-DC':
+                if not lead_obj.od_dc_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+            if lead_obj.od_division_id.code == 'KSA-InfSec':
+                if not lead_obj.od_is_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+
         lead_obj.write({'od_cs_presale_id': od_cs_presale_id})
-        #lead_obj.od_send_mail('od_opportunity_assigned_presales')
+        lead_obj.od_send_mail('od_opportunity_assigned_cs_presales')
         return True
+
 
 class wiz_assign_an_presale(models.TransientModel):
     _name = 'wiz.assign.an.presale'
@@ -74,9 +94,27 @@ class wiz_assign_an_presale(models.TransientModel):
         od_an_presale_id = self.od_an_presale_id and self.od_an_presale_id.id or False
         lead = self.env['crm.lead']
         lead_obj = lead.browse(active_id)
+        if lead_obj.od_division_id:
+            if lead_obj.od_division_id.code == 'KSA-CS':
+                if not lead_obj.od_cs_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+            # if lead_obj.od_division_id.code == 'KSA-AN':
+            #     if not lead_obj.od_an_presale_id:
+            #         raise Warning(
+            #             "Please fill Leading Solution Architect first")
+            if lead_obj.od_division_id.code == 'KSA-DC':
+                if not lead_obj.od_dc_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+            if lead_obj.od_division_id.code == 'KSA-InfSec':
+                if not lead_obj.od_is_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
         lead_obj.write({'od_an_presale_id': od_an_presale_id})
-        #lead_obj.od_send_mail('od_opportunity_assigned_presales')
+        lead_obj.od_send_mail('od_opportunity_assigned_an_presales')
         return True
+
 
 class wiz_assign_dc_presale(models.TransientModel):
     _name = 'wiz.assign.dc.presale'
@@ -99,9 +137,27 @@ class wiz_assign_dc_presale(models.TransientModel):
         od_dc_presale_id = self.od_dc_presale_id and self.od_dc_presale_id.id or False
         lead = self.env['crm.lead']
         lead_obj = lead.browse(active_id)
+        if lead_obj.od_division_id:
+            if lead_obj.od_division_id.code == 'KSA-CS':
+                if not lead_obj.od_cs_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+            if lead_obj.od_division_id.code == 'KSA-AN':
+                if not lead_obj.od_an_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+            # if lead_obj.od_division_id.code == 'KSA-DC':
+            #     if not lead_obj.od_dc_presale_id:
+            #         raise Warning(
+            #             "Please fill Leading Solution Architect first")
+            if lead_obj.od_division_id.code == 'KSA-InfSec':
+                if not lead_obj.od_is_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
         lead_obj.write({'od_dc_presale_id': od_dc_presale_id})
-        #lead_obj.od_send_mail('od_opportunity_assigned_presales')
+        lead_obj.od_send_mail('od_opportunity_assigned_dc_presales')
         return True
+
 
 class wiz_assign_is_presale(models.TransientModel):
     _name = 'wiz.assign.is.presale'
@@ -124,27 +180,44 @@ class wiz_assign_is_presale(models.TransientModel):
         od_is_presale_id = self.od_is_presale_id and self.od_is_presale_id.id or False
         lead = self.env['crm.lead']
         lead_obj = lead.browse(active_id)
+        if lead_obj.od_division_id:
+            if lead_obj.od_division_id.code == 'KSA-CS':
+                if not lead_obj.od_cs_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+            if lead_obj.od_division_id.code == 'KSA-AN':
+                if not lead_obj.od_an_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+            if lead_obj.od_division_id.code == 'KSA-DC':
+                if not lead_obj.od_dc_presale_id:
+                    raise Warning(
+                        "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
+            # if lead_obj.od_division_id.code == 'KSA-InfSec':
+            #     if not lead_obj.od_is_presale_id:
+            #         raise Warning(
+            #             "Please fill Leading Solution Architect first")
         lead_obj.write({'od_is_presale_id': od_is_presale_id})
-        # lead_obj.od_send_mail('od_opportunity_assigned_presales')
+        lead_obj.od_send_mail('od_opportunity_assigned_is_presales')
         return True
-    
-    
-class wiz_assign_supporting_presale(models.TransientModel):
 
+
+class wiz_assign_supporting_presale(models.TransientModel):
     _name = 'wiz.assign.supp.presale'
-    other_presale_ids = fields.Many2many('res.users',string='Presales Engineer',required=True)
-    
+    other_presale_ids = fields.Many2many('res.users', string='Presales Engineer', required=True)
+
     def is_a_sales_acc_manager(self, user):
-            hr_pool = self.env['hr.employee']
-            emp_rec = hr_pool.sudo().search([('user_id', '=', user)])
-            return emp_rec.job_id.id in (40,83)
-    
+        hr_pool = self.env['hr.employee']
+        emp_rec = hr_pool.sudo().search([('user_id', '=', user)])
+        return emp_rec.job_id.id in (40, 83)
+
     @api.one
     def assign_presales(self):
         user = self.env.user.id or False
         if self.is_a_sales_acc_manager(user):
-            raise Warning("You are not allowed to assign Pre-Sales Engineers. Kindly contact related Technology Unit Manager.")
-        presales_emails =[]
+            raise Warning(
+                "You are not allowed to assign Pre-Sales Engineers. Kindly contact related Technology Unit Manager.")
+        presales_emails = []
         context = self._context
         active_id = context.get('active_id')
         lead = self.env['crm.lead']
@@ -154,7 +227,7 @@ class wiz_assign_supporting_presale(models.TransientModel):
         user_obj = user.browse(ps)
         for user in user_obj:
             presales_emails.append(user.email)
-        emails = ','.join(presales_emails)    
+        emails = ','.join(presales_emails)
         context = self.env.context.copy()
         lead_obj.write({'other_presale_ids': [(4, ps)], 'support_presales_emails': emails})
         lead_obj.od_send_mail('od_opportunity_assigned_supporting_presales')
