@@ -692,8 +692,8 @@ class crm_lead(osv.osv):
 
     }
 
-    @api.onchange('od_leading_solution_arc_id')
-    def onchange_employee_id(self):
+    @api.onchange('od_leading_solution_arc_id', 'od_cs_presale_id', 'od_an_presale_id', 'od_dc_presale_id', 'od_is_presale_id')
+    def onchange_od_leading_solution_arc_id(self):
         for record in self:
             leading_solution_arc = record.od_leading_solution_arc_id and record.od_leading_solution_arc_id.id or False
             if leading_solution_arc:

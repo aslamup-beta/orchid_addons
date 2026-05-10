@@ -70,6 +70,7 @@ class wiz_assign_cs_presale(models.TransientModel):
 
         lead_obj.write({'od_cs_presale_id': od_cs_presale_id})
         lead_obj.od_send_mail('od_opportunity_assigned_cs_presales')
+        lead_obj.onchange_od_leading_solution_arc_id()
         return True
 
 
@@ -113,6 +114,7 @@ class wiz_assign_an_presale(models.TransientModel):
                         "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
         lead_obj.write({'od_an_presale_id': od_an_presale_id})
         lead_obj.od_send_mail('od_opportunity_assigned_an_presales')
+        lead_obj.onchange_od_leading_solution_arc_id()
         return True
 
 
@@ -156,6 +158,7 @@ class wiz_assign_dc_presale(models.TransientModel):
                         "Please fill %s Leading Solution Architect first." % lead_obj.od_division_id.code)
         lead_obj.write({'od_dc_presale_id': od_dc_presale_id})
         lead_obj.od_send_mail('od_opportunity_assigned_dc_presales')
+        lead_obj.onchange_od_leading_solution_arc_id()
         return True
 
 
@@ -199,6 +202,7 @@ class wiz_assign_is_presale(models.TransientModel):
             #             "Please fill Leading Solution Architect first")
         lead_obj.write({'od_is_presale_id': od_is_presale_id})
         lead_obj.od_send_mail('od_opportunity_assigned_is_presales')
+        lead_obj.onchange_od_leading_solution_arc_id()
         return True
 
 
