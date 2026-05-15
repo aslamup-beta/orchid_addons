@@ -197,16 +197,16 @@
                                     align="left"
                                     width="29%">
                                     <t t-if="o.company_id.id ==1">
-                                        Beta Information Technology Co. (L.L.C)
+                                        BETA INFORMATION TECHNOLOGY
                                         <br/>
-                                        DM-60, Shed No 5
+                                        Warehouse # 2 ,  Opposite Choithrams Warehouse ,
                                         <br/>
-                                        Al Quoz
+                                        70 22nd St - Al Qouz Ind.fourth - Al Quoz
                                         <br/>
                                         Dubai , UAE
                                         <br/>
                                         <strong>Tel : </strong>
-                                        +97143808481
+                                        +97147061136
                                         <br/>
                                         <strong>Ctc Person : </strong>Mohd Siddique
                                         <br/>
