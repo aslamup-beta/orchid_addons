@@ -379,7 +379,7 @@ class od_cost_sheet(models.Model):
         res = super(od_cost_sheet,self).default_get(cr,uid,fields,context=context)
         if res:
             if not res.get('pre_sales_engineer'):
-                raise Warning("Kindly Fill Pre Sale Engineer In Opportunity")
+                raise Warning("Kindly Fill Solution Architect In Opportunity")
         company_pool = self.pool.get('res.company')
         company_id = res.get('company_id')
         proposal_validity = "Proposal Validity Starting from its Date: 30 Days\nProposal Sales Currency: "
