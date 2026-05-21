@@ -46,7 +46,7 @@
                             <group>
                                 <field name="employee_id"
                                        attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
-                                <field name="document_type_id" domain="[('id','in',[1,25,6,3,12,10,11,13,37,38])]"
+                                <field name="document_type_id" domain="[('id','in',[1,25,6,3,12,10,11,13,37,38,47])]"
                                        attrs="{'readonly':[('state', 'in', ['approved', 'refused'])]}"/>
                                 <field name="purpose" invisible="1" required="0"/>
                                 <field name="expected_date" invisible="1"

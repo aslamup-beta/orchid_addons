@@ -19,6 +19,8 @@ class BankLoan(models.Model):
 
     basic_salary = fields.Float(string="Basic Salary")
     allowance = fields.Float(string="Allowance")
+    housing_allowance = fields.Float(string="Housing Allowance")
+    transport_allowance = fields.Float(string="Transportation Allowance")
     total_salary = fields.Float(string="Total Salary")
     join_date = fields.Date(string="Date of Joining")
     n_bank_name_ar = fields.Char('Bank Name(Arabic)', track_visibility='onchange')
@@ -38,11 +40,39 @@ class BankLoan(models.Model):
                 result += line.amt
             if line.code=='ALW':
                 result += line.amt
-            if line.code == 'KSA_HA':
+        return result
+
+    def _get_house_allowances(self):
+        contract = self._get_contract_obj()
+        result = 0.0
+        for line in contract.xo_allowance_rule_line_ids:
+            if line.code=='KSA_HA':
                 result += line.amt
-            if line.code == 'KSA_TA':
+            if line.code=='HA':
                 result += line.amt
         return result
+
+    def _get_transport_allowances(self):
+        contract = self._get_contract_obj()
+        result = 0.0
+        for line in contract.xo_allowance_rule_line_ids:
+            if line.code=='KSA_TA':
+                result += line.amt
+        return result
+
+    # def _get_allowances(self):
+    #     contract = self._get_contract_obj()
+    #     result = 0.0
+    #     for line in contract.xo_allowance_rule_line_ids:
+    #         if line.code=='OA':
+    #             result += line.amt
+    #         if line.code=='ALW':
+    #             result += line.amt
+    #         if line.code == 'KSA_HA':
+    #             result += line.amt
+    #         if line.code == 'KSA_TA':
+    #             result += line.amt
+    #     return result
 
     @api.onchange('name')
     def onchange_name_get_data(self):
@@ -51,6 +81,8 @@ class BankLoan(models.Model):
         if employee:
             self.join_date = employee.od_joining_date or False
             self.allowance = self._get_allowances()
+            self.housing_allowance = self._get_house_allowances()
+            self.transport_allowance = self._get_transport_allowances()
             self.basic_salary = contract_obj.wage
             self.total_salary = contract_obj.wage + self._get_allowances()
 
