@@ -77,7 +77,7 @@ class res_users(osv.osv):
             hr_pool = self.pool.get('hr.employee')
             emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
                                                         ('job_id', 'in',
-                                                         (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                         (168, 172, 174, 184, 197, 207, 208, 217, 78, 183)),
                                                         '|',  # OR operator
                                                         ('od_division_id', '=', 10),
                                                         ('od_division_id', '=', False), ],
@@ -100,7 +100,7 @@ class res_users(osv.osv):
             hr_pool = self.pool.get('hr.employee')
             emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
                                                         ('job_id', 'in',
-                                                         (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                         (168, 172, 174, 184, 197, 207, 208, 217, 78, 183)),
                                                         '|',  # OR operator
                                                         ('od_division_id', '=', 9),
                                                         ('od_division_id', '=', False), ],
@@ -123,7 +123,7 @@ class res_users(osv.osv):
             hr_pool = self.pool.get('hr.employee')
             emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
                                                         ('job_id', 'in',
-                                                         (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                         (168, 172, 174, 184, 197, 207, 208, 217, 78, 183)),
                                                         '|',  # OR operator
                                                         ('od_division_id', '=', 11),
                                                         ('od_division_id', '=', False), ],
@@ -146,7 +146,7 @@ class res_users(osv.osv):
             hr_pool = self.pool.get('hr.employee')
             emp_ids = hr_pool.search(cr, SUPERUSER_ID, [('company_id', '=', company_id),
                                                         ('job_id', 'in',
-                                                         (168, 172, 174, 184, 197, 207, 208, 217)),
+                                                         (168, 172, 174, 184, 197, 207, 208, 217, 78, 183)),
                                                         '|',  # OR operator
                                                         ('od_division_id', '=', 40),
                                                         ('od_division_id', '=', False), ],

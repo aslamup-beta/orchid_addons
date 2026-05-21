@@ -364,7 +364,7 @@ class opp_rev_rpt_wiz_new(models.TransientModel):
                         else:
                             continue
             else:
-                fm_view = "od_rev_opp_tree_view_1"
+                fm_view = "od_rev_opp_tree_view_1_new"
                 result.append((0,0,{
                                 'wiz_id':wiz_id,
                                 'cost_sheet_id':sheet_id,
