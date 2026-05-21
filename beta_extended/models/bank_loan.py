@@ -84,5 +84,5 @@ class BankLoan(models.Model):
             self.housing_allowance = self._get_house_allowances()
             self.transport_allowance = self._get_transport_allowances()
             self.basic_salary = contract_obj.wage
-            self.total_salary = contract_obj.wage + self._get_allowances()
+            self.total_salary = contract_obj.wage + self._get_allowances() + self._get_house_allowances() + self._get_transport_allowances()
 
