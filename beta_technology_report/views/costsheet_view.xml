@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="od_cost_sheet_form_inherit_all_brand" model="ir.ui.view">
+            <field name="name">od.cost.sheet.form.inherit.all.brand</field>
+            <field name="model">od.cost.sheet</field>
+            <field name="inherit_id" ref="orchid_cost_sheet.od_cost_sheet_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mat_brand_weight_line']" position="after">
+                    <separator string="All Brand Weight (Includes MAT,TRN,PS,IS,MC tabs)"/>
+                    <button string="Check All" type="object" class="oe_link" name="generate_all_brand_weight"/>
+                    <field name="all_brand_weight_line">
+                        <tree>
+                            <field name="manufacture_id"/>
+                            <field name="sup_cost"/>
+                            <field name="total_sale"/>
+                            <field name="total_sale_after_disc"/>
+                            <field name="total_cost"/>
+                            <field name="profit"/>
+                            <field name="profit_percent"/>
+                            <field name="weight"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
