@@ -78,6 +78,12 @@ class od_cost_sheet(models.Model):
         self.all_brand_weight_line.unlink()
         self.all_brand_weight_line = vals
 
+    @api.one
+    def update_cost_sheet(self):
+        super(od_cost_sheet, self).update_cost_sheet()
+        self.generate_all_brand_weight()
+
+
 
 class od_cost_all_brand_weight(models.Model):
     _name = 'od.cost.all.brand.weight'
