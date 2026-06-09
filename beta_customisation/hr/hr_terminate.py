@@ -156,9 +156,20 @@ class BetaTerminateForm(models.Model):
                     leave_pending = (24.0/365.0* number_of_working_days_in_current_year) - leave_taken
                 rounded_leave_pending  = round(leave_pending, 2)
                 contract_ob = self._get_contract_obj()
-                leave_salary = rounded_leave_pending * (contract_ob.wage/30.0)
-                self.leave_pending =leave_pending
-                self.leave_salary_amount = leave_salary
+                # leave_salary = rounded_leave_pending * (contract_ob.wage/30.0)
+                # self.leave_pending =leave_pending
+                # self.leave_salary_amount = leave_salary
+                leave_salary = rounded_leave_pending * (contract_ob.wage / 30.0)
+                equation_str = (
+                        "%s * (%s / 30.0) = %.2f" % (
+                    rounded_leave_pending,
+                    contract_ob.wage,
+                    round(leave_salary)
+                )
+                )
+                self.leave_pending = leave_pending
+                self.leave_salary_amount_char = equation_str
+                self.leave_salary_amount = round(leave_salary)
             
     def days_in_same_month(self, given_date):
         date_res = datetime.strptime(given_date, "%Y-%m-%d").date()
@@ -199,8 +210,21 @@ class BetaTerminateForm(models.Model):
                 self.pending_salary = days*(full_salary/total_days_in_same_month) or 0.0
         else:
             self.pending_salary = 0.0
-            
-    @api.one 
+
+    @api.one
+    def _compute_total_working_days(self):
+        emp_id = self.employee_id or False
+        last_day = self.last_day_date
+        days = 0
+        if last_day and emp_id:
+            joining_date = emp_id.od_joining_date
+            last_day = self.last_day_date
+            if joining_date and last_day:
+                days = self.days_between(joining_date, last_day)
+        if days:
+            self.total_working_days = days
+
+    @api.one
     def _compute_unpaid_leaves(self):
         joining_date = self.joining_date
         last_day = self.last_day_date
@@ -314,15 +338,21 @@ class BetaTerminateForm(models.Model):
             print("service_days", service_days)
             service = round(service, 2)
             res = 0.0
+            equation_str = ""
             if service < 5:
                 res = 21 * (service_days / 365.0) * day_wage
+                equation_str = "%d * (%d / 365.0) * %.2f = %.2f" % (21, service_days, day_wage, round(res))
             if service >= 5:
                 up_to_5 = 21 * day_wage * (1825 / 365.0)
-                # after_5_service = service - 5.0
                 after_5_service = service_days - 1825
                 after_5_grat = 30.0 * day_wage * (after_5_service / 365.0)
                 res = up_to_5 + after_5_grat
+                equation_str = "[%d * %.2f * (%d / 365.0)] + [%.1f * %.2f * (%d / 365.0)] = %.2f" % (
+                    21, day_wage, 1825,
+                    30.0, day_wage, after_5_service, round(res)
+                )
             self.gratuvity = round(res)
+            self.gratuity_equation = equation_str
     
     
     def _get_final(self):
@@ -408,9 +438,12 @@ class BetaTerminateForm(models.Model):
     years_of_service = fields.Float(string="Years Of Service",compute='_compute_years')
     unpaid_days = fields.Float(string="Unpaid Leaves(Days)",compute='_compute_unpaid_leaves')
     final_years_of_service = fields.Float(string="Final Years Of Service",compute='_compute_final_years')
+    total_working_days = fields.Float(string="Total Working Days", compute='_compute_total_working_days')
     gratuvity = fields.Float(string="Gratuity Amount",compute='_get_gratuvity')
+    gratuity_equation = fields.Char(string="Gratuity Equation", compute='_get_gratuvity')
     leave_pending=  fields.Float(string="No of Leave Pending",compute='_get_pending_leave')
     leave_salary_amount= fields.Float(string="Leave Salary Amount",compute='_get_pending_leave')
+    leave_salary_amount_char = fields.Char("Leave Amount String", compute='_get_pending_leave')
     is_manual_leave_salary_amount = fields.Boolean(string="Manually Enter Leave Salary Amount?")
     man_leave_salary_amount= fields.Float(string="Leave Salary Amount(Manual)")
     final_settlement =fields.Float(string="Final Settlement",compute='_get_final')

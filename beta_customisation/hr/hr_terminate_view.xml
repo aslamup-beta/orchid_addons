@@ -236,6 +236,7 @@
                                         <field name="basic_salary" invisible="1"/>
                                         <field name="allowance" invisible="1"/>
                                         <field name="final_grat" invisible="1"/>
+                                        <field name="total_working_days" invisible="1"/>
                                     </group>
 
                                 </group>
