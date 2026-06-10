@@ -1,3 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_od_cost_all_brand_weight_users,od.cost.all.brand.weight.user,model_od_cost_all_brand_weight,,1,1,1,0
+access_od_cost_all_brand_weight_users,od.cost.all.brand.weight.user,model_od_cost_all_brand_weight,,1,1,1,1
 
