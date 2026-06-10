@@ -145,7 +145,6 @@ class BetaTerminateForm(models.Model):
                         leave_taken = days
                 same_year = self.is_same_year(joining_day, last_day)
                 if same_year:
-                    print("same_year", same_year)
                     number_of_working_days_in_current_year = self.get_number_of_working_days_in_same_year(
                         joining_day, last_day)
                 else:
@@ -153,6 +152,8 @@ class BetaTerminateForm(models.Model):
                         last_day)
                 leave_pending = (30.0/365.0* number_of_working_days_in_current_year) - leave_taken
                 if service < 1.0:
+                    number_of_working_days_in_current_year = self.get_number_of_working_days_in_same_year(
+                        joining_day, last_day)
                     leave_pending = (24.0/365.0* number_of_working_days_in_current_year) - leave_taken
                 rounded_leave_pending  = round(leave_pending, 2)
                 contract_ob = self._get_contract_obj()
