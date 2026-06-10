@@ -67,6 +67,15 @@ class account_invoice(models.Model):
         allow_extra_exp = self.od_allow_extra_exp
         if not allow_extra_exp and check_extra_exp:
             raise Warning("This Invoice Contains Extra Expense Products, If you need to proceed Kindly Enable Allow Extra Expense")
+
+    def _check_closed_cancel_projects(self,move_lines):
+        analytic_obj = self.env['account.analytic.account']
+        for line in move_lines:
+            analytic_account_id = line[2].get('analytic_account_id')
+            if analytic_account_id:
+                analytic_account = analytic_obj.browse(analytic_account_id)
+                if analytic_account.state in ('close','cancelled'):
+                    raise Warning("You Cannot Post an Invoice on a Closed/Cancelled Project %s" % analytic_account.name)
         
     def send_mail_to_pm(self,template):
         ir_model_data = self.env['ir.model.data']
@@ -81,6 +90,7 @@ class account_invoice(models.Model):
     @api.multi
     def finalize_invoice_move_lines(self, move_lines):
         self._check_extra_exp()
+        self._check_closed_cancel_projects(move_lines)
         if self.type == 'out_invoice':
             self.send_mail_to_pm('od_invoice_validated_email_template')
         def get_currency_check(from_currncy,to_currecny):
