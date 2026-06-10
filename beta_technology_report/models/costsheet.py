@@ -60,15 +60,15 @@ class od_cost_sheet(models.Model):
                             'sup_cost': is_line.discounted_total_supplier_currency,
                             })
                 all_brand_cost += is_line.line_cost_local_currency
-        for is_line in self.info_sec_vendor_line:
-            if is_incuded:
-                res.append({'manufacture_id': is_line.manufacture_id and is_line.manufacture_id.id or False,
-                            'total_sale': is_line.line_price,
-                            'total_sale_after_disc': is_line.line_price * (1 - (disc / 100.0)),
-                            'total_cost': is_line.line_cost_local_currency,
-                            'sup_cost': is_line.discounted_total_supplier_currency,
+        for mc_line in self.bmn_spareparts_beta_it_maintenance_line:
+            if mc_incuded:
+                res.append({'manufacture_id': mc_line.manufacture_id and mc_line.manufacture_id.id or False,
+                            'total_sale': mc_line.line_price,
+                            'total_sale_after_disc': mc_line.line_price * (1 - (disc / 100.0)),
+                            'total_cost': mc_line.line_cost_local_currency,
+                            'sup_cost': mc_line.discounted_total_supplier_currency,
                             })
-                all_brand_cost += is_line.line_cost_local_currency
+                all_brand_cost += mc_line.line_cost_local_currency
         result = self.grouped_brand_weight(res, all_brand_cost)
         return result
 
@@ -77,6 +77,12 @@ class od_cost_sheet(models.Model):
         vals = self.get_all_brand_vals()
         self.all_brand_weight_line.unlink()
         self.all_brand_weight_line = vals
+
+    @api.one
+    def update_cost_sheet(self):
+        super(od_cost_sheet, self).update_cost_sheet()
+        self.generate_all_brand_weight()
+
 
 
 class od_cost_all_brand_weight(models.Model):

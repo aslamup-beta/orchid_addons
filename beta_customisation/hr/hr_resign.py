@@ -7,14 +7,14 @@ from openerp.tools import amount_to_text_en
 from openerp import models, fields, api, _
 import calendar
 from __builtin__ import True
- 
+
 class BetaResignForm(models.Model):
     _name = 'od.beta.resign.form'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = "Beta Resignation Form"
     _rec_name = 'employee_id'
     _order = 'id desc'
-    
+
     @api.multi
     def _check_user(self):
         current_user = self.env.user.id
@@ -25,19 +25,19 @@ class BetaResignForm(models.Model):
             if current_last_day_date != original_last_day_date:
                 return False
         return True
-    
+
     _constraints = [
         (_check_user, 'You cannot change the last day date. Keep the same date as system calculates. It should be finalized by HR later', ['last_day_date']),
     ]
-    
+
     def od_get_company_id(self):
         return self.env.user.company_id
-    
+
     def days_between(self,d1, d2):
         d1 = datetime.strptime(d1, "%Y-%m-%d")
         d2 = datetime.strptime(d2, "%Y-%m-%d")
         return abs((d2 - d1).days)+1
-    
+
     def leave_days(self, d2):
         d2 = datetime.strptime(d2, "%Y-%m-%d")
         joining_date = self.joining_date or False
@@ -48,7 +48,7 @@ class BetaResignForm(models.Model):
         else:
             d1 = d2.replace(month=1, day=1)
         return abs((d2 - d1).days)+1
-    
+
     def is_same_year(self, date1, date2):
         """
         Check if two dates are in the same year
@@ -96,7 +96,7 @@ class BetaResignForm(models.Model):
             days += obj.od_number_of_days
         # number_of_working_days_in_current_year = self.days_between(first_date, last_day)
         return days
-    
+
     def _get_pending_leave(self):
         service = self.years_of_service
         employee_id = self.employee_id and self.employee_id.id
@@ -170,14 +170,25 @@ class BetaResignForm(models.Model):
                     leave_pending = (24.0/365.0* number_of_working_days_in_current_year) - leave_taken
                 rounded_leave_pending  = round(leave_pending, 2)
                 contract_ob = self._get_contract_obj()
-                leave_salary = rounded_leave_pending * (contract_ob.wage/30.0)
-                self.leave_pending =leave_pending
-                self.leave_salary_amount = leave_salary
-    
+                # leave_salary = rounded_leave_pending * (contract_ob.wage/30.0)
+                # self.leave_pending =leave_pending
+                # self.leave_salary_amount = leave_salary
+                leave_salary = rounded_leave_pending * (contract_ob.wage / 30.0)
+                equation_str = (
+                        "%s * (%s / 30.0) = %.2f" % (
+                    rounded_leave_pending,
+                    contract_ob.wage,
+                    round(leave_salary)
+                )
+                )
+                self.leave_pending = leave_pending
+                self.leave_salary_amount_char = equation_str
+                self.leave_salary_amount = round(leave_salary)
+
     def days_in_same_month(self, given_date):
         date_res = datetime.strptime(given_date, "%Y-%m-%d").date()
         return calendar.monthrange(date_res.year, date_res.month)[1]
-    
+
     def _get_allowances(self):
         contract = self._get_contract_obj()
         result = 0.0
@@ -192,9 +203,9 @@ class BetaResignForm(models.Model):
                 result += line.amt
             if line.code == 'KSA_TA':
                 result += line.amt
-            
+
         return result
-        
+
     def _get_pending_salary(self):
         contract_ob = self._get_contract_obj()
         full_salary = contract_ob.wage + self._get_allowances()
@@ -210,11 +221,28 @@ class BetaResignForm(models.Model):
                     days = 30
                 self.pending_salary = days*day_wage or 0.0
             else:
-                self.pending_salary = days*(full_salary/total_days_in_same_month) or 0.0
+                pending_salary = days*(full_salary/total_days_in_same_month) or 0.0
+                self.pending_salary = round(pending_salary)
         else:
             self.pending_salary = 0.0
-            
-    @api.one 
+
+
+    @api.one
+    def _compute_total_working_days(self):
+        emp_id = self.employee_id or False
+        last_day = self.last_day_date
+        days = 0
+        if last_day and emp_id:
+            joining_date = emp_id.od_joining_date
+            last_day = self.last_day_date
+            if joining_date and last_day:
+                days = self.days_between(joining_date, last_day)
+        if days:
+            self.total_working_days = days
+
+
+
+    @api.one
     def _compute_unpaid_leaves(self):
         last_day = self.last_day_date or False
         if last_day:
@@ -241,9 +269,9 @@ class BetaResignForm(models.Model):
                 return days
             else:
                 return 0
-            
-        
-    @api.one 
+
+
+    @api.one
     def _compute_years(self):
         total_days_in_a_year = 365.0
         if self.company_id.id == 6:
@@ -256,8 +284,8 @@ class BetaResignForm(models.Model):
                 days = self.days_between(joining_date, last_day)
                 years = days/total_days_in_a_year
                 self.years_of_service = years
-        
-    @api.one 
+
+    @api.one
     def _compute_final_years(self):
         total_days_in_a_year = 365.0
         if self.company_id.id == 6:
@@ -266,14 +294,14 @@ class BetaResignForm(models.Model):
         unpaid_in_years = unpaid_days/total_days_in_a_year
         years = self.years_of_service - unpaid_in_years
         self.final_years_of_service = years
-    
+
     def _get_contract_obj(self):
         employee_id = self.employee_id and self.employee_id.id or False
         res =self.env['hr.contract'].search([('od_active','=',True),('employee_id','=',employee_id)],limit=1)
         if self.employee_id.active == False:
-            res =self.env['hr.contract'].search([('employee_id','=',employee_id)], order='id desc')[0]    
+            res =self.env['hr.contract'].search([('employee_id','=',employee_id)], order='id desc')[0]
         return res
-    
+
     def od_get_total_salary(self,emp_id):
         res =self.env['hr.contract'].search([('od_active','=',True),('employee_id','=',emp_id)],limit=1)
         if self.employee_id.active == False:
@@ -313,7 +341,7 @@ class BetaResignForm(models.Model):
         print("years_of_service_in_days", years_of_service_in_days)
         total_days = years_of_service_in_days - unpaid_days
         return total_days
-    
+
     def _get_gratuvity(self):
         emp_id = self.employee_id and self.employee_id.id or False
         if self.company_id.id == 6:
@@ -339,17 +367,23 @@ class BetaResignForm(models.Model):
             print("service_days", service_days)
             service = round(service, 2)
             res = 0.0
+            equation_str = ""
             if service < 5:
                 res = 21 * (service_days / 365.0) * day_wage
+                equation_str = "%d * (%d / 365.0) * %.2f = %.2f" % (21, service_days, day_wage, round(res))
             if service >= 5:
                 up_to_5 = 21 * day_wage * (1825 / 365.0)
-                # after_5_service = service - 5.0
                 after_5_service = service_days - 1825
                 after_5_grat = 30.0 * day_wage * (after_5_service / 365.0)
                 res = up_to_5 + after_5_grat
+                equation_str = "[%d * %.2f * (%d / 365.0)] + [%.1f * %.2f * (%d / 365.0)] = %.2f" % (
+                    21, day_wage, 1825,
+                    30.0, day_wage, after_5_service, round(res)
+                )
             self.gratuvity = round(res)
-    
-    
+            self.gratuity_equation = equation_str
+
+
     def _get_final(self):
         leave_salary_amt = self.leave_salary_amount
         pending_salary = self.pending_salary
@@ -358,8 +392,8 @@ class BetaResignForm(models.Model):
         if self.is_manual_pending_salary:
             pending_salary = self.man_pending_salary
         res = self.gratuvity + leave_salary_amt + pending_salary + self.other_payment - self.other_deduction
-        self.final_settlement = res
-    
+        self.final_settlement = round(res)
+
     def check_six_months_conditions(self):
         employee = self.employee_id
         last_day = self.last_day_date or False
@@ -369,7 +403,7 @@ class BetaResignForm(models.Model):
             return days < 181
         else:
             return False
-    
+
     def check_three_months_conditions(self):
         employee = self.employee_id
         last_day = self.last_day_date or False
@@ -379,8 +413,8 @@ class BetaResignForm(models.Model):
             return days < 90
         else:
             return False
-        
-        
+
+
     def _get_amount_to_pay(self):
         final_amount = self.final_settlement
         gratuity = self.gratuvity
@@ -421,14 +455,14 @@ class BetaResignForm(models.Model):
                         self.amount_to_pay = gratuity + remaining_amt
                         self.final_grat = gratuity
         else:
-            self.amount_to_pay = gratuity + remaining_amt
+            self.amount_to_pay = round(gratuity + remaining_amt)
             self.final_grat = gratuity
-    
+
     employee_id  = fields.Many2one('hr.employee', string='Name of Employee', track_visibility='onchange')
     state = fields.Selection([('draft', 'Start'),('approval1', 'Direct Manager'),('notify_bank', 'Waiting to Notify Bank'),('approval2', 'Finance Approval'),('approval3', 'GM Approval'),('approval5', 'HR Approval'),('approval4', 'IT Approval'),('cs_approval', 'Cyber Security Approval'),('confirm', 'Confirmed'), ('sent_clearance', 'Clearance Send to Bank'),('cancel', 'Refused')],
                                   string='State', readonly=True,
                                   track_visibility='always', copy=False,  default= 'draft')
-    department_id = fields.Many2one('hr.department', string='Department') 
+    department_id = fields.Many2one('hr.department', string='Department')
     job_id = fields.Many2one('hr.job', string='Job Title')
     last_day_date = fields.Date(string='Last Day At Work', track_visibility='onchange',copy=False)
     resign_date = fields.Date(string='Resignation Date',copy=False)
@@ -439,7 +473,7 @@ class BetaResignForm(models.Model):
     company_id = fields.Many2one('res.company', string='Company',default=od_get_company_id)
     reason = fields.Text("Reason for Resignation")
     notes = fields.Text("Remarks Form Accounts & Admin Dept")
-    
+    leave_salary_amount_char = fields.Char("Leave Amount String",compute='_get_pending_leave')
     joining_date =fields.Date(string="Joining Date",related="employee_id.od_joining_date")
     basic_salary = fields.Float(string="Basic Salary")
     allowance = fields.Float(string="Allowance")
@@ -447,7 +481,9 @@ class BetaResignForm(models.Model):
     years_of_service = fields.Float(string="Years Of Service",compute='_compute_years')
     unpaid_days = fields.Float(string="Unpaid Leaves(Days)",compute='_compute_unpaid_leaves')
     final_years_of_service = fields.Float(string="Final Years Of Service",compute='_compute_final_years')
+    total_working_days = fields.Float(string="Total Working Days",compute='_compute_total_working_days')
     gratuvity = fields.Float(string="Gratuity Amount",compute='_get_gratuvity')
+    gratuity_equation = fields.Char(string="Gratuity Equation",compute='_get_gratuvity')
     leave_pending=  fields.Float(string="No of Leave Pending",compute='_get_pending_leave')
     leave_salary_amount= fields.Float(string="Leave Salary Amount",compute='_get_pending_leave')
     is_manual_leave_salary_amount = fields.Boolean(string="Manually Enter Leave Salary Amount?")
@@ -465,7 +501,7 @@ class BetaResignForm(models.Model):
     final_grat = fields.Float(string="Final Gratuity", compute='_get_amount_to_pay')
     force_majure = fields.Boolean(string="Leaves the work due to a force majeure?")
     account_move_id = fields.Many2one('account.move', string='Ledger Posting')
-    
+
     staff_no = fields.Integer(string="Staff No")
     profession = fields.Char(string="Profession")
     overtime_hrs = fields.Float(string="Overtime Hours")
@@ -552,15 +588,15 @@ class BetaResignForm(models.Model):
             resign_date = datetime.strptime(self.resign_date, "%Y-%m-%d")
             last_day_date =  resign_date + relativedelta(months=2)
             self.last_day_date = last_day_date
-            
-            
+
+
     def od_send_mail(self,template):
         ir_model_data = self.env['ir.model.data']
         email_obj = self.pool.get('email.template')
         saudi_comp =6
         emp_company_id = self.company_id.id
         if emp_company_id == saudi_comp:
-            template = template +'_saudi'    
+            template = template +'_saudi'
         template_id = ir_model_data.get_object_reference('beta_customisation', template)[1]
         crm_id = self.id
         email_obj.send_mail(self.env.cr, self.env.uid, template_id,crm_id)
@@ -572,13 +608,13 @@ class BetaResignForm(models.Model):
         self.od_send_mail('od_resignation_approval1')
         self.state = 'approval1'
         return True
-    
+
     @api.model
     def create(self,vals):
         res = super(BetaResignForm, self).create(vals)
         res.submit()
         return res
-    
+
     @api.one
     @api.model
     def first_approval(self):
@@ -597,7 +633,7 @@ class BetaResignForm(models.Model):
             self.od_send_mail('od_notification_to_hr_finance')
             self.state = 'approval2'
         return True
-    
+
     @api.one
     @api.model
     def finance_approval(self):
@@ -607,10 +643,10 @@ class BetaResignForm(models.Model):
             raise Warning("This Employee requires a Clearance certificate before you do Approval")
         self.fin_approved_by = self.env.user.id
         self.fin_approved_date = fields.Date.today()
-        self.od_send_mail('od_resignation_approval2')    
+        self.od_send_mail('od_resignation_approval2')
         self.state = 'approval3'
         return True
-    
+
     @api.one
     @api.model
     def it_approval(self):
@@ -669,7 +705,7 @@ class BetaResignForm(models.Model):
         self.cs_approved_by = self.env.user.id
         self.cs_approved_date = fields.Date.today()
         return True
-    
+
     @api.one
     @api.model
     def action_notify_bank(self):
@@ -679,13 +715,13 @@ class BetaResignForm(models.Model):
             self.notified_bank = True
             self.employee_id.write({'od_req_clearance':False})
         return True
-    
+
     @api.one
     @api.model
     def skip_notify_bank(self):
         self.od_send_mail('od_notification_to_hr_finance')
         self.state = 'approval2'
-    
+
     @api.one
     @api.model
     def hr_approval(self):
@@ -699,8 +735,8 @@ class BetaResignForm(models.Model):
         self.hr_approved_by = self.env.user.id
         self.hr_approved_date = fields.Date.today()
         return True
-    
-    
+
+
     @api.one
     @api.model
     def second_approval(self):
@@ -711,7 +747,7 @@ class BetaResignForm(models.Model):
         self.gm_approved_by = self.env.user.id
         self.gm_approved_date = fields.Date.today()
         return True
-    
+
     def sent_clearance_to_bank(self, cr, uid, ids, context=None):
         if not context:
             context= {}
@@ -724,7 +760,7 @@ class BetaResignForm(models.Model):
                 try:
                     compose_form_id = ir_model_data.get_object_reference(cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
                 except ValueError:
-                    compose_form_id = False 
+                    compose_form_id = False
                 ctx = dict(context)
                 ctx.update({
                 'default_model': 'od.beta.resign.form',
@@ -745,14 +781,14 @@ class BetaResignForm(models.Model):
                 'target': 'new',
                 'context': ctx,
                     }
-        
-    
+
+
     @api.one
     @api.model
     def refuse(self):
         self.state = 'cancel'
         return True
-    
+
     @api.one
     @api.model
     def unlink(self):
@@ -760,17 +796,17 @@ class BetaResignForm(models.Model):
             if rec.state not in ('draft', 'cancel'):
                 raise Warning(_('You cannot delete a resignation form which is not draft or refused.'))
         return super(BetaResignForm, self).unlink()
-    
-    @api.multi    
+
+    @api.multi
     def amount_to_text_eng(self, amount, currency):
-        convert_amount_in_words = amount_to_text_en.amount_to_text(amount, lang='en', currency=currency)        
+        convert_amount_in_words = amount_to_text_en.amount_to_text(amount, lang='en', currency=currency)
         company_id = self.company_id and self.company_id.id
         if company_id ==6:
             convert_amount_in_words = convert_amount_in_words.replace('Cent', 'Halala')
         else:
-            convert_amount_in_words = convert_amount_in_words.replace('Cent', 'Fill')        
+            convert_amount_in_words = convert_amount_in_words.replace('Cent', 'Fill')
         return convert_amount_in_words
-    
+
     @api.one
     @api.model
     def generate_gratuity_accounting_entry(self):
@@ -782,7 +818,7 @@ class BetaResignForm(models.Model):
         partner_id =self.employee_id.address_home_id and self.employee_id.address_home_id.id or False
         branch_id = self.employee_id.od_branch_id and self.employee_id.od_branch_id.id or False
         cost_centre_id = self.employee_id.od_cost_centre_id and self.employee_id.od_cost_centre_id.id or False
-        
+
         total_amount_to_pay = self.amount_to_pay
         leave_salary_amt = self.leave_salary_amount
         pending_salary = self.pending_salary
@@ -794,7 +830,7 @@ class BetaResignForm(models.Model):
         other_deduct = self.other_deduction
         remaining_amt = leave_salary_amt + pending_salary + other_pay - other_deduct
         gratuity = total_amount_to_pay - remaining_amt
-        
+
         #Accounts IDS in ERP KSA
         journal_id = 41
         move_lines =[]
@@ -814,7 +850,7 @@ class BetaResignForm(models.Model):
                     'od_cost_centre_id': cost_centre_id
                 }
             move_lines.append([0,0,d_vals1])
-            
+
         if gratuity:
             debit_account = 5735
             d_vals2={
@@ -879,7 +915,7 @@ class BetaResignForm(models.Model):
                 'od_cost_centre_id': cost_centre_id
             }
             move_lines.append([0,0,c_vals1])
-                
+
         if total_amount_to_pay:
             credit_account = 5265
             c_vals2={
@@ -908,7 +944,7 @@ class BetaResignForm(models.Model):
         move_id = move_obj.create(move_vals).id
         self.account_move_id = move_id
         return True
-    
+
 class mail_compose_message(models.Model):
     _inherit = 'mail.compose.message'
 
@@ -920,5 +956,4 @@ class mail_compose_message(models.Model):
             rec = self.env['od.beta.resign.form'].browse(context['default_res_id'])
             rec.write({'clearance_sent_to_bank': True, 'state': 'sent_clearance'})
         return super(mail_compose_message, self).send_mail()
-    
-    
+
