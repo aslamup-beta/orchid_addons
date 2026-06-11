@@ -125,7 +125,6 @@ class hr_employee(osv.osv):
 
 
     def action_it_approval(self, cr, uid, context=None):
-        print("$$$$$$$$$$$$$$$$$")
         hr_pool = self.pool['hr.employee']
         resign_pool = self.pool['od.beta.resign.form']
         term_pool = self.pool['od.beta.terminate.form']
@@ -133,15 +132,12 @@ class hr_employee(osv.osv):
         idp_pool = self.pool['employee.idp']
         today = datetime.date.today()
         emp_ids=hr_pool.search(cr,uid,['&',('od_last_day', '<=', today),('active', '=', True)],context=context)
-        print("emp_ids",emp_ids)
         if emp_ids:
             for emp_id in emp_ids:
                 emp_rec=hr_pool.browse(cr,uid,emp_id)
                 if emp_rec.company_id.id == 6:
-                    print("emp_rec.od_resigned", emp_rec.od_resigned)
                     if emp_rec.od_resigned:
                         resign_id = resign_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','=','approval4')], order='id desc',context=context)
-                        print("resign_id", resign_id)
                         if resign_id:
                             resign_id = resign_id[0]
                             resign_rec = resign_pool.browse(cr,uid,resign_id)
@@ -181,24 +177,23 @@ class hr_employee(osv.osv):
                 emp_idp_ids = idp_pool.search(cr, uid, [('employee_id', '=', emp_rec.id),
                                                                         ('active', '=', True)])
                 if emp_idp_ids:
-                    print("emp_idp_ids", emp_idp_ids)
                     for idp in emp_idp_ids:
                         idp_rec = idp_pool.browse(cr, uid, idp)
                         idp_rec.write({'active': False})
                 if emp_rec.company_id.id ==6 and emp_rec.od_resigned:
-                    resign_id = resign_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance'])], order='id desc',context=context)
+                    resign_id = resign_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance', 'approval4', 'cs_approval'])], order='id desc',context=context)
                     if resign_id:
                         resign_id = resign_id[0]
                         resign_rec = resign_pool.browse(cr,uid,resign_id)
                         resign_rec.generate_gratuity_accounting_entry()
                 if emp_rec.company_id.id ==6 and emp_rec.od_terminated:
-                    term_id = term_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance'])], order='id desc',context=context)
+                    term_id = term_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance', 'approval4', 'cs_approval'])], order='id desc',context=context)
                     if term_id:
                         term_id =  term_id[0]
                         term_rec = term_pool.browse(cr,uid,term_id)
                         term_rec.generate_gratuity_accounting_entry()
                 if emp_rec.company_id.id ==6 and emp_rec.od_end_contract:
-                    eoc_id = eoc_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance'])], order='id desc',context=context)
+                    eoc_id = eoc_pool.search(cr, uid, [('employee_id','=',emp_rec.id),('state','in',['confirm', 'sent_clearance', 'approval4', 'cs_approval'])], order='id desc',context=context)
                     if eoc_id:
                         eoc_id = eoc_id[0]
                         eoc_rec = eoc_pool.browse(cr,uid,eoc_id)
