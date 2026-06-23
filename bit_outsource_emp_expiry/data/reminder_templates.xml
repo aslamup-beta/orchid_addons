@@ -118,7 +118,7 @@
                         </tr>
                         <tr>
                             <td style="padding: 6px; border: 1px solid #ddd;">
-                                <strong>Employee Contract End Dat</strong>
+                                <strong>Employee Contract End Date</strong>
                             </td>
                             <td style="padding: 6px; border: 1px solid #ddd;">
                                 ${object.employee_end_date}
@@ -262,7 +262,7 @@
                         </tr>
                         <tr>
                             <td style="padding: 6px; border: 1px solid #ddd;">
-                                <strong>Employee Contract End Dat</strong>
+                                <strong>Employee Contract End Date</strong>
                             </td>
                             <td style="padding: 6px; border: 1px solid #ddd;">
                                 ${object.employee_end_date}

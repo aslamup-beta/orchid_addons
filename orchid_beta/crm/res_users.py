@@ -16,7 +16,7 @@ class res_users(osv.osv):
         if context.get('sam_ids',False):
             company_id = self.browse(cr, uid, uid, context=context).company_id.id
             hr_pool = self.pool.get('hr.employee')
-            emp_ids = hr_pool.search(cr, SUPERUSER_ID,  [('company_id', '=', company_id),('job_id', 'in', (17, 40, 83, 104, 130, 138, 140, 154, 182))], context=context)
+            emp_ids = hr_pool.search(cr, SUPERUSER_ID,  [('company_id', '=', company_id),('job_id', 'in', (17, 40, 83, 104, 130, 138, 140, 154, 182, 214))], context=context)
             user_ids = [6]
             for emp_id in emp_ids:
                 employee = hr_pool.browse(cr,SUPERUSER_ID,emp_id)
