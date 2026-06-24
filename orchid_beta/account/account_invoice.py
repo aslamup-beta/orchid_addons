@@ -90,7 +90,8 @@ class account_invoice(models.Model):
     @api.multi
     def finalize_invoice_move_lines(self, move_lines):
         self._check_extra_exp()
-        self._check_closed_cancel_projects(move_lines)
+        if self.type == 'in_invoice':
+            self._check_closed_cancel_projects(move_lines)
         if self.type == 'out_invoice':
             self.send_mail_to_pm('od_invoice_validated_email_template')
         def get_currency_check(from_currncy,to_currecny):
