@@ -824,64 +824,124 @@ class task(models.Model):
         hour= days + float(seconds)/3600
         return hour
 
+
+
+    #over time calculation updated; Over nyt updated to 10:00PM to 4:00 AM
     @api.one
     def _get_od_overtime_hours(self):
         date_start = self.date_start
         date_end = self.date_end
         type = self.od_type
-        overtime1 = 0.0
+        self.od_normal_ot = 0.0
+        self.od_overnight_ot = 0.0
+
         if date_start and date_end and type == 'activities':
-            start_date= datetime.strptime(date_start,DEFAULT_SERVER_DATETIME_FORMAT) + timedelta(hours=4)
-            end_date = datetime.strptime(date_end,DEFAULT_SERVER_DATETIME_FORMAT) + timedelta(hours=4)
+            start_date = datetime.strptime(date_start, DEFAULT_SERVER_DATETIME_FORMAT) + timedelta(hours=4)
+            end_date = datetime.strptime(date_end, DEFAULT_SERVER_DATETIME_FORMAT) + timedelta(hours=4)
 
-
+            # Friday/holiday special case kept as-is
             if date_start[:10] < '2022-01-10' and start_date.date().weekday() == 4:
                 self.od_friday_ot = self.b_plan_hr
+                return
             elif date_start[:10] >= '2022-01-10' and start_date.date().weekday() == 6:
                 self.od_friday_ot = self.b_plan_hr
-            else:
-                my_time = datetime.min.time()
-                day_start_datetime = datetime.combine(start_date.date(), my_time)
-                five_pm_time = day_start_datetime + timedelta(hours=17, minutes=0, seconds=0)
-                ten_pm_time = day_start_datetime + timedelta(hours=22, minutes=0, seconds=0)
-                eleven_pm_time = day_start_datetime + timedelta(hours=23, minutes=0, seconds=0)
-                twelve_am_time = day_start_datetime + timedelta(hours=0, minutes=0, seconds=0)
-                three_am_time = day_start_datetime + timedelta(hours=3, minutes=0, seconds=0)
-                four_am_time = day_start_datetime + timedelta(hours=4, minutes=0, seconds=0)
-                seven_am_time = day_start_datetime + timedelta(hours=7, minutes=30, seconds=0)
+                return
 
-                #Ticket Starting Normal Working Hours and Ending after normal working Hours
-                if end_date > five_pm_time >= start_date:
-                    overtime1  = self.get_time_diff2_copy(five_pm_time, end_date)
-                    self.od_normal_ot = overtime1
-                    self.od_overnight_ot = 0.0
+            def overlap_hours(seg_start, seg_end):
+                """Hours of overlap between [start_date, end_date] and [seg_start, seg_end)."""
+                lo = max(start_date, seg_start)
+                hi = min(end_date, seg_end)
+                if hi <= lo:
+                    return 0.0
+                return self.get_time_diff2_copy(lo, hi)
 
-                if  end_date > ten_pm_time:
-                    overtime2  = self.get_time_diff2_copy(ten_pm_time, end_date)
-                    diff = overtime1 - overtime2
-                    self.od_normal_ot = diff
-                    self.od_overnight_ot = overtime2
+            normal_ot_total = 0.0
+            overnight_ot_total = 0.0
 
-                #Ticket Starting after normal working hours and Ending After Normal Working Hours
-                if end_date > five_pm_time < start_date and end_date > ten_pm_time:
-                    normal_ot  = self.get_time_diff2_copy(start_date, ten_pm_time)
-                    self.od_normal_ot = normal_ot
-                    self.od_overnight_ot = self.get_time_diff2_copy(ten_pm_time, end_date)
+            # Walk every calendar day the interval could touch (one day padding
+            # on each side so a 22:00->04:00 segment starting "yesterday" or
+            # ending "tomorrow" is still captured correctly).
+            day = start_date.date() - timedelta(days=1)
+            last_day = end_date.date() + timedelta(days=1)
 
-                if end_date > five_pm_time < start_date and end_date <= ten_pm_time:
-                    normal_ot  = self.get_time_diff2_copy(start_date, end_date)
-                    self.od_normal_ot = normal_ot
-                    self.od_overnight_ot = 0.0
+            while day <= last_day:
+                day_start = datetime.combine(day, datetime.min.time())
+                t0400 = day_start + timedelta(hours=4)
+                t0730 = day_start + timedelta(hours=7, minutes=30)
+                t1700 = day_start + timedelta(hours=17)
+                t2200 = day_start + timedelta(hours=22)
+                t0400_next = day_start + timedelta(days=1, hours=4)
 
+                # Normal OT: 04:00-07:30 and 17:00-22:00
+                normal_ot_total += overlap_hours(t0400, t0730)
+                normal_ot_total += overlap_hours(t1700, t2200)
 
-                #Ticket Starting after normal working hours and Ending After Normal Working Hours
-                if start_date > ten_pm_time:
-                    self.od_normal_ot = 0.0
-                    self.od_overnight_ot = self.get_time_diff2_copy(start_date, end_date)
+                # Overnight OT: 22:00 -> 04:00 next day
+                overnight_ot_total += overlap_hours(t2200, t0400_next)
 
-                #Ticket Starting after 12 AM and ending before normal working time
-                if start_date >= twelve_am_time and end_date < seven_am_time:
-                    self.od_overnight_ot = self.get_time_diff2_copy(start_date, end_date)
+                day += timedelta(days=1)
+
+            self.od_normal_ot = normal_ot_total
+            self.od_overnight_ot = overnight_ot_total
+
+    # @api.one
+    # def _get_od_overtime_hours(self):
+    #     date_start = self.date_start
+    #     date_end = self.date_end
+    #     type = self.od_type
+    #     overtime1 = 0.0
+    #     if date_start and date_end and type == 'activities':
+    #         start_date= datetime.strptime(date_start,DEFAULT_SERVER_DATETIME_FORMAT) + timedelta(hours=4)
+    #         end_date = datetime.strptime(date_end,DEFAULT_SERVER_DATETIME_FORMAT) + timedelta(hours=4)
+    #
+    #
+    #         if date_start[:10] < '2022-01-10' and start_date.date().weekday() == 4:
+    #             self.od_friday_ot = self.b_plan_hr
+    #         elif date_start[:10] >= '2022-01-10' and start_date.date().weekday() == 6:
+    #             self.od_friday_ot = self.b_plan_hr
+    #         else:
+    #             my_time = datetime.min.time()
+    #             day_start_datetime = datetime.combine(start_date.date(), my_time)
+    #             five_pm_time = day_start_datetime + timedelta(hours=17, minutes=0, seconds=0)
+    #             ten_pm_time = day_start_datetime + timedelta(hours=22, minutes=0, seconds=0)
+    #             eleven_pm_time = day_start_datetime + timedelta(hours=23, minutes=0, seconds=0)
+    #             twelve_am_time = day_start_datetime + timedelta(hours=0, minutes=0, seconds=0)
+    #             three_am_time = day_start_datetime + timedelta(hours=3, minutes=0, seconds=0)
+    #             four_am_time = day_start_datetime + timedelta(hours=4, minutes=0, seconds=0)
+    #             seven_am_time = day_start_datetime + timedelta(hours=7, minutes=30, seconds=0)
+    #
+    #             #Ticket Starting Normal Working Hours and Ending after normal working Hours
+    #             if end_date > five_pm_time >= start_date:
+    #                 overtime1  = self.get_time_diff2_copy(five_pm_time, end_date)
+    #                 self.od_normal_ot = overtime1
+    #                 self.od_overnight_ot = 0.0
+    #
+    #             if  end_date > ten_pm_time:
+    #                 overtime2  = self.get_time_diff2_copy(ten_pm_time, end_date)
+    #                 diff = overtime1 - overtime2
+    #                 self.od_normal_ot = diff
+    #                 self.od_overnight_ot = overtime2
+    #
+    #             #Ticket Starting after normal working hours and Ending After Normal Working Hours
+    #             if end_date > five_pm_time < start_date and end_date > ten_pm_time:
+    #                 normal_ot  = self.get_time_diff2_copy(start_date, ten_pm_time)
+    #                 self.od_normal_ot = normal_ot
+    #                 self.od_overnight_ot = self.get_time_diff2_copy(ten_pm_time, end_date)
+    #
+    #             if end_date > five_pm_time < start_date and end_date <= ten_pm_time:
+    #                 normal_ot  = self.get_time_diff2_copy(start_date, end_date)
+    #                 self.od_normal_ot = normal_ot
+    #                 self.od_overnight_ot = 0.0
+    #
+    #
+    #             #Ticket Starting after normal working hours and Ending After Normal Working Hours
+    #             if start_date > ten_pm_time:
+    #                 self.od_normal_ot = 0.0
+    #                 self.od_overnight_ot = self.get_time_diff2_copy(start_date, end_date)
+    #
+    #             #Ticket Starting after 12 AM and ending before normal working time
+    #             if start_date >= twelve_am_time and end_date < seven_am_time:
+    #                 self.od_overnight_ot = self.get_time_diff2_copy(start_date, end_date)
 
 
 
