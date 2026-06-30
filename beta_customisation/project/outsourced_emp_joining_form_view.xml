@@ -47,7 +47,7 @@
                         
                     </group>
                     <group>
-                    	<field name="costsheet_id" required="1" domain="[('state','=','done')]" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                    	<field name="costsheet_id" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                     	<field name="proj_manager" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                         <field name="customer_id" required="1" domain="[('is_company','=',True)]" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                         <field name="tech_unit" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>

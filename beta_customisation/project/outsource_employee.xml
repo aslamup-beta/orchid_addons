@@ -55,7 +55,7 @@
                     	<field name="proj_manager" required="1"/>
                         <field name="customer_id" required="1" domain="[('is_company','=',True)]"/>
                         <field name="so_id"/>
-                        <field name="costsheet_id" required="1" domain="[('state','=','done')]"/>
+                        <field name="costsheet_id" required="1"/>
                         
                         
                     </group>
