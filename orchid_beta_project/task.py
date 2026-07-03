@@ -567,7 +567,7 @@ class task(models.Model):
                 if not self.od_opp_id:
                     raise Warning("POC Activities should be linked with an Opportunity")
             #We need to restrict the Manpower tickets if the cost is exceeding the estimated cost on cost sheet.
-            if self.od_type == 'activities' and self.project_id.od_type_of_project not in ('poc','comp_gen','credit'):
+            if self.od_type == 'activities' and self.project_id.od_type_of_project not in ('poc','comp_gen','credit', 'msp'):
                 cost_sheet_id = self.project_id.od_cost_sheet_id or False
                 amended_mp = cost_sheet_id.returned_mp
                 actual_mp = self.get_all_actual_mp_cost(cost_sheet_id)

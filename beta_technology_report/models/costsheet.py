@@ -12,6 +12,14 @@ class od_cost_sheet(models.Model):
 
     all_brand_weight_line = fields.One2many('od.cost.all.brand.weight', 'cost_sheet_id', string='All Brand Weight',
                                             readonly=True)
+    DOMAIN = [('credit', 'Credit'), ('sup', 'Supply'), ('imp', 'Implementation'),
+              ('sup_imp', 'Supply & Implementation'), ('cust_trn', 'Customer Training'), ('amc_view', 'AMC View'),
+              ('o_m_view', 'O&M View'), ('amc', 'AMC'), ('o_m', 'O&M'), ('poc', '(POC,Presales)'), ('msp', 'MSP')]
+
+    type_of_project_a0 = fields.Selection(DOMAIN, string="Type Of Project A0")
+    type_of_project_a1 = fields.Selection(DOMAIN, string="Type Of Project A1")
+    type_of_project_a2 = fields.Selection(DOMAIN, string="Type Of Project A2")
+    type_of_project_a3 = fields.Selection(DOMAIN, string="Type Of Project A3")
 
     # Override the function to create new Sale In brand report include brands in all tabs
     def get_all_brand_vals(self):
