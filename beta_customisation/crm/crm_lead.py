@@ -587,7 +587,7 @@ class crm_lead(osv.osv):
         lead_id = lead.id
         lead_user = lead.od_lead_user_id and lead.od_lead_user_id.id or False
         customer_am = lead.user_id and lead.user_id.id or False
-        if lead.od_partner_class in ('a','b') and uid != customer_am and uid not in (1,5,6,8,2137,101,154,268,2429,134,2663,2441,2536,2537):
+        if lead.od_partner_class in ('a','b') and uid != customer_am and uid not in (1,5,6,8,2137,101,154,268,2429,134,2663,2441,2536,2537,2660,2653,2664,2597,2260,2244,2445,2657,271,2467,2151,2700):
             raise Warning("Opportunities under A and B accounts should not be opened except by the assigned Sales Account Manager.")
         if lead.type == 'lead' and uid != lead_user:
             email_obj.send_mail(cr,uid,template_id,lead_id, force_send=True)
