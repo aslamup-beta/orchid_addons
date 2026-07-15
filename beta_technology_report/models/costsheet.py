@@ -3,7 +3,7 @@ from openerp import models, fields, api, _
 from datetime import date
 from openerp.exceptions import Warning
 from openerp import SUPERUSER_ID
-from dateutil.relativedelta import relativedelta
+# from dateutil.relativedelta import relativedelta
 import openerp.addons.decimal_precision as dp
 
 
@@ -92,7 +92,6 @@ class od_cost_sheet(models.Model):
         self.generate_all_brand_weight()
 
 
-
 class od_cost_all_brand_weight(models.Model):
     _name = 'od.cost.all.brand.weight'
     _order = "item_int ASC"
@@ -121,3 +120,9 @@ class od_cost_all_brand_weight(models.Model):
     profit = fields.Float(string="Profit", compute="_compute_vals", digits=dp.get_precision('Account'))
     profit_percent = fields.Float(string="Profit %", compute="_compute_vals", digits=dp.get_precision('Account'))
     weight = fields.Float(string="Weight", compute="_compute_vals", digits=dp.get_precision('Account'))
+
+
+class OdCostSectionLine(models.Model):
+    _inherit = 'od.cost.section.line'
+
+    hide_section_total = fields.Boolean(string="Hide Section Total", default=False)
