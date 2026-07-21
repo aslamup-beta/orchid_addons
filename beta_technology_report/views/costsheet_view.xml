@@ -20,11 +20,21 @@
                             <field name="profit"/>
                             <field name="profit_percent"/>
                             <field name="weight"/>
+                            mat_delivery_terms
                         </tree>
                     </field>
                 </xpath>
                 <xpath expr="//field[@name='cost_section_line']/tree/field[@name='name']" position="after">
                     <field name="hide_section_total"/>
+                </xpath>
+                <xpath expr="//field[@name='material_delivery_terms']" position="after">
+                    <group col="4" colspan="2">
+                        <h3>
+                            <label string="Material Notes:-"/>
+                        </h3>
+                        <field name="show_to_customer_mat_delivery_notes"/>
+                    </group>
+                    <field name="mat_delivery_notes"/>
                 </xpath>
             </field>
         </record>

@@ -20,6 +20,8 @@ class od_cost_sheet(models.Model):
     type_of_project_a1 = fields.Selection(DOMAIN, string="Type Of Project A1")
     type_of_project_a2 = fields.Selection(DOMAIN, string="Type Of Project A2")
     type_of_project_a3 = fields.Selection(DOMAIN, string="Type Of Project A3")
+    mat_delivery_notes = fields.Html(string='Material Delivery Notes')
+    show_to_customer_mat_delivery_notes = fields.Boolean(string='Show to Customer', default=False)
 
     # Override the function to create new Sale In brand report include brands in all tabs
     def get_all_brand_vals(self):
