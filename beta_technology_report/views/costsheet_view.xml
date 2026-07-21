@@ -20,7 +20,6 @@
                             <field name="profit"/>
                             <field name="profit_percent"/>
                             <field name="weight"/>
-                            mat_delivery_terms
                         </tree>
                     </field>
                 </xpath>
