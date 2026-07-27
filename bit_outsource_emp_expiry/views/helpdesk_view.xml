@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="beta_helpdesk_form_inherit" model="ir.ui.view">
+            <field name="name">beta.helpdesk.form.inherit</field>
+            <field name="model">crm.helpdesk</field>
+            <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]" position="inside">
+                    <field name="initiation_date"/>
+                    <field name="customer_email"/>
+                    <field name="actual_close_date"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

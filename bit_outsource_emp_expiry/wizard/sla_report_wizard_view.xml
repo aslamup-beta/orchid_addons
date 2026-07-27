@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_sla_report_wizard_form" model="ir.ui.view">
+            <field name="name">sla.report.wizard.form</field>
+            <field name="model">sla.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="SLA Performance Report">
+                    <group string="" col="2">
+                        <field name="organisation_id" domain="[('is_company','=',1)]"
+                               options="{'no_create': True}"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    <footer>
+                        <button name="action_generate_report"
+                                string="Generate Report"
+                                type="object"
+                                class="oe_highlight"/>
+                        <button string="Cancel"
+                                class="oe_link"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sla_report_wizard" model="ir.actions.act_window">
+            <field name="name">SLA Report</field>
+            <field name="res_model">sla.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_sla_report_wizard"
+                  name="SLA Report"
+                  parent="orchid_cost_sheet.od_menu_helpdesk_sub"
+                  action="action_sla_report_wizard"
+                  sequence="50"/>
+
+    </data>
+</openerp>
