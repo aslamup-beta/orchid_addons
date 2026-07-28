@@ -22,6 +22,7 @@ class od_cost_sheet(models.Model):
     type_of_project_a3 = fields.Selection(DOMAIN, string="Type Of Project A3")
     mat_delivery_notes = fields.Html(string='Material Delivery Notes')
     show_to_customer_mat_delivery_notes = fields.Boolean(string='Show to Customer', default=False)
+    show_to_customer_vendor_only = fields.Boolean(string='Vendor Only Display', default=False)
 
     # Override the function to create new Sale In brand report include brands in all tabs
     def get_all_brand_vals(self):
@@ -92,6 +93,27 @@ class od_cost_sheet(models.Model):
     def update_cost_sheet(self):
         super(od_cost_sheet, self).update_cost_sheet()
         self.generate_all_brand_weight()
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super(od_cost_sheet, self).default_get(fields_list)
+        tax_id = self.get_default_vat()
+        if res.get('costgroup_it_service_line'):
+            res['costgroup_it_service_line'].append((0, 0, {
+                'name': 'Beta PS Zero Sales',
+                'sales_currency_id': self.env.user.company_id.currency_id.id,
+                'supplier_currency_id': self.env.user.company_id.currency_id.id,
+                'round_up': 1,
+                'currency_exchange_factor': 1.0,
+                'shipping': 0.0,
+                'customs': 0.0,
+                'stock_provision': 0.0,
+                'conting_provision': 0.500,
+                'tax_id': tax_id.id,
+                'customer_discount': 100.0
+            }))
+
+        return res
 
 
 class od_cost_all_brand_weight(models.Model):

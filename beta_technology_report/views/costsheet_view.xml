@@ -35,6 +35,14 @@
                     </group>
                     <field name="mat_delivery_notes"/>
                 </xpath>
+
+                <field name="show_ps_vendor_exp" position="replace">
+                    <group col="2" colspan="2">
+                        <field name="show_ps_vendor_exp"/>
+                        <field name="show_to_customer_vendor_only"/>
+                    </group>
+                </field>
+
             </field>
         </record>
     </data>
