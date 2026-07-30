@@ -43,8 +43,8 @@ class stock_quant(osv.osv):
         if not analytic_account_id:
             analytic_account_id =move.so_line_id and move.so_line_id.od_analytic_acc_id and move.so_line_id.od_analytic_acc_id.id or False 
         
-        # if not analytic_account_id:
-        #     raise Warning("Kindly Link Analytic Account on the Picking")
+        if not analytic_account_id:
+            raise Warning("Kindly Link Analytic Account on the Picking")
 
 
 
@@ -68,8 +68,8 @@ class stock_quant(osv.osv):
             od_branch_id = (move.picking_id and move.picking_id.od_analytic_id and move.picking_id.od_analytic_id.od_branch_id  and move.picking_id.od_analytic_id.od_branch_id.id) or (move.picking_id and move.picking_id.od_analytic_id and move.picking_id.od_analytic_id.branch_id  and move.picking_id.od_analytic_id.branch_id.id) 
         if not od_division_id:
             od_division_id = (move.picking_id and move.picking_id.od_analytic_id and move.picking_id.od_analytic_id.od_division_id  and move.picking_id.od_analytic_id.od_division_id.id) or (move.picking_id and move.picking_id.od_analytic_id and move.picking_id.od_analytic_id.division_id  and move.picking_id.od_analytic_id.division_id.id) 
-        # if not (od_cost_centre_id and od_branch_id):
-        #     raise Warning("Need to Fill Cost Center and Branch")
+        if not (od_cost_centre_id and od_branch_id):
+            raise Warning("Need to Fill Cost Center and Branch")
         debit_line_vals = {
                     'name': move.name,
                     'product_id': move.product_id.id,

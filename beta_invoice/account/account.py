@@ -29,9 +29,9 @@ class account_move(osv.osv):
             top_common = None
             for line in move.line_id:
                 if move.journal_id.code != 'OPEJ':
-                    # if move.company_id.id == 1 and not line.od_branch_id:
-                    #     raise osv.except_osv(_('Warning!'),
-                    #                          _('You Cannot Post an Accounting Entry without adding Branch'))
+                    if move.company_id.id == 1 and not line.od_branch_id:
+                        raise osv.except_osv(_('Warning!'),
+                                             _('You Cannot Post an Accounting Entry without adding Branch'))
 
                     if move.company_id.id == 1 and line.od_branch_id:
                         if line.account_id.od_branch_id:
