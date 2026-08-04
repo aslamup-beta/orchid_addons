@@ -12,7 +12,7 @@
                         <button name="action_submit" states="draft" string="Submit To Finance" type="object"
                                 class="oe_highlight"/>
                         <button name="action_approve" states="pending" string="Approve" type="object"
-                                class="oe_highlight" groups="account.group_account_user,account.group_account_manager"/>
+                                class="oe_highlight" groups="orchid_beta.group_executive_management_beta_1,orchid_beta.groups_beta_admin"/>
                         <button name="action_create_invoice" string="Create Invoice" type="object"
                                 class="oe_highlight" attrs="{'invisible': ['|',('invoice_id', '!=', False),('state', '!=', 'approved')]}"
                                 groups="account.group_account_user,account.group_account_manager"/>

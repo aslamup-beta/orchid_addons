@@ -17,7 +17,7 @@
 	                    <ul>
 	                        <li>S.No: ${object.name}</li>
 	                        <li>Customer: ${object.customer_id.name}</li>
-	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=vendor.rebate&menu_id=1207&action=1913</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=vendor.rebate&menu_id=1246&action=2054</li>
 	                    </ul>
 	         				              				    
 	         		<p>Thank You</p>
