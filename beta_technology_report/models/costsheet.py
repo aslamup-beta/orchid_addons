@@ -98,7 +98,9 @@ class od_cost_sheet(models.Model):
     def default_get(self, fields_list):
         res = super(od_cost_sheet, self).default_get(fields_list)
         tax_id = self.get_default_vat()
-        if self.od_branch_id.id == 2:
+        context = self._context
+        branch_id = context.get('default_od_branch_id')
+        if branch_id == 2:
             tax_id = tax_id
         else:
             tax_id = tax_id.id
