@@ -98,6 +98,11 @@ class od_cost_sheet(models.Model):
     def default_get(self, fields_list):
         res = super(od_cost_sheet, self).default_get(fields_list)
         tax_id = self.get_default_vat()
+        if self.od_branch_id.id == 2:
+            tax_id = tax_id
+        else:
+            tax_id = tax_id.id
+        res['tax_id'] = tax_id
         if res.get('costgroup_it_service_line'):
             res['costgroup_it_service_line'].append((0, 0, {
                 'name': 'Beta PS Zero Sales',
@@ -109,7 +114,7 @@ class od_cost_sheet(models.Model):
                 'customs': 0.0,
                 'stock_provision': 0.0,
                 'conting_provision': 0.500,
-                'tax_id': tax_id.id,
+                'tax_id': tax_id,
                 'customer_discount': 100.0
             }))
 
