@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+
+        <record id="vendor_rebate_approval_saudi" model="email.template">
+            <field name="name">Approve Vendor Rebate</field>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Request for Approval of Vendor Rebate</field>
+            <field name="email_to">finance.ksa@betait.net</field>
+            <field name="model_id" ref="model_vendor_rebate"/>
+            <field name="body_html"><![CDATA[
+	         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+	             	<p>Dear Jbour,</p>
+	             	<p>Kindly need your approval for the below Vendor Rebate. Could you please review and approve at your earliest convenience?</p>
+	             	<p>Info</p>
+	                    <ul>
+	                        <li>S.No: ${object.name}</li>
+	                        <li>Customer: ${object.customer_id.name}</li>
+	                    	<li>link: https://erp.betait.net/web#id=${object.id}&view_type=form&model=vendor.rebate&menu_id=1207&action=1913</li>
+	                    </ul>
+	         				              				    
+	         		<p>Thank You</p>
+	         </div>
+             ]]>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+
