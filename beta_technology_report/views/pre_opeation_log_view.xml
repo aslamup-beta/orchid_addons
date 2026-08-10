@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_pre_oprn_logs_tree_inherit" model="ir.ui.view">
+            <field name="name">od.pre_opr.log.tree.inherit</field>
+            <field name="model">od.pre_opr.log</field>
+            <field name="inherit_id" ref="beta_customisation.view_pre_oprn_logs_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='opp_id']" position="after">
+                    <field name="partner_id"/>
+                </xpath>
+            </field>
+        </record>
+         </data>
+</openerp>

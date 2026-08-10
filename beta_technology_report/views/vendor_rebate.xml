@@ -83,7 +83,7 @@
 
         <!-- Menu item under Purchases -->
         <menuitem id="menu_vendor_rebate_main" name="Vendor Rebate" parent="orchid_cost_sheet.menu_cost_sheet_parent" sequence="20"
-                  action="action_vendor_rebate" groups="__export__.res_groups_263,orchid_beta.group_executive_management_beta_1,orchid_beta.groups_beta_admin"/>
+                  action="action_vendor_rebate" groups="__export__.res_groups_263,orchid_beta.group_executive_management_beta_1,orchid_beta.groups_beta_admin" />
 
         <!-- Sequence for Auto-numbering -->
         <record model="ir.sequence.type" id="seq_type_vendor_rebate">
