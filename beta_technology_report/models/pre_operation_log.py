@@ -2,6 +2,7 @@ from openerp import models, fields
 
 class PreoprnLog(models.Model):
     _inherit = 'od.pre_opr.log'
+    _order = 'id desc'
 
     partner_id = fields.Many2one('res.partner', string='Customer')
 
