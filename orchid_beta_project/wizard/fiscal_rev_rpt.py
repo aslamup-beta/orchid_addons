@@ -381,7 +381,7 @@ class fiscal_rpt_wiz(models.TransientModel):
         
         #Added training proj also as per request of elayyan on 11/feb/19 by Aslam     
         company_id = self.company_id and self.company_id.id 
-        domain = [('od_type_of_project','in',('credit','sup','imp','sup_imp','cust_trn')),('state','!=','cancelled'),('type','!=','view'),('od_analytic_level','=','level_old')]
+        domain = [('od_type_of_project','in',('credit','sup','imp','sup_imp','cust_trn','msp')),('state','!=','cancelled'),('type','!=','view'),('od_analytic_level','=','level_old')]
         if company_id:
             domain += [('company_id','=',company_id)]
         if partner_ids:
@@ -423,7 +423,7 @@ class fiscal_rpt_wiz(models.TransientModel):
         
         
         #Added training proj also as per request of elayyan on 11/feb/19 by Aslam
-        domain2 = [('od_type_of_project','in',('credit','sup','imp','sup_imp','cust_trn')),('state','!=','cancelled'),('type','!=','view'),('od_analytic_level','!=','level_old')]
+        domain2 = [('od_type_of_project','in',('credit','sup','imp','sup_imp','cust_trn','msp')),('state','!=','cancelled'),('type','!=','view'),('od_analytic_level','!=','level_old')]
         
         if company_id:
             domain2 += [('company_id','=',company_id)]

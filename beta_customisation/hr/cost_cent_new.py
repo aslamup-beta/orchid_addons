@@ -110,6 +110,8 @@ class res_partner(models.Model):
         if self._uid in user_ids and vals.get('name'):
             if self.is_company == True:
                 raise Warning("You Cannot Change Organization name, Please Discard..")
+        if vals.get('customer') and self._uid in [2380, 2522]:
+            raise Warning("You are not allowed to Create a Customer, Please use customer registration form.")
         email = vals.get('email')
         name = vals.get('name') or self.name
         if email and not self.is_company:
@@ -130,6 +132,8 @@ class res_partner(models.Model):
                 user_ids.append(emp_id.user_id.id)
             if self._uid in user_ids:
                 raise Warning("You are not allowed to Create an Organization, Please Discard..")
+            if vals.get('customer') == True and self._uid in [2380,2522]:
+                raise Warning("You are not allowed to Create a Customer, Please use customer registration form.")
         if email and not self.is_company:
             self.check_email(email,name)
         return res
