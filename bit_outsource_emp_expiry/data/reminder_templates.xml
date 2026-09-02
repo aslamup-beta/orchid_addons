@@ -7,7 +7,7 @@
             <field name="subject">Outsource Employee : Customer Contract Ending In 90 Days for ${object.name}</field>
             <field name="email_from">${(user.email or '')|safe}</field>
             <field name="email_to">${object.proj_manager.email}</field>
-            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net</field>
+            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net,yazan.elayyan@betait.net,fai.aldossari@betait.net</field>
             <field name="auto_delete" eval="True"/>
             <field name="body_html"><![CDATA[
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif; font-size: 13px; color: #333;">
@@ -79,7 +79,7 @@
             <field name="subject">Outsource Employee : Employee Contract Ending In 90 Days for ${object.name}</field>
             <field name="email_from">${(user.email or '')|safe}</field>
             <field name="email_to">${object.proj_manager.email}</field>
-            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net</field>
+            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net,yazan.elayyan@betait.net,fai.aldossari@betait.net</field>
             <field name="auto_delete" eval="True"/>
             <field name="body_html"><![CDATA[
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif; font-size: 13px; color: #333;">
@@ -151,7 +151,7 @@
             <field name="subject">Outsource Employee : Customer Contract Ending In 120 Days for ${object.name}</field>
             <field name="email_from">${(user.email or '')|safe}</field>
             <field name="email_to">${object.proj_manager.email}</field>
-            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net</field>
+            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net,yazan.elayyan@betait.net,fai.aldossari@betait.net</field>
             <field name="auto_delete" eval="True"/>
             <field name="body_html"><![CDATA[
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif; font-size: 13px; color: #333;">
@@ -223,7 +223,7 @@
             <field name="subject">Outsource Employee : Employee Contract Ending In 120 Days for ${object.name}</field>
             <field name="email_from">${(user.email or '')|safe}</field>
             <field name="email_to">${object.proj_manager.email}</field>
-            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net</field>
+            <field name="email_cc">fakhri.amaireh@betait.net,hr.ksa@betait.net,yazan.elayyan@betait.net,fai.aldossari@betait.net</field>
             <field name="auto_delete" eval="True"/>
             <field name="body_html"><![CDATA[
                 <div style="margin: 0px; padding: 0px; font-family: Arial, sans-serif; font-size: 13px; color: #333;">

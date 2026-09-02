@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_beta_employee_document_line_new,access_beta_employee_document_line_new,model_beta_employee_document_line_new,,1,1,1,1
+

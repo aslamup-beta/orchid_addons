@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record id="email_template_document_expiry_reminder" model="email.template">
+            <field name="name">Document Expiry Reminder - 15 Days</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+            <field name="subject">Document Expiry Reminder: ${object.name}</field>
+            <field name="email_to">sami.nazzal@betait.net,ramesh.poruppath@betait.net,shamma.khaleifa@betait.net</field>
+            <field name="email_cc">${object.user_id.email},mohd.sageer@betait.net</field>
+            <field name="body_html"><![CDATA[
+                <p>Dear Team,</p>
+                <div>The following document will expire in 15 days:</div>
+                </div><div><br></div><div><ul><li>Employee Name:&nbsp;${object.name}</li><li>Job Position : ${object.job_id.name}</li><li>Document Type : ${ctx["doc_type"]}</li><li>Expiry Date : ${ctx["exp_date"]}<br></li></ul></div>
+                <p>Please take the necessary action.</p>
+            ]]></field>
+        </record>
+    </data>
+</openerp>

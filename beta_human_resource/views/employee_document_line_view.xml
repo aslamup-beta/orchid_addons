@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Document Line: tree/form/action -->
+        <record id="view_beta_employee_document_line_new_tree" model="ir.ui.view">
+            <field name="name">beta.employee.document.line.new.tree</field>
+            <field name="model">beta.employee.document.line.new</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Documents" editable="bottom">
+                    <field name="employee_id"/>
+                    <field name="od_document_type_id"/>
+                    <field name="document_referance"/>
+                    <field name="issue_date"/>
+                    <field name="expiry_date"/>
+                    <field name="attach_file" filename="attach_fname"/>
+                    <field name="attach_fname" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_beta_employee_document_line_new_form" model="ir.ui.view">
+            <field name="name">beta.employee.document.line.new.form</field>
+            <field name="model">beta.employee.document.line.new</field>
+            <field name="arch" type="xml">
+                <form string="Employee Document">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="od_document_type_id"/>
+                                <field name="document_referance"/>
+                            </group>
+                            <group>
+                                <field name="issue_date"/>
+                                <field name="expiry_date"/>
+                                <field name="attach_file" filename="attach_fname"/>
+                                <field name="attach_fname" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_beta_employee_document_line_new" model="ir.actions.act_window">
+            <field name="name">Employee Documents</field>
+            <field name="res_model">beta.employee.document.line.new</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <!-- Smart button "Documents" on the Employee form -->
+        <record id="view_hr_employee_form_inherit_od_document" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.od.document</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="od_view_new_documents" type="object" class="oe_inline oe_stat_button"
+                            icon="fa-book">
+                        <div>
+                            <strong>
+                                <field name="od_document_line_count_new"/>
+                            </strong>
+                            <br/>HR Documents
+                        </div>
+                    </button>
+                    <!--<button name="od_view_new_documents" class="oe_stat_button" type="object"
+                            icon="fa-book" string="Documents New">
+                        <field name="od_document_line_count_new" nolabel="1"/>
+                        &lt;!&ndash;                        <field name="od_document_line_count_new" nolabel="1" widget="statinfo"/>&ndash;&gt;
+                    </button>-->
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
