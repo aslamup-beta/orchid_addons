@@ -27,7 +27,7 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="employee_id"/>
+                                <field name="employee_id" invisible="1"/>
                                 <field name="od_document_type_id"/>
                                 <field name="document_referance"/>
                             </group>

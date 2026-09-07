@@ -70,7 +70,7 @@ class crm_lead(models.Model):
         uid = self._uid
         user_pool =self.env['res.users']
         user_obj = user_pool.browse(user_id)
-        admin_ids = [1,154,268,5,2137,6,2280,101,8,2429,2663,2441,2536]
+        admin_ids = [1,154,268,5,2137,6,2280,101,8,2429,2663,2441,2536,2654]
         if uid in admin_ids:
             return True
         if  uid != user_id:
@@ -79,7 +79,7 @@ class crm_lead(models.Model):
     
     def check_lead_user_change_access(self,user_id):
         uid = self._uid
-        admin_ids = [1,154,268,5,2137,6,2280,101,8,134,2429,2663,2441,2536]
+        admin_ids = [1,154,268,5,2137,6,2280,101,8,134,2429,2663,2441,2536,2654]
         if uid in admin_ids:
             return True
         if  uid != user_id:
