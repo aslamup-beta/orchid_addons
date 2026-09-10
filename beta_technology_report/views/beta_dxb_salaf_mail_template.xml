@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+<!--         Beta IT Dubai Loan Assistance Program -  SALAF -->
+
+        <record id="beta_salaf_loan_approval_hr" model="email.template">
+             <field name="name">UAE - Request to Validate Beta IT Loan Assistance Program (SALAF)</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Validate Beta Loan Assistance Program (SALAF)- ${object.name.name}</field>
+             <field name="email_to">sami.nazzal@betait.net</field>
+            <field name="email_cc">mohd.sageer@betait.net, ramesh.poruppath@betait.net</field>
+             <field name="model_id" ref="beta_customisation.model_beta_loan_salaf"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear HR Team,</p>
+
+             <p>There is a request for Beta Loan Assistance Program (SALAF) from ${object.name.name or ''}</p>
+             <p> Would you please review and validate.</p>
+
+            <p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1227&amp;action=1966">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1227&amp;action=1966</a></p>
+            <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="beta_salaf_loan_approval_finance" model="email.template">
+             <field name="name">UAE - HR Request to Approve Beta IT Loan Assistance Program (SALAF)</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Request to Approve Beta Loan Assistance Program (SALAF) - ${object.name.name}</field>
+             <field name="email_to">mohd.sageer@betait.net</field>
+             <field name="email_cc">sami.nazzal@betait.net, ramesh.poruppath@betait.net</field>
+             <field name="model_id" ref="beta_customisation.model_beta_loan_salaf"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear Finance Team,</p>
+
+             <p>There is a request for Beta IT Loan Assistance Program (SALAF) from ${object.name.name or ''}</p>
+             <p>It has been validated by HR ${object.h_approved_by.name}</p>
+             <p>Would you review and approve it.</p>
+            <p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1227&amp;action=1966">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1227&amp;action=1966</a></p>            <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="beta_salaf_loan_approved_notify_employee" model="email.template">
+             <field name="name">UAE - Approval for Beta IT Loan Assistance Program (SALAF)</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Beta Loan Assistance Program (SALAF) - Approved - ${object.name.name or ''}</field>
+             <field name="email_to">${object.name.work_email}</field>
+             <field name="email_cc">mohd.sageer@betait.net, sami.nazzal@betait.net, ramesh.poruppath@betait.net</field>
+             <field name="model_id" ref="beta_customisation.model_beta_loan_salaf"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear ${object.name.name or ''},</p>
+             <p>The below request for Beta IT Loan Assistance Program (SALAF) has been approved.</p>
+               <p>Please download the Loan Agreement from the below form (Go to Print section), sign it digitally, and upload the signed document to the Attachments section of the same form.</p>
+                <p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1227&amp;action=1966">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1227&amp;action=1966</a></p>            <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+
+         <record id="beta_salaf_loan_rejected_notify_employee" model="email.template">
+             <field name="name">UAE - Rejection of Beta IT Loan Assistance Program (SALAF)</field>
+             <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
+             <field name="subject">Rejection of Beta Loan Assistance Program (SALAF) - ${object.name.name or ''}</field>
+             <field name="email_to">${object.work_email}</field>
+             <field name="email_cc">mohd.sageer@betait.net, sami.nazzal@betait.net, ramesh.poruppath@betait.net</field>
+             <field name="model_id" ref="beta_customisation.model_beta_loan_salaf"/>
+             <field name="body_html"><![CDATA[
+         <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+             <p>Dear ${object.name.name or ''},</p>
+             <p>The below request for Beta Loan Assistance Program (SALAF) has been rejected.</p>
+              <p>For further details regarding the reason for rejection, please contact the HR/Finance Department.</p>
+                <p><a href="http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1227&amp;action=1966">http://erp.betait.net/web#id=${object.id}&amp;view_type=form&amp;model=beta.loan.salaf&amp;menu_id=1227&amp;action=1966</a></p>            <p>Thank You</p>
+         </div>
+             ]]>
+             </field>
+         </record>
+
+
+         </data>
+</openerp>

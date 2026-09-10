@@ -52,7 +52,7 @@ class SalafLoanForm(models.Model):
         <p>5. Loan settlement will start from the next month after receiving the loan.</p>
         </br>
         <h3>General Terms:</h3>
-        <p>1. The program is valid starting Jan 1, 2025, and it ends on Dec 31, 2025. It will be reviewed every year.</p>
+        <p>1. The program is valid starting Jan 1, 2025, and it ends on Dec 31, 2026. It will be reviewed every year.</p>
         <p>2. In case the employee resigns or gets terminated, the remaining balance of the loan will be deducted from his end of service gratuity. If the end of service gratuity does not cover the remaining balance of the loan, the balance will be deducted from the notice period salary payments (distributed equally on the notice period months).</p>
         </br>
         <h3>Company Commitment:</h3>
@@ -65,6 +65,30 @@ class SalafLoanForm(models.Model):
         </br>
         <h3>Mandatory Authorization:</h3>
         """
+        if self.env.user.company_id.id == 1:
+            res = """
+                    <h3>Loan Conditions:</h3>
+                    <p>1. The loan amount is up to one-month gross salary.</p>
+                    <p>2. The Loan shall be settled back within 6 months.</p>
+                    <p>3. The loan is applicable once every 12 months.</p>
+                    <p>4. Loan settlement will be through deduction from the monthly salary.</p>
+                    <p>5. Loan settlement will start from the next month after receiving the loan.</p>
+                    </br>
+                    <h3>General Terms:</h3>
+                    <p>1. The program is valid starting Sep 1, 2026, and it ends on Dec 31, 2027. It will be reviewed every year.</p>
+                    <p>2. In case the employee resigns or gets terminated, the remaining balance of the loan will be deducted from his end of service gratuity. If the end of service gratuity does not cover the remaining balance of the loan, the balance will be deducted from the notice period salary payments (distributed equally on the notice period months).</p>
+                    </br>
+                    <h3>Company Commitment:</h3>
+                    <p>1. Salary Deduction: The company will automatically deduct the specified amount for six months, provided that the deducted amount does not exceed 50% of the salary during the agreement period.</p>
+                    <p>2. Deduction Justification: The company will submit the deduction on a monthly basis through the Wage Protection System.</p>
+                    </br>
+                    <h3>Employee Commitment:</h3>
+                    <p>1. Request of Loan: The employee confirms the submission of this loan request for a period of six months, and the company theirs no responsibility.</p>
+                    <p>2. Acceptance of Deduction Justification: The employee must accept the deduction justification on a monthly basis through the Wage Protection System within three days.</p>
+                    </br>
+                    <h3>Mandatory Authorization:</h3>
+                    """
+
 
         return res
     
@@ -140,6 +164,8 @@ class SalafLoanForm(models.Model):
         join_date = self.joining_date
         join_date_datetime = datetime.strptime(join_date, "%Y-%m-%d")
         res = join_date_datetime + relativedelta(months=3)
+        if self.company_id.id == 1:
+            res = join_date_datetime + relativedelta(months=6)
         date_start = self.start_date or False
         if date_start:
             start_date_datetime = datetime.strptime(date_start, "%Y-%m-%d")
@@ -169,7 +195,9 @@ class SalafLoanForm(models.Model):
         emp_company_id = self.company_id.id
         if emp_company_id == saudi_comp:
             template = template +'_saudi'
-        template_id = ir_model_data.get_object_reference('beta_customisation', template)[1]
+            template_id = ir_model_data.get_object_reference('beta_customisation', template)[1]
+        else:
+            template_id = ir_model_data.get_object_reference('beta_technology_report', template)[1]
         crm_id = self.id
         email_obj.send_mail(self.env.cr, self.env.uid, template_id,crm_id)
         return True

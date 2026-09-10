@@ -13,6 +13,7 @@
         'views/costsheet_view.xml',
         'views/vendor_rebate.xml',
         'views/pre_opeation_log_view.xml',
+        'views/beta_dxb_salaf_mail_template.xml',
         'wizard/sale_in_new_view.xml',
         'wizard/opp_revenue_rpt_new_view.xml',
         'wizard/sale_in_brand_rpt_view.xml',
