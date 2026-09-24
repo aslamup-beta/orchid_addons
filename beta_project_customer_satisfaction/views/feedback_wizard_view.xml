@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_feedback_request_wizard_form" model="ir.ui.view">
+            <field name="name">project.feedback.request.wizard.form</field>
+            <field name="model">project.feedback.request.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Send Feedback Request">
+                    <field name="project_id" invisible="1"/>
+                    <group>
+                        <field name="email_from" required="1" placeholder="e.g. noreply@yourcompany.com"/>
+                        <field name="email_to" required="1" placeholder="e.g. customer@example.com"/>
+                        <field name="language" widget="radio"/>
+                        <field name="message_en"
+                               attrs="{'invisible': [('language', '!=', 'en')], 'required': [('language', '=', 'en')]}"
+                               placeholder="e.g. Thank you for working with us on the SA12504 TALEMIA-RFQ Cisco UCCX and Recording project."/>
+                        <field name="message_ar"
+                               attrs="{'invisible': [('language', '!=', 'ar')], 'required': [('language', '=', 'ar')]}"
+                               placeholder="مثال: نشكركم على تعاونكم معنا في مشروع SA12504 TALEMIA-RFQ Cisco UCCX and Recording."/>
+                    </group>
+                    <p class="text-muted">
+                        The feedback request email (with the 0-10 rating bar) will be
+                        sent from and to the addresses above, in the language selected.
+                        The message above is shown as-is in the email and on record for
+                        this project - it is not wrapped in any extra boilerplate text.
+                    </p>
+                    <footer>
+                        <button name="action_send" type="object"
+                                string="Send" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

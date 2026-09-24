@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+            NOTE: inherits project.edit_project, the standard Project form
+            view shipped with the `project` module in Odoo 8. If your
+            instance customises that view, adjust the xpath expressions
+            below to match your actual base view structure.
+        -->
+        <record id="view_project_form_feedback_inherit" model="ir.ui.view">
+            <field name="name">project.project.form.feedback</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+
+                <!-- Send-request button lives in the header and now opens
+                     the From/To wizard (project.feedback.request.wizard)
+                     instead of sending immediately. -->
+                <xpath expr="//header" position="inside">
+                    <button name="action_send_feedback_request"
+                            type="object"
+                            groups="__export__.res_groups_196,orchid_beta.groups_beta_admin"
+                            string="Send Feedback Request"
+                            class="oe_highlight"/>
+                </xpath>
+
+                <!-- Feedback tab: plain fields on the project itself, no
+                     embedded list - a project only ever holds one current
+                     rating/feedback/score. Plain (readonly) field for
+                     `rating` here: with 10 options a radio widget gets
+                     cluttered in the backend form. The customer-facing
+                     0-10 gradient bar lives in the email and on the public
+                     page (views/feedback_templates.xml,
+                     data/email_template.xml). `score` is intentionally not
+                     shown here (still computed/stored on the model - the
+                     KPI page below still reads it via
+                     cust_feedback_score - just hidden from this tab). -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Feedback" name="customer_feedback" groups="__export__.res_groups_196,orchid_beta.groups_beta_admin">
+                        <group>
+                            <group>
+                                <field name="rating" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="feedback_message" readonly="1"/>
+                                <field name="feedback_sent_to" readonly="1"/>
+                                <field name="feedback_language" readonly="1"/>
+                            </group>
+                        </group>
+                        <group string="Comments">
+                            <field name="feedback_text" nolabel="1"
+                                   placeholder="No feedback submitted yet." readonly="1"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_project_form_inherit_kpi_cust_feedback" model="ir.ui.view">
+            <field name="name">project.project.form.kpi.cust.feedback</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="orchid_beta_project.view_project_project_form_od_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Post Project Evaluation - KPI']//tr[td/strong='Total Score']"
+                       position="before">
+                    <tr groups="__export__.res_groups_196,orchid_beta.groups_beta_admin">
+                        <td>Customer Feedback</td>
+                        <td>
+                            <field name="cust_feedback_score"/>
+                        </td>
+                    </tr>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

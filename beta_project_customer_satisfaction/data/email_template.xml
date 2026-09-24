@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+            Two fully separate templates (English / Arabic) instead of one
+            template with a Mako `% if / % else` block - the previous
+            single-template version rendered no content at all, most
+            likely because this fork's `email.template` engine doesn't
+            evaluate Mako control-flow lines the way plain `${...}`
+            expressions are evaluated. Picking one of these two by xmlid at
+            send time (models/project.py:send_feedback_email) sidesteps
+            that entirely - each template's body_html is 100% plain
+            ${...} substitution, no control blocks.
+
+            model_id is project.project. object.feedback_message is the
+            full free-text sentence typed into the wizard (in whichever
+            language was selected) - shown as-is, with no surrounding
+            boilerplate text ("Thank you for working with us on..." is no
+            longer hardcoded; the user's message IS the sentence). Company
+            name text uses #1E1E50 (navy), sampled from the Beta
+            Information Technology logo. object.get_feedback_url() reads
+            the token directly off this same project record (see
+            models/project.py).
+
+            email_from/email_to check the wizard's context values first
+            (feedback_email_from/feedback_email_to, set via
+            template.with_context(...) in
+            models/project.py:send_feedback_email) - there is no automatic
+            fallback any more, since From/To are no longer auto-fetched;
+            the wizard requires them to be typed in.
+        -->
+
+        <record id="email_template_customer_feedback_en" model="email.template">
+            <field name="name">Project: Customer Feedback Request (English)</field>
+            <field name="model_id" ref="project.model_project_project"/>
+            <field name="email_from">${(ctx.get('feedback_email_from') or '')|safe}</field>
+            <field name="email_to">${(ctx.get('feedback_email_to') or '')|safe}</field>
+            <field name="subject">We value your feedback</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;background-color:#ffffff;color:#222222;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+
+    <div style="background-color:#F6C75A;background:linear-gradient(90deg,#EB5757,#F6C75A,#6FCF5A);height:6px;"></div>
+
+    <div style="padding:24px 22px 16px 22px;text-align:center;border-bottom:1px solid #eeeeee;">
+        <div style="font-size:19px;font-weight:bold;color:#222222;">We Value Your Feedback</div>
+    </div>
+
+    <div style="padding:26px 24px;">
+        <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 18px 0;">Dear Valued Customer,</p>
+        <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 22px 0;">
+            ${object.feedback_message}
+        </p>
+        <p style="text-align:center;font-size:13px;font-weight:normal;color:#6b7280;line-height:1.6;margin:0 0 18px 0;">
+            How satisfied are you with our project?
+        </p>
+
+        <table style="width:100%;border-collapse:collapse;margin-bottom:8px;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width:50%;text-align:left;font-size:12px;font-weight:bold;color:#D9622E;">Extremely Unsatisfied</td>
+                <td style="width:50%;text-align:right;font-size:12px;font-weight:bold;color:#4E9A3A;">Extremely Satisfied</td>
+            </tr>
+        </table>
+        <table style="width:100%;border-collapse:separate;border-spacing:3px 0;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(0)}" style="display:block;text-decoration:none;background-color:#EB5757;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">0</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(1)}" style="display:block;text-decoration:none;background-color:#ED7058;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">1</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(2)}" style="display:block;text-decoration:none;background-color:#F08958;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">2</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(3)}" style="display:block;text-decoration:none;background-color:#F2A359;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">3</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(4)}" style="display:block;text-decoration:none;background-color:#F5BC59;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">4</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(5)}" style="display:block;text-decoration:none;background-color:#F7D55A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">5</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(6)}" style="display:block;text-decoration:none;background-color:#DCD45A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">6</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(7)}" style="display:block;text-decoration:none;background-color:#C1D35A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">7</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(8)}" style="display:block;text-decoration:none;background-color:#A5D15A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">8</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(9)}" style="display:block;text-decoration:none;background-color:#8AD05A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">9</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(10)}" style="display:block;text-decoration:none;background-color:#6FCF5A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">10</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="padding:22px 22px 24px 22px;text-align:center;border-top:1px solid #eeeeee;">
+        <div style="font-size:14px;font-weight:bold;color:#444444;margin-bottom:14px;">Best Regards,</div>
+        <div style="font-size:15px;font-weight:bold;color:#1E1E50;">Dar Beta Information Technology</div>
+        <div style="font-size:12px;color:#999999;margin-top:4px;">Customer Experience Team</div>
+    </div>
+
+    <div style="background-color:#F6C75A;background:linear-gradient(90deg,#6FCF5A,#F6C75A,#EB5757);height:6px;"></div>
+</div>
+]]></field>
+        </record>
+
+        <record id="email_template_customer_feedback_ar" model="email.template">
+            <field name="name">Project: Customer Feedback Request (Arabic)</field>
+            <field name="model_id" ref="project.model_project_project"/>
+            <field name="email_from">${(ctx.get('feedback_email_from') or '')|safe}</field>
+            <field name="email_to">${(ctx.get('feedback_email_to') or '')|safe}</field>
+            <field name="subject">${u'نقيّم خدمتكم'|safe}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html"><![CDATA[
+<div dir="rtl" style="font-family:Tahoma,Arial,sans-serif;max-width:640px;margin:0 auto;background-color:#ffffff;color:#222222;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+
+    <div style="background-color:#F6C75A;background:linear-gradient(90deg,#EB5757,#F6C75A,#6FCF5A);height:6px;"></div>
+
+    <div style="padding:24px 22px 16px 22px;text-align:center;border-bottom:1px solid #eeeeee;">
+        <div style="font-size:19px;font-weight:bold;color:#222222;">نقيّم رأيكم</div>
+    </div>
+
+    <div style="padding:26px 24px;">
+        <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 18px 0;">عميلنا العزيز،</p>
+        <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 22px 0;">
+            ${object.feedback_message}
+        </p>
+        <p style="text-align:center;font-size:13px;font-weight:normal;color:#6b7280;line-height:1.6;margin:0 0 18px 0;">
+            ما مدى رضاك عن مشروعنا؟
+        </p>
+
+        <table dir="ltr" style="direction:ltr;unicode-bidi:bidi-override;width:100%;border-collapse:collapse;margin-bottom:8px;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width:50%;text-align:left;font-size:12px;font-weight:bold;color:#4E9A3A;">راضٍ للغاية</td>
+                <td style="width:50%;text-align:right;font-size:12px;font-weight:bold;color:#D9622E;">غير راضٍ على الإطلاق</td>
+            </tr>
+        </table>
+        <table dir="ltr" style="direction:ltr;unicode-bidi:bidi-override;width:100%;border-collapse:separate;border-spacing:3px 0;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(10)}" style="display:block;text-decoration:none;background-color:#6FCF5A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">10</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(9)}" style="display:block;text-decoration:none;background-color:#8AD05A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">9</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(8)}" style="display:block;text-decoration:none;background-color:#A5D15A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">8</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(7)}" style="display:block;text-decoration:none;background-color:#C1D35A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">7</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(6)}" style="display:block;text-decoration:none;background-color:#DCD45A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">6</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(5)}" style="display:block;text-decoration:none;background-color:#F7D55A;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">5</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(4)}" style="display:block;text-decoration:none;background-color:#F5BC59;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">4</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(3)}" style="display:block;text-decoration:none;background-color:#F2A359;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">3</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(2)}" style="display:block;text-decoration:none;background-color:#F08958;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">2</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(1)}" style="display:block;text-decoration:none;background-color:#ED7058;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">1</a></td>
+                <td style="text-align:center;"><a href="${object.get_feedback_url(0)}" style="display:block;text-decoration:none;background-color:#EB5757;color:#222222;font-size:12px;font-weight:bold;padding:11px 0;border-radius:5px;">0</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="padding:22px 22px 24px 22px;text-align:center;border-top:1px solid #eeeeee;">
+        <div style="font-size:14px;font-weight:bold;color:#444444;margin-bottom:14px;">مع أطيب التحيات،</div>
+        <div style="font-size:15px;font-weight:bold;color:#1E1E50;">Dar Beta Information Technology</div>
+        <div style="font-size:12px;color:#999999;margin-top:4px;">فريق تجربة العملاء</div>
+    </div>
+
+    <div style="background-color:#F6C75A;background:linear-gradient(90deg,#6FCF5A,#F6C75A,#EB5757);height:6px;"></div>
+</div>
+]]></field>
+        </record>
+
+    </data>
+</openerp>

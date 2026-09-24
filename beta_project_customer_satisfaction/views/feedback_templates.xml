@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--
+            Fully separate templates per language, chosen by xmlid in
+            controllers/main.py based on project.feedback_language -
+            mirroring data/email_template.xml's _en/_ar split. Even
+            "mutually exclusive t-if" conditions were unreliable in this
+            fork's QWeb renderer (both branches rendered together,
+            duplicating the bar and mixing languages), so language
+            selection now happens entirely in Python: no t-if/t-else
+            anywhere in this file decides *content* language. The only
+            per-record conditional left is t-att-checked (a plain string
+            computed for one attribute, not a content-visibility
+            directive).
+
+            Arabic bar/label rows use dir="ltr" AND
+            unicode-bidi:bidi-override together - dir alone was not
+            enough to stop the inherited RTL context from visually
+            re-ordering the table columns and collapsing the two end
+            labels together in some renderers.
+        -->
+
+        <template id="feedback_form_en" name="Customer Feedback Form (English)">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure" style="background-color:#f2f2f2;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-md-offset-1" style="max-width:640px;margin:0 auto;float:none;">
+                                <div style="font-family:Arial,Helvetica,sans-serif;background-color:#ffffff;color:#222222;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-top:40px;margin-bottom:60px;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+
+                                    <div style="background-color:#F6C75A;background:linear-gradient(90deg,#EB5757,#F6C75A,#6FCF5A);height:6px;"></div>
+
+                                    <div style="padding:24px 22px 16px 22px;text-align:center;border-bottom:1px solid #eeeeee;">
+                                        <div style="font-size:19px;font-weight:bold;">We Value Your Feedback</div>
+                                    </div>
+
+                                    <div style="padding:26px 24px;">
+                                        <form action="/feedback/submit" method="post" role="form">
+                                            <input type="hidden" name="token" t-att-value="token"/>
+
+                                            <p style="text-align:center;font-size:13px;color:#6b7280;margin:0 0 16px 0;">
+                                                How satisfied are you with our project?
+                                            </p>
+
+                                            <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                                                <span style="font-size:12px;font-weight:bold;color:#D9622E;">Extremely Unsatisfied</span>
+                                                <span style="font-size:12px;font-weight:bold;color:#4E9A3A;">Extremely Satisfied</span>
+                                            </div>
+
+                                            <div id="feedback_bar" style="display:flex;gap:4px;margin-bottom:28px;">
+                                                <t t-foreach="[
+                                                    ('0', '#EB5757'), ('1', '#ED7058'), ('2', '#F08958'), ('3', '#F2A359'),
+                                                    ('4', '#F5BC59'), ('5', '#F7D55A'), ('6', '#DCD45A'), ('7', '#C1D35A'),
+                                                    ('8', '#A5D15A'), ('9', '#8AD05A'), ('10', '#6FCF5A')]" t-as="bar">
+                                                    <label class="feedback-bar-segment"
+                                                           t-att-data-value="bar[0]"
+                                                           t-attf-style="flex:1;cursor:pointer;text-align:center;padding:13px 0;border-radius:5px;color:#222222;font-size:12px;font-weight:bold;background-color:#{bar[1]};opacity:#{'1' if selected_rating == bar[0] else '0.55'};transition:opacity .15s ease;">
+                                                        <input type="radio" name="rating" style="display:none;"
+                                                               t-att-value="bar[0]"
+                                                               t-att-checked="'checked' if selected_rating == bar[0] else None"/>
+                                                        <t t-esc="bar[0]"/>
+                                                    </label>
+                                                </t>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label style="display:block;text-align:center;margin-bottom:8px;font-weight:bold;">Your comments (optional)</label>
+                                                <textarea class="form-control" name="feedback_text" rows="5" placeholder="Tell us more..."/>
+                                            </div>
+
+                                            <div style="text-align:center;margin-top:20px;">
+                                                <button type="submit" class="btn btn-lg"
+                                                        style="background-color:#F6C75A;color:#222222;font-weight:bold;border:none;padding:12px 40px;border-radius:6px;">
+                                                    Submit
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div style="background-color:#F6C75A;background:linear-gradient(90deg,#6FCF5A,#F6C75A,#EB5757);height:6px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    document.querySelectorAll('.feedback-bar-segment').forEach(function (seg) {
+                        seg.addEventListener('click', function () {
+                            document.querySelectorAll('.feedback-bar-segment').forEach(function (s) {
+                                s.style.opacity = '0.55';
+                            });
+                            seg.style.opacity = '1';
+                        });
+                    });
+                </script>
+            </t>
+        </template>
+
+        <template id="feedback_form_ar" name="Customer Feedback Form (Arabic)">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure" style="background-color:#f2f2f2;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-md-offset-1" style="max-width:640px;margin:0 auto;float:none;">
+                                <div dir="rtl" style="font-family:Tahoma,Arial,sans-serif;background-color:#ffffff;color:#222222;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-top:40px;margin-bottom:60px;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+
+                                    <div style="background-color:#F6C75A;background:linear-gradient(90deg,#EB5757,#F6C75A,#6FCF5A);height:6px;"></div>
+
+                                    <div style="padding:24px 22px 16px 22px;text-align:center;border-bottom:1px solid #eeeeee;">
+                                        <div style="font-size:19px;font-weight:bold;">نقيّم رأيكم</div>
+                                    </div>
+
+                                    <div style="padding:26px 24px;">
+                                        <form action="/feedback/submit" method="post" role="form">
+                                            <input type="hidden" name="token" t-att-value="token"/>
+
+                                            <p style="text-align:center;font-size:13px;color:#6b7280;margin:0 0 16px 0;">
+                                                ما مدى رضاك عن مشروعنا؟
+                                            </p>
+
+                                            <div dir="ltr" style="direction:ltr;unicode-bidi:bidi-override;display:flex;justify-content:space-between;margin-bottom:8px;">
+                                                <span style="font-size:12px;font-weight:bold;color:#4E9A3A;">راضٍ للغاية</span>
+                                                <span style="font-size:12px;font-weight:bold;color:#D9622E;">غير راضٍ على الإطلاق</span>
+                                            </div>
+
+                                            <div id="feedback_bar" dir="ltr" style="direction:ltr;unicode-bidi:bidi-override;display:flex;gap:4px;margin-bottom:28px;">
+                                                <t t-foreach="[
+                                                    ('10', '#6FCF5A'), ('9', '#8AD05A'), ('8', '#A5D15A'), ('7', '#C1D35A'),
+                                                    ('6', '#DCD45A'), ('5', '#F7D55A'), ('4', '#F5BC59'), ('3', '#F2A359'),
+                                                    ('2', '#F08958'), ('1', '#ED7058'), ('0', '#EB5757')]" t-as="bar">
+                                                    <label class="feedback-bar-segment"
+                                                           t-att-data-value="bar[0]"
+                                                           t-attf-style="flex:1;cursor:pointer;text-align:center;padding:13px 0;border-radius:5px;color:#222222;font-size:12px;font-weight:bold;background-color:#{bar[1]};opacity:#{'1' if selected_rating == bar[0] else '0.55'};transition:opacity .15s ease;">
+                                                        <input type="radio" name="rating" style="display:none;"
+                                                               t-att-value="bar[0]"
+                                                               t-att-checked="'checked' if selected_rating == bar[0] else None"/>
+                                                        <t t-esc="bar[0]"/>
+                                                    </label>
+                                                </t>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label style="display:block;text-align:center;margin-bottom:8px;font-weight:bold;">ملاحظاتكم (اختياري)</label>
+                                                <textarea class="form-control" name="feedback_text" rows="5" placeholder="اكتب ملاحظاتك هنا..."/>
+                                            </div>
+
+                                            <div style="text-align:center;margin-top:20px;">
+                                                <button type="submit" class="btn btn-lg"
+                                                        style="background-color:#F6C75A;color:#222222;font-weight:bold;border:none;padding:12px 40px;border-radius:6px;">
+                                                    إرسال
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div style="background-color:#F6C75A;background:linear-gradient(90deg,#6FCF5A,#F6C75A,#EB5757);height:6px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    document.querySelectorAll('.feedback-bar-segment').forEach(function (seg) {
+                        seg.addEventListener('click', function () {
+                            document.querySelectorAll('.feedback-bar-segment').forEach(function (s) {
+                                s.style.opacity = '0.55';
+                            });
+                            seg.style.opacity = '1';
+                        });
+                    });
+                </script>
+            </t>
+        </template>
+
+        <template id="feedback_thankyou_en" name="Feedback Thank You (English)">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure" style="background-color:#f2f2f2;">
+                    <div class="container">
+                        <div class="col-md-8 col-md-offset-2" style="max-width:600px;margin:0 auto;float:none;">
+                            <div style="font-family:Arial,Helvetica,sans-serif;background-color:#ffffff;color:#222222;border:1px solid #e5e7eb;border-radius:10px;text-align:center;padding:50px 30px;margin-top:60px;margin-bottom:60px;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+                                <span style="font-size:56px;">&#128077;</span>
+                                <h2 style="margin-top:14px;">Thank you for your feedback!</h2>
+                                <p style="color:#1E1E50;font-size:13px;font-weight:bold;">
+                                    Dar Beta Information Technology
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="feedback_thankyou_ar" name="Feedback Thank You (Arabic)">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure" style="background-color:#f2f2f2;">
+                    <div class="container">
+                        <div class="col-md-8 col-md-offset-2" style="max-width:600px;margin:0 auto;float:none;">
+                            <div dir="rtl" style="font-family:Tahoma,Arial,sans-serif;background-color:#ffffff;color:#222222;border:1px solid #e5e7eb;border-radius:10px;text-align:center;padding:50px 30px;margin-top:60px;margin-bottom:60px;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+                                <span style="font-size:56px;">&#128077;</span>
+                                <h2 style="margin-top:14px;">شكرًا لملاحظاتكم!</h2>
+                                <p style="color:#1E1E50;font-size:13px;font-weight:bold;">
+                                    Dar Beta Information Technology
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- No language available for this one (token itself is unknown/
+             expired), so it stays intentionally bilingual - both texts
+             are hard-coded together on purpose here, not a bug. -->
+        <template id="feedback_invalid" name="Feedback Invalid or Expired">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure" style="background-color:#f2f2f2;">
+                    <div class="container">
+                        <div class="col-md-8 col-md-offset-2" style="max-width:600px;margin:0 auto;float:none;">
+                            <div style="background-color:#ffffff;color:#222222;border:1px solid #e5e7eb;border-radius:10px;text-align:center;padding:50px 30px;margin-top:60px;margin-bottom:60px;box-shadow:0 4px 16px rgba(0,0,0,0.08);">
+                                <span style="font-size:56px;">&#9888;</span>
+                                <div dir="rtl" style="font-family:Tahoma,Arial,sans-serif;font-size:18px;font-weight:bold;margin-top:14px;">
+                                    الرابط غير صالح أو منتهي الصلاحية
+                                </div>
+                                <h2 style="margin-top:6px;">Invalid or Expired Link</h2>
+                                <p style="color:#888888;font-size:13px;">
+                                    Please contact us if you would still like to share your feedback.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</openerp>
