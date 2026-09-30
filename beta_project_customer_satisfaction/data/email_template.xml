@@ -50,6 +50,9 @@
     <div style="padding:26px 24px;">
         <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 18px 0;">Dear Valued Customer,</p>
         <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 22px 0;">
+            Thank you for working with us. As part of our ongoing efforts to develop and enhance our services, we would be delighted to hear your feedback.
+        </p>
+        <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 22px 0;">
             ${object.feedback_message}
         </p>
         <p style="text-align:center;font-size:13px;font-weight:normal;color:#6b7280;line-height:1.6;margin:0 0 18px 0;">
@@ -108,6 +111,9 @@
 
     <div style="padding:26px 24px;">
         <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 18px 0;">عميلنا العزيز،</p>
+        <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 22px 0;">
+            شكراً لتعاونك معنا. كجزء من جهودنا المستمرة لتطوير وتحسين خدماتنا، يسعدنا جداً سماع آرائك.
+        </p>
         <p style="text-align:center;font-size:14px;font-weight:bold;line-height:1.7;margin:0 0 22px 0;">
             ${object.feedback_message}
         </p>
