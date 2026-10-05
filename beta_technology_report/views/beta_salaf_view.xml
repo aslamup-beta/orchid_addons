@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_beta_loan_salaf_form_instalments" model="ir.ui.view">
+            <field name="name">beta.loan.salaf.form.instalments</field>
+            <field name="model">beta.loan.salaf</field>
+            <!-- point this to the actual xml id of the base form view -->
+            <field name="inherit_id" ref="beta_customisation.view_beta_loan_salaf_form_view"/>
+            <field name="arch" type="xml">
+                <!-- adjust the string to match the exact label used on your existing page -->
+                <xpath expr="//page[@string='Terms &amp; Conditions']" position="after">
+                    <page string="Installments" groups="__export__.res_groups_200"
+                          attrs="{'invisible': [('state', 'not in', ['confirm'])]}">
+                        <button name="action_generate_installments"
+                                string="Generate Installments"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('installment_line_ids', '!=', [])]}"/>
+                        <field name="installment_line_ids">
+                            <tree editable="bottom">
+                                <field name="s_no"/>
+                                <field name="date"/>
+                                <field name="amount"/>
+                                <field name="paid"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
