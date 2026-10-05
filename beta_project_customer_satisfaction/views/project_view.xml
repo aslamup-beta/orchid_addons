@@ -21,7 +21,7 @@
                     <button name="action_send_feedback_request"
                             type="object"
                             groups="__export__.res_groups_196,orchid_beta.groups_beta_admin"
-                            string="Send Feedback Request"
+                            string="Send Feedback Request" attrs="{'invisible': [('feedback_sent_to', '!=', False)]}"
                             class="oe_highlight"/>
                 </xpath>
 

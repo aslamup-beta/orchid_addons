@@ -2,6 +2,16 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import Warning as UserError
 
+DEFAULT_MESSAGE_EN = (
+    u"Thank you for working with us. As part of our ongoing efforts to "
+    u"develop and enhance our services, we would be delighted to hear "
+    u"your feedback."
+)
+DEFAULT_MESSAGE_AR = (
+    u"شكراً لتعاونك معنا. كجزء من جهودنا المستمرة لتطوير وتحسين "
+    u"خدماتنا، يسعدنا جداً سماع آرائك"
+)
+
 
 class ProjectFeedbackRequestWizard(models.TransientModel):
     _name = 'project.feedback.request.wizard'
@@ -28,15 +38,25 @@ class ProjectFeedbackRequestWizard(models.TransientModel):
 
     message_en = fields.Char(
         string='Message (English)',
-        help='The full sentence shown in the email when Language is '
-             'English - e.g. "Thank you for working with us on the '
-             'SA12504 TALEMIA-RFQ Cisco UCCX and Recording project."')
+        default=DEFAULT_MESSAGE_EN,
+        help='The full sentence shown in the email when Language is English.')
 
     message_ar = fields.Char(
         string='Message (Arabic)',
-        help='The full sentence shown in the email when Language is '
-             'Arabic - e.g. "نشكركم على تعاونكم معنا في مشروع '
-             'SA12504 TALEMIA-RFQ Cisco UCCX and Recording."')
+        default=DEFAULT_MESSAGE_AR,
+        help='The full sentence shown in the email when Language is Arabic.')
+
+    @api.onchange('language')
+    def _onchange_language(self):
+        """Refill the message for the selected language with the default
+        text, but only if the field is empty or still holds the default,
+        so we never overwrite something the user typed."""
+        if self.language == 'ar':
+            if not self.message_ar or self.message_ar == DEFAULT_MESSAGE_AR:
+                self.message_ar = DEFAULT_MESSAGE_AR
+        else:
+            if not self.message_en or self.message_en == DEFAULT_MESSAGE_EN:
+                self.message_en = DEFAULT_MESSAGE_EN
 
     @api.multi
     def action_send(self):
