@@ -18,6 +18,7 @@
         'wizard/opp_revenue_rpt_new_view.xml',
         'wizard/sale_in_brand_rpt_view.xml',
         'wizard/opp_revenue_brand_rpt_view.xml',
+        'wizard/lead_analysis_rpt_new_view.xml',
     ],
     'demo': [],
     'installable': True,
