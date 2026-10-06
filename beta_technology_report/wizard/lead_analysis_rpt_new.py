@@ -59,10 +59,10 @@ class lead_analysis_rpt_wiz_new(models.TransientModel):
     date_end = fields.Date(string="Expected Booking Date End")
     lead_date_start = fields.Date(string="Created On Start")
     lead_date_end = fields.Date(string="Created On End")
-    sm_ids = fields.Many2many('res.users', 'wiz_sale_a1', 'wiz_id', 'user_id', string="Customer AM")
-    lead_am_ids = fields.Many2many('res.users', 'wiz_lead_a5', 'wiz_id', 'user_id', string="Lead AM",
+    sm_ids = fields.Many2many('res.users', 'wiz_sales_am', 'wiz_id1', 'user_id1', string="Customer AM")
+    lead_am_ids = fields.Many2many('res.users', 'wiz_lead_am', 'wiz_id2', 'user_id2', string="Lead AM",
                                    default=get_lead_am_ids)
-    cust_ids = fields.Many2many('res.partner', 'wiz_sale_cust4', 'wiz_id', 'user_id',
+    cust_ids = fields.Many2many('res.partner', 'wiz_customer', 'wiz_id3', 'partner_id',
                                 domain=[('is_company', '=', True), ('customer', '=', True)], string="Customer")
     wiz_line = fields.One2many('wiz.lead.analysis.data.new', 'wiz_id', string="Wiz Line")
     include_won_opps = fields.Boolean(string="Include Opportunities Won on the Above Dates")
