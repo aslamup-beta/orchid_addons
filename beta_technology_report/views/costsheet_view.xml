@@ -7,6 +7,9 @@
             <field name="model">od.cost.sheet</field>
             <field name="inherit_id" ref="orchid_cost_sheet.od_cost_sheet_form_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//separator[@string='Brand Weight']" position="replace">
+                    <separator string="Brand Weight (Includes MAT,TRN tabs)"/>
+                </xpath>
                 <xpath expr="//field[@name='mat_brand_weight_line']" position="after">
                     <separator string="All Brand Weight (Includes MAT,TRN,PS,IS,MC tabs)"/>
                     <button string="Check All" type="object" class="oe_link" name="generate_all_brand_weight"/>

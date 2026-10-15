@@ -61,7 +61,7 @@
                         <group></group>
 
                         <group>
-                        <field name="created_by_ids" widget="many2many_tags" context="{'sam_ids':1}" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188"/>
+                        <field name="created_by_ids" widget="many2many_tags" context="{'sam_ids':1}" groups="orchid_beta.groups_beta_admin,__export__.res_groups_192,orchid_beta.group_sale_department_mananger,__export__.res_groups_188,__export__.res_groups_280,__export__.res_groups_196"/>
                         </group>
                         <group />
                         <group />
