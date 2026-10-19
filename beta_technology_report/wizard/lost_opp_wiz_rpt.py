@@ -1,0 +1,158 @@
+from openerp import models, fields, api, _
+import openerp.addons.decimal_precision as dp
+
+
+class opp_lost_rpt_wiz(models.TransientModel):
+    _inherit = 'opp.lost.rpt.wiz'
+
+    @api.multi
+    def export_rpt(self):
+        wiz_id = self.id
+        model_data = self.env['ir.model.data']
+        tree_view = model_data.get_object_reference('beta_customisation', 'od_lost_opp_tree_view')
+
+        created_by_ids = [pr.id for pr in self.created_by_ids]
+        stage_ids = [pr.id for pr in self.stage_ids]
+        branch_ids = [pr.id for pr in self.branch_ids]
+        sm_ids = [pr.id for pr in self.sm_ids]
+        lead_am_ids = [pr.id for pr in self.lead_am_ids]
+        user_id = self.env.user.id
+        emp_id = self.env['hr.employee'].search([('user_id', '=', user_id)])
+        if emp_id.job_id.id in (40, 83):
+            sm_ids = [user_id]
+
+        if emp_id.id == 604:
+            sm_ids = [pr.id for pr in self.sm_ids]
+            lead_am_ids = [pr.id for pr in self.lead_am_ids]
+
+        if emp_id.id == 373:
+            sm_ids = [pr.id for pr in self.sm_ids]
+            lead_am_ids = [pr.id for pr in self.lead_am_ids]
+
+        cust_ids = [pr.id for pr in self.cust_ids]
+        date_start = self.date_start
+        date_end = self.date_end
+        lead_date_start = self.lead_date_start
+        lead_date_end = self.lead_date_end
+
+        lost_date_start = self.lost_date_start
+        lost_date_end = self.lost_date_end
+
+        wiz_id = self.id
+        company_id = self.company_id and self.company_id.id
+        domain = []
+        if company_id:
+            domain += [('company_id', '=', company_id)]
+        if created_by_ids:
+            domain += [('create_uid', 'in', created_by_ids)]
+        if stage_ids:
+            domain += [('stage_id', 'in', stage_ids)]
+
+        if branch_ids:
+            domain += [('od_branch_id', 'in', branch_ids)]
+
+        if sm_ids:
+            domain += [('user_id', 'in', sm_ids)]
+
+        if lead_am_ids:
+            domain += [('od_lead_user_id', 'in', lead_am_ids)]
+
+        if cust_ids:
+            domain += [('partner_id', 'in', cust_ids)]
+
+        if date_start:
+            domain += [('date_action', '>=', date_start)]
+        if date_end:
+            domain += [('date_action', '<=', date_end)]
+
+        if lead_date_start:
+            domain += [('create_date', '>=', lead_date_start)]
+        if lead_date_end:
+            domain += [('create_date', '<=', lead_date_end)]
+
+        if lost_date_start:
+            domain += [('lost_date', '>=', lost_date_start)]
+        if lost_date_end:
+            domain += [('lost_date', '<=', lost_date_end)]
+
+        lead_data = self.env['crm.lead'].search(domain)
+        result = []
+        for lead in lead_data:
+
+            opp_id = lead.id
+            name = lead.name
+            created_on = lead.create_date
+            created_by_id = lead.create_uid and lead.create_uid.id
+            expected_booking = lead.date_action
+            stage_id = lead.stage_id and lead.stage_id.id
+            partner_id = lead.partner_id and lead.partner_id.id
+            od_class = lead.partner_id and lead.partner_id.od_class
+            company_id = lead.company_id and lead.company_id.id
+            branch_id = lead.od_branch_id and lead.od_branch_id.id
+            division_id = lead.od_division_id and lead.od_division_id.id
+            sam_id = lead.user_id and lead.user_id.id
+            lead_am_id = lead.od_lead_user_id and lead.od_lead_user_id.id or False
+            type = lead.type
+            cost_sheet = self.env['od.cost.sheet'].search([('lead_id', '=', lead.id), ('status', '=', 'active')],
+                                                          limit=1)
+            sheet_id = cost_sheet and cost_sheet.id
+            mp_sales = cost_sheet and cost_sheet.a_total_manpower_sale or 0.0
+            rebate = cost_sheet and cost_sheet.prn_ven_reb_cost or 0.0
+            returned_mp = cost_sheet and cost_sheet.returned_mp or 0.0
+            cs_sale = cost_sheet and cost_sheet.sum_total_sale or 0.0
+            cs_cost = cost_sheet and cost_sheet.sum_tot_cost or 0.0
+            pre_oprn_amt = self.calculate_preopr_cost(lead)
+            profit_mp = 0.0
+            if cost_sheet:
+                profit_mp = cost_sheet.total_gp + rebate
+            result.append((0, 0, {
+                'wiz_id': wiz_id,
+                'cost_sheet_id': sheet_id,
+                'expected_booking': expected_booking,
+                'opp_id': opp_id,
+                'name': name,
+                'partner_id': partner_id,
+                'company_id': company_id,
+                'branch_id': branch_id,
+                'od_class': od_class,
+                'opp_create_date': created_on,
+                'create_user_id': created_by_id,
+                'division_id': division_id,
+                'lost_date': lead.lost_date,
+                'type': type,
+                'stage_id': stage_id,
+                'sale_aftr_disc': cs_sale,
+                'total_cost': cs_cost,
+                'mp_sales': mp_sales,
+                'sam_id': sam_id,
+                'lead_am_id': lead_am_id,
+                'pre_sales_engineer': cost_sheet.prepared_by and cost_sheet.prepared_by.id or False,
+                'profit': profit_mp,
+                'sm_io1': lead.sm_io1,
+                'sm_io2': lead.sm_io2,
+                'tum_io1': lead.tum_io1,
+                'tum_io2': lead.tum_io2,
+                'returned_mp': returned_mp,
+                'rebate_amnt': rebate,
+                'pre_oprn_amt': pre_oprn_amt
+
+            }))
+
+        self.wiz_line.unlink()
+        self.write({'wiz_line': result})
+
+        return {
+            'domain': [('wiz_id', '=', wiz_id)],
+            'name': 'Lost/Cancelled Opportunities Report',
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'views': [(tree_view and tree_view[1] or False, 'tree')],
+            'res_model': 'wiz.opp.lost.data',
+            'type': 'ir.actions.act_window',
+        }
+
+
+class opp_lost_rpt(models.TransientModel):
+    _inherit = 'wiz.opp.lost.data'
+
+    total_cost = fields.Float(string="Cost", digits=dp.get_precision('Account'))

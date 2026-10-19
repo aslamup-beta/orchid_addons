@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="hr_hr_employee_view_form_hide_badges" model="ir.ui.view">
+            <field name="name">hr.hr.employee.view.form.hide.badges</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Received Badges']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Goals']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <!-- Add group to bank_account_id -->
+                <xpath expr="//field[@name='bank_account_id']" position="attributes">
+                    <attribute name="groups">__export__.res_groups_252,__export__.res_groups_200</attribute>
+                </xpath>
+
+                <!-- Add group to otherid -->
+                <xpath expr="//field[@name='otherid']" position="attributes">
+                    <attribute name="groups">__export__.res_groups_252,__export__.res_groups_200</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="od_hr_employee_view_form_hide_pages" model="ir.ui.view">
+            <field name="name">od.hr.employee.view.form.hide.pages</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="orchid_hrms.view_od_hrms_employee_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Launguage']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Entitlement']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Dependents']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Education']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Beneficiary']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Job Histroy']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@string='Air Route']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+
+

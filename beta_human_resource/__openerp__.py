@@ -6,11 +6,12 @@
     "category": "HR",
     "description": """ Beta Human Resourcet""",
     "website": "http://www.betait.net",
-    "depends": ['hr_expense', 'hr_contract', 'hr_holidays'],
+    "depends": ['hr_expense', 'hr_contract', 'hr_holidays', 'orchid_hrms'],
     'data': [
         'security/ir.model.access.csv',
         'data/hr_doc_expiry_mails.xml',
         'views/payslip_view.xml',
+        'views/employee_view.xml',
         'views/employee_document_line_view.xml',
     ],
     'demo': [],

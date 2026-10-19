@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="wiz_lost_opp_brand_rpt_data_tree_inherit" model="ir.ui.view">
+            <field name="name">wiz.lost.opp.brand.rpt.data.tree.inherit</field>
+            <field name="model">wiz.lost.opp.brand.rpt.data</field>
+            <!-- point this to the actual xml id of the base form view -->
+            <field name="inherit_id" ref="beta_customisation.od_lost_opp_brand_tree_view"/>
+            <field name="arch" type="xml">
+                <!-- adjust the string to match the exact label used on your existing page -->
+                <xpath expr="//field[@name='sale_aftr_disc']" position="after">
+                    <field name="total_cost" string="Cost" sum="Total"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="wiz_lost_opp_brand_rpt_data_search_inherit">
+            <field name="name">wiz.lost.opp.brand.rpt.data.search.inherit</field>
+            <field name="model">wiz.lost.opp.brand.rpt.data</field>
+            <field name="inherit_id" ref="beta_customisation.ood_lost_opp_brand_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@string='Opp Creation Month']" position="after">
+                    <filter string="Opp Creation Year"
+                            name="groupby_opp_create_year"
+                            domain="[]"
+                            context="{'group_by': 'opp_create_date:year'}"/>
+                    <filter string="Lost Year"
+                            name="groupby_lost_year"
+                            domain="[]"
+                            context="{'group_by': 'lost_cancel_date:year'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

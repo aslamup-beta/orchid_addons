@@ -4,4 +4,6 @@ import sale_in_rpt_new
 import sale_in_brand_rpt
 import opp_revenue_brand_rpt
 import lead_analysis_rpt_new
+import lost_opp_wiz_rpt
+import lost_opp_brand_rpt
 
