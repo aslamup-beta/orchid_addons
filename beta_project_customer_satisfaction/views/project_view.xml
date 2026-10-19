@@ -53,6 +53,145 @@
                                    placeholder="No feedback submitted yet." readonly="1"/>
                         </group>
                     </page>
+
+                    <page string="Project Compliance" >
+    <div class="project_compliance_table" groups="__export__.res_groups_196,orchid_beta.groups_beta_admin,__export__.res_groups_265">
+        <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
+            <thead>
+                <tr style="background:#e6e6e6;">
+                    <th style="width:5%; border:1px solid #c8c8c8; padding:8px; text-align:center; font-weight:bold;">No.</th>
+                    <th style="width:30%; border:1px solid #c8c8c8; padding:8px; text-align:left; font-weight:bold;">Report / Document</th>
+                    <th style="width:45%; border:1px solid #c8c8c8; padding:8px; text-align:left; font-weight:bold;">SharePoint Link for Evidence</th>
+                    <th style="width:20%; border:1px solid #c8c8c8; padding:8px; text-align:center; font-weight:bold;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Row 1 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['imp', 'sup_imp'])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">1</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">Kick-Off Meeting Minutes (KOM MOM)</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_1" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_1" nolabel="1"/>
+                    </td>
+                </tr>
+
+                <!-- Row 2 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['imp', 'sup_imp'])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">2</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">Progress / Weekly Meeting Minutes (MOM)</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_2" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_2" nolabel="1"/>
+                    </td>
+                </tr>
+
+                <!-- Row 3 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['imp', 'sup_imp'])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">3</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">Kickoff Meeting</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_3" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_3" nolabel="1"/>
+                    </td>
+                </tr>
+
+                <!-- Row 4 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['imp', 'sup_imp'])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">4</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">Weekly Status Report</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_4" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_4" nolabel="1"/>
+                    </td>
+                </tr>
+
+                <!-- Row 5 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['imp', 'sup_imp'])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">5</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">Updated Schedule Plan</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_5" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_5" nolabel="1"/>
+                    </td>
+                </tr>
+
+                <!-- Row 6 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['imp', 'sup_imp'])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">6</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">Design Document (HLD, LLD, migration plan, connectivity matrix)</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_6" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_6" nolabel="1"/>
+                    </td>
+                </tr>
+
+                <!-- Row 7 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['imp', 'sup_imp'])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">7</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">JCC (PS)</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_7" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_7" nolabel="1"/>
+                    </td>
+                </tr>
+
+                <!-- Row 8 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['sup','imp', 'sup_imp'])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">8</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">DN (MAT)</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_8" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_8" nolabel="1"/>
+                    </td>
+                </tr>
+
+                <!-- Row 9 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['amc',])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">1</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">JCC (AMC)</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_9" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_9" nolabel="1"/>
+                    </td>
+                </tr>
+
+                <!-- Row 10 -->
+                <tr attrs="{'invisible': [('od_type_of_project', 'not in', ['o_m',])]}">
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center;">1</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle;">Timesheets (O&amp;M)</td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; vertical-align:middle; word-break:break-all; overflow-wrap:anywhere;">
+                        <field name="compliance_link_10" widget="url" nolabel="1"/>
+                    </td>
+                    <td style="border:1px solid #d5d5d5; padding:8px; text-align:center; vertical-align:middle;">
+                        <field name="compliance_status_10" nolabel="1"/>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</page>
+
+
                 </xpath>
             </field>
         </record>

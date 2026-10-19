@@ -23,6 +23,70 @@ class account_analytic_account(models.Model):
             cust_feedback_score = project_id.score
         return cust_feedback_score
 
+    def get_compliance_score(self):
+        score_board = []
+        if self.company_id.id == 1:
+            score = [x.score for x in self.od_comp_planning_line if x.add_score]
+            score_board.extend(score)
+
+            score = [x.score for x in self.od_comp_initiation_line if x.add_score]
+            score_board.extend(score)
+
+            score = [x.score for x in self.od_comp_excecution_line if x.add_score]
+            score_board.extend(score)
+
+            score = [x.score for x in self.od_comp_monitor_line if x.add_score]
+            score_board.extend(score)
+
+            score = [x.score for x in self.od_comp_closing_line if x.add_score]
+            score_board.extend(score)
+            if self.od_type_of_project == 'amc':
+                score_board = []
+                score = [x.score for x in self.od_comp_handover_line if x.add_score]
+                score_board.extend(score)
+
+                score = [x.score for x in self.od_comp_maint_line if x.add_score]
+                score_board.extend(score)
+            result = self.get_avg_score_board(score_board)
+        if self.company_id.id == 6:
+            project_rec = self.env['project.project']
+
+            project = project_rec.search([
+                ('analytic_account_id', '=', self.id)
+            ], limit=1)
+
+            if not project:
+                return 0.0
+
+            if project.od_type_of_project == 'amc':
+                field_names = ['compliance_status_9']
+
+            elif project.od_type_of_project == 'o_m':
+                field_names = ['compliance_status_10']
+            elif project.od_type_of_project == 'sup':
+                field_names = ['compliance_status_8']
+
+            else:
+                field_names = [
+                    'compliance_status_1',
+                    'compliance_status_2',
+                    'compliance_status_3',
+                    'compliance_status_4',
+                    'compliance_status_5',
+                    'compliance_status_6',
+                    'compliance_status_7',
+                    'compliance_status_8',
+                ]
+
+            for field_name in field_names:
+                status = getattr(project, field_name, False)
+                if status == 'comply':
+                    score_board.append(1.0)
+                else:
+                    score_board.append(0.0)
+                result = self.get_avg_score_board(score_board) * 100
+        return result
+
     @api.one
     def _kpi_score(self):
         day_process_score = 0
@@ -108,6 +172,117 @@ class ProjectProject(models.Model):
         help='The full sentence typed into the wizard (in whichever '
              'language was selected) and shown as-is in the last feedback '
              'email - no surrounding boilerplate text is added.')
+
+    # 1
+    compliance_link_1 = fields.Char(
+        string='SharePoint Link For Evidence',
+    )
+    compliance_status_1 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
+    # 2
+    compliance_link_2 = fields.Char(
+        string='SharePoint Link For Evidence'
+    )
+    compliance_status_2 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
+    # 3
+    compliance_link_3 = fields.Char(
+        string='SharePoint Link For Evidence'
+    )
+    compliance_status_3 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
+    # 4
+    compliance_link_4 = fields.Char(
+        string='SharePoint Link For Evidence'
+    )
+    compliance_status_4 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
+    # 5
+    compliance_link_5 = fields.Char(
+        string='SharePoint Link For Evidence'
+    )
+    compliance_status_5 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
+    # 6
+    compliance_link_6 = fields.Char(
+        string='SharePoint Link For Evidence'
+    )
+    compliance_status_6 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
+    # 7
+    compliance_link_7 = fields.Char(
+        string='SharePoint Link For Evidence'
+    )
+    compliance_status_7 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
+    # 8
+    compliance_link_8 = fields.Char(
+        string='SharePoint Link For Evidence'
+    )
+    compliance_status_8 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
+    # 9
+    compliance_link_9 = fields.Char(
+        string='SharePoint Link For Evidence'
+    )
+    compliance_status_9 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
+    # 10
+    compliance_link_10 = fields.Char(
+        string='SharePoint Link For Evidence'
+    )
+    compliance_status_10 = fields.Selection(
+        [
+            ('comply', 'Comply'),
+            ('not_comply', 'Not Comply'),
+        ],
+        string='Status'
+    )
 
     _sql_constraints = [
         ('feedback_token_uniq', 'unique(feedback_token)',
