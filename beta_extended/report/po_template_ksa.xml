@@ -345,133 +345,105 @@
 
                                 </tbody>
                             </table>
-                            <table class="" width="100%"
-                                   style="margin-top: 0px;"><!-- style="border: 1px solid black; width:100%" -->
-                                <thead>
-                                    <tr style="border: 1px solid black;height:30px;">
-                                        <td style="width=80%; padding-left:5px;padding-top:5px;">
-                                            <strong>
-                                                <right>Total</right>
-                                            </strong>
-                                        </td>
-                                        <td class="text-right" style="width=20%;padding-right:5px;padding-top:5px;">
-                                            <strong>
-                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
-                                                <!--                                                <span t-field="o.od_amount_sub"/>-->
-                                                <!--                                                <span t-esc="'%.2f'% o.od_amount_sub"/>-->
-                                                <span t-esc="'{0:,.2f}'.format(float(o.od_amount_sub))"/>
-                                            </strong>
-                                        </td>
 
+                            <t t-set="cur_name"
+                               t-value="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
 
-                                    </tr>
-                                    <tr t-foreach="o.landed_cost_line_ids" t-as="l"
-                                        style="border: 1px solid black;height:30px;">
+                            <div style="page-break-inside: avoid;">
+                                <table width="100%" style="margin-top: 0px; page-break-inside: avoid;">
+                                    <tbody>
+                                        <tr style="border: 1px solid black; height:30px; page-break-inside: avoid;">
+                                            <td style="width:80%; padding-left:5px; padding-top:5px;">
+                                                <strong>Total</strong>
+                                            </td>
+                                            <td class="text-right"
+                                                style="width:20%; padding-right:5px; padding-top:5px; white-space:nowrap;">
+                                                <strong>
+                                                    <t t-esc="cur_name"/>
+                                                    <span t-esc="'{0:,.2f}'.format(float(o.od_amount_sub))"/>
+                                                </strong>
+                                            </td>
+                                        </tr>
 
-                                        <td style="padding-left:5px;padding-top:5px;">
-                                            <strong>
-                                                <span t-field="l.name"/>
-                                            </strong>
-                                        </td>
-                                        <td class="text-right" style="width=80%;padding-right:5px;padding-top:5px;">
-                                            <strong>
-                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
+                                        <tr t-foreach="o.landed_cost_line_ids" t-as="l"
+                                            style="border: 1px solid black; height:30px; page-break-inside: avoid;">
+                                            <td style="padding-left:5px; padding-top:5px;">
+                                                <strong>
+                                                    <span t-field="l.name"/>
+                                                </strong>
+                                            </td>
+                                            <td class="text-right"
+                                                style="padding-right:5px; padding-top:5px; white-space:nowrap;">
+                                                <strong>
+                                                    <t t-esc="cur_name"/>
+                                                    <span t-esc="'{0:,.2f}'.format(float(l.amount))"/>
+                                                </strong>
+                                            </td>
+                                        </tr>
 
-                                                <!--                                                <span t-field="l.amount"/>-->
-                                                <!--                                                <span t-esc="'%.2f'% l.amount"/>-->
-                                                <span t-esc="'{0:,.2f}'.format(float(l.amount))"/>
+                                        <tr style="border: 1px solid black; height:30px; page-break-inside: avoid;">
+                                            <td style="width:80%; padding-left:5px; padding-top:5px;">
+                                                <strong>NET VAT</strong>
+                                            </td>
+                                            <td class="text-right"
+                                                style="width:20%; padding-right:5px; padding-top:5px; white-space:nowrap;">
+                                                <strong>
+                                                    <t t-esc="cur_name"/>
+                                                    <span t-esc="'{0:,.2f}'.format(float(o.amount_tax))"/>
+                                                </strong>
+                                            </td>
+                                        </tr>
 
-                                            </strong>
-                                        </td>
+                                        <tr t-if="o.od_discount > 0"
+                                            style="border: 1px solid black; height:30px; page-break-inside: avoid;">
+                                            <td style="width:80%; padding-left:5px; padding-top:5px;">
+                                                <strong>Special Discount</strong>
+                                            </td>
+                                            <td class="text-right"
+                                                style="width:20%; padding-right:5px; padding-top:5px; white-space:nowrap;">
+                                                <strong>
+                                                    <t t-esc="cur_name"/>
+                                                    <span t-esc="'{0:,.2f}'.format(float(o.od_discount))"/>
+                                                </strong>
+                                            </td>
+                                        </tr>
 
-                                    </tr>
+                                        <tr style="border: 1px solid black; height:30px; page-break-inside: avoid;">
+                                            <td style="width:80%; padding-left:5px; padding-top:5px;">
+                                                <strong>Net Amount</strong>
+                                            </td>
+                                            <td class="text-right"
+                                                style="width:20%; padding-right:5px; padding-top:5px; white-space:nowrap;">
+                                                <strong>
+                                                    <t t-esc="cur_name"/>
+                                                    <span t-esc="'{0:,.2f}'.format(float(o.bt_amount_total))"/>
+                                                </strong>
+                                            </td>
+                                        </tr>
 
-
-                                    <tr style="border: 1px solid black;height:30px;">
-                                        <td style="width=80%;padding-left:5px;padding-top:5px;">
-                                            <strong>
-                                                <right>NET VAT</right>
-                                            </strong>
-                                        </td>
-                                        <td class="text-right" style="width=20%;padding-right:5px;padding-top:5px;">
-                                            <strong>
-                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
-                                                <!--                                                <span t-field="o.amount_tax"/>-->
-                                                <!--                                                <span t-esc="'%.2f'% o.amount_tax"/>-->
-                                                <span t-esc="'{0:,.2f}'.format(float(o.amount_tax))"/>
-                                            </strong>
-                                        </td>
-
-
-                                    </tr>
-
-                                    <tr t-if="o.od_discount > 0" style="border: 1px solid black;height:30px;">
-                                        <td style="width=80%;padding-left:5px;padding-top:5px;">
-                                            <strong>
-                                                <right>Special Discount</right>
-                                            </strong>
-                                        </td>
-                                        <td class="text-right" style="width=20%;padding-right:5px;padding-top:5px;">
-                                            <strong>
-                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
-                                                <!--                                                <span t-field="o.od_discount"/>-->
-                                                <!--                                                <span t-esc="'%.2f'% o.od_discount"/>-->
-                                                <span t-esc="'{0:,.2f}'.format(float(o.od_discount))"/>
-                                            </strong>
-                                        </td>
-
-
-                                    </tr>
-
-
-                                    <tr style="border: 1px solid black;height:30px;">
-
-                                        <td style="width=10%;padding-left:5px;padding-top:5px;">
-                                            <strong>
-                                                <right>Net Amount</right>
-                                            </strong>
-                                        </td>
-                                        <td class="text-right" style="width=80%;padding-right:5px;padding-top:5px;">
-                                            <strong>
-                                                <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
-                                            </strong>
-                                            <strong>
-                                                <!--                                                <span t-field="o.bt_amount_total"/>-->
-                                                <!--                                                <span t-esc="'%.2f'% o.bt_amount_total"/>-->
-                                                <span t-esc="'{0:,.2f}'.format(float(o.bt_amount_total))"/>
-                                            </strong>
-                                        </td>
-
-                                    </tr>
-
-                                    <tr style="border:1px solid black;height:30px;">
-                                        <td style="padding-left:5px;padding-top:5px;">
-                                            <strong>Amount In Words:</strong>
-                                        </td>
-                                        <td class="text-right" style="padding-right:5px;padding-top:5px;">
-                                            <strong>
-                                                <t t-set="currency"
-                                                   t-value="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"></t>
-                                                <t t-if="currency == 'USD'">
-                                                    <span t-esc="o.amount_to_text_en(o.bt_amount_total, currency, 'USD')"/>
-                                                </t>
-                                                <t t-if="currency == 'SAR'">
-                                                    <span t-esc="o.amount_to_text_en(o.bt_amount_total, currency, 'SAR')"/>
-                                                </t>
-                                                <t t-if="currency not in ['SAR','USD']">
-                                                    <t t-esc="((o.pricelist_id.currency_id.name == 'UDL') or (o.pricelist_id.currency_id.name == 'USM')) and 'USD' or o.pricelist_id.currency_id.name"/>
-                                                    <t t-esc="o.bt_amount_total"
-                                                       t-esc-options='{"widget": "num2words","case":"capital"}'/>
-                                                    Only
-                                                </t>
-                                            </strong>
-                                        </td>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                                        <tr style="border: 1px solid black; height:30px; page-break-inside: avoid;">
+                                            <td colspan="2"
+                                                style="padding-left:5px; padding-right:5px; padding-top:5px; white-space:nowrap;">
+                                                <strong>Amount In Words:</strong>
+                                                <strong>
+                                                    <t t-if="cur_name == 'USD'">
+                                                        <span t-esc="o.amount_to_text_en(o.bt_amount_total, cur_name, 'USD')"/>
+                                                    </t>
+                                                    <t t-if="cur_name == 'SAR'">
+                                                        <span t-esc="o.amount_to_text_en(o.bt_amount_total, cur_name, 'SAR')"/>
+                                                    </t>
+                                                    <t t-if="cur_name not in ['SAR','USD']">
+                                                        <t t-esc="cur_name"/>
+                                                        <t t-esc="o.bt_amount_total"
+                                                           t-esc-options='{"widget": "num2words","case":"capital"}'/>
+                                                        Only
+                                                    </t>
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <br/>
                         <div style="page-break-inside: avoid;">

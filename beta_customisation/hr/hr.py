@@ -97,6 +97,7 @@ class BetaJoiningForm(models.Model):
     zip = fields.Char(string='Zip', size=24, change_default=True)
     state_id = fields.Many2one('res.country.state', string='State')
     country_id = fields.Many2one('res.country', string='Country')
+    short_addr = fields.Char(string='Short Address')
 
     e_c1_name = fields.Char(string='Emergency Contact')
     e_c1_relationship = fields.Char(string='Relationship')
@@ -219,6 +220,7 @@ class BetaJoiningForm(models.Model):
                 'od_second_manager_id': self.manager2_id and self.manager2_id.id or False,
                 'image': self.image or False,
                 'od_street': self.street or False,
+                'short_addr': self.short_addr or False,
                 'od_street2': self.street2 or False,
                 'od_city': self.city or False,
                 'od_zip': self.zip or False,
