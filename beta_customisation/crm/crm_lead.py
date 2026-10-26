@@ -268,7 +268,9 @@ class hr_employee(osv.osv):
         for line in contract_rec.xo_allowance_rule_line_ids:
             if line.code=='OA':
                 allowances+=line.amt
-            if line.code=='ALW':
+            if line.code=='KSA_HA':
+                allowances+=line.amt
+            if line.code=='KSA_TA':
                 allowances+=line.amt
         if allowances:
             wage= allowances + basic
