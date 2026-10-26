@@ -228,7 +228,7 @@ class res_users(osv.osv):
         if context.get('project_manager',False):
             company_id = self.browse(cr, uid, uid, context=context).company_id.id
             hr_pool = self.pool.get('hr.employee')
-            emp_ids = hr_pool.search(cr, SUPERUSER_ID,  [('company_id', '=', company_id),('job_id', 'in', (30, 31, 43, 80, 82, 85, 164, 166,132,125,190,79,214,216))], context=context)
+            emp_ids = hr_pool.search(cr, SUPERUSER_ID,  [('company_id', '=', company_id),('job_id', 'in', (30, 31, 43, 80, 82, 85, 164, 166,132,125,190,79,214,215,216))], context=context)
             user_ids = []
             for emp_id in emp_ids:
                 employee = hr_pool.browse(cr,SUPERUSER_ID,emp_id)
