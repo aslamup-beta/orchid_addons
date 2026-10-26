@@ -28,6 +28,7 @@ class HrEmployee(models.Model):
         'beta.employee.document.line.new', 'employee_id', string='Documents')
     od_document_line_count_new = fields.Integer(
         string='Document Count', compute='_compute_od_document_line_count')
+    short_addr = fields.Char(string='Short Address')
 
     @api.multi
     def _compute_od_document_line_count(self):

@@ -29,6 +29,29 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="orchid_hrms.view_od_hrms_employee_inherit"/>
             <field name="arch" type="xml">
+                <!-- Home Address: UAE company only -->
+                <xpath expr="//group[@string='Home Address']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('company_id','!=',1)]}</attribute>
+                    <attribute name="colspan">2</attribute>
+                </xpath>
+
+                <!-- National Address: Saudi company only -->
+                <xpath expr="//group[@string='Home Address']" position="after">
+                    <group string="National Address" colspan="2"
+                           attrs="{'invisible': [('company_id','!=',6)]}">
+                        <group>
+                            <field name="short_addr" placeholder="e.g. RRRD2929"/>
+                            <!-- add more fields here if you have them -->
+                            <!-- <field name="building_no"/> -->
+                            <!-- <field name="street_name"/> -->
+                        </group>
+                        <group>
+                            <!-- <field name="district"/> -->
+                            <!-- <field name="city_name"/> -->
+                            <!-- <field name="post_code"/> -->
+                        </group>
+                    </group>
+                </xpath>
                 <xpath expr="//page[@string='Launguage']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
