@@ -169,6 +169,7 @@ class hr_employee(models.Model):
         sch_gp = 0.0
         tot_sal_inv = 0.0
         tot_sal_comp = 0.0
+        tot_sal_feedback = 0.0
         day_score_main = []
         cost_control_val_main = []
         invoice_schedule_main = []
@@ -300,7 +301,7 @@ class hr_employee(models.Model):
                 compliance_score = proj.compliance_score
                 # sale_val = proj.od_project_sale
                 sale_val = proj.od_amended_sale_price or 1.0
-                tot_sal_comp += sale_val
+                tot_sal_feedback += sale_val
                 compliance_vals.append(
                     {'analytic_id': proj.id, 'sale_value': sale_val, 'score': compliance_score, 'form_wt': 10.0})
 
@@ -424,8 +425,8 @@ class hr_employee(models.Model):
             for data in feedback_vals:
                 sal_val_percent = 0.0
                 sale_value = data.get('sale_value')
-                if tot_sal_comp:
-                    sal_val_percent = sale_value / float(tot_sal_comp)
+                if tot_sal_feedback:
+                    sal_val_percent = sale_value / float(tot_sal_feedback)
                 score = data.get('score')
                 weight_comp = max_feedback_score * sal_val_percent * (score / 10.0)
                 data['sale_value_percent'] = sal_val_percent * 100.0
