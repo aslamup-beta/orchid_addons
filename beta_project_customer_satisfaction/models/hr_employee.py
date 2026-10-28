@@ -191,10 +191,10 @@ class hr_employee(models.Model):
                          'actual_gp': actual_gp, 'original_gp': original_gp})
                     #Added by Aslam to update Cust feedback score for KSA
                     cust_feedback_score = proj.cust_feedback_score
+                    sale_val = proj.od_amended_sale_price or 1.0
                     if self.company_id.id == 6:
                         feedback_vals.append(
-                            {'analytic_id': proj.id, 'gp_value': gp_value, 'score': cust_feedback_score, 'form_wt': 10.0,
-                             'actual_gp': actual_gp, 'original_gp': original_gp})
+                            {'analytic_id': proj.id, 'sale_value': sale_val, 'score': cust_feedback_score,'form_wt': 10.0})
 
 
 
