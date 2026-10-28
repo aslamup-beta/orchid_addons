@@ -44,6 +44,7 @@ http controller stack.
         'views/project_view.xml',
         'views/feedback_wizard_view.xml',
         'views/feedback_templates.xml',
+        'views/audit_sample_view.xml',
         'data/email_template.xml',
     ],
     'installable': True,

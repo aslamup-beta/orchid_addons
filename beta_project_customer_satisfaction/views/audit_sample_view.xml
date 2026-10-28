@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="audit_sample_form_inherit_custom">
+            <field name="name">Audit Sample form view - custom page</field>
+            <field name="model">audit.sample</field>
+            <field name="inherit_id" ref="orchid_beta_project.audit_sample_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@string='Component']" position="before">
+                    <page string="Customer Feedback"
+                          attrs="{'invisible': ['|', ('type','not in',('pm','pdm','sde','sde_ksa')), ('company_id','!=',6)]}">
+                        <field name="cust_feedback_line">
+                            <tree editable="bottom" create="false" delete="false">
+                                <field name="analytic_id" readonly="1"/>
+                                <button name="btn_open" type="object" icon="STOCK_FIND" string="Open"/>
+                                <field name="score" readonly="1"/>
+                                <field name="form_wt" readonly="1"/>
+                                <field name="sale_value" readonly="1" sum="Total"/>
+                                <field name="sale_value_percent" readonly="1"/>
+                                <field name="weight" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</openerp>
