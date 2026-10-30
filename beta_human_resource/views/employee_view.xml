@@ -18,6 +18,10 @@
                     <attribute name="groups">__export__.res_groups_252,__export__.res_groups_200</attribute>
                 </xpath>
 
+                <xpath expr="//field[@name='bank_account_id']" position="after">
+                    <field name="salary_cert_issued" groups="__export__.res_groups_252,__export__.res_groups_200"/>
+                </xpath>
+
                 <!-- Add group to otherid -->
                 <xpath expr="//field[@name='otherid']" position="attributes">
                     <attribute name="groups">__export__.res_groups_252,__export__.res_groups_200</attribute>
@@ -33,6 +37,31 @@
                 <xpath expr="//group[@string='Home Address']" position="attributes">
                     <attribute name="attrs">{'invisible': [('company_id','!=',1)]}</attribute>
                     <attribute name="colspan">2</attribute>
+                </xpath>
+
+
+                <xpath expr="//page[@string='Emergency Contact']" position="replace">
+                    <page string="Emergency Contacts">
+                        <group>
+                            <group string="Emergency Contact 1">
+                                <field name="od_e_c1_name"/>
+                                <field name="od_e_c1_relationship"/>
+                                <field name="od_e_c1_ph1"/>
+                            </group>
+                            <group string="Emergency Contact 2">
+                                <field name="od_e_c2_name"/>
+                                <field name="od_e_c2_relationship"/>
+                                <field name="od_e_c2_city"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Medical Contact &amp; History">
+                                <field name="od_mc_blood_group"/>
+                                <field name="od_mc_allergies"/>
+                            </group>
+                            <group/>
+                        </group>
+                    </page>
                 </xpath>
 
                 <!-- National Address: Saudi company only -->

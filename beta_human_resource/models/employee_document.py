@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 from datetime import date, timedelta
 
 
@@ -29,11 +29,27 @@ class HrEmployee(models.Model):
     od_document_line_count_new = fields.Integer(
         string='Document Count', compute='_compute_od_document_line_count')
     short_addr = fields.Char(string='Short Address')
+    salary_cert_issued = fields.Boolean(string='Salary Certificate Issued', default=False, copy=False)
 
     @api.multi
     def _compute_od_document_line_count(self):
         for employee in self:
             employee.od_document_line_count_new = len(employee.od_document_line_ids)
+
+    @api.onchange('bank_account_id')
+    def _onchange_bank_account_id_salary_cert(self):
+        if self.salary_cert_issued and self._origin.bank_account_id != self.bank_account_id:
+            old_bank = self._origin.bank_account_id
+            self.bank_account_id = old_bank
+            return {
+                'warning': {
+                    'title': _("Salary Certificate Already Issued"),
+                    'message': _(
+                        "The employee has already been issued a salary certificate. "
+                        "Clearance is required before changing the bank account."
+                    ),
+                }
+            }
 
     @api.multi
     def od_view_new_documents(self):
