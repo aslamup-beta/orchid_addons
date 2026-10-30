@@ -46,12 +46,14 @@
                             <group string="Emergency Contact 1">
                                 <field name="od_e_c1_name"/>
                                 <field name="od_e_c1_relationship"/>
+                                <field name="od_e_c1_city"/>
                                 <field name="od_e_c1_ph1"/>
                             </group>
                             <group string="Emergency Contact 2">
                                 <field name="od_e_c2_name"/>
                                 <field name="od_e_c2_relationship"/>
                                 <field name="od_e_c2_city"/>
+                                <field name="od_e_c2_ph1"/>
                             </group>
                         </group>
                         <group>
