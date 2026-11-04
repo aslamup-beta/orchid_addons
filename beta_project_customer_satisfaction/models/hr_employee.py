@@ -152,6 +152,7 @@ class hr_employee(models.Model):
             pro_score += proj.total_score
             closed_project_vals.append((0, 0, {
                 'project_id': proj.id,
+                'project_tot_score': proj.total_score,
                 'day_process_score': proj.day_process_score,
                 'inv_sch_score': proj.invoice_schedule_score,
                 'cost_ctrl_score': proj.cost_control_score,

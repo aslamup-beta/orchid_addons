@@ -48,12 +48,13 @@
                             <tree editable="bottom" create="false" delete="false">
                                 <field name="project_id" readonly="1"/>
                                 <button name="btn_open_project" type="object" icon="STOCK_FIND" string="Open"/>
+                                <field name="project_tot_score" readonly="1" sum="Total"/>
                                 <field name="day_process_score" readonly="1"/>
                                 <field name="inv_sch_score" readonly="1"/>
                                 <field name="cost_ctrl_score" readonly="1"/>
-                                <field name="comp_score" readonly="1"/>
                                 <field name="sch_ctrl_score" readonly="1"/>
                                 <field name="cust_feedback_score" readonly="1"/>
+                                <field name="comp_score" readonly="1"/>
                             </tree>
                         </field>
 

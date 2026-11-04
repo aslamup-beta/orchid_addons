@@ -54,11 +54,12 @@ class KsaPmClosedProjectLine(models.Model):
     sample_id = fields.Many2one('audit.sample', string="Sample", ondelete="cascade")
     project_id = fields.Many2one('project.project', string="Project")
     day_process_score = fields.Float("5 Day Processing")
+    project_tot_score = fields.Float("Total Score")
     inv_sch_score = fields.Float(string="Invoice Schedule")
     cost_ctrl_score = fields.Float("Cost Control")
-    comp_score = fields.Float(string="Compliance Provided By PMO")
-    sch_ctrl_score = fields.Float(string="Schedule Control Score")
-    cust_feedback_score = fields.Float(string="Customer Feedback")
+    comp_score = fields.Float(string="PMO Compliance")
+    sch_ctrl_score = fields.Float(string="Schedule Control")
+    cust_feedback_score = fields.Float(string="Customer Satisfaction")
 
     @api.multi
     def btn_open_project(self):

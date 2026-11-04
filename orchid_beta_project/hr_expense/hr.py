@@ -1050,7 +1050,7 @@ class hr_employee(models.Model):
         employee_id = employee.id
         dt_start = aud_date_start
         result = []
-        eng_ids = self.search([('coach_id','=',employee_id)]) 
+        eng_ids = self.search([('coach_id','=',employee_id),('job_id','!=',161)])
         user_ids = [emp.user_id.id for emp in eng_ids] 
         data_model = 'project.task'
 #         avl_time = self.get_available_time(dt_start,aud_date_end) or 1
