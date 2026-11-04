@@ -91,7 +91,7 @@
              <field name="email_from"><![CDATA[ERP Notification <erp@en.betait.net>]]></field>
              <field name="subject">Project Sign Off: ${object.name}</field>
              <field name="email_to">finance.ksa@betait.net,esraa.aljuhami@betait.net</field>
-             <field name="email_cc">${object.od_owner_id.email}, ${object.od_branch_id.pmo_manager_id.email}, thamer.sak@betait.net, yazan.elayyan@betait.net, fai.aldossari@betait.net</field>
+             <field name="email_cc">${object.od_owner_id.email}, ${object.od_branch_id.pmo_manager_id.email}, thamer.sak@betait.net, Success.KSA@betait.net</field>
              <field name="model_id" ref="model_project_project"/>
              <field name="body_html"><![CDATA[
           

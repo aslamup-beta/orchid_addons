@@ -9,7 +9,17 @@ from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FO
 class hr_employee(models.Model):
     _inherit = "hr.employee"
 
-    def get_pm_component(self, day_weight_scr, cc_weight_scr, inv_weight_scr, comp_weight_scr, sc_weight_scr,feedback_weight_scr, day_flag,
+    def get_pm_ksa_component(self, tot_avg_score):
+        comp_data = [(0, 0,
+                      {'name': 'Total Average Score Of Closed Projects',
+                       'weight': 100,
+                       'score': tot_avg_score,
+                       'final_score': tot_avg_score}
+                      )]
+        return comp_data
+
+    def get_pm_component(self, day_weight_scr, cc_weight_scr, inv_weight_scr, comp_weight_scr, sc_weight_scr,
+                         feedback_weight_scr, day_flag,
                          cost_flag, inv_flag, comp_flag, sc_flag, feedback_flag):
         comp_data = []
         if self.company_id.id == 1:
@@ -47,14 +57,16 @@ class hr_employee(models.Model):
                 score = (day_weight_scr / 10.0) * 100.0
                 final_score = day_wt * score
                 comp_data.append((0, 0,
-                                  {'name': '5 Day Processing Score', 'weight': day_wt * 100.0, 'final_score': final_score,
+                                  {'name': '5 Day Processing Score', 'weight': day_wt * 100.0,
+                                   'final_score': final_score,
                                    'score': score}))
 
             if cc_wt:
                 score = (cc_weight_scr / 20.0) * 100.0
                 final_score = cc_wt * score
                 comp_data.append(
-                    (0, 0, {'name': 'Cost Control', 'weight': cc_wt * 100.0, 'final_score': final_score, 'score': score}))
+                    (0, 0,
+                     {'name': 'Cost Control', 'weight': cc_wt * 100.0, 'final_score': final_score, 'score': score}))
 
             if inv_wt:
                 score = (inv_weight_scr / 30.0) * 100.0
@@ -71,8 +83,9 @@ class hr_employee(models.Model):
             if sc_wt:
                 score = (sc_weight_scr / 30.0) * 100.0
                 final_score = sc_wt * score
-                comp_data.append((0, 0, {'name': 'Schedule Control', 'weight': sc_wt * 100.0, 'final_score': final_score,
-                                         'score': score}))
+                comp_data.append(
+                    (0, 0, {'name': 'Schedule Control', 'weight': sc_wt * 100.0, 'final_score': final_score,
+                            'score': score}))
 
             mgr_score = self.get_mgr_feedback()
             if mgr_score:
@@ -94,7 +107,6 @@ class hr_employee(models.Model):
                 ('Customer Satisfaction', feedback_weight_scr, 10.0, 0.1, feedback_flag),
                 ('Cost Control', cc_weight_scr, 20.0, 0.2, cost_flag),
                 ('PMO Compliance', comp_weight_scr, 10.0, 0.1, comp_flag),
-
 
             ]
 
@@ -121,6 +133,37 @@ class hr_employee(models.Model):
                 }))
 
         return comp_data
+
+    def get_pm_ksa_data(self, sample_id, user_id, aud_date_start, aud_date_end, audit_temp_id):
+        project_pool = self.env['project.project']
+        project_closed = project_pool.search([
+            ('od_owner_id', '=', user_id),
+            ('od_type_of_project', 'in', ('sup', 'imp', 'sup_imp', 'cust_trn')),
+            ('state', '=', 'close'),
+            ('od_closing_date', '>=', aud_date_start),
+            ('od_closing_date', '<=', aud_date_end),
+        ])
+
+        closed_project_vals = []
+        pro_score = 0.0
+        pro_nos = 0
+        for proj in project_closed:
+            pro_nos += 1
+            pro_score += proj.total_score
+            closed_project_vals.append((0, 0, {
+                'project_id': proj.id,
+                'day_process_score': proj.day_process_score,
+                'inv_sch_score': proj.invoice_schedule_score,
+                'cost_ctrl_score': proj.cost_control_score,
+                'comp_score': proj.compliance_score,
+                'sch_ctrl_score': proj.schedule_control_score,
+                'cust_feedback_score': proj.cust_feedback_score,
+            }))
+
+        tot_avg_score = (pro_score / pro_nos) if pro_nos else 0.0
+
+        comp_line = self.get_pm_ksa_component(tot_avg_score)
+        return closed_project_vals, comp_line,tot_avg_score
 
     def get_pm_data(self, sample_id, user_id, aud_date_start, aud_date_end, audit_temp_id):
 
@@ -189,17 +232,17 @@ class hr_employee(models.Model):
                     cost_control_vals.append(
                         {'analytic_id': proj.id, 'gp_value': gp_value, 'score': cost_control_score, 'form_wt': 20.0,
                          'actual_gp': actual_gp, 'original_gp': original_gp})
-                    #Added by Aslam to update Cust feedback score for KSA
+                    # Added by Aslam to update Cust feedback score for KSA
                     cust_feedback_score = proj.cust_feedback_score
                     sale_val = proj.od_amended_sale_price or 1.0
                     if self.company_id.id == 6:
                         feedback_vals.append(
-                            {'analytic_id': proj.id, 'sale_value': sale_val, 'score': cust_feedback_score,'form_wt': 10.0})
-
-
+                            {'analytic_id': proj.id, 'sale_value': sale_val, 'score': cust_feedback_score,
+                             'form_wt': 10.0})
 
         for proj in sample_project_ids:
-            processed_date = proj.od_cost_sheet_id and proj.od_cost_sheet_id.processed_date and proj.od_cost_sheet_id.processed_date[:10]
+            processed_date = proj.od_cost_sheet_id and proj.od_cost_sheet_id.processed_date and proj.od_cost_sheet_id.processed_date[
+                :10]
             if processed_date and aud_date_start <= processed_date <= aud_date_end:
                 sale_val = proj.od_amended_sale_price or 1.0
                 tot_sale_day += sale_val
@@ -279,14 +322,16 @@ class hr_employee(models.Model):
                             plan_amount = inv_line.amount
                             tot_sal_inv += plan_amount
                             invoice_schedule_vals.append(
-                                {'analytic_id': proj.id, 'sale_value': plan_amount, 'score': score, 'form_wt': form_weight_inv_sch})
+                                {'analytic_id': proj.id, 'sale_value': plan_amount, 'score': score,
+                                 'form_wt': form_weight_inv_sch})
 
                     else:
                         score = 0.0
                         plan_amount = inv_line.amount
                         tot_sal_inv += plan_amount
                         invoice_schedule_vals.append(
-                            {'analytic_id': proj.id, 'sale_value': plan_amount, 'score': score, 'form_wt': form_weight_inv_sch})
+                            {'analytic_id': proj.id, 'sale_value': plan_amount, 'score': score,
+                             'form_wt': form_weight_inv_sch})
 
             if proj.start_project_comp and self.company_id.id == 1:
                 compliance_score = proj.compliance_score
@@ -296,7 +341,7 @@ class hr_employee(models.Model):
                 compliance_vals.append(
                     {'analytic_id': proj.id, 'sale_value': sale_val, 'score': compliance_score, 'form_wt': 10.0})
 
-            #Finalise with elayyan when to include
+            # Finalise with elayyan when to include
             if self.company_id.id == 6 and proj.state in ('sign_off', 'close'):
                 compliance_score = proj.compliance_score
                 # sale_val = proj.od_project_sale
@@ -304,8 +349,6 @@ class hr_employee(models.Model):
                 tot_sal_feedback += sale_val
                 compliance_vals.append(
                     {'analytic_id': proj.id, 'sale_value': sale_val, 'score': compliance_score, 'form_wt': 10.0})
-
-
 
             # schedule control score
             current_day = str(dt.today())
@@ -434,7 +477,6 @@ class hr_employee(models.Model):
                 feedback_weight.append(weight_comp)
                 feedback_vals_main.append((0, 0, data))
 
-
         day_weight_scr = self.get_avg_score(day_weight)
         cc_weight_scr = self.get_avg_score(cc_weight)
         inv_weight_scr = self.get_avg_score(inv_weight)
@@ -454,103 +496,173 @@ class hr_employee(models.Model):
             sc_flag = True
         if feedback_vals_main:
             feedback_flag = True
-        comp_line = self.get_pm_component(day_weight_scr, cc_weight_scr, inv_weight_scr, comp_weight_scr, sc_weight_scr,feedback_weight_scr,
+        comp_line = self.get_pm_component(day_weight_scr, cc_weight_scr, inv_weight_scr, comp_weight_scr, sc_weight_scr,
+                                          feedback_weight_scr,
                                           day_flag, cost_flag, inv_flag, comp_flag, sc_flag, feedback_flag)
 
         return day_score_main, cost_control_val_main, invoice_schedule_main, compliance_vals_main, schedule_control_vals_main, feedback_vals_main, comp_line
 
     def create_audit_sample(self, aud_date_start, aud_date_end, audit_temp_id):
-        if audit_temp_id.type != 'pm':
+        if audit_temp_id.type not in ['pm', 'pm_ksa']:
             # every other type runs the original code untouched
             return super(hr_employee, self).create_audit_sample(aud_date_start, aud_date_end, audit_temp_id)
+        if audit_temp_id.type == 'pm':
+            # ---- pm: rebuilt from the original method ----
+            user_id = self.user_id and self.user_id.id
+            sample_id = False
+            name = self.name + '-' + aud_date_start + ' To -' + aud_date_end
 
-        # ---- pm: rebuilt from the original method ----
-        user_id = self.user_id and self.user_id.id
-        sample_id = False
-        name = self.name + '-' + aud_date_start + ' To -' + aud_date_end
+            vals = {
+                'name': name,
+                'date_start': aud_date_start,
+                'date_end': aud_date_end,
+                'aud_temp_id': audit_temp_id.id,
+                'type': audit_temp_id.type,
+                'employee_id': self.id,
+            }
 
-        vals = {
-            'name': name,
-            'date_start': aud_date_start,
-            'date_end': aud_date_end,
-            'aud_temp_id': audit_temp_id.id,
-            'type': audit_temp_id.type,
-            'employee_id': self.id,
-        }
+            day_score_vals, cost_control_vals, invoice_schedule_vals, compliance_vals, pm_sch_line, cust_feedback_line, comp_line = self.get_pm_data(
+                sample_id, user_id, aud_date_start, aud_date_end, audit_temp_id)
 
-        day_score_vals, cost_control_vals, invoice_schedule_vals,compliance_vals, pm_sch_line, cust_feedback_line,comp_line = self.get_pm_data(sample_id, user_id, aud_date_start, aud_date_end, audit_temp_id)
+            vals.update({
+                'dayscore_line': day_score_vals,
+                'cost_control_line': cost_control_vals,
+                'invoice_schedule_line': invoice_schedule_vals,
+                'compliance_line': compliance_vals,
+                'pm_sch_line': pm_sch_line,
+                'comp_line': comp_line,
+                'cust_feedback_line': cust_feedback_line,
+            })
+        if audit_temp_id.type == 'pm_ksa':
+            user_id = self.user_id and self.user_id.id
+            sample_id = False
+            name = self.name + '-' + aud_date_start + ' To -' + aud_date_end
 
-        vals.update({
-            'dayscore_line': day_score_vals,
-            'cost_control_line': cost_control_vals,
-            'invoice_schedule_line': invoice_schedule_vals,
-            'compliance_line': compliance_vals,
-            'pm_sch_line': pm_sch_line,
-            'comp_line': comp_line,
-            'cust_feedback_line': cust_feedback_line,
-        })
+            vals = {
+                'name': name,
+                'date_start': aud_date_start,
+                'date_end': aud_date_end,
+                'aud_temp_id': audit_temp_id.id,
+                'type': audit_temp_id.type,
+                'employee_id': self.id,
+            }
+
+            ksa_pm_closed_project_line, comp_line, tot_avg_score= self.get_pm_ksa_data(
+                sample_id, user_id, aud_date_start, aud_date_end, audit_temp_id)
+
+            vals.update({
+                'comp_line': comp_line,
+                'total_avg_score': tot_avg_score,
+                'ksa_pm_closed_project_line': ksa_pm_closed_project_line,
+            })
+        if type == 'pdm':
+            user_id = self.user_id and self.user_id.id
+            sample_id = False
+            team_line,comp_line = self.get_pdm_data(sample_id,user_id, aud_date_start, aud_date_end, audit_temp_id)
+            vals.update({'team_line':team_line,'comp_line':comp_line})
+            # sample_id =self.env['audit.sample'].create(vals)
+
         return self.env['audit.sample'].create(vals)
 
     def update_audit_sample(self, sample_id, aud_date_start, aud_date_end, audit_temp_id):
-        if audit_temp_id.type != 'pm':
+        print("update_audit_sample")
+        if audit_temp_id.type not in ['pm', 'pm_ksa', 'pdm']:
             # all other types run the original code untouched
             return super(hr_employee, self).update_audit_sample(
                 sample_id, aud_date_start, aud_date_end, audit_temp_id)
 
         # ---- pm: rebuilt from the original method ----
-        user_id = self.user_id and self.user_id.id
+        if audit_temp_id.type == 'pm':
+            user_id = self.user_id and self.user_id.id
 
-        (day_score_vals, cost_control_vals, invoice_schedule_vals,
-         compliance_vals, pm_sch_line, cust_feedback_line,
-         comp_line) = self.get_pm_data(sample_id, user_id, aud_date_start,
-                                       aud_date_end, audit_temp_id)
+            (day_score_vals, cost_control_vals, invoice_schedule_vals,
+             compliance_vals, pm_sch_line, cust_feedback_line,
+             comp_line) = self.get_pm_data(sample_id, user_id, aud_date_start,
+                                           aud_date_end, audit_temp_id)
 
-        sample_id.dayscore_line.unlink()
-        sample_id.cost_control_line.unlink()
-        sample_id.invoice_schedule_line.unlink()
-        sample_id.compliance_line.unlink()
-        sample_id.pm_sch_line.unlink()
-        sample_id.comp_line.unlink()
-        sample_id.cust_feedback_line.unlink()
+            sample_id.dayscore_line.unlink()
+            sample_id.cost_control_line.unlink()
+            sample_id.invoice_schedule_line.unlink()
+            sample_id.compliance_line.unlink()
+            sample_id.pm_sch_line.unlink()
+            sample_id.comp_line.unlink()
+            sample_id.cust_feedback_line.unlink()
 
-        sample_id.write({
-            'dayscore_line': day_score_vals,
-            'cost_control_line': cost_control_vals,
-            'invoice_schedule_line': invoice_schedule_vals,
-            'pm_sch_line': pm_sch_line,
-            'compliance_line': compliance_vals,
-            'cust_feedback_line': cust_feedback_line,
-            'comp_line': comp_line,
-        })
+            sample_id.write({
+                'dayscore_line': day_score_vals,
+                'cost_control_line': cost_control_vals,
+                'invoice_schedule_line': invoice_schedule_vals,
+                'pm_sch_line': pm_sch_line,
+                'compliance_line': compliance_vals,
+                'cust_feedback_line': cust_feedback_line,
+                'comp_line': comp_line,
+            })
+        if audit_temp_id.type == 'pm_ksa':
+            user_id = self.user_id and self.user_id.id
 
+            ksa_pm_closed_project_line, comp_line, tot_avg_score = self.get_pm_ksa_data(
+                sample_id, user_id, aud_date_start, aud_date_end, audit_temp_id)
 
-    def get_pdm_data(self,sample_id,user_id, aud_date_start, aud_date_end, audit_temp_id):
+            print("ksa_pm_closed_project_line", ksa_pm_closed_project_line)
+            print("comp_line", comp_line)
+
+            sample_id.ksa_pm_closed_project_line.unlink()
+            sample_id.comp_line.unlink()
+
+            sample_id.write({
+                'ksa_pm_closed_project_line': ksa_pm_closed_project_line,
+                'comp_line': comp_line,
+                'aud_temp_id': audit_temp_id.id,
+                'type': audit_temp_id.type,
+                'total_avg_score': tot_avg_score,
+            })
+
+        if audit_temp_id.type == 'pdm':
+            user_id = self.user_id and self.user_id.id
+            team_line, comp_line = self.get_pdm_data(
+                sample_id, user_id, aud_date_start, aud_date_end, audit_temp_id)
+
+            # sample_id.dayscore_line.unlink()
+            # sample_id.cost_control_line.unlink()
+            # sample_id.invoice_schedule_line.unlink()
+            # sample_id.compliance_line.unlink()
+            # sample_id.pm_sch_line.unlink()
+            # sample_id.my_comp_line.unlink()
+            sample_id.comp_line.unlink()
+            sample_id.team_line.unlink()
+            sample_id.write({'team_line': team_line,'comp_line': comp_line})
+        return None
+
+    def get_pdm_data(self, sample_id, user_id, aud_date_start, aud_date_end, audit_temp_id):
         employee_id = self.id
-        team_ids = self.search([('parent_id','=',employee_id)])
-        user_ids = [emp.user_id.id for emp in team_ids if (emp.audit_temp_id and emp.audit_temp_id.type=='pm') ]
+        team_ids = self.search([('parent_id', '=', employee_id)])
+        user_ids = [emp.user_id.id for emp in team_ids if (emp.audit_temp_id and emp.audit_temp_id.type == 'pm_ksa')]
         result = []
-        team_vals =[]
-        score_board =[]
+        team_vals = []
+        score_board = []
 
         day_score_vals = cost_control_vals = invoice_schedule_vals = compliance_vals = schedule_control_vals = my_comp_data = []
         for uid in user_ids:
-            day_score_main,cost_control_val_main,invoice_schedule_main,compliance_vals_main,schedule_control_vals_main,cust_feedback_line_main,team_comp_data = self.get_pm_data(sample_id,uid, aud_date_start, aud_date_end, audit_temp_id)
-            if uid == user_id:
-                day_score_vals, cost_control_vals,invoice_schedule_vals,compliance_vals, schedule_control_vals,my_comp_data = day_score_main,cost_control_val_main,invoice_schedule_main,compliance_vals_main,schedule_control_vals_main,team_comp_data
+            closed_projects, team_comp_data, total_avg = self.get_pm_ksa_data(
+                sample_id, uid, aud_date_start, aud_date_end, audit_temp_id)
+            # if uid == user_id:
+            #     day_score_vals, cost_control_vals, invoice_schedule_vals, compliance_vals, schedule_control_vals, my_comp_data = day_score_main, cost_control_val_main, invoice_schedule_main, compliance_vals_main, schedule_control_vals_main, team_comp_data
 
-            #score = self.get_score_from_comp_data(team_comp_data)
+            # score = self.get_score_from_comp_data(team_comp_data)
+            print("team_comp_data", team_comp_data)
             score = self.get_score_from_comp_data([c for c in team_comp_data if c[0] == 0])
-            team_vals.append((0,0,{'user_id':uid,'score':score}))
+            team_vals.append((0, 0, {'user_id': uid, 'score': score}))
             score_board.append(score)
 
-        team_avg_score =  self.get_avg_score(score_board)
-        comp_line =[(0,0,{'name':'Average Of Team Performance','weight':100,'score':team_avg_score,'final_score':team_avg_score})]
-        mgr_score = self.get_mgr_feedback()
-        if mgr_score:
-            comp_line.append((0,0,
-                              {'name':'Direct Manager Feedback',
-                               'weight':-20,
-                               'score':mgr_score,
-                               'final_score':mgr_score}
-                              ))
-        return day_score_vals,cost_control_vals,invoice_schedule_vals,compliance_vals, schedule_control_vals,team_vals,my_comp_data,comp_line
+        team_avg_score = self.get_avg_score(score_board)
+        comp_line = [(0, 0, {'name': 'Average Of Team Performance', 'weight': 100, 'score': team_avg_score,
+                             'final_score': team_avg_score})]
+        # mgr_score = self.get_mgr_feedback()
+        # if mgr_score:
+        #     comp_line.append((0, 0,
+        #                       {'name': 'Direct Manager Feedback',
+        #                        'weight': -20,
+        #                        'score': mgr_score,
+        #                        'final_score': mgr_score}
+        #                       ))
+        return team_vals, comp_line

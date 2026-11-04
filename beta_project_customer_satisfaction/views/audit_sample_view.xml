@@ -6,10 +6,28 @@
             <field name="model">audit.sample</field>
             <field name="inherit_id" ref="orchid_beta_project.audit_sample_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//page[@string='My Component']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Compliance By PMO']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('type','not in',('pm',))]}</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Invoice Schedule']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('type','not in',('pm'))]}</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Schedule Control']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('type','not in',('pm'))]}</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Cost Control']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('type','not in',('pm'))]}</attribute>
+                </xpath>
+                <xpath expr="//page[@string='5 Day Processing Score'][1]" position="attributes">
+                    <attribute name="attrs">{'invisible':[('type','not in',('pm'))]}</attribute>
+                </xpath>
 
                 <xpath expr="//page[@string='Component']" position="before">
                     <page string="Customer Feedback"
-                          attrs="{'invisible': ['|', ('type','not in',('pm','pdm','sde','sde_ksa')), ('company_id','!=',6)]}">
+                          attrs="{'invisible': ['|', ('type','not in',('pm','sde','sde_ksa')), ('company_id','!=',6)]}">
                         <field name="cust_feedback_line">
                             <tree editable="bottom" create="false" delete="false">
                                 <field name="analytic_id" readonly="1"/>
@@ -21,6 +39,41 @@
                                 <field name="weight" readonly="1"/>
                             </tree>
                         </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@string='5 Day Processing Score']" position="before">
+                    <page string="Closed Projects"
+                          attrs="{'invisible': [('type','!=','pm_ksa')]}">
+                        <field name="ksa_pm_closed_project_line">
+                            <tree editable="bottom" create="false" delete="false">
+                                <field name="project_id" readonly="1"/>
+                                <button name="btn_open_project" type="object" icon="STOCK_FIND" string="Open"/>
+                                <field name="day_process_score" readonly="1"/>
+                                <field name="inv_sch_score" readonly="1"/>
+                                <field name="cost_ctrl_score" readonly="1"/>
+                                <field name="comp_score" readonly="1"/>
+                                <field name="sch_ctrl_score" readonly="1"/>
+                                <field name="cust_feedback_score" readonly="1"/>
+                            </tree>
+                        </field>
+
+                        <group>
+                            <div class="o_total_avg_score_box"
+                                 style="margin-top: 12px; padding: 12px 18px;
+                                        background: linear-gradient(90deg, #e8f5e9 0%, #c8e6c9 100%);
+                                        border-left: 6px solid #2e7d32;
+                                        border-radius: 6px;
+                                        display: inline-block;
+                                        box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                                <span style="font-size: 16px; font-weight: 600; color: #1b5e20;">
+                                    Total Average Score:
+                                </span>
+                                <span style="font-size: 22px; font-weight: 700; color: #1b5e20;">
+                                    <field name="total_avg_score" readonly="1"
+                                           class="oe_inline"/>
+                                </span>
+                            </div>
+                        </group>
                     </page>
                 </xpath>
 
