@@ -150,6 +150,7 @@ class hr_employee(models.Model):
         for proj in project_closed:
             pro_nos += 1
             pro_score += proj.total_score
+            tot_act_profit_ratio = (proj.od_actual_profit / proj.od_amended_sale_price * 100.0 if proj.od_amended_sale_price else 0.0)
             closed_project_vals.append((0, 0, {
                 'project_id': proj.id,
                 'project_tot_score': proj.total_score,
@@ -159,6 +160,10 @@ class hr_employee(models.Model):
                 'comp_score': proj.compliance_score,
                 'sch_ctrl_score': proj.schedule_control_score,
                 'cust_feedback_score': proj.cust_feedback_score,
+                'tot_act_val_prj': proj.od_amended_sale_price,
+                'tot_act_cost_prj': proj.od_actual_cost,
+                'tot_act_profit': proj.od_actual_profit,
+                'tot_act_profit_ratio': tot_act_profit_ratio,
             }))
 
         tot_avg_score = (pro_score / pro_nos) if pro_nos else 0.0

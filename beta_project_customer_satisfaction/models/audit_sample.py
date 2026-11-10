@@ -60,6 +60,10 @@ class KsaPmClosedProjectLine(models.Model):
     comp_score = fields.Float(string="PMO Compliance")
     sch_ctrl_score = fields.Float(string="Schedule Control")
     cust_feedback_score = fields.Float(string="Customer Satisfaction")
+    tot_act_val_prj = fields.Float(string="Actual Value")
+    tot_act_cost_prj = fields.Float(string="Actual Cost")
+    tot_act_profit = fields.Float(string="Actual Profit")
+    tot_act_profit_ratio = fields.Float(string="Actual Profit %")
 
     @api.multi
     def btn_open_project(self):
