@@ -1713,11 +1713,13 @@ class account_analytic_account(models.Model):
                 if date <= today:
                     invoice = line.invoice_id 
                     planned_amount = line.amount 
-                    invoice_amount = line.invoice_amount 
-                    if planned_amount <invoice_amount:
-                        score =0.0
-                        score_board.append(score)
-                        continue
+                    invoice_amount = line.invoice_amount
+                    #Commented by Nabeel to fix PM score
+                    # if planned_amount <invoice_amount:
+                    #     print("if planned_amount < invoice_amount:")
+                    #     score =0.0
+                    #     score_board.append(score)
+                    #     continue
                     if invoice and invoice.state in ('open','paid','accept'):
                         cust_date = invoice.cust_date 
                         score = 0.0
