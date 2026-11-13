@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="invoice_form_zatca_pdfa3" model="ir.ui.view">
+            <field name="name">account.invoice.form.zatca.pdfa3</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <button name="%(account.action_account_invoice_refund)d" position="after">
+                    <button name="action_print_zatca_pdfa3" type="object"
+                            string="Print PDF/A-3 ZATCA"
+                            states="open,accept" groups ="__export__.res_groups_229"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>
