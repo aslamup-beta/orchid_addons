@@ -441,17 +441,17 @@ class AccountInvoice(models.Model):
 
         ubl_2_1 += '''
             <cbc:ProfileID>reporting:1.0</cbc:ProfileID>
-            <cbc:ID>''' + str(bt_1) + '''</cbc:ID>
+            <cbc:ID>''' + str(self.number) + '''</cbc:ID>
             <cbc:UUID>''' + self.invoice_uuid + '''</cbc:UUID>
             <cbc:IssueDate>''' + date_invoicetime.strftime('%Y-%m-%d') + '''</cbc:IssueDate>
             <cbc:IssueTime>''' + date_invoicetime.strftime('%H:%M:%S') + '''</cbc:IssueTime>
             <cbc:InvoiceTypeCode name="''' + ksa_2 + '''">''' + bt_3 + '''</cbc:InvoiceTypeCode>
             <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
             <cbc:TaxCurrencyCode>SAR</cbc:TaxCurrencyCode>'''
-        if self.purchase_id.id:
+        if self.bt_po_ref:
             ubl_2_1 += '''
             <cac:OrderReference>
-                <cbc:ID>''' + str(self.purchase_id) + '''</cbc:ID>
+                <cbc:ID>''' + str(self.bt_po_ref) + '''</cbc:ID>
             </cac:OrderReference>'''
         if bt_3 != '388':  # BR-KSA-56
             # if 'Shop' in self.ref:
