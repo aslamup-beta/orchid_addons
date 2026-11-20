@@ -62,8 +62,8 @@
                                        attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
                                 <field name="coach_id"
                                        attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
-                                <field name="high_management_id"
-                                       attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
+                                <field name="high_management_id" groups="__export__.res_groups_265"
+                                       attrs="{'readonly':[('state','in',('finance', 'confirm'))]}"/>
                                 <field name="manager1_id"
                                        attrs="{'required': [('state','=','draft')],'readonly':[('state','in',('finance', 'confirm'))]}"/>
                                 <field name="manager2_id"
