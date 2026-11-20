@@ -17,7 +17,7 @@ class handover_service(models.Model):
     name = fields.Char(string="Name", readonly=True)
     od_proj_manager = fields.Many2one('res.users', string="Beta IT Project Manager")
     od_sam = fields.Many2one('res.users', string="Beta IT Sales Account Manager")
-    customer_id = fields.Many2one('res.partner', string="Customer")
+
     od_contact_ids = fields.Many2many('res.partner','od_handover_service_rel_contact_ids','h_service_id','partner_id',string="Contact Person")
     contract_no = fields.Char(string="Contract Number")
     contract_date = fields.Date(string="Contract Date")
@@ -46,6 +46,9 @@ class handover_service(models.Model):
     date_log_history_line = fields.One2many('od.date.log.handover','handover_case_id',strint="Date Log History",readonly=True,copy=False)
     preventive_maintance_line = fields.One2many('od.preventive.maint.table','handover_case_id',strint="Preventive Maintanance Schedule")
     rej_reasn = fields.Text(string="Reason for Reject")
+    customer_id = fields.Many2one('res.partner', string="Customer",
+                                  related='cost_sheet_id.od_customer_id',
+                                  store=True, readonly=True)
     
     @api.onchange('cost_sheet_id')
     def onchange_cost_sheet_id(self):
@@ -58,7 +61,9 @@ class handover_service(models.Model):
             self.po_date =  cost_sheet.po_date or False
             self.so_approval_date = cost_sheet.approved_date and cost_sheet.approved_date[:10] or False
             self.so_val = cost_sheet.sum_total_sale or 0.0
-            
+            self.proj_so = cost_sheet.od_mat_sale_id.id if cost_sheet.od_mat_sale_id else False
+            self.customer_id = cost_sheet.od_customer_id.id if cost_sheet.od_customer_id else False
+
     def send_mail_to_sd_manager(self,template):
         ir_model_data = self.env['ir.model.data']
         email_obj = self.pool.get('email.template')

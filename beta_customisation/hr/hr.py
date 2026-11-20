@@ -119,6 +119,7 @@ class BetaJoiningForm(models.Model):
     join_date = fields.Date(string="Customer Joining Date")
     end_date = fields.Date(string="Customer Contract End Date")
     employee_end_date = fields.Date(string="Employee Contract End Date")
+    high_management_id = fields.Many2one('hr.employee', string='Higher Management')
 
     # For Creation of Outsourced Employees
     @api.onchange('costsheet_id')
@@ -200,6 +201,7 @@ class BetaJoiningForm(models.Model):
                 'audit_temp_id': self.job_id and self.job_id.audit_temp_id and self.job_id.audit_temp_id.id or False,
                 'parent_id': self.manager_id and self.manager_id.id or False,
                 'coach_id': self.coach_id and self.coach_id.id or False,
+                'high_management_id': self.high_management_id and self.high_management_id.id or False,
                 'country_id': self.nationality and self.nationality.id or False,
                 'birthday': self.dob or False,
                 'marital': self.martial or False,
