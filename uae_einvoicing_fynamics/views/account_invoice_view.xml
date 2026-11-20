@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_invoice_fynamics_form" model="ir.ui.view">
+            <field name="name">account.invoice.fynamics.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <button name="%(account.action_account_invoice_refund)d" position="after">
+                    <button name="action_submit_to_fynamics" type="object"
+                            string="Send to Fynamics"
+                            attrs="{'invisible': ['|', '|', ('company_id','!=',1), ('state','!=','open'), ('fynamics_status','in',('queued','success'))]}"
+                            class="oe_highlight"/>
+                    <button name="action_check_fynamics_status" type="object"
+                            string="Check E-Invoice Status"
+                            attrs="{'invisible': ['|', ('company_id','!=',1), ('fynamics_uuid','=',False)]}"/>
+                </button>
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="UAE E-Invoicing" attrs="{'invisible': [('company_id','!=', 1)]}">
+                        <group string="Invoice Codes">
+                            <field name="fynamics_transaction_type_code"
+                                   attrs="{'readonly': [('fynamics_status','in',('queued','success'))]}"/>
+                            <field name="fynamics_invoice_type_code"
+                                   attrs="{'readonly': [('fynamics_status','in',('queued','success'))]}"/>
+                            <field name="fynamics_credit_note_reason_code"
+                               attrs="{'invisible': [('type','!=','out_refund')],
+                                       'readonly': [('fynamics_status','in',('queued','success'))]}"/>
+                            <field name="fynamics_payment_means_code"
+                                   attrs="{'readonly': [('fynamics_status','in',('queued','success'))]}"/>
+                        </group>
+                        <group string="Fynamics Response">
+                            <field name="fynamics_status"/>
+                            <field name="fynamics_uuid"/>
+                            <field name="fynamics_message"/>
+                            <field name="fynamics_error"/>
+                            <field name="fynamics_warning"/>
+                            <field name="fynamics_print_url" widget="url"/>
+                            <field name="fynamics_compliance_url" widget="url"/>
+                            <field name="fynamics_submission_date"/>
+                            <field name="fynamics_last_status_check"/>
+                            <field name="fynamics_retry_count" invisible="1"/>
+                        </group>
+                        <group>
+                            <button name="action_view_fynamics_logs" type="object"
+                                    string="View API Logs"/>
+                        </group>
+                        <separator string="Submitted JSON"/>
+                        <field name="fynamics_json" nolabel="1"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

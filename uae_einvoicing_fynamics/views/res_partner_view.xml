@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_beta_cust_part_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page name="internal_notes" position="after">
+                    <page string="UAE E-Invoicing"
+                          attrs="{'invisible': ['|',('company_id','!=', 1), ('is_company','!=', True)]}">
+                        <group>
+                            <group string="Peppol Network">
+                                <field name="customer_peppol_status"/>
+                                <field name="customer_peppol_id"/>
+                                <field name="customer_peppol_scheme"/>
+                            </group>
+                            <group string="Legal Registration">
+                                <field name="customer_identification_scheme"/>
+                                <field name="customer_identification_number"/>
+                            </group>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>
