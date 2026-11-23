@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_fynamics_log_tree" model="ir.ui.view">
+            <field name="name">fynamics.api.log.tree</field>
+            <field name="model">fynamics.api.log</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="create_date"/>
+                    <field name="invoice_id"/>
+                    <field name="operation"/>
+                    <field name="http_status"/>
+                    <field name="status"/>
+                    <field name="uuid"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_fynamics_log_form" model="ir.ui.view">
+            <field name="name">fynamics.api.log.form</field>
+            <field name="model">fynamics.api.log</field>
+            <field name="arch" type="xml">
+                <form string="Fynamics API Log">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="invoice_id"/>
+                            <field name="operation"/>
+                            <field name="endpoint"/>
+                            <field name="http_status"/>
+                            <field name="status"/>
+                            <field name="uuid"/>
+                            <field name="error_message"/>
+                        </group>
+                        <notebook>
+                            <page string="Request">
+                                <field name="request_body"/>
+                            </page>
+                            <page string="Response">
+                                <field name="response_body"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_fynamics_log" model="ir.actions.act_window">
+            <field name="name">Fynamics API Logs</field>
+            <field name="res_model">fynamics.api.log</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>

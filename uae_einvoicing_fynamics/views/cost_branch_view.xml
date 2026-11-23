@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_od_cost_branch_uae_einvoice_form" model="ir.ui.view">
+            <field name="name">od.cost.branch.uae.einvoice.form</field>
+            <field name="model">od.cost.branch</field>
+            <field name="inherit_id" ref="beta_customisation.od_cost_branch_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook" position="inside">
+                        <page string="UAE E invoicing" attrs="{'invisible': [('company_id','!=', 1)]}">
+                            <group>
+                                <group string="Supplier Details">
+                                    <field name="supplier_scheme_id"/>
+                                    <field name="supplier_endpoint_id"/>
+                                    <field name="supplier_party_name"/>
+                                    <field name="supplier_party_tax_company_id"/>
+                                    <field name="supplier_party_tax_code"/>
+                                </group>
+                                <group string="National Address">
+                                    <field name="supplier_street_name"/>
+                                    <field name="supplier_street_name2"/>
+                                    <field name="supplier_city_name"/>
+                                    <field name="supplier_zip_code"/>
+                                    <field name="supplier_country_subentity"/>
+                                    <field name="supplier_country_code"/>
+                                </group>
+                            </group>
+                            <group string="Legal Entity">
+                                <field name="supplier_registration_name"/>
+                                <field name="supplier_scheme_agency_id"/>
+                                <field name="supplier_legal_company_id"/>
+                                <field name="supplier_scheme_agency_name"/>
+                            </group>
+                        </page>
+
+                        <page string="Fynamics API" attrs="{'invisible': [('company_id','!=', 1)]}">
+                            <group>
+                                <group string="Connection">
+                                    <field name="fynamics_enabled"/>
+                                    <field name="fynamics_environment"/>
+                                    <field name="fynamics_base_url"/>
+                                    <field name="fynamics_timeout"/>
+                                </group>
+                                <group string="Credentials">
+                                    <field name="fynamics_client_id"/>
+                                    <field name="fynamics_client_secret" password="True"/>
+                                    <field name="fynamics_scope" invisible="1"/>
+                                </group>
+                            </group>
+                            <group string="Endpoints">
+                                <field name="fynamics_token_path"/>
+                                <field name="fynamics_submit_path"/>
+                                <field name="fynamics_status_path"/>
+                            </group>
+                            <group string="Authentication">
+                                <field name="fynamics_access_token" password="True"/>
+                                <field name="fynamics_token_expires_at"/>
+                                <field name="fynamics_last_auth_message"/>
+                                <button name="action_fynamics_test_authentication" type="object"
+                                        string="Test Authentication" class="oe_highlight"/>
+                            </group>
+                        </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
