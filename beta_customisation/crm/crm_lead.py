@@ -33,7 +33,7 @@ from __builtin__ import True
 
 class hr_employee(osv.osv):
     _inherit = 'hr.employee'
-    
+
     _columns = {
         'od_last_day':fields.date(string='Last Day At Work'),
         'od_resigned' :fields.boolean(string="Resigned"),
@@ -42,7 +42,7 @@ class hr_employee(osv.osv):
         'od_req_clearance': fields.boolean(string="Clearance Letter Required ?"),
         'od_end_contract': fields.boolean(string="End of Contract ?")
     }
-    
+
     def run_employee_documents_expiry_reminder(self, cr, uid, context=None):
         context = dict(context or {})
         hr_pool = self.pool['hr.employee']
@@ -69,7 +69,7 @@ class hr_employee(osv.osv):
                         expiry_date_bf_1mnth = expiry_date1 - relativedelta(days=no_of_days)
                         if expiry_date_bf_1mnth == today:
                             self.pool.get('email.template').send_mail(cr, uid, temp_id, emp_id, force_send=True, context=context)
-                            
+
     def run_employee_documents_expiry_reminder_60_days(self, cr, uid, context=None):
         context = dict(context or {})
         template_id = self.pool['email.template'].browse(cr,uid,354)[0]
@@ -90,8 +90,8 @@ class hr_employee(osv.osv):
                         expiry_date_bf_2mnth = expiry_date1 - relativedelta(days=60)
                         if expiry_date_bf_2mnth == today:
                             self.pool.get('email.template').send_mail(cr, uid, template_id.id, emp_id, force_send=True, context=context)
-                            
-    
+
+
     def run_employee_bday_reminder(self, cr, uid, context=None):
         hr_pool = self.pool['hr.employee']
         today = datetime.date.today()
@@ -106,7 +106,7 @@ class hr_employee(osv.osv):
                 if birthday_date and birthday_date.month==today.month and  birthday_date.day == today.day:
                     self.pool.get('email.template').send_mail(cr, uid, template_id.id, emp_id, force_send=True, context=context)
         return True
-    
+
     def run_ksa_employee_bday_reminder_to_hr_two_days(self, cr, uid, context=None):
         hr_pool = self.pool['hr.employee']
         today = datetime.date.today()
@@ -154,9 +154,9 @@ class hr_employee(osv.osv):
                             eoc_id = eoc_id[0]
                             eoc_rec = eoc_pool.browse(cr,uid,eoc_id)
                             eoc_rec.action_send_it_approval_mail()
-    
-    
-    
+
+
+
     def deactivate_users(self, cr, uid, context=None):
         hr_pool = self.pool['hr.employee']
         resign_pool = self.pool['od.beta.resign.form']
@@ -198,9 +198,9 @@ class hr_employee(osv.osv):
                         eoc_id = eoc_id[0]
                         eoc_rec = eoc_pool.browse(cr,uid,eoc_id)
                         eoc_rec.generate_gratuity_accounting_entry()
-                    
+
         return True
-    
+
     def emp_contract_expiry_reminder(self, cr, uid, context=None):
         hr_pool = self.pool['hr.employee']
         today = datetime.date.today()
@@ -221,7 +221,7 @@ class hr_employee(osv.osv):
             if dt == today:
                 self.pool.get('email.template').send_mail(cr, uid, template_id, emp.id, force_send=False, context=context)
         return True
-    
+
     def emp_legal_leaves_reminder(self, cr, uid, context=None):
         hr_pool = self.pool['hr.employee']
         emp_ids= hr_pool.search(cr,uid,[('company_id','=',1)],context=context)
@@ -251,17 +251,17 @@ class hr_employee(osv.osv):
             if pending_days >=1 and total_days >=365:
                 self.pool.get('email.template').send_mail(cr, uid, template_id, emp.id, force_send=False, context=context)
         return True
-    
+
     #Below 4 functions added for Auto generation of gratuity monthly as JV
     def get_active_contract(self,cr, uid, emp, context=None):
         employee_id = emp.id
         res =self.pool['hr.contract'].search(cr, uid, [('od_active','=',True),('employee_id','=',employee_id)],limit=1)
         res1 = self.pool['hr.contract'].browse(cr, uid, res, context=context)
         if emp.active == False:
-            res =self.pool['hr.contract'].search(cr, uid, [('employee_id','=',employee_id)], order='id desc')[0]   
-            res1 = self.pool['hr.contract'].browse(cr, uid, res, context=context) 
+            res =self.pool['hr.contract'].search(cr, uid, [('employee_id','=',employee_id)], order='id desc')[0]
+            res1 = self.pool['hr.contract'].browse(cr, uid, res, context=context)
         return res1
-    
+
     def compute_total_wage_without_kpi(self, cr, uid, contract_rec, context=None):
         allowances = 0.0
         basic = contract_rec.wage
@@ -277,13 +277,13 @@ class hr_employee(osv.osv):
         else:
             wage = basic
         return wage
-    
+
     def days_between(self,cr, uid, d1, d2,context=None ):
         from datetime import datetime
         d1 = datetime.strptime(d1, "%Y-%m-%d")
         d2 = datetime.strptime(d2, "%Y-%m-%d")
         return abs((d2 - d1).days)+1
-    
+
     def _compute_years(self, cr, uid,  joining_date, context=None):
         from datetime import datetime
         last_day = datetime.today().strftime('%Y-%m-%d')
@@ -292,7 +292,7 @@ class hr_employee(osv.osv):
                 days = self.days_between(cr, uid, joining_date, last_day, context=context)
                 years = days/365.2425
                 return years
-    
+
     def create_provision_for_leave_gratuity(self, cr, uid, context=None):
         from datetime import datetime
         period_obj = self.pool['account.period']
@@ -360,11 +360,11 @@ class hr_employee(osv.osv):
                 }
         move_id = move_obj.create(cr, uid,move_vals, context=context)
         return True
-                
-    
+
+
 class hr_contract(osv.osv):
     _inherit = 'hr.contract'
-    
+
     def emp_contract_end_date_reminder(self, cr, uid, context=None):
         today = date.today()
         context = dict(context or {})
@@ -378,7 +378,7 @@ class hr_contract(osv.osv):
             if contract_end_date == str(date_after_90_days):
                 self.pool.get('email.template').send_mail(cr, uid, template_id, contract.id, force_send=False, context=context)
         return True
-    
+
     def emp_contract_end_date_reminder_60_days(self, cr, uid, context=None):
         today = date.today()
         context = dict(context or {})
@@ -391,7 +391,7 @@ class hr_contract(osv.osv):
             if contract_end_date == str(date_after_60_days):
                 self.pool.get('email.template').send_mail(cr, uid, template_id, contract.id, force_send=False, context=context)
         return True
-    
+
     def emp_contract_end_date_reminder_same_day(self, cr, uid, context=None):
         today = date.today()
         context = dict(context or {})
@@ -403,10 +403,10 @@ class hr_contract(osv.osv):
             if contract_end_date == str(today):
                 self.pool.get('email.template').send_mail(cr, uid, template_id, contract.id, force_send=False, context=context)
         return True
-    
+
 class hr_holidays(osv.osv):
     _inherit = 'hr.holidays'
-    
+
     def emp_duty_resumption_reminder(self, cr, uid, context=None):
         today = date.today()
         context = dict(context or {})
@@ -423,10 +423,10 @@ class hr_holidays(osv.osv):
                 leave.write({'allow_resumption': True})
                 self.pool.get('email.template').send_mail(cr, uid, template_id, leave.id, force_send=False, context=context)
         return True
-    
+
 class account_analytic_account(osv.osv):
     _inherit = 'account.analytic.account'
-    
+
     def planned_invoice_date_reminder(self, cr, uid, context=None):
         template = 'od_planned_a0_invoice_reminder_email_template'
         ir_model_data = self.pool.get('ir.model.data')
@@ -452,7 +452,7 @@ class account_analytic_account(osv.osv):
                     if target_date == planned_date:
                         self.pool.get('email.template').send_mail(cr, uid, template_id, analytic_id, force_send=True, context=context)
         return True
-    
+
     #Added by aslam as requested by sami for reminding finance about this finance date from ao planning
     def finance_invoice_date_reminder(self, cr, uid, context=None):
         template = 'od_finance_a0_invoice_reminder_email_template'
@@ -477,7 +477,7 @@ class account_analytic_account(osv.osv):
                     if target_date == finance_date:
                         self.pool.get('email.template').send_mail(cr, uid, template_id, analytic_id, force_send=True, context=context)
         return True
-    
+
     def auto_closing_a0_analytic(self, cr, uid, context=None):
         analytic_obj = self.pool.get('account.analytic.account')
         open_a0s  = analytic_obj.search(cr, uid, [('state','=','open'), ('od_type_of_project','=','parent_level0'), ('od_analytic_level','=','level0')])
@@ -490,13 +490,13 @@ class account_analytic_account(osv.osv):
                         all_closed.append("Y")
                     else:
                         all_closed.append("N")
-            
+
             for child_acc in analytic.od_grandchild_data:
                 if child_acc.state == 'close':
                     all_closed.append("Y")
                 else:
                     all_closed.append("N")
-                    
+
             if not 'N' in all_closed:
                 analytic.set_close()
                 for child_acc in analytic.od_child_data:
@@ -505,13 +505,13 @@ class account_analytic_account(osv.osv):
                 all_closed =  []
             else:
                 all_closed =  []
-            
-        return True   
+
+        return True
 
 class crm_lead(osv.osv):
     _inherit = "crm.lead"
-    
-    
+
+
     def cron_od_lead_weekly_reminder(self, cr, uid, context=None):
         context = dict(context or {})
         remind = []
@@ -520,7 +520,7 @@ class crm_lead(osv.osv):
             base_domain = []
             base_domain.extend(domain)
             cost_sheet_ids = self.search(cr, uid, base_domain, context=context)
-            
+
             for lead in self.browse(cr,uid,cost_sheet_ids,context=context):
                 if lead.stage_id.id == 9 :
                     val = {'name':lead.name,
@@ -532,7 +532,7 @@ class crm_lead(osv.osv):
 #                     if br_email:
 #                         branch_managers.append(br_email)
                     remind.append(val)
-        
+
         company_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.id
         hr_pool = self.pool.get('hr.employee')
         emp_ids = hr_pool.search(cr, SUPERUSER_ID,  [('job_id', 'in', (40, 83))], context=context)
@@ -559,12 +559,12 @@ class crm_lead(osv.osv):
             context['lead_am_name'] = related_employee.user_id.name
             context['subject'] = "Update Your Open Leads"
             context['title'] = "We would like to remind you that below leads are still Open. Kindly Update them."
-            remind = sorted(remind, key=lambda k: k['branch']) 
+            remind = sorted(remind, key=lambda k: k['branch'])
             context['data'] = remind
             if remind:
                 self.pool.get('email.template').send_mail(cr, uid, template_id, uid, force_send=True, context=context)
         return True
-    
+
     def ksa_portal_submission_datetime_reminder(self, cr, uid, context=None):
         today = date.today()
         context = dict(context or {})
@@ -577,7 +577,7 @@ class crm_lead(osv.osv):
                 if portal_date[:10] == str(date_after_2_days):
                     self.pool.get('email.template').send_mail(cr, uid, template_id, opp.id, force_send=False, context=context)
         return True
-    
+
     def create(self, cr, uid, vals, context=None):
         res = super(crm_lead, self).create(cr, uid, vals, context=context)
         context = dict(context or {})
@@ -589,13 +589,15 @@ class crm_lead(osv.osv):
         lead_id = lead.id
         lead_user = lead.od_lead_user_id and lead.od_lead_user_id.id or False
         customer_am = lead.user_id and lead.user_id.id or False
-        if lead.od_partner_class in ('a','b') and uid != customer_am and not self.env.user.has_group('__export__.res_groups_286'):
+        # Use self.pool to get the user object and check groups
+        user_obj = self.pool.get('res.users')
+        if lead.od_partner_class in ('a', 'b') and uid != customer_am and not user_obj.has_group(cr, uid,'__export__.res_groups_286'):
             raise Warning("Opportunities under A and B accounts should not be opened except by the assigned Sales Account Manager.")
         if lead.type == 'lead' and uid != lead_user:
             email_obj.send_mail(cr,uid,template_id,lead_id, force_send=True)
         return res
 
-    
+
     #Added by Aslam on 22 Dec 2019 for canceling all related cost sheets when opportunity is marked as lost.
     def case_mark_lost(self, cr, uid, ids, context=None):
         for lead in self.browse(cr, uid, ids, context=context):
@@ -605,8 +607,8 @@ class crm_lead(osv.osv):
                 sheet_rec = self.pool['od.cost.sheet'].browse(cr,uid,sheet_id)
                 sheet_rec.write({'state':'cancel'})
         return super(crm_lead, self).case_mark_lost(cr, uid, ids, context=context)
-    
-    
+
+
     def action_schedule_meeting_lead(self, cr, uid, ids, context=None):
         """
         Open meeting's calendar view to schedule meeting on current lead.
@@ -626,7 +628,7 @@ class crm_lead(osv.osv):
             'default_name': lead.name,
         }
         return res
-    
+
     def _meeting_count_lead(self, cr, uid, ids, field_name, arg, context=None):
         Event = self.pool['calendar.event']
         return {
@@ -634,7 +636,7 @@ class crm_lead(osv.osv):
             for lead_id in ids
         }
     @api.one
-    @api.depends('user_id')    
+    @api.depends('user_id')
     def _compute_cust_user_id(self):
         self.user_id_dummy = self.user_id and self.user_id.id or False
 
@@ -700,22 +702,22 @@ class crm_lead(osv.osv):
 class calendar_event(osv.osv):
     """ Model for Calendar Event """
     _inherit = 'calendar.event'
-        
+
     _columns = {
         'lead_id': fields.many2one('crm.lead', 'Lead', domain="[('type', '=', 'lead')]"),
     }
-    
+
     def create(self, cr, uid, vals, context=None):
         res = super(calendar_event, self).create(cr, uid, vals, context=context)
         obj = self.browse(cr, uid, res, context=context)
         if obj.lead_id:
             self.pool.get('crm.lead').log_meeting(cr, uid, [obj.lead_id.id], obj.name, obj.start, obj.duration, context=context)
         return res
-    
-    
+
+
 class crm_lead2opportunity_partner(osv.osv_memory):
     _inherit = 'crm.lead2opportunity.partner'
-    
+
     def default_get(self, cr, uid, fields, context=None):
         res = super(crm_lead2opportunity_partner, self).default_get(cr, uid, fields, context=context)
         if context.get('active_id'):
