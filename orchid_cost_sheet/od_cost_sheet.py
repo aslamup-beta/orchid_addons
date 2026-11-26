@@ -374,17 +374,30 @@ class od_cost_sheet(models.Model):
         journal_lines = account_move_line.search(domain)
         amount = sum([mvl.debit for mvl in journal_lines])
         self.od_journal_amount = amount
-        
+
     def default_get(self, cr, uid, fields, context=None):
-        res = super(od_cost_sheet,self).default_get(cr,uid,fields,context=context)
-        if res:
-            if not res.get('pre_sales_engineer'):
-                raise Warning("Kindly Fill Solution Architect In Opportunity")
+        if context is None:
+            context = {}
+        res = super(od_cost_sheet, self).default_get(cr, uid, fields, context=context)
+
+        # Only pre-fill when a new form is being opened; no blocking here
+        if 'lead_id' in fields:
+            lead_id = res.get('lead_id') or context.get('default_lead_id')
+            if not lead_id and context.get('active_model') == 'crm.lead':
+                lead_id = context.get('active_id')
+            if lead_id:
+                lead = self.pool.get('crm.lead').browse(cr, uid, lead_id, context=context)
+                if not lead.od_responsible_id:
+                    raise Warning("Kindly Fill Solution Architect In Opportunity")
+                res['lead_id'] = lead_id
+                if 'pre_sales_engineer' in fields:
+                    res['pre_sales_engineer'] = lead.od_responsible_id.id
+
         company_pool = self.pool.get('res.company')
         company_id = res.get('company_id')
         proposal_validity = "Proposal Validity Starting from its Date: 30 Days\nProposal Sales Currency: "
         if company_id:
-            company_obj = company_pool.browse(cr,uid,company_id)
+            company_obj = company_pool.browse(cr, uid, company_id, context=context)
             currency_name = company_obj.currency_id and company_obj.currency_id.name or ''
             proposal_validity = proposal_validity + currency_name
             res['proposal_validity_duration'] = proposal_validity
@@ -6621,25 +6634,36 @@ class od_cost_sheet(models.Model):
             res['od_original_price'] = new_price
         return so_line_val
 
-
-
     @api.model
-    def create(self,vals):
-        lead_id = self.env.context.get('default_lead_id')
-        costsheets = self.search([('lead_id','=',lead_id)])
-        lead_obj = self.env['crm.lead'].browse(lead_id)
-        lead_number = lead_obj.od_number
-        cst_sheet_count = len(costsheets) + 1
-        if lead_id:
+    def create(self, vals):
+        # Lead can come from the values (button / copy) or from the context (form)
+        lead_id = vals.get('lead_id') or self.env.context.get('default_lead_id')
+        lead_obj = self.env['crm.lead'].browse(lead_id) if lead_id else self.env['crm.lead']
+
+        if lead_obj:
+            # Solution Architect must be filled on the opportunity
+            if not lead_obj.od_responsible_id:
+                raise Warning("Kindly Fill Solution Architect In Opportunity")
+
+            # Only one active cost sheet per lead
             if vals.get('status') == 'active':
-                old_cost_sheets = self.search([('status','=','active'),('lead_id','=',lead_id)])
-                if len(old_cost_sheets) > 0:
+                old_cost_sheets = self.search([('status', '=', 'active'), ('lead_id', '=', lead_obj.id)])
+                if old_cost_sheets:
                     raise Warning('Active Cost Sheet for Each Lead Must Be Unique')
-        if vals.get('number','/')=='/':
-#             vals['number'] = self.env['ir.sequence'].get('od.cost.sheet') or '/'
-            vals['number'] = lead_number + '-' + str(cst_sheet_count)
-        presale = vals.get('pre_sales_engineer')
-        return super(od_cost_sheet, self).create( vals)
+
+        # Number: <lead number>-<n>
+        if vals.get('number', '/') == '/':
+            if lead_obj and lead_obj.od_number:
+                cst_sheet_count = self.search_count([('lead_id', '=', lead_obj.id)]) + 1
+                vals['number'] = lead_obj.od_number + '-' + str(cst_sheet_count)
+            else:
+                vals['number'] = self.env['ir.sequence'].get('od.cost.sheet') or '/'
+
+        # Customer is mandatory: take it from the lead when not passed
+        if not vals.get('od_customer_id') and lead_obj and lead_obj.partner_id:
+            vals['od_customer_id'] = lead_obj.partner_id.id
+
+        return super(od_cost_sheet, self).create(vals)
 
     @api.multi
     def write(self,vals):
