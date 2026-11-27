@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_tree_inherit_contact_dept" model="ir.ui.view">
+            <field name="name">res.partner.tree.inherit.contact.dept</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="contact_dept" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_cust_form_inherit_beta_department" model="ir.ui.view">
+            <field name="name">view.cust.form.inherit.beta.department</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <!-- 1. Main partner form -->
+                <xpath expr="//sheet/notebook//field[@name='active']" position="after">
+                    <field name="company_id" invisible="1"/>
+                    <field name="contact_dept"
+                           attrs="{'invisible': [('is_company', '=', True)],
+                               'required': [('is_company', '=', False), ('company_id', '=', 6)]}"/>
+                </xpath>
+
+                <!-- 2. Contact popup inside the Contacts tab (child_ids) -->
+                <xpath expr="//field[@name='child_ids']/form//field[@name='function']" position="after">
+                    <field name="company_id" invisible="1"/>
+                    <field name="contact_dept"
+                           attrs="{'required': [('company_id', '=', 6)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter_inherit_contact_dept" model="ir.ui.view">
+            <field name="name">res.partner.select.inherit.contact.dept</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+
+                <!-- Search by department in the search box -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="contact_dept"/>
+                </xpath>
+
+                <!-- Group by department -->
+                <xpath expr="//group[@string='Group By']" position="inside">
+                    <filter name="groupby_contact_dept" string="Department"
+                            context="{'group_by': 'contact_dept'}"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</openerp>
